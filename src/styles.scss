@@ -1,4 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-display: swap;
+    font-family: "Figtree";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./assets/fonts/figtree-v5-latin-regular.woff2") format("woff2");
+}
+/* nunito-regular - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./assets/fonts/nunito-v26-latin-regular.woff2") format("woff2");
+}
+/* nunito-700 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 700;
+    src: url("./assets/fonts/nunito-v26-latin-700.woff2") format("woff2");
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* open-sans-regular - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./assets/fonts/open-sans-v40-latin-regular.woff2") format("woff2");
+}
+/* open-sans-700 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 700;
+    src: url("./assets/fonts/open-sans-v40-latin-700.woff2") format("woff2");
+}
+
+* {
+    font-family: "Nunito", sans-serif !important;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+$purple1: #444df2;
+$purple2: #797ef3;
+$purple3: #535af1;
+$light-purple: #adb0d9;
+$bg-color: #eceefe;
+$error: #ed1e79;
+$white: #ffffff;
+$black: #000000;
+
+html, body {
+     height: 100%;
+}
