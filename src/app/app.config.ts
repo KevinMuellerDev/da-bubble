@@ -8,7 +8,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { Environment } from './environments/environment';
+import { Environment } from '../../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,3 +1,12 @@
+$purple1: #444df2;
+$purple2: #797ef3;
+$purple3: #535af1;
+$light-purple: #adb0d9;
+$bg-color: #eceefe;
+$error: #ed1e79;
+$white: #ffffff;
+$black: #000000;
+
 @font-face {
     font-display: swap;
     font-family: "Figtree";
@@ -40,21 +49,17 @@
 }
 
 * {
-    font-family: "Nunito", sans-serif !important;
+    font-family: "Nunito", sans-serif;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-$purple1: #444df2;
-$purple2: #797ef3;
-$purple3: #535af1;
-$light-purple: #adb0d9;
-$bg-color: #eceefe;
-$error: #ed1e79;
-$white: #ffffff;
-$black: #000000;
+
 
 html, body {
      height: 100%;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
