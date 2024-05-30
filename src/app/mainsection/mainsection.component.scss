@@ -6,74 +6,34 @@
     flex-direction: column;
     padding: 25px;
     background-color: $bg-color;
+}
 
-    header {
-        @include dFlex($jc: space-between);
+.content {
+    @include dFlex($jc: space-between);
+    gap: 25px;
+    padding-top: 25px;
+    height: 100%;
 
-        .header-search {
-            @include dFlex($jc: space-between);
-            padding: 17.5px 45px;
-            width: 100%;
-            max-width: 989px;
-            height: 70px;
-            background-color: #FFFFFF;
-            border-radius: 42px;
-        }
+    app-sidebar,
+    app-channel,
+    app-thread {
+        height: 100%;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+        transition: all 125ms ease-in-out;
+    }
 
-        .header-logo {
-            padding-left: 20px;
-        }
+    app-sidebar {
+        width: 100%;
+        max-width: 366px;
+    }
 
-        .header-search {
-            input {
-                width: 100%;
-                height: 33px;
-                outline: none;
-                border: none;
-                font: 400 24px "Nunito";
-                color: #686868;
-                caret-color: black;
-            }
+    app-channel {
+        width: 100%;
+    }
 
-            img {
-                border-radius: 50% 50%;
-                padding: 4px;
-                cursor: pointer;
-
-                &:hover {
-                    background: rgba(0.1, 0.1, 0.1, 0.05);
-                }
-            }
-        }
-
-        .user-menu{
-            @include dFlex($jc: space-between);
-            gap: 20px;
-
-            span{
-                font: 700 32px "Nunito";
-                text-wrap: nowrap;
-            }
-
-            .profile-picture{
-                position: relative;
-                @include dFlex();
-
-                .status{
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                    height: 16.67px;
-                    width: 16.67px;
-                    background-color: #92C83E;
-                    border: 2px solid white;
-                    border-radius: 50% 50%;
-                }
-            }
-
-            .menu-btn{
-                cursor: pointer;
-            }
-        }
+    app-thread {
+        width: 100%;
+        max-width: 485px;
     }
 }
