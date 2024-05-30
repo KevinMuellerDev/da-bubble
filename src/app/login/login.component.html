@@ -1,21 +1,52 @@
-<div class="intro-animation"></div>
+<div class="intro-bg-animation"></div>
 <section>
-<div class="intro-logo-animation"></div>
-</section>
-
-<header>
-<div>
-    <img src="../../assets/img/Logo.png" alt="Logo">
-    <h1>DaBubble</h1>
-</div>
-<div>
-    <span>Neu bei DABubble?</span>
-    <a routerLink="/">Konto erstellen</a>
-</div>
-</header>
-<footer>
-    <p>
+    <div class="intro-logo-animation"></div>
+    <header>
+        <div>
+            <img src="../../assets/img/Logo.png" alt="Logo">
+            <h1>DaBubble</h1>
+        </div>
+        <div>
+            <span>Neu bei DABubble?</span>
+            <a routerLink="/">Konto erstellen</a>
+        </div>
+    </header>
+    <main>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Anmelden</mat-card-title>
+                <mat-card-subtitle>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form>
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>E-Mail Adresse</mat-label>
+                            <input matInput type="email">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Passwort</mat-label>
+                            <input matInput type="password">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <a routerLink="/">Passwort vergessen?</a>
+                    </div>
+                    <div>
+                        <a routerLink="/">Anmelden mit Google</a>
+                    </div>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button >Anmelden</button>
+                <button mat-raised-button >Gäste-Login</button>
+            </mat-card-actions>
+        </mat-card>
+    </main>
+    <footer>
         <a routerLink="/">Impressum</a>
         <a routerLink="/">Datenschutz</a>
-    </p>
-</footer>
+    </footer>
+</section>
