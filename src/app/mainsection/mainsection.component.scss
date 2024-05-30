@@ -20,7 +20,7 @@
         height: 100%;
         background-color: #FFFFFF;
         border-radius: 30px;
-        transition: all 125ms ease-in-out;
+        transition: width 75ms ease-in-out;
     }
 
     app-sidebar {
@@ -36,4 +36,47 @@
         width: 100%;
         max-width: 485px;
     }
+}
+
+.toggle-navbar {
+    position: absolute;
+    top: 960px;
+    left: 0;
+    height: 60px;
+    width: 347px;
+    @include dFlex($jc: center);
+    gap: 10px;
+    background-color: #FFFFFF;
+    border-radius: 0 0 30px 30px;
+    transform-origin: -10% -50%;
+    transform: rotate(-90deg);
+    font: 500 20px "Nunito";
+    cursor: pointer;
+    box-shadow: 4px 4px 7px 0px #00000033;
+
+    .toggle-img-hide {
+        transition: transform 125ms ease-in-out;
+        background-image: url("/assets/img/mainsection/toggle-hide.svg");
+        width: 32px;
+        height: 32px;
+        rotate: 90deg;
+    }
+
+    &:hover {
+        color: $purple3;
+        font: 700 20px "Nunito";
+
+        .toggle-img-hide {
+            background-image: url("/assets/img/mainsection/toggle-hide-hovered.svg");
+        }
+    }
+}
+
+.rotate-toggle {
+    transform: rotate(180deg);
+}
+
+.hide-show{
+    visibility: hidden;
+    width: 0!important;
 }
