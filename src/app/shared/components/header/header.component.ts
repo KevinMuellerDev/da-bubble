@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+} from '@angular/material/dialog';
+import { UserMenuDialogComponent } from './user-menu-dialog/user-menu-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +17,11 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  constructor(public dialog: MatDialog){}
 
+  openDialog() {
+    this.dialog.open(UserMenuDialogComponent)
+    .afterClosed()
+    .subscribe();;
+  }
 }
