@@ -15,9 +15,12 @@
         width: 222px;
         height: 53px;
         cursor: pointer;
+        border-radius: 100px;
+        outline: none;
 
         &:hover{
             color: $purple3;
+            background-color: $bg-color;
         }
     }
 }
