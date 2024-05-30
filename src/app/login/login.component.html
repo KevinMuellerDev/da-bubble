@@ -12,38 +12,35 @@
         </div>
     </header>
     <main>
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Anmelden</mat-card-title>
-                <mat-card-subtitle>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <form>
-                    <div>
-                        <mat-form-field appearance="outline">
-                            <mat-label>E-Mail Adresse</mat-label>
-                            <input matInput type="email">
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Passwort</mat-label>
-                            <input matInput type="password">
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <a routerLink="/">Passwort vergessen?</a>
-                    </div>
-                    <div>
-                        <a routerLink="/">Anmelden mit Google</a>
-                    </div>
-                </form>
-            </mat-card-content>
-            <mat-card-actions>
-                <button routerLink="/mainsection" mat-raised-button >Anmelden</button>
-                <button routerLink="/mainsection" mat-raised-button >Gäste-Login</button>
-            </mat-card-actions>
-        </mat-card>
+        <div class="title">
+            <h1>Anmelden</h1>
+            <h3>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
+                verwendest.</h3>
+        </div>
+        <form autocomplete="off">
+            <div class="form-group">
+                <img src="../../assets/img/login/email.png">
+                <input type="email" name="email" placeholder="E-Mail Adresse" required>
+            </div>
+            <div class="form-group">
+                <img src="../../assets/img/login/lock.png">
+                <input type="password" name="passwort" placeholder="Passwort" required pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$">
+            </div>
+            <div>
+                <a routerLink="/">Passwort vergessen?</a>
+            </div>
+            <span>
+                <hr>
+                <p>ODER</p>
+                <hr>
+            </span>
+            <button class="google-login" routerLink="/"><img src="../../assets/img/login/google_logo.png">Anmelden mit
+                Google</button>
+            <div class="login-btns">
+                <button routerLink="/mainsection">Anmelden</button>
+                <button routerLink="/mainsection">Gäste-Login</button>
+            </div>
+        </form>
     </main>
     <footer>
         <a routerLink="/">Impressum</a>
