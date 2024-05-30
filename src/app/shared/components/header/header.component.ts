@@ -20,8 +20,8 @@ export class HeaderComponent {
   constructor(public dialog: MatDialog){}
 
   openDialog() {
-    this.dialog.open(UserMenuDialogComponent)
+    this.dialog.open(UserMenuDialogComponent,{position: {top: '120px', right: '25px'}})
     .afterClosed()
-    .subscribe();;
+    .subscribe();
   }
 }
