@@ -35,11 +35,11 @@ $green: #92c83e;
 /* nunito-500 - latin */
 @font-face {
     font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-style: normal;
     font-weight: 500;
-    src: url('./assets/fonts/nunito-v26-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
+    src: url("./assets/fonts/nunito-v26-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 
 /* nunito-700 - latin */
 @font-face {
@@ -72,7 +72,7 @@ $green: #92c83e;
     font-family: "Nunito", sans-serif !important;
     caret-color: transparent;
     box-sizing: border-box;
-margin: 0;
+    margin: 0;
 }
 
 body {
@@ -80,10 +80,10 @@ body {
     background-color: $bg-color;
 }
 
-.d-none{
+.d-none {
     display: none;
-} 
+}
 
-mat-card{
+mat-card {
     border-radius: 30px;
 }
