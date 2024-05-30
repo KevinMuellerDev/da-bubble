@@ -186,13 +186,30 @@
 }
 
 .direct-message-head {
+  cursor: pointer;
   @include dFlex();
   width: 100%;
+  gap: 10px;
+  > span {
+    font-size: 18px;
+  }
+  &:hover {
+    > span {
+      color: $purple1;
+    }
+    .message-icon {
+      transform: scale(1.2);
+    }
+    .message-icon-hover {
+      fill: $purple1;
+    }
+  }
 }
 
 .direct-message-container {
   @include dFlex();
   width: 100%;
+  margin-top: 34.5px;
 }
 
 .message-icon {
