@@ -66,12 +66,6 @@ $black: #000000;
 body {
     height: 100vh;
     background-color: $bg-color;
-    max-width: 1440px;
-    margin: 0 auto;
-
-    // for testing purposes, remove later!!
-    border-left: 1px solid $black;
-    border-right: 1px solid $black;
 }
 
 mat-card{

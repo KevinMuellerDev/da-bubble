@@ -37,8 +37,39 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    max-width: 500px;
+    max-width: 606px;
     margin: 0 auto;
+    @include dFlex($jc: center, $ai: center);
+    flex-direction: column;
+}
+
+mat-card {
+    @include dFlex($jc: center, $ai: center);
+    flex-direction: column;
+    text-align: center;
+    padding: 50px;
+}
+
+mat-card-title {
+    font-size: 2.875rem;
+    font-weight: 700;
+    color: $purple1;
+    margin-bottom: 30px;
+}
+
+mat-card-subtitle {
+    font-size: 1.25rem;
+    color: $black;
+    margin-bottom: 46px;
+}
+
+mat-card-content {
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 footer {
