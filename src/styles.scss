@@ -61,6 +61,8 @@ $black: #000000;
 * {
     font-family: "Nunito", sans-serif !important;
     caret-color: transparent;
+    box-sizing: border-box;
+margin: 0;
 }
 
 body {
