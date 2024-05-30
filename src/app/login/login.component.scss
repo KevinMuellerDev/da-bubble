@@ -41,35 +41,149 @@ main {
     margin: 0 auto;
     @include dFlex($jc: center, $ai: center);
     flex-direction: column;
-}
-
-mat-card {
-    @include dFlex($jc: center, $ai: center);
-    flex-direction: column;
     text-align: center;
+    background-color: $white;
+    border-radius: 30px;
     padding: 50px;
 }
 
-mat-card-title {
-    font-size: 2.875rem;
-    font-weight: 700;
+.title {
+    @include dFlex($jc: center, $ai: center);
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 40px;
+    h1 {
+        font-size: 2.875rem;
+        font-weight: 700;
+        color: $purple1;
+        margin-bottom: 30px;
+    }
+    h3 {
+        font-size: 1.25rem;
+        color: $black;
+    }
+}
+
+form {
+    width: 100%;
+}
+
+.form-group {
+    width: 100%;
+    height: 60px;
+    @include dFlex($ai: center);
+    margin-bottom: 40px;
+    position: relative;
+
+    input.ng-valid {
+        &:hover {
+            border-color: $green;
+        }
+        &:focus {
+            outline: none;
+        }
+        border-color: $green;
+    }
+
+    input.ng-invalid {
+        &:focus {
+            outline: none;
+            border-color: $error;
+        }
+    }
+
+    input {
+        width: 100%;
+        height: 100%;
+        border: solid 1px transparent;
+        border-radius: 100px;
+        background-color: $bg-color;
+        padding: 15px 25px 15px 50px;
+        font-size: 1.125rem;
+        caret-color: auto;
+        cursor: pointer;
+        &:hover {
+            border-color: $text-gray;
+            outline: none;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $purple1;
+            cursor: text;
+        }
+    }
+    img {
+        position: absolute;
+        left: 16px;
+        width: 24px;
+        height: 24px;
+        color: $black;
+    }
+}
+
+span {
+    @include dFlex($jc: center);
+    width: 100%;
+    font-size: 1.125rem;
+    margin: 33px 0 43px 0;
+    hr {
+        width: 100%;
+    }
+    p {
+        margin: 0 15px;
+    }
+}
+
+.login-btns {
+    width: 100%;
+    @include dFlex($jc: center);
+    gap: 30px;
+    margin-top: 40px;
+    :nth-child(1) {
+        background-color: $purple1;
+        color: $white;
+        &:hover {
+            background-color: $purple2;
+        }
+    }
+    :nth-child(2) {
+        background-color: $white;
+        color: $purple1;
+        border: 1px solid $purple1;
+        &:hover {
+            background-color: $purple1;
+            color: $white;
+        }
+    }
+}
+
+.google-login {
+    @include dFlex($jc: center, $ai: center);
+    width: 100%;
+    font-weight: 400;
+    background-color: $bg-color;
+    border: 1px solid transparent;
     color: $purple1;
-    margin-bottom: 30px;
+    img {
+        width: 38px;
+        height: 38px;
+        margin-right: 16px;
+    }
+    &:hover {
+        scale: 1.005;
+        font-weight: 700;
+        border: 1px solid $purple1;
+    }
 }
 
-mat-card-subtitle {
-    font-size: 1.25rem;
-    color: $black;
-    margin-bottom: 46px;
-}
-
-mat-card-content {
-    width: 100%;
-}
-
-mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 100px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 footer {
@@ -81,6 +195,7 @@ footer {
 }
 
 a {
+    text-decoration: none;
     font-family: "Figtree" !important;
     font-size: 1.125rem;
     padding: 8px 12px;
