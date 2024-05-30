@@ -1,1 +1,35 @@
-<p>register works!</p>
+<section>
+    <header>
+        <div>
+            <img src="../../assets/img/Logo.png" alt="Logo">
+            <h1>DaBubble</h1>
+        </div>
+    </header>
+    <main>
+        <div class="title">
+            <h1>Konto erstellen</h1>
+            <h3>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</h3>
+        </div>
+        <form autocomplete="off">
+            <div class="form-group">
+                <img src="../../assets/img/login/person.png">
+                <input type="text"  placeholder="Name und Nachname" >
+            </div>
+            <div class="form-group">
+                <img src="../../assets/img/login/email.png">
+                <input type="email"  placeholder="E-Mail Adresse" >
+            </div>
+            <div class="form-group">
+                <img src="../../assets/img/login/lock.png">
+                <input type="password" placeholder="Passwort"  pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$">
+            </div>
+            <div class="login-btns">
+                <button routerLink="/register/chooseavatar">weiter</button>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <a routerLink="/imprint">Impressum</a>
+        <a routerLink="/privacypolicy">Datenschutz</a>
+    </footer>
+</section>

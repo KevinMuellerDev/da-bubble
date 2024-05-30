@@ -11,10 +11,8 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
 export const routes: Routes = [
     {path: '', component: LoginComponent},
     {path: 'mainsection', component: MainsectionComponent},
-    {path: 'register', component: RegisterComponent,
-    children: [
-        {path: 'chooseavatar', component: ChooseavatarComponent},
-    ]},
+    {path: 'register', component: RegisterComponent},
+    {path: 'register/chooseavatar', component: ChooseavatarComponent},
     {path: 'resetpassword', component: ResetpasswordComponent},
     {path: 'imprint', component: ImprintComponent},
     {path: 'privacypolicy', component: PrivacypolicyComponent}
