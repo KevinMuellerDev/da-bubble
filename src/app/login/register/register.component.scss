@@ -1,6 +1,11 @@
 @import "../../../styles.scss";
 @import "../login.component.scss";
 
-main{
+main {
+    padding: 40px 50px;
     animation: fadein 0.5s ease-in forwards 0.175s;
+}
+
+.login-btns {
+    @include dFlex($jc: end);
 }

@@ -1,0 +1,45 @@
+@import "../../../styles.scss";
+@import "../login.component.scss";
+
+main {
+    padding: 40px 67px;
+    animation: fadein 0.5s ease-in forwards 0.175s;
+}
+
+.login-btns {
+    @include dFlex($jc: end);
+    margin-top: 24px;
+}
+
+.title {
+    margin: 0;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+span {
+    @include dFlex($jc: start);
+    margin: 16px 0;
+    font-size: 1.2rem;
+}
+
+.upload {
+    @include dFlex($ai: center);
+    width: 100%;
+    gap: 24px;
+    span {
+        width: max-content;
+    }
+    button {
+        background-color: $white;
+        color: $purple1;
+        border: 1px solid $purple1;
+        &:hover {
+            background-color: $purple1;
+            color: $white;
+        }
+    }
+}

@@ -12,6 +12,7 @@ header {
     left: 75px;
     right: 63px;
     margin-top: 55px;
+    height: 70px;
     @include dFlex($jc: space-between, $ai: center);
     div:nth-child(1) {
         @include dFlex($ai: center);
@@ -182,11 +183,12 @@ span {
 button {
     padding: 12px 24px;
     border: none;
-    border-radius: 100px;
+    border-radius: 50px;
     font-size: 1.125rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.175s ease-out;
+    text-wrap: nowrap;
 }
 
 footer {
@@ -238,6 +240,22 @@ a {
     z-index: 2;
 }
 
+.back-arrow {
+    position: absolute;
+    top: 60px;
+    left: 45px;
+    background-image: url("/assets/img/login/arrow_back.png");
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.6);
+        background-image: url("/assets/img/login/arrow_back_hover.png");
+    }
+}
+
 @keyframes fadeOut {
     0% {
         opacity: 1;
@@ -252,7 +270,7 @@ a {
     0% {
         opacity: 0;
     }
-    50%{
+    50% {
         opacity: 0.8;
     }
     100% {
@@ -275,7 +293,7 @@ a {
         opacity: 0;
         top: 0;
         left: 0;
-        transform: translate(120%, 100%);
+        transform: translate(115%, 90%);
         width: 68px;
         height: 68px;
         z-index: -1;
