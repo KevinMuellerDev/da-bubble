@@ -217,3 +217,43 @@
   width: 24px;
   height: 24px;
 }
+
+.messages-container {
+  @include dFlex();
+  width: 100%;
+  margin-top: 25px;
+}
+
+.message {
+  position: relative;
+  cursor: pointer;
+  padding: 4px 20px;
+  @include dFlex($jc: center);
+  margin-left: 25px;
+  gap: 15px;
+  > img {
+    width: 50px;
+    height: 50px;
+  }
+  > span {
+    font-size: 18px;
+  }
+  &:hover {
+    background-color: $bg-color;
+    border-radius: 30px;
+    > span {
+      color: $purple1;
+    }
+  }
+}
+
+.online-indicator {
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  background-color: $green;
+  border-radius: 50%;
+  left: 53px;
+  bottom: 3px;
+  border: 2px solid white;
+}
