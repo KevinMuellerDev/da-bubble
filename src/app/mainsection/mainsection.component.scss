@@ -1,3 +1,39 @@
-.main-landing{
+@import "./../../styles.scss";
+
+.main-landing {
+    height: 100vh;
     display: flex;
+    flex-direction: column;
+    padding: 25px;
+    background-color: $bg-color;
+}
+
+.content {
+    @include dFlex($jc: space-between);
+    gap: 25px;
+    padding-top: 25px;
+    height: 100%;
+
+    app-sidebar,
+    app-channel,
+    app-thread {
+        height: 100%;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+        transition: all 125ms ease-in-out;
+    }
+
+    app-sidebar {
+        width: 100%;
+        max-width: 366px;
+    }
+
+    app-channel {
+        width: 100%;
+    }
+
+    app-thread {
+        width: 100%;
+        max-width: 485px;
+    }
 }

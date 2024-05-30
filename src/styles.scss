@@ -4,13 +4,14 @@ $purple3: #535af1;
 $light-purple: #adb0d9;
 $bg-color: #eceefe;
 $error: #ed1e79;
+$text-gray: #686868;
 $white: #ffffff;
 $black: #000000;
 
 @mixin dFlex($jc: flex-start, $ai: center) {
     display: flex;
     justify-content: $jc;
-    align-items: $ai
+    align-items: $ai;
 }
 
 @font-face {
@@ -58,12 +59,17 @@ $black: #000000;
 }
 
 * {
-    font-family: "Nunito", sans-serif;
-    box-sizing: border-box;
+    font-family: "Nunito", sans-serif !important;
     caret-color: transparent;
+    box-sizing: border-box;
+margin: 0;
 }
 
 body {
-    height: 100%;
-    margin: 0;
+    height: 100vh;
+    background-color: $bg-color;
+}
+
+mat-card{
+    border-radius: 30px;
 }
