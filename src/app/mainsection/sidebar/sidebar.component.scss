@@ -1,0 +1,202 @@
+@import "./../../../styles.scss";
+
+.sidebar-container {
+  @include dFlex();
+  padding: 32px 30px;
+  border-radius: 30px;
+  flex-direction: column;
+}
+
+.headline-container {
+  @include dFlex($jc: space-between);
+  width: 100%;
+}
+
+.header-logo {
+  margin-right: 13.5px;
+  > img {
+    width: 60px;
+  }
+}
+
+.headline-left {
+  @include dFlex();
+  > span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+.edit-icon {
+  > svg {
+    cursor: pointer;
+    &:hover {
+      background-color: $bg-color;
+      border-radius: 50%;
+      transform: scale(1.1);
+      > g {
+        > path {
+          fill: $purple1;
+        }
+      }
+    }
+  }
+}
+
+.channel-container {
+  @include dFlex($jc: center);
+  width: 100%;
+  margin-top: 25px;
+  padding: 5px 10px;
+  flex-direction: column;
+}
+
+.channels {
+  @include dFlex($jc: space-between);
+  width: 100%;
+}
+
+.channel-left-side {
+  @include dFlex();
+}
+
+.arrow-down-icon {
+  margin-right: 15px;
+  width: 30px;
+  height: 30px;
+  @include dFlex($jc: center);
+  cursor: pointer;
+  &:hover {
+    > svg {
+      > path {
+        fill: $purple1;
+      }
+    }
+  }
+}
+
+.channel-head {
+  @include dFlex($jc: center);
+  cursor: pointer;
+  gap: 10px;
+  > span {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  &:hover {
+    .arrow-down-icon {
+      > svg {
+        > path {
+          fill: $purple1;
+        }
+      }
+    }
+    > span {
+      color: $purple1;
+    }
+    > div {
+      > svg {
+        > path {
+          fill: $purple1;
+        }
+      }
+    }
+  }
+}
+
+.channel-icon {
+  @include dFlex($jc: center);
+  height: 24px;
+  width: 24px;
+}
+
+.channel-head-plus-icon {
+  cursor: pointer;
+  > svg {
+    @include dFlex($jc: center);
+  }
+  &:hover {
+    background-color: $bg-color;
+    border-radius: 50%;
+    transform: scale(1.2);
+    .icon-path {
+      fill: $purple1;
+    }
+  }
+}
+
+.channel-wrapper {
+  @include dFlex($ai: flex-start);
+  flex-direction: column;
+  margin-left: 45px;
+  width: 100%;
+}
+
+.single-channel-container {
+  background-color: $bg-color;
+  border-radius: 20px;
+  padding: 4px 20px;
+  margin-top: 25px;
+  cursor: pointer;
+  @include dFlex();
+  gap: 10px;
+  .channel-hash {
+    height: 24px;
+    width: 24px;
+    font-weight: bold;
+    @include dFlex($jc: center);
+  }
+  .channel-name {
+    @include dFlex($jc: center);
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.channel-head-plus-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.add-new-channel {
+  @include dFlex($jc: center);
+  gap: 10px;
+  margin-top: 25px;
+  padding-left: 20px;
+  > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  cursor: pointer;
+  > span {
+    font-size: 18px;
+  }
+  &:hover {
+    > span {
+      color: $purple1;
+    }
+    > svg {
+      transform: scale(1.2);
+      > path {
+        fill: $purple1;
+      }
+    }
+  }
+}
+
+.direct-message-head {
+  @include dFlex();
+  width: 100%;
+}
+
+.direct-message-container {
+  @include dFlex();
+  width: 100%;
+}
+
+.message-icon {
+  @include dFlex($jc: center);
+  width: 24px;
+  height: 24px;
+}

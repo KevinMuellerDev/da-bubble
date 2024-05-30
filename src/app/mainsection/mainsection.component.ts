@@ -14,5 +14,30 @@ import { HeaderComponent } from '../shared/components/header/header.component';
   styleUrl: './mainsection.component.scss'
 })
 export class MainsectionComponent {
+  rotateToggle: boolean = false;
+
+  
+  rotateIndicator() {
+    if (this.rotateToggle == false) {
+      document.getElementById('toggle')?.classList.add('rotate-toggle')
+      this.hideSidenav();
+      this.rotateToggle = true;
+    } else {
+      document.getElementById('toggle')?.classList.remove('rotate-toggle')
+      this.showSidenav();
+      this.rotateToggle = false;
+    }
+  }
+
+
+  hideSidenav(){
+    document.getElementById('sidebar')?.classList.add('hide-show')
+  }
+
+
+  showSidenav(){
+    document.getElementById('sidebar')?.classList.remove('hide-show')
+  }
+
 
 }
