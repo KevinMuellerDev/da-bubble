@@ -31,6 +31,15 @@ $black: #000000;
     src: url("./assets/fonts/nunito-v26-latin-regular.woff2") format("woff2");
 }
 
+/* nunito-500 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./assets/fonts/nunito-v26-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
 /* nunito-700 - latin */
 @font-face {
     font-display: swap;
@@ -69,6 +78,10 @@ body {
     height: 100vh;
     background-color: $bg-color;
 }
+
+.d-none{
+    display: none;
+} 
 
 mat-card{
     border-radius: 30px;
