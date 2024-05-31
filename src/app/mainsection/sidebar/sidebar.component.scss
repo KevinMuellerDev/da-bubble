@@ -7,6 +7,14 @@
   flex-direction: column;
 }
 
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.d-none {
+  display: none !important;
+}
+
 .headline-container {
   @include dFlex($jc: space-between);
   width: 100%;
@@ -162,7 +170,6 @@
   @include dFlex($jc: center);
   gap: 10px;
   margin-top: 25px;
-  padding-left: 20px;
   > svg {
     width: 24px;
     height: 24px;
@@ -210,6 +217,7 @@
   @include dFlex();
   width: 100%;
   margin-top: 34.5px;
+  padding: 5px 10px;
 }
 
 .message-icon {
