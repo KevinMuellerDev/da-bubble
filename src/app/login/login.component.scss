@@ -69,6 +69,11 @@ main {
 
 form {
     width: 100%;
+    a:hover{
+        scale: 1.05;
+        border: none;
+        background-color: $bg-color;
+    }
 }
 
 .form-group {
@@ -211,6 +216,7 @@ a {
     &:hover {
         border: 1px solid $text-gray;
         color: $purple1;
+        font-weight: 500;
     }
 }
 
