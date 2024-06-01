@@ -1,0 +1,176 @@
+@import "./../../../../styles.scss";
+
+.profile-container {
+    @include dFlex($ai: flex-start);
+    flex-direction: column;
+    padding: 45px 40px;
+    min-width: 500px;
+    gap: 38px;
+
+    .profile-head {
+        @include dFlex($jc: space-between);
+        font: 700 24px "Nunito";
+        width: 100%;
+
+        div {
+            @include dFlex($jc: center);
+            width: 32px;
+            height: 32px;
+            border-radius: 50% 50%;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+    }
+
+    .profile-picture {
+        @include dFlex($jc: center);
+        width: 100%;
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    .profile-edit-container {
+        @include dFlex($jc: center, $ai: flex-start);
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+
+        .profile-edit {
+            @include dFlex($jc: space-between);
+            width: 100%;
+
+            span {
+                font: 700 32px "Nunito"
+            }
+
+            a {
+                text-decoration: none;
+                color: $purple3;
+                cursor: pointer;
+                font: 400 18px "Nunito";
+
+                &:hover {
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .user-status {
+            @include dFlex();
+            gap: 15px;
+
+            .status {
+                height: 16.67px;
+                width: 16.67px;
+                border-radius: 50% 50%;
+            }
+        }
+    }
+
+    .profile-email-container {
+        @include dFlex($ai: flex-start);
+        gap: 20px;
+
+        .email-content {
+            @include dFlex($jc: center, $ai: flex-start);
+            flex-direction: column;
+            gap: 20px;
+            padding-top: 2px;
+
+            span {
+                font: 700 20px "Nunito";
+            }
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.edit-user-form-container {
+    width: 100%;
+    @include dFlex($jc: center, $ai: center);
+    flex-direction: column;
+
+
+    form {
+        width: 100%;
+        @include dFlex($jc: center, $ai: flex-start);
+        flex-direction: column;
+        gap: 16px;
+
+        .input-container {
+            width: 100%;
+            @include dFlex($jc: center, $ai: flex-start);
+            flex-direction: column;
+            gap: 7px;
+
+            div {
+                @include dFlex();
+                gap: 20px;
+                font: 700 20px "Nunito";
+            }
+
+            input {
+                width: 100%;
+                padding: 15px 20px;
+                outline: none;
+                border: 1px solid $light-purple;
+                border-radius: 30px;
+                caret-color: auto;
+                font: 500 18px "Nunito";
+            }
+        }
+    }
+
+    .edit-user-btns {
+        width: 100%;
+        max-width: 306px;
+        @include dFlex($jc: space-between);
+        padding-top: 38px;
+        font: 700 18px "Nunito";
+
+        .cancel-btn {
+            padding: 12px 25px;
+            border: 1px solid $light-purple;
+            border-radius: 50px;
+            color: $purple1;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $purple3;
+                color: #ffffff;
+            }
+
+            &:active {
+                background-color: $purple1;
+            }
+        }
+
+        .save-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: #ffffff;
+            background-color: $purple1;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $purple2;
+            }
+
+            &:active {
+                background-color: $purple1;
+            }
+        }
+
+    }
+
+}

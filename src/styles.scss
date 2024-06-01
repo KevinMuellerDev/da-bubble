@@ -97,3 +97,19 @@ body {
 mat-card {
     border-radius: 30px;
 }
+
+.online{
+    color: $green;
+}
+
+.online-div{
+    background-color:$green;
+}
+
+.offline{
+    color: $text-gray;
+}
+
+.offline-div{
+    background-color:$text-gray;
+}

@@ -1,0 +1,61 @@
+<div class="profile-container">
+    <div class="profile-head">
+        <span>Profil</span>
+        <div mat-dialog-close="">
+            <img src="/assets/img/header/close.svg" alt="">
+        </div>
+    </div>
+    <div class="profile-picture">
+        <img src="/assets/img/header/avatar-dummy.svg" alt="">
+    </div>
+    @if (editMode == false) {
+    <div class="profile-edit-container">
+        <div class="profile-edit">
+            <span>Frederik Beck</span>
+            @if (profileEditable) {<a (click)="editMode=true">Bearbeiten</a>}
+        </div>
+        <div class="user-status">
+            <div [ngClass]="getUserStatus('div')" class="status"></div>
+            <span [ngClass]="getUserStatus('text')">Aktiv</span>
+        </div>
+    </div>
+    <div class="profile-email-container">
+        <div class="email-icon">
+            <img src="/assets/img/profile/mail.svg" alt="">
+        </div>
+        <div class="email-content">
+            <span>Frederik Beck</span>
+            <a href="mailto:fred.beck@email.com">fred.beck&#64;email.com</a>
+        </div>
+    </div>}
+    @if (editMode == true) {
+    <div class="edit-user-form-container">
+        <form autocomplete="off" action="">
+            <div class="input-container">
+                <div>
+                    <img src="/assets/img/profile/account-circle.svg" alt="">
+                    <span>Vollständiger Name</span>
+                </div>
+                <input placeholder="Frederik Beck" type="text">
+            </div>
+            <div class="input-container">
+                <div>
+                    <img src="/assets/img/profile/mail.svg" alt="">
+                    <span>E-mail Adresse</span>
+                </div>
+                <input placeholder="fred.beck@email.com" type="text">
+            </div>
+
+        </form>
+        <div class="edit-user-btns">
+            <div class="cancel-btn" (click)="editMode=false">
+                Abbrechen
+            </div>
+            <div class="save-btn" (click)="editMode=false">
+                Speichern
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
