@@ -10,13 +10,14 @@
         <div class="title">
             <h1>Wähle deinen Avatar</h1>
         </div>
-        <div class="avatars">
-            <img src="../../assets/img/login/default_profil_img.png">
+        <div class="avatar">
+            <img [src]="selectedAvatar">
         </div>
-        <h3>Var Namen vom Konto erstellen</h3>
+        <h3>Var Namen vom ´Konto erstellen´</h3>
         <span>Aus der Liste wählen</span>
-        <div>
-            <span>avatars zur auswahl</span>
+        <div class="avatar-list">
+            <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)"
+                [ngClass]="{'selected': avatar === selectedAvatar}">
         </div>
         <div class="upload">
             <span>eigenes Bild verwenden </span>
