@@ -63,13 +63,18 @@ header {
             position: relative;
             @include dFlex();
 
+            img{
+                border-radius: 50% 50%;
+                width: 70px;
+                height: 70px;
+            }
+
             .status {
                 position: absolute;
                 right: 0;
                 bottom: 0;
                 height: 16.67px;
                 width: 16.67px;
-                background-color: #92C83E;
                 border: 2px solid #FFFFFF;
                 border-radius: 50% 50%;
             }

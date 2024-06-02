@@ -7,10 +7,10 @@
         <img src="/assets/img/header/search-btn.svg" alt="">
     </div>
     <div class="user-menu"  (click)="openDialog()">
-        <span>Frederik Beck</span>
+        <span>{{userService.userInfo.name}}</span>
         <div class="profile-picture">
-            <img src="/assets/img/header/avatar-dummy.svg" alt="">
-            <div class="status"></div>
+            <img [src]="userService.userInfo.profilePicture" alt="">
+            <div [ngClass]="getUserStatus()" class="status"></div>
         </div>
         <div class="menu-btn"></div>
     </div>
