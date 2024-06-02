@@ -7,6 +7,7 @@ import { UserData } from '../models/userdata.class';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
   firestore: Firestore = inject(Firestore);
 
@@ -19,12 +20,25 @@ export class UserService {
     this.unsubUser = this.retrieveUserProfile();
   }
 
+
+  /**
+   * listens to changes to referenced collection and stores the data
+   * in userInfo
+   * 
+   * @returns Unsubscribe from snapshot
+   */
   retrieveUserProfile() {
     return onSnapshot(doc(this.refUserProfile(), this.currentUser), (doc) => {
       this.userInfo = new UserData(doc.data())
     });
   }
 
+
+  /**
+   * Return the collection to which should be referenced to in a snapshot for example
+   * 
+   * @returns collection reference - firestore
+   */
   refUserProfile() {
     return collection(this.firestore, "user")
   }
