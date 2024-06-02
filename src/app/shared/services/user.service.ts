@@ -22,8 +22,6 @@ export class UserService {
   retrieveUserProfile() {
     return onSnapshot(doc(this.refUserProfile(), this.currentUser), (doc) => {
       this.userInfo = new UserData(doc.data())
-      console.log(this.userInfo);
-      
     });
   }
 

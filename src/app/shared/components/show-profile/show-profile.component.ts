@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -10,7 +11,10 @@ import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialog
   templateUrl: './show-profile.component.html',
   styleUrl: './show-profile.component.scss'
 })
+
 export class ShowProfileComponent {
+  userService: UserService = inject(UserService);
+
   profileEditable:Boolean = false;
   editMode:boolean = false;
 
@@ -22,10 +26,16 @@ export class ShowProfileComponent {
    * @returns class as a string
    */
   getUserStatus(type:string ){
+    const status = this.userService.userInfo.isLoggedIn == true ? "online" : "offline";
     if (type == 'text') 
-      return "online"
+      return status
     
-    return "online-div"
+    return status+'-div'
+  }
+
+  getStatusText(){
+    const text = this.userService.userInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
+    return text
   }
 
 }

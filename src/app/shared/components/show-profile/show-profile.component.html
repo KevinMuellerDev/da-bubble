@@ -6,17 +6,17 @@
         </div>
     </div>
     <div class="profile-picture">
-        <img src="/assets/img/header/avatar-dummy.svg" alt="">
+        <img [src]="userService.userInfo.profilePicture" alt="">
     </div>
     @if (editMode == false) {
     <div class="profile-edit-container">
         <div class="profile-edit">
-            <span>Frederik Beck</span>
+            <span>{{userService.userInfo.name}}</span>
             @if (profileEditable) {<a (click)="editMode=true">Bearbeiten</a>}
         </div>
         <div class="user-status">
             <div [ngClass]="getUserStatus('div')" class="status"></div>
-            <span [ngClass]="getUserStatus('text')">Aktiv</span>
+            <span [ngClass]="getUserStatus('text')">{{getStatusText()}}</span>
         </div>
     </div>
     <div class="profile-email-container">
@@ -24,8 +24,8 @@
             <img src="/assets/img/profile/mail.svg" alt="">
         </div>
         <div class="email-content">
-            <span>Frederik Beck</span>
-            <a href="mailto:fred.beck@email.com">fred.beck&#64;email.com</a>
+            <span>E-mail Adresse</span>
+            <a [href]="'mailto:'+ userService.userInfo.email">{{userService.userInfo.email}}</a>
         </div>
     </div>}
     @if (editMode == true) {
@@ -36,14 +36,14 @@
                     <img src="/assets/img/profile/account-circle.svg" alt="">
                     <span>Vollständiger Name</span>
                 </div>
-                <input placeholder="Frederik Beck" type="text">
+                <input [placeholder]="userService.userInfo.name" type="text">
             </div>
             <div class="input-container">
                 <div>
                     <img src="/assets/img/profile/mail.svg" alt="">
                     <span>E-mail Adresse</span>
                 </div>
-                <input placeholder="fred.beck@email.com" type="text">
+                <input [placeholder]="userService.userInfo.email" type="text">
             </div>
 
         </form>

@@ -13,10 +13,6 @@ import { UserService } from './shared/services/user.service';
 export class AppComponent {
   title = 'da-bubble';
 
+  constructor(private userService: UserService){}
 
-  constructor(){}
-
-
-
-  
 }

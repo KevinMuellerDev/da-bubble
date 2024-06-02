@@ -19,11 +19,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  userPicture!:string;
-  userService: UserService = inject(UserService)
+  userService: UserService = inject(UserService);  
 
-  constructor(public dialog: MatDialog){
-  }
+  constructor(public dialog: MatDialog){}
 
 
   openDialog() {

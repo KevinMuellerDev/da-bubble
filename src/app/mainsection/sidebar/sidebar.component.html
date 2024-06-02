@@ -190,9 +190,9 @@
 
   <div [@openClose]="menuStates['message']" class="messages-container">
     <div class="message">
-      <img src="assets/img/icons/Profile_pic.svg" alt="" />
-      <div class="online-indicator"></div>
-      <span>Frederik Beck (Du)</span>
+      <img [src]="userService.userInfo.profilePicture" alt="" />
+      <div [ngClass]="getUserStatus()" class="online-indicator"></div>
+      <span>{{userService.userInfo.name}} (Du)</span>
     </div>
   </div>
 </div>
