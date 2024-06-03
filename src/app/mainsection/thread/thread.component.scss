@@ -45,3 +45,73 @@
     }
   }
 }
+
+.thread-conversation-container {
+  width: 100%;
+  @include dFlex();
+  padding: 32px 30px;
+  flex-direction: column;
+}
+
+.single-message-container {
+  @include dFlex($ai: flex-start);
+}
+
+.message-wrapper {
+  @include dFlex($ai: flex-start);
+  flex-direction: column;
+  max-width: 278px;
+  margin-left: 20px;
+}
+
+.profile-picture {
+  @include dFlex();
+  > img {
+    border-radius: 50%;
+    max-width: 70px;
+  }
+}
+
+.message-head {
+  @include dFlex();
+  margin-bottom: 8px;
+}
+
+.message-info {
+  @include dFlex();
+  gap: 20px;
+  > span {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .message-timestamp {
+    color: $text-gray;
+  }
+}
+
+.message {
+  @include dFlex();
+  background-color: $bg-color;
+  border-radius: 0px 20px 20px 20px;
+  > span {
+    padding: 15px;
+  }
+}
+
+.divider-container {
+  margin-top: 20.5px;
+  @include dFlex($jc: center);
+  gap: 20px;
+  width: 100%;
+  text-wrap: nowrap;
+  > span {
+    color: $light-purple;
+    font-size: 18px;
+  }
+}
+
+.divider {
+  height: 1px;
+  background-color: $light-purple;
+  width: 100%;
+}
