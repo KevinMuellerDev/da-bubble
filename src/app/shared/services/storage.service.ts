@@ -10,20 +10,7 @@ export class StorageService {
   files!: FileList;
   fileName!: string | undefined;
 
-  private avatars: string[] = [
-    '../assets/img/profile/elias_neumann.png',
-    '../assets/img/profile/elise_roth.png',
-    '../assets/img/profile/frederik_beck.png',
-    '../assets/img/profile/noah_braun.png',
-    '../assets/img/profile/sofia_müller.png',
-    '../assets/img/profile/steffen_hoffmann.png'
-  ];
-
   constructor() { }
-
-  getAvatars(): string[] {
-    return this.avatars;
-  }
 
   onFileSelected(input: HTMLInputElement) {
     if (input.files?.item(0)?.size! > 1048576) {
@@ -31,7 +18,7 @@ export class StorageService {
       return;
     }
     if (!input.files || (input.files && !this.isValid(input))) {
-      console.log('Files not valid.');
+      console.warn('Files not valid.');
       return;
     }
     console.log('Files valid.');
@@ -41,18 +28,10 @@ export class StorageService {
     console.log('onFileSelected this.fileName:', this.fileName);
   }
 
-  /**
-   * Triggers the file input element to open the file selection dialog.
-   */
-  triggerFileInput() {
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    fileInput.click();
-  }
-
   isValid(input: HTMLInputElement) {
     let dataType = input.files?.item(0)?.type
     dataType = dataType?.split('/').pop();
-    console.log(input.files?.item(0)?.size!);
+    console.log('your file size is', input.files?.item(0)?.size!, 'bytes');
 
     return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif')
   }

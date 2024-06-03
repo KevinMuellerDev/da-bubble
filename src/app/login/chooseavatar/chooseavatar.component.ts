@@ -11,15 +11,36 @@ import { StorageService } from '../../shared/services/storage.service';
   styleUrls: ['./chooseavatar.component.scss']
 })
 export class ChooseavatarComponent implements OnInit {
-  avatars: string[] = [];
+
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
+
+  avatars: string[] = [
+    '../assets/img/profile/elias_neumann.png',
+    '../assets/img/profile/elise_roth.png',
+    '../assets/img/profile/frederik_beck.png',
+    '../assets/img/profile/noah_braun.png',
+    '../assets/img/profile/sofia_müller.png',
+    '../assets/img/profile/steffen_hoffmann.png'
+  ];
 
   constructor(private storageService: StorageService) { }
 
   ngOnInit() {
-    this.avatars = this.storageService.getAvatars();
+    this.avatars = this.getAvatars();
   }
 
+  /**
+   * Retrieves the list of avatars.
+   * @return {string[]} The array of avatar paths.
+   */
+  getAvatars(): string[] {
+    return this.avatars;
+  }
+
+  /**
+   * Selects an avatar by setting the selectedAvatar property to the provided avatar.
+   * @param {string} avatar - The avatar to be selected.
+   */
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
@@ -28,21 +49,27 @@ export class ChooseavatarComponent implements OnInit {
    * Triggers the file input element to open the file selection dialog.
    */
   triggerFileInput() {
-    this.storageService.triggerFileInput();
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    fileInput.click();
+    this.selectedAvatar;
   }
 
+
+  /**-------------mit dem StorageService abstimmen!!--------------- */
   /**
-   * Handles the event when a file is selected.   *
+   * Handles the event when a file is selected.
    * @param {HTMLInputElement} input - The input element that triggered the file selection.
    */
   onFileSelected(input: HTMLInputElement) {
     this.storageService.onFileSelected(input);
+
+
+
+    // Set the selectedAvatar property to the URL of the selected file.
     const file = this.storageService.files?.item(0);
-
-    // TODO: combine with uploadFile() in storage.service.ts!!
-
     if (file) {
       this.selectedAvatar = URL.createObjectURL(file);
+      console.log(this.selectedAvatar);
     }
   }
 }
