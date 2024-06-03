@@ -37,7 +37,12 @@ export class ChooseavatarComponent implements OnInit {
    */
   onFileSelected(input: HTMLInputElement) {
     this.storageService.onFileSelected(input);
-    //TODO IMPLEMENT LOGIC for displaying selected avatar
-    console.log(this.storageService.files?.item(0)?.name);
+    const file = this.storageService.files?.item(0);
+
+    // TODO: combine with uploadFile() in storage.service.ts!!
+
+    if (file) {
+      this.selectedAvatar = URL.createObjectURL(file);
+    }
   }
 }
