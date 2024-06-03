@@ -11,4 +11,10 @@ import { RouterLink } from '@angular/router';
 })
 export class RegisterComponent {
 
+  showPassword: boolean = false;
+
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 }

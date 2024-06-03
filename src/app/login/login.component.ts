@@ -14,6 +14,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   showIntroAnimation: boolean = false;
+  showPassword: boolean = false;
 
   ngOnInit() {
     const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
@@ -23,5 +24,8 @@ export class LoginComponent implements OnInit {
     } else {
       sessionStorage.removeItem('hasSeenAnimation');
     }
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

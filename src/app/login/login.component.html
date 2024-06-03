@@ -1,5 +1,5 @@
 <section>
-<div class="intro-bg-animation" *ngIf="showIntroAnimation"></div>
+    <div class="intro-bg-animation" *ngIf="showIntroAnimation"></div>
 
     <div class="intro-logo-animation" *ngIf="showIntroAnimation"></div>
     <header>
@@ -24,8 +24,9 @@
                 <input type="email" name="email" placeholder="E-Mail Adresse">
             </div>
             <div class="form-group">
-                <img src="../../assets/img/login/lock.png">
-                <input type="password" name="passwort" placeholder="Passwort"
+                <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
+                    (click)="togglePasswordVisibility()">
+                <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort"
                     pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$">
             </div>
             <div>
