@@ -11,23 +11,32 @@
             <h1>Konto erstellen</h1>
             <h3>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</h3>
         </div>
-        <form autocomplete="off">
+        <form>
             <div class="form-group">
-                <img src="../../assets/img/login/person.png">
-                <input type="text" placeholder="Name und Nachname">
+                <div class="input-container">
+                    <img src="../../assets/img/login/person.png">
+                    <input type="text" placeholder="Name und Nachname" name="name">
+                </div>
             </div>
             <div class="form-group">
-                <img src="../../assets/img/login/email.png">
-                <input type="email" placeholder="E-Mail Adresse">
+                <div class="input-container">
+                    <img src="../../assets/img/login/email.png">
+                    <input type="email" placeholder="E-Mail Adresse" name="email">
+                </div>
+
             </div>
             <div class="form-group">
-                <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
-                    (click)="togglePasswordVisibility()">
-                <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort"
-                    pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$">
+                <div class="input-container">
+                    <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
+                        (click)="togglePasswordVisibility()">
+                    <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort"
+                        pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
+                        name="password">
+                </div>
+
             </div>
             <div class="login-btns">
-                <button routerLink="/register/chooseavatar">weiter</button>
+                <button type="submit" (click)="register()" routerLink="/register/chooseavatar">weiter</button>
             </div>
         </form>
     </main>

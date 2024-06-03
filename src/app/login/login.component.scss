@@ -69,7 +69,7 @@ main {
 
 form {
     width: 100%;
-    a:hover{
+    a:hover {
         scale: 1.05;
         border: none;
         background-color: $bg-color;
@@ -80,22 +80,28 @@ form {
     width: 100%;
     height: 60px;
     @include dFlex($ai: center);
+    flex-direction: column;
     margin-bottom: 40px;
     position: relative;
+}
+
+.input-container {
+    @include dFlex($ai: center);
+    width: 100%;
+    height: 100%;
 
     input.ng-valid {
+        border-color: $green;
         &:hover {
             border-color: $green;
         }
         &:focus {
-            outline: none;
+            border-color: $green;
         }
-        border-color: $green;
     }
 
     input.ng-invalid {
         &:focus {
-            outline: none;
             border-color: $error;
         }
     }
@@ -127,6 +133,15 @@ form {
         width: 24px;
         height: 24px;
         color: $black;
+    }
+}
+
+.error {
+    width: 100%;
+    color: $error;
+    p {
+        text-align: left;
+        font-size: 0.875rem;
     }
 }
 
