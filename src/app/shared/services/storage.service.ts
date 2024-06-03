@@ -6,9 +6,10 @@ import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fir
 })
 export class StorageService {
   private readonly storage: Storage = inject(Storage);
-
+  selectedAvatar!: string;
   files!: FileList;
   fileName!: string | undefined;
+  fileUrl!: any;
 
   constructor() { }
 
@@ -18,12 +19,13 @@ export class StorageService {
       return;
     }
     if (!input.files || (input.files && !this.isValid(input))) {
-      console.warn('Files not valid.');
+      // console.warn('Files not valid.');
       return;
     }
     console.log('Files valid.');
     this.files = input.files;
     this.fileName = this.files.item(0)?.name;
+    this.fileUrl = this.files.item(0);
     console.log('onFileSelected this.files:', this.files);
     console.log('onFileSelected this.fileName:', this.fileName);
   }

@@ -22,7 +22,7 @@
         <div class="upload">
             <span>eigenes Bild verwenden </span>
             <button (click)="triggerFileInput()">Datei hochladen</button>
-            <input type="file" #fileInput (change)="onFileSelected(fileInput)" style="display: none;">
+            <input type="file" #fileInput id="fileInput" (change)="refFile(fileInput)" hidden>
         </div>
         <div class="login-btns">
             <button routerLink="/">weiter</button>
