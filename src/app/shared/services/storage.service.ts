@@ -25,17 +25,29 @@ export class StorageService {
     return this.avatars;
   }
 
-  
   onFileSelected(input: HTMLInputElement) {
     if (input.files?.item(0)?.size! > 1048576) {
-      this.fileName = "This file exceeds the size of 1024kb !"
-      return
+      this.fileName = "This file exceeds the size of 1024kb !";
+      return;
     }
-    if (!input.files || (input.files && !this.isValid(input))) return
+    if (!input.files || (input.files && !this.isValid(input))) {
+      console.log('Files not valid.');
+      return;
+    }
+    console.log('Files valid.');
     this.files = input.files;
-    this.fileName = this.files.item(0)?.name
+    this.fileName = this.files.item(0)?.name;
+    console.log('onFileSelected this.files:', this.files);
+    console.log('onFileSelected this.fileName:', this.fileName);
   }
 
+  /**
+   * Triggers the file input element to open the file selection dialog.
+   */
+  triggerFileInput() {
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    fileInput.click();
+  }
 
   isValid(input: HTMLInputElement) {
     let dataType = input.files?.item(0)?.type
@@ -44,7 +56,6 @@ export class StorageService {
 
     return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif')
   }
-
 
   async uploadFile() {
     if (this.files == undefined) return
@@ -59,6 +70,4 @@ export class StorageService {
       }
     }
   }
-
-
 }

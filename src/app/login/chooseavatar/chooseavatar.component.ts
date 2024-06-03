@@ -23,4 +23,21 @@ export class ChooseavatarComponent implements OnInit {
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
+
+  /**
+   * Triggers the file input element to open the file selection dialog.
+   */
+  triggerFileInput() {
+    this.storageService.triggerFileInput();
+  }
+
+  /**
+   * Handles the event when a file is selected.   *
+   * @param {HTMLInputElement} input - The input element that triggered the file selection.
+   */
+  onFileSelected(input: HTMLInputElement) {
+    this.storageService.onFileSelected(input);
+    //TODO IMPLEMENT LOGIC for displaying selected avatar
+    console.log(this.storageService.files?.item(0)?.name);
+  }
 }
