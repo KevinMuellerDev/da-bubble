@@ -54,11 +54,11 @@
 }
 
 .single-message-container {
-  padding: 32px 30px;
+  padding: 20px 0px 10px 40px;
   width: 100%;
   @include dFlex($ai: flex-start);
   &:hover {
-    background-color: $bg-color;
+    background-color: rgba(red($bg-color), green($bg-color), blue($bg-color), 0.5);
     .message {
       background-color: white;
     }
@@ -66,6 +66,7 @@
 }
 
 .message-wrapper {
+   margin-top: 10px;
   @include dFlex($ai: flex-start);
   flex-direction: column;
   max-width: 278px;
@@ -73,6 +74,7 @@
 }
 
 .profile-picture {
+  margin-top: 10px;
   @include dFlex();
   > img {
     border-radius: 50%;
@@ -112,8 +114,8 @@
 }
 
 .divider-container {
-  padding: 32px 30px;
-  margin-top: 20.5px;
+  padding: 8px 30px 8px 32px;
+  
   @include dFlex($jc: center);
   gap: 20px;
   width: 100%;

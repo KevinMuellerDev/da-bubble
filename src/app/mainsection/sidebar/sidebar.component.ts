@@ -42,8 +42,7 @@ export class SidebarComponent {
    * @param {'channel' | 'message'} menu - The menu to be toggled. It can either be 'channel' or 'message'.
    */
   toggleMenu(menu: 'channel' | 'message') {
-    this.menuStates[menu] =
-      this.menuStates[menu] === 'open' ? 'closed' : 'open';
+    this.menuStates[menu] = this.menuStates[menu] === 'open' ? 'closed' : 'open';
   }
 
   /**
@@ -54,9 +53,7 @@ export class SidebarComponent {
    */
   getUserStatus() {
     const loggedIn =
-      this.userService.userInfo.isLoggedIn == true
-        ? 'online-div'
-        : 'offline-div';
+      this.userService.userInfo.isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
 }
