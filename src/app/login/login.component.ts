@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
 @Component({
@@ -50,13 +51,29 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  //---------------------------------------------------------------------------
+  //TODO:  manage errors & set userdata!
   login() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
     this.isFormSubmitted = true;
     if (this.loginForm.valid) {
-      this.router.navigate(['/mainsection']);
-      this.isFormSubmitted = false;
+      const auth = getAuth();
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log('user.uid:', user.uid, user);
+          this.router.navigate(['/mainsection']);
+          this.isFormSubmitted = false;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
     }
   }
 }
