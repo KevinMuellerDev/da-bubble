@@ -20,11 +20,9 @@ export class UserService {
     this.unsubUser = this.retrieveUserProfile();
   }
 
-
   /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
-   * 
    * @returns Unsubscribe from snapshot
    */
   retrieveUserProfile() {
@@ -33,15 +31,25 @@ export class UserService {
     });
   }
 
+  async updateUserProfile(ngForm: any) {
+    const userProfileData = ngForm.value
+
+    await updateDoc(doc(this.refUserProfile(), this.currentUser), {
+      name: userProfileData.name,
+      email: userProfileData.email
+    });
+
+  }
+
 
   /**
    * Return the collection to which should be referenced to in a snapshot for example
-   * 
    * @returns collection reference - firestore
    */
   refUserProfile() {
     return collection(this.firestore, "user")
   }
+
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.

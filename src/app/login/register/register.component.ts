@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterComponent {
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
 
-  constructor() {
+  constructor(private router: Router) {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -25,11 +26,30 @@ export class RegisterComponent {
     });
   }
 
+  /**
+  * Toggles the visibility of the password field.
+  */
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
+  // ---------------------------------------------------------------------------
+  //TODO:  manage errors & set userdata & set avatar to complete registration!
   register() {
-    // TODO: save user data to firestore, and go to choose avatar
+    const auth = getAuth();
+    const email = this.registerForm.value.email;
+    const password = this.registerForm.value.password;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log('user.uid:', user.uid, user);
+        this.router.navigate(['/register/chooseavatar']);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   }
 }

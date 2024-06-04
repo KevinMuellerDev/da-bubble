@@ -24,7 +24,7 @@
                     <img src="../../assets/img/login/email.png">
                     <input type="email" formControlName="email" placeholder="E-Mail Adresse"
                         pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
-                        >
+                        autocomplete="email">
                 </div>
                 <div class="error" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
                     <p *ngIf="loginForm.controls['email'].errors?.['required']">Bitte eine gültige E-Mail-Adresse eingeben</p>
@@ -35,7 +35,7 @@
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
                     <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
-                        placeholder="Passwort">
+                        placeholder="Passwort" autocomplete="current-password">
                 </div>
                 <div class="error">
                     <p *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">Falsches Passwort. Bitte noch einmal versuchen</p>
@@ -50,10 +50,10 @@
                 <p>ODER</p>
                 <hr>
             </span>
-            <button class="google-login" routerLink="/"><img src="../../assets/img/login/google_logo.png">Anmelden mit
+            <button class="google-login" (click)="loginWithGoogle()"><img src="../../assets/img/login/google_logo.png">Anmelden mit
                 Google</button>
             <div class="login-btns">
-                <button type="submit" (click)="login()" [disabled]="loginForm.invalid" routerLink="/mainsection">Anmelden</button>
+                <button type="submit" (click)="login()" [disabled]="loginForm.invalid">Anmelden</button>
                 <button type="button" routerLink="/mainsection">Gäste-Login</button>
             </div>
         </form>

@@ -15,7 +15,7 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/person.png">
-                    <input type="text" placeholder="Name und Nachname" formControlName="name">
+                    <input type="text" placeholder="Name und Nachname" formControlName="name" autocomplete="name">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
-                    <input type="email" placeholder="E-Mail Adresse" formControlName="email">
+                    <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
@@ -39,7 +39,7 @@
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
                     <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort"
-                        formControlName="password">
+                        formControlName="password" autocomplete="current-password">
                 </div>
                 <div class="error">
                     <p
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="login-btns">
-                <button type="submit" (click)="register()" routerLink="/register/chooseavatar">weiter</button>
+                <button type="submit" (click)="register()">weiter</button>
             </div>
         </form>
     </main>

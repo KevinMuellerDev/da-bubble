@@ -175,3 +175,19 @@
     }
 
 }
+
+input.ng-valid {
+    border-color: $green!important;
+    &:hover {
+        border-color: $green!important;
+    }
+    &:focus {
+        border-color: $green!important;
+    }
+}
+
+input.ng-invalid {
+    &:focus {
+        border-color: $error!important;
+    }
+}

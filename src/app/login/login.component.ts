@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { FirebaseError } from '@angular/fire/app';
 
 
 @Component({
@@ -18,30 +20,74 @@ export class LoginComponent implements OnInit {
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
 
-  constructor() {
+  /**
+   * Initializes the login form with email and password form controls.
+   * The email form control requires a value and must be a valid email address.
+   * The password form control requires a value and must have a minimum length of 8 characters.
+   * @constructor
+   */
+  constructor(private router: Router) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
   }
 
+  /**
+   * Initializes the component and checks if the animation has been seen before.
+   * If not, sets the `showIntroAnimation` flag to true and stores it in the session storage.
+   */
   ngOnInit() {
     const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
     if (!hasSeenAnimation) {
       this.showIntroAnimation = true;
       sessionStorage.setItem('hasSeenAnimation', 'true');
-    } else {
-      sessionStorage.removeItem('hasSeenAnimation');
     }
   }
+
+  /**
+  * Toggles the visibility of the password field.
+  */
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  login() {
+  //---------------------------------------------------------------------------
+  //TODO:  manage errors & set userdata!
+  async login() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
-    // TODO: Implement login with validation from firestore
-    // for now, is invalid go with guestUser lgoin to main section
+    this.isFormSubmitted = true;
+    if (this.loginForm.valid) {
+      const auth = getAuth();
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log('user.uid:', user.uid, user);
+      } catch (error) {
+        const errorCode = (error as FirebaseError).code;
+        const errorMessage = (error as FirebaseError).message;
+        console.log(errorCode, errorMessage);
+      }
+      this.router.navigate(['/mainsection']);
+      this.isFormSubmitted = false;
+    }
+  }
+
+  async loginWithGoogle() {
+    this.showIntroAnimation = false;
+    sessionStorage.removeItem('hasSeenAnimation');
+    try {
+      const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
+      const user = result.user;
+      console.log('user.uid:', user.uid, user);
+    } catch (error) {
+      const errorCode = (error as FirebaseError).code;
+      const errorMessage = (error as FirebaseError).message;
+      console.log(errorCode, errorMessage);
+    }
+    this.router.navigate(['/mainsection']);
   }
 }
