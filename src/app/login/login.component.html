@@ -50,7 +50,7 @@
                 <p>ODER</p>
                 <hr>
             </span>
-            <button class="google-login" routerLink="/"><img src="../../assets/img/login/google_logo.png">Anmelden mit
+            <button class="google-login" (click)="loginWithGoogle()"><img src="../../assets/img/login/google_logo.png">Anmelden mit
                 Google</button>
             <div class="login-btns">
                 <button type="submit" (click)="login()" [disabled]="loginForm.invalid">Anmelden</button>

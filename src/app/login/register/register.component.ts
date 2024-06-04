@@ -33,7 +33,6 @@ export class RegisterComponent {
     this.showPassword = !this.showPassword;
   }
 
-
   // ---------------------------------------------------------------------------
   //TODO:  manage errors & set userdata & set avatar to complete registration!
   register() {

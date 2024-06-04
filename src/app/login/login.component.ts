@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { FirebaseError } from '@angular/fire/app';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   //---------------------------------------------------------------------------
   //TODO:  manage errors & set userdata!
-  login() {
+  async login() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
     this.isFormSubmitted = true;
@@ -61,19 +62,32 @@ export class LoginComponent implements OnInit {
       const auth = getAuth();
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log('user.uid:', user.uid, user);
-          this.router.navigate(['/mainsection']);
-          this.isFormSubmitted = false;
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-        });
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log('user.uid:', user.uid, user);
+      } catch (error) {
+        const errorCode = (error as FirebaseError).code;
+        const errorMessage = (error as FirebaseError).message;
+        console.log(errorCode, errorMessage);
+      }
+      this.router.navigate(['/mainsection']);
+      this.isFormSubmitted = false;
     }
+  }
+
+  async loginWithGoogle() {
+    this.showIntroAnimation = false;
+    sessionStorage.removeItem('hasSeenAnimation');
+    try {
+      const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
+      const user = result.user;
+      console.log('user.uid:', user.uid, user);
+    } catch (error) {
+      const errorCode = (error as FirebaseError).code;
+      const errorMessage = (error as FirebaseError).message;
+      console.log(errorCode, errorMessage);
+    }
+    this.router.navigate(['/mainsection']);
   }
 }
