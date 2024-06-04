@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
   guest!: boolean;
-  userService!: UserService; 
+  
   /**
    * Initializes the login form with email and password form controls.
    * The email form control requires a value and must be a valid email address.
