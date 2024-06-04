@@ -6,7 +6,6 @@ import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopu
 import { FirebaseError } from '@angular/fire/app';
 import { User } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { AuthService } from '../shared/services/auth.service';
 
 
 @Component({
@@ -17,14 +16,13 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-
   showIntroAnimation: boolean = false;
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
   guest!: boolean;
-  authService:AuthService = inject(AuthService)
-  firestore: Firestore = inject(Firestore);
+
+
   /**
    * Initializes the login form with email and password form controls.
    * The email form control requires a value and must be a valid email address.
@@ -38,6 +36,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
   /**
    * Initializes the component and checks if the animation has been seen before.
    * If not, sets the `showIntroAnimation` flag to true and stores it in the session storage.
@@ -50,6 +49,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
   /**
   * Toggles the visibility of the password field.
   */
@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  
   //---------------------------------------------------------------------------
   //TODO:  manage errors & set userdata!
   async login() {
@@ -72,7 +73,6 @@ export class LoginComponent implements OnInit {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log('user.uid:', user.uid, user);
-        this.authService.userID = user.uid;
         sessionStorage.setItem("uid", user.uid);
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;

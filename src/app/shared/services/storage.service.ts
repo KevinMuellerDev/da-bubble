@@ -38,12 +38,12 @@ export class StorageService {
     return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif')
   }
 
-  async uploadFile() {
+  async uploadFile(uid:string) {
     if (this.files == undefined) return
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files.item(i);
       if (file) {
-        const storageRef = ref(this.storage, 'TODO: IMPLEMENT ME');
+        const storageRef = ref(this.storage, uid);
         await uploadBytesResumable(storageRef, file);
         await getDownloadURL(storageRef).then((url) => {
           //TODO: IMPLEMENT LOGIC

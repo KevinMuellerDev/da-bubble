@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { UserService } from '../../shared/services/user.service';
+import { User, sendEmailVerification } from '@angular/fire/auth';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class RegisterComponent {
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
+
+  userService: UserService = inject(UserService);
 
   constructor(private router: Router) {
     this.registerForm = new FormGroup({
@@ -33,16 +37,24 @@ export class RegisterComponent {
     this.showPassword = !this.showPassword;
   }
 
+
+  test() {
+    this.userService.prepareDataNewUser(this.registerForm)
+  }
+
+
   // ---------------------------------------------------------------------------
   //TODO:  manage errors & set userdata & set avatar to complete registration!
+  //       Add name :) <3 <3 <3
   register() {
     const auth = getAuth();
     const email = this.registerForm.value.email;
     const password = this.registerForm.value.password;
+    let user;
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        user = userCredential.user;
         console.log('user.uid:', user.uid, user);
         this.router.navigate(['/register/chooseavatar']);
       })
@@ -51,5 +63,12 @@ export class RegisterComponent {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
       });
+
+    sendEmailVerification(auth.currentUser as User)
+      .then(() => {
+        console.log(auth.currentUser);
+        
+      });
+
   }
 }

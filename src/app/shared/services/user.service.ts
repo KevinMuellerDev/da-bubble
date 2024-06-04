@@ -3,7 +3,7 @@ import { Firestore, Unsubscribe, addDoc, collection, doc, getDoc, getDocs, onSna
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
 import { LoginComponent } from '../../login/login.component';
-import { AuthService } from './auth.service';
+import { RouterLink, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +11,20 @@ import { AuthService } from './auth.service';
 
 export class UserService {
   firestore: Firestore = inject(Firestore);
-  authService:AuthService = inject(AuthService);
-  currentUser: string | null = "JfMpAjRa0E0O3X2p1AbH";
+  currentUser: string | null;
   userInfo: UserInfo = new UserData();
-
+  createUserInfo:any;
   unsubUser;
 
-  constructor() {
-    let data = sessionStorage.getItem("uid");
+  constructor(private router: Router) {
+    if(sessionStorage.getItem("uid") === null)
+      this.router.navigate(['/']);
+    const data = sessionStorage.getItem("uid");
     this.currentUser = data;
-    console.log(this.currentUser);
-    
     this.unsubUser = this.retrieveUserProfile();
   }
 
+  
   /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
@@ -36,6 +36,12 @@ export class UserService {
     });
   }
 
+
+  /**
+   * Gets the Data from input parameter and updates it in the firestore of the current user
+   * 
+   * @param ngForm Objectdata provided by the form in show-profile component
+   */
   async updateUserProfile(ngForm: any) {
     const userProfileData = ngForm.value
 
@@ -53,6 +59,15 @@ export class UserService {
    */
   refUserProfile() {
     return collection(this.firestore, "user")
+  }
+
+
+  prepareDataNewUser(obj:any){
+    //TODO: Objekt aufbereiten !!!
+  }
+
+  newUserAvatar(url:any){
+    //TODO: Bild hinzufügen zu createUserObj.
   }
 
 

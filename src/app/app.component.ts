@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { UserService } from './shared/services/user.service';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { UserService } from './shared/services/user.service';
 })
 export class AppComponent {
   title = 'da-bubble';
-
+  firestore: Firestore = inject(Firestore);
   constructor(){}
 
 }

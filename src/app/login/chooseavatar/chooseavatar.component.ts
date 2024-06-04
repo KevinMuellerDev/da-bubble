@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-chooseavatar',
@@ -11,6 +12,7 @@ import { StorageService } from '../../shared/services/storage.service';
   styleUrls: ['./chooseavatar.component.scss']
 })
 export class ChooseavatarComponent implements OnInit {
+  userService:UserService = inject(UserService);
 
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
 
