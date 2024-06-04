@@ -5,7 +5,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FirebaseError } from '@angular/fire/app';
 import { User } from '@angular/fire/auth';
-import { UserService } from '../shared/services/user.service';
+import { Firestore } from '@angular/fire/firestore';
+import { AuthService } from '../shared/services/auth.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
   guest!: boolean;
-  
+  authService:AuthService = inject(AuthService)
+  firestore: Firestore = inject(Firestore);
   /**
    * Initializes the login form with email and password form controls.
    * The email form control requires a value and must be a valid email address.
@@ -70,6 +72,7 @@ export class LoginComponent implements OnInit {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log('user.uid:', user.uid, user);
+        this.authService.userID = user.uid;
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {

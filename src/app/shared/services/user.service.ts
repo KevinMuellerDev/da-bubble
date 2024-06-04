@@ -3,6 +3,7 @@ import { Firestore, Unsubscribe, addDoc, collection, doc, getDoc, getDocs, onSna
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
 import { LoginComponent } from '../../login/login.component';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,16 @@ import { LoginComponent } from '../../login/login.component';
 
 export class UserService {
   firestore: Firestore = inject(Firestore);
-  
+  authService:AuthService = inject(AuthService);
   currentUser: string = "JfMpAjRa0E0O3X2p1AbH";
   userInfo: UserInfo = new UserData();
 
   unsubUser;
 
   constructor() {
+    this.currentUser = this.authService.userID;
+    console.log(this.currentUser);
+    
     this.unsubUser = this.retrieveUserProfile();
   }
 

@@ -10,7 +10,7 @@ export class UserData {
         this.id = obj ? obj.id : "";
         this.isLoggedIn = true;
         this.name = obj ? obj.name : "";
-        this.profilePicture = obj ? obj.profilepicture : "";
+        this.profilePicture = obj ? obj.profilePicture : "";
     }
 
 }
