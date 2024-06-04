@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  userService: UserService = inject(UserService);  
+  userService: UserService = inject(UserService);
 
   constructor(public dialog: MatDialog){}
 
@@ -32,7 +32,6 @@ export class HeaderComponent {
 
     /**
    * Function returns the class of user status for online indicator div
-   * 
    * @param type string - to determine which value should be returned
    * @returns class as a string
    */
