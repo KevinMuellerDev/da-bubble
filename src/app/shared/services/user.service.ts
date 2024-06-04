@@ -12,13 +12,14 @@ import { AuthService } from './auth.service';
 export class UserService {
   firestore: Firestore = inject(Firestore);
   authService:AuthService = inject(AuthService);
-  currentUser: string = "JfMpAjRa0E0O3X2p1AbH";
+  currentUser: string | null = "JfMpAjRa0E0O3X2p1AbH";
   userInfo: UserInfo = new UserData();
 
   unsubUser;
 
   constructor() {
-    this.currentUser = this.authService.userID;
+    let data = sessionStorage.getItem("uid");
+    this.currentUser = data;
     console.log(this.currentUser);
     
     this.unsubUser = this.retrieveUserProfile();
@@ -30,7 +31,7 @@ export class UserService {
    * @returns Unsubscribe from snapshot
    */
   retrieveUserProfile() {
-    return onSnapshot(doc(this.refUserProfile(), this.currentUser), (doc) => {
+    return onSnapshot(doc(this.refUserProfile(), this.currentUser as string), (doc) => {
       this.userInfo = new UserData(doc.data())
     });
   }
@@ -38,7 +39,7 @@ export class UserService {
   async updateUserProfile(ngForm: any) {
     const userProfileData = ngForm.value
 
-    await updateDoc(doc(this.refUserProfile(), this.currentUser), {
+    await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
       name: userProfileData.name,
       email: userProfileData.email
     });

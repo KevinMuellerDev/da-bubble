@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
         const user = userCredential.user;
         console.log('user.uid:', user.uid, user);
         this.authService.userID = user.uid;
+        sessionStorage.setItem("uid", user.uid);
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
