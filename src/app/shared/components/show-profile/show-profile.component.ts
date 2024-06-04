@@ -1,11 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatDialog,
-  MatDialogActions,
   MatDialogClose,
-  MatDialogContent,
-  MatDialogTitle
 } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';

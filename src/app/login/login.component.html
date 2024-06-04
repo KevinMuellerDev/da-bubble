@@ -54,7 +54,7 @@
                 Google</button>
             <div class="login-btns">
                 <button type="submit" (click)="login()" [disabled]="loginForm.invalid">Anmelden</button>
-                <button type="button" routerLink="/mainsection">Gäste-Login</button>
+                <button type="button" (click)="loginGuest()">Gäste-Login</button>
             </div>
         </form>
     </main>

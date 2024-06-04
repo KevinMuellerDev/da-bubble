@@ -4,6 +4,7 @@ import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FirebaseError } from '@angular/fire/app';
+import { User } from '@angular/fire/auth';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
+  guest!:boolean;
 
   /**
    * Initializes the login form with email and password form controls.
@@ -58,21 +60,23 @@ export class LoginComponent implements OnInit {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
     this.isFormSubmitted = true;
-    if (this.loginForm.valid) {
+    if (this.loginForm.valid || this.guest) {
       const auth = getAuth();
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
+      this.guest = false;
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log('user.uid:', user.uid, user);
+        this.router.navigate(['/mainsection/' + user.uid]);
+        this.isFormSubmitted = false;
       } catch (error) {
         const errorCode = (error as FirebaseError).code;
         const errorMessage = (error as FirebaseError).message;
         console.log(errorCode, errorMessage);
       }
-      this.router.navigate(['/mainsection']);
-      this.isFormSubmitted = false;
+      
     }
   }
 
@@ -83,11 +87,20 @@ export class LoginComponent implements OnInit {
       const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
       const user = result.user;
       console.log('user.uid:', user.uid, user);
+      this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
       const errorCode = (error as FirebaseError).code;
       const errorMessage = (error as FirebaseError).message;
       console.log(errorCode, errorMessage);
     }
-    this.router.navigate(['/mainsection']);
+    
+  }
+
+  loginGuest(){
+    this.loginForm.value.email ="guest@dabubble.de";
+    this.loginForm.value.password = "guest123";
+    console.log(this.loginForm.value.email);
+    this.guest = true
+    this.login();
   }
 }
