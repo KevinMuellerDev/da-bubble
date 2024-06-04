@@ -30,20 +30,21 @@
     </div>}
     @if (editMode == true) {
     <div class="edit-user-form-container">
-        <form autocomplete="off" action="">
+        <form (ngSubmit)="userService.updateUserProfile(updateUserForm)" [formGroup]="updateUserForm" autocomplete="off">
             <div class="input-container">
                 <div>
                     <img src="/assets/img/profile/account-circle.svg" alt="">
                     <span>Vollständiger Name</span>
                 </div>
-                <input [placeholder]="userService.userInfo.name" type="text">
+                <input [placeholder]="userService.userInfo.name" type="text" formControlName="name">
             </div>
             <div class="input-container">
                 <div>
                     <img src="/assets/img/profile/mail.svg" alt="">
                     <span>E-mail Adresse</span>
                 </div>
-                <input [placeholder]="userService.userInfo.email" type="text">
+                <input [placeholder]="userService.userInfo.email" type="email" formControlName="email"
+                pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$">
             </div>
 
         </form>
@@ -51,7 +52,7 @@
             <div class="cancel-btn" (click)="editMode=false">
                 Abbrechen
             </div>
-            <div class="save-btn" (click)="editMode=false">
+            <div class="save-btn" (click)="checkUpdateInput()" >
                 Speichern
             </div>
         </div>
