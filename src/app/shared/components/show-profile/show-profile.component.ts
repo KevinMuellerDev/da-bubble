@@ -1,6 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 
 
@@ -15,25 +21,24 @@ import { UserService } from '../../services/user.service';
 export class ShowProfileComponent {
   userService: UserService = inject(UserService);
 
-  profileEditable:Boolean = false;
-  editMode:boolean = false;
+  profileEditable: Boolean = false;
+  editMode: boolean = false;
 
   /**
    * Function returns the class of user status for online indicator div and text
    * depending on given type as a string
-   * 
    * @param type string - to determine which value should be returned
    * @returns class as a string
    */
-  getUserStatus(type:string ){
+  getUserStatus(type: string) {
     const status = this.userService.userInfo.isLoggedIn == true ? "online" : "offline";
-    if (type == 'text') 
+    if (type == 'text')
       return status
-    
-    return status+'-div'
+
+    return status + '-div'
   }
 
-  getStatusText(){
+  getStatusText() {
     const text = this.userService.userInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
     return text
   }

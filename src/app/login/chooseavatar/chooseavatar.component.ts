@@ -44,7 +44,6 @@ export class ChooseavatarComponent implements OnInit {
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
     this.storageService.files = {} as FileList;
-
     console.log(this.storageService.fileUrl);
   }
 
@@ -57,8 +56,6 @@ export class ChooseavatarComponent implements OnInit {
     this.selectedAvatar;
   }
 
-
-  /**-------------mit dem StorageService abstimmen!!--------------- */
   /**
    * Handles the event when a file is selected.
    * @param {HTMLInputElement} input - The input element that triggered the file selection.
