@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FirebaseError } from '@angular/fire/app';
 import { User } from '@angular/fire/auth';
+import { UserService } from '../shared/services/user.service';
 
 
 @Component({
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
-  guest!:boolean;
-
+  guest!: boolean;
+  userService!: UserService; 
   /**
    * Initializes the login form with email and password form controls.
    * The email form control requires a value and must be a valid email address.
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
         const errorMessage = (error as FirebaseError).message;
         console.log(errorCode, errorMessage);
       }
-      
+
     }
   }
 
@@ -93,13 +94,12 @@ export class LoginComponent implements OnInit {
       const errorMessage = (error as FirebaseError).message;
       console.log(errorCode, errorMessage);
     }
-    
+
   }
 
-  loginGuest(){
-    this.loginForm.value.email ="guest@dabubble.de";
+  loginGuest() {
+    this.loginForm.value.email = "guest@dabubble.de";
     this.loginForm.value.password = "guest123";
-    console.log(this.loginForm.value.email);
     this.guest = true
     this.login();
   }

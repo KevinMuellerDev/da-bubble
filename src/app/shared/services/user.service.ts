@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { User, user } from '@angular/fire/auth';
 import { Firestore, Unsubscribe, addDoc, collection, doc, getDoc, getDocs, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
+import { LoginComponent } from '../../login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { UserData } from '../models/userdata.class';
 
 export class UserService {
   firestore: Firestore = inject(Firestore);
-
+  
   currentUser: string = "JfMpAjRa0E0O3X2p1AbH";
   userInfo: UserInfo = new UserData();
 
