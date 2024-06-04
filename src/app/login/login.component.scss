@@ -44,10 +44,8 @@ main {
     flex-direction: column;
     text-align: center;
     background-color: $white;
-    opacity: 0;
     border-radius: 30px;
     padding: 50px;
-    animation: fadein 0.175s ease-in forwards 0.175s;
 }
 
 .title {
@@ -287,18 +285,6 @@ a {
     100% {
         opacity: 0;
         z-index: -1;
-    }
-}
-
-@keyframes fadein {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 1;
     }
 }
 

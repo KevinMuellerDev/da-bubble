@@ -113,3 +113,9 @@ mat-card {
 .offline-div{
     background-color:$text-gray;
 }
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: $text-gray !important;
+}

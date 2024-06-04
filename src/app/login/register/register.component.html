@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="login-btns">
-                <button type="submit" (click)="register()">weiter</button>
+                <button type="submit" (click)="register()" [disabled]="registerForm.invalid">weiter</button>
             </div>
         </form>
     </main>
