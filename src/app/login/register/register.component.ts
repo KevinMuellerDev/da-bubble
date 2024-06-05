@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { UserService } from '../../shared/services/user.service';
-import { User, sendEmailVerification } from '@angular/fire/auth';
 
 
 @Component({
@@ -36,39 +34,12 @@ export class RegisterComponent {
     this.showPassword = !this.showPassword;
   }
 
-
-/*   test(id:string) {
-    this.userService.prepareDataNewUser(this.registerForm, id)
-  } */
-
-
-  // ---------------------------------------------------------------------------
-  //TODO:  manage errors & set userdata & set avatar to complete registration!
-  //       Add name :) <3 <3 <3 und ID bitte mit übergeben <3
-  register() {
-    const auth = getAuth();
-    const email = this.registerForm.value.email;
-    const password = this.registerForm.value.password;
-    let user;
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        user = userCredential.user;
-        console.log('user.uid:', user.uid, user);
-        await sendEmailVerification(auth.currentUser as User)
-        .then(() => {
-          console.log(auth.currentUser);
-          
-        });
-        this.router.navigate(['/register/chooseavatar']);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-
-
-
+  continue() {
+    this.isFormSubmitted = true;
+    if (this.registerForm.valid) {
+      this.router.navigate(['/register/chooseavatar']);
+      console.log(this.registerForm.value);
+      
+    }
   }
 }

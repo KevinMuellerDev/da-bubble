@@ -1,18 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { UserService } from '../../shared/services/user.service';
+import { User, sendEmailVerification, getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-chooseavatar',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, RegisterComponent],
   templateUrl: './chooseavatar.component.html',
   styleUrls: ['./chooseavatar.component.scss']
 })
 export class ChooseavatarComponent implements OnInit {
-  userService:UserService = inject(UserService);
+  userService: UserService = inject(UserService);
 
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
 
@@ -25,7 +27,7 @@ export class ChooseavatarComponent implements OnInit {
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile3.svg?alt=media&token=7bd92926-13d9-476b-8c39-fde34aa7044e'
   ];
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService, private router: Router, private register: RegisterComponent) { }
 
   ngOnInit() {
     this.avatars = this.getAvatars();
@@ -70,4 +72,37 @@ export class ChooseavatarComponent implements OnInit {
       console.log(this.selectedAvatar);
     }
   }
+
+  setUser(id: string) {
+    this.userService.prepareDataNewUser(this.register.registerForm, id);
+  }
+
+  registerUser() {
+    const auth = getAuth();
+    const email = this.register.registerForm.value.email;
+    const password = this.register.registerForm.value.password;
+    let user;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        user = userCredential.user;
+
+        this.setUser(user.uid);
+
+
+        console.log('user.uid:', user.uid, user);
+        await sendEmailVerification(auth.currentUser as User)
+          .then(() => {
+            console.log(auth.currentUser);
+
+          });
+        this.router.navigate(['/']);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  }
+
 }
