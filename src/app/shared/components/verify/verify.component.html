@@ -1,0 +1,7 @@
+<div>
+    <h2>Bitte Passwort eingeben</h2>
+    <form [formGroup]="keyForm">
+        <input type="password" placeholder="Password..." formControlName="key">
+    </form>
+    <div class="verify-btn" (click)="submitKey()">Bestätigen</div>
+</div>
