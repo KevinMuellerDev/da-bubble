@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, ViewEncapsulation } from '@angular/core';
 import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
 import { ShowProfileComponent } from '../../show-profile/show-profile.component';

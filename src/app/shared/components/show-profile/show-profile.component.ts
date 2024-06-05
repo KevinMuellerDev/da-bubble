@@ -1,31 +1,35 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  MatDialog,
+  MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { VerifyComponent } from '../verify/verify.component';
 
 
 @Component({
   selector: 'app-show-profile',
   standalone: true,
-  imports: [MatDialogClose, CommonModule, ReactiveFormsModule],
+  imports: [MatDialogActions, MatDialogClose, CommonModule, ReactiveFormsModule],
   templateUrl: './show-profile.component.html',
   styleUrl: './show-profile.component.scss'
 })
 
 export class ShowProfileComponent {
   userService: UserService = inject(UserService);
-
+  authService: AuthService = inject(AuthService);
   updateUserForm: FormGroup;
 
-  profileEditable:Boolean = false;
-  editMode:boolean = false;
+  profileEditable: Boolean = false;
+  editMode: boolean = false;
 
-  constructor(){
-    this.updateUserForm= new FormGroup({
-      name: new FormControl(''),
+  constructor(public dialog: MatDialog) {
+    this.updateUserForm = new FormGroup({
+      name: new FormControl(this.userService.userInfo.name),
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
     });
   }
@@ -49,11 +53,26 @@ export class ShowProfileComponent {
     return text
   }
 
-  checkUpdateInput(){
+  checkUpdateInput() {
     if (this.updateUserForm.valid) {
-      this.userService.updateUserProfile(this.updateUserForm);
-      this.editMode = false;
+      this.openDialog()
     }
+  }
+
+  openDialog() {
+    this.dialog.open(VerifyComponent,{panelClass: 'verify'})
+      .afterClosed()
+      .subscribe(() => {
+        console.log(this.authService.verified);
+        
+        if (this.authService.verified == true) {
+          this.authService.updateUserMail(this.updateUserForm.controls['email'].value)
+          this.userService.updateUserProfile(this.updateUserForm);
+          this.editMode = false;
+        }else{
+          return
+        }
+      })
   }
 
 }
