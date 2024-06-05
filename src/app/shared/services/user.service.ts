@@ -17,10 +17,11 @@ export class UserService {
   unsubUser;
 
   constructor(private router: Router) {
-    if (sessionStorage.getItem("uid") === null)
+    if (sessionStorage.getItem("uid") === null && this.router.url !=='/register')
       this.router.navigate(['/']);
     const data = sessionStorage.getItem("uid");
-    this.currentUser = data;
+    data === null ? this.currentUser ="peYVdjzALERKYH81TcDUD1eajm52" : this.currentUser = data;
+    
     this.unsubUser = this.retrieveUserProfile();
   }
 
@@ -33,6 +34,8 @@ export class UserService {
   retrieveUserProfile() {
     return onSnapshot(doc(this.refUserProfile(), this.currentUser as string), (doc) => {
       this.userInfo = new UserData(doc.data())
+      console.log(this.currentUser);
+      
     });
   }
 

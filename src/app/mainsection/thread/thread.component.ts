@@ -12,10 +12,8 @@ import { MainsectionComponent } from '../mainsection.component';
 })
 export class ThreadComponent {
 
-  closeThread() {
-    document.getElementById('threadBar')?.classList.add('hide-show')
-    
+
+  openDialogUserInfo(){
     
   }
-
 }
