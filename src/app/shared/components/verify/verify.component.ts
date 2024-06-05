@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { MatDialog, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DialogRef } from '@angular/cdk/dialog';
 
 
 @Component({
@@ -15,10 +14,10 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class VerifyComponent {
   authService: AuthService = inject(AuthService);
-  keyForm:FormGroup;
+  keyForm: FormGroup;
   key!: string;
 
-  constructor(private dialogRef: MatDialogRef<VerifyComponent>){
+  constructor(private dialogRef: MatDialogRef<VerifyComponent>) {
     this.keyForm = new FormGroup({
       key: new FormControl(''),
     });
