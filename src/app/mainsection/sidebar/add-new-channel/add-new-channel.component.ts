@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
@@ -15,9 +15,9 @@ export class AddNewChannelComponent {
     'description': ''
   }
 
-  onSubmit() {
+  onSubmit(createNewChannel:NgForm) {
     console.log(this.inputs.channelName);
     console.log(this.inputs.description);
-   
+    createNewChannel.reset();
  }
 }

@@ -6,7 +6,8 @@
         <span>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein <br>
             #marketing zum Beispiel.</span>
     </div>
-    <form #createNewChannel="ngForm" name="createNewChannel" (ngSubmit)="createNewChannel.form.valid && onSubmit()">
+    <form #createNewChannel="ngForm" name="createNewChannel"
+        (ngSubmit)="createNewChannel.form.valid && onSubmit(createNewChannel)">
         <div class="channel-name">
             <span> Channel-Name</span>
             <input required type="text" name="channelName" placeholder="# z.B. Kooperationsprojekte"
@@ -17,7 +18,7 @@
             <input type="text" name="channelDescription" placeholder="Dein Text hier" [(ngModel)]="inputs.description">
         </div>
         <div class="button-container">
-            <button [mat-dialog-close]="true" (click)="onSubmit()">
+            <button [mat-dialog-close]="true" (click)="onSubmit(createNewChannel)">
                 Erstellen
             </button>
         </div>

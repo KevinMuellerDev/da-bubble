@@ -105,7 +105,7 @@
     </div>
     <div class="channel-message-wrapper">
         <form #channelChatMessage="ngForm" name="channelChatMessage"
-            (ngSubmit)="channelChatMessage.form.valid && onSubmit()">
+            (ngSubmit)="channelChatMessage.form.valid && onSubmit(channelChatMessage)">
             <textarea class="channel-message-input" name="message" [(ngModel)]="message.content"
                 placeholder="Nachricht an #Entwicklerteam"></textarea>
             <div class="channel-message-icons">
@@ -114,7 +114,7 @@
                 <div class="emoji-icon"></div>
                 <div class="tag-icon"></div>
             </div>
-            <div class="send-icon" (click)="onSubmit()">
+            <div class="send-icon" (click)="onSubmit(channelChatMessage)">
 
             </div>
         </form>
