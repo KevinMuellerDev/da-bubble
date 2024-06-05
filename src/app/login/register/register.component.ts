@@ -13,13 +13,13 @@ import { UserService } from '../../shared/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-
+  userService:UserService = inject(UserService);
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
 
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router) {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -34,12 +34,38 @@ export class RegisterComponent {
     this.showPassword = !this.showPassword;
   }
 
-  continue() {
+  async continue() {
     this.isFormSubmitted = true;
     if (this.registerForm.valid) {
+      await this.userService.prepareDataNewUser(this.registerForm.value);
+      this.userService.key = this.registerForm.controls['password'].value
       this.router.navigate(['/register/chooseavatar']);
-      console.log(this.registerForm.value);
-      
     }
   }
+
+/*   register() {
+    const auth = getAuth();
+    const email = this.registerForm.value.email;
+    const password = this.registerForm.value.password;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        console.log('user.uid:', user.uid, user);
+        await sendEmailVerification(auth.currentUser as User)
+        .then(() => {
+          console.log(auth.currentUser);
+          
+        });
+        this.router.navigate(['/register/chooseavatar']);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+
+
+
+  } */
 }

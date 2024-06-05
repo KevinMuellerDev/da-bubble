@@ -3,5 +3,5 @@ export interface UserInfo {
     id:string,
     isLoggedIn:boolean,
     name:string,
-    profilePicture:string
+    profilePicture:string,
 }

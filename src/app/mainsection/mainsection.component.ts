@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/components/header/header.component';
+import { UserService } from '../shared/services/user.service';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-mainsection',
@@ -15,7 +17,6 @@ import { HeaderComponent } from '../shared/components/header/header.component';
 })
 export class MainsectionComponent {
   rotateToggle: boolean = false;
-
   
   rotateIndicator() {
     if (this.rotateToggle == false) {

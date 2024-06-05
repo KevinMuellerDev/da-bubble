@@ -4,8 +4,7 @@ import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FirebaseError } from '@angular/fire/app';
-import { User } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
+
 
 
 @Component({
@@ -77,9 +76,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
-        const errorCode = (error as FirebaseError).code;
-        const errorMessage = (error as FirebaseError).message;
-        console.log(errorCode, errorMessage);
+        console.error(error);
       }
 
     }

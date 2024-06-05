@@ -1,11 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
   private readonly storage: Storage = inject(Storage);
+  userService: UserService = inject(UserService);
   selectedAvatar!: string;
   files!: FileList;
   fileName!: string | undefined;
@@ -43,10 +45,11 @@ export class StorageService {
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files.item(i);
       if (file) {
-        const storageRef = ref(this.storage, uid);
+
+        const storageRef = ref(this.storage, uid + '/' + 'profile');
         await uploadBytesResumable(storageRef, file);
         await getDownloadURL(storageRef).then((url) => {
-          //TODO: IMPLEMENT LOGIC
+          this.userService.createUserInfo.profilePicture = url;
         })
       }
     }

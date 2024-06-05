@@ -15,7 +15,6 @@ import { RegisterComponent } from '../register/register.component';
 })
 export class ChooseavatarComponent implements OnInit {
   userService: UserService = inject(UserService);
-
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
 
   avatars: string[] = [
@@ -27,7 +26,7 @@ export class ChooseavatarComponent implements OnInit {
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile3.svg?alt=media&token=7bd92926-13d9-476b-8c39-fde34aa7044e'
   ];
 
-  constructor(private storageService: StorageService, private router: Router, private register: RegisterComponent) { }
+  constructor(private storageService: StorageService, private router: Router) { }
 
   ngOnInit() {
     this.avatars = this.getAvatars();
@@ -48,7 +47,7 @@ export class ChooseavatarComponent implements OnInit {
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
     this.storageService.files = {} as FileList;
-    console.log(this.storageService.fileUrl);
+    this.userService.createUserInfo.profilePicture = this.selectedAvatar;
   }
 
   /**
@@ -73,35 +72,21 @@ export class ChooseavatarComponent implements OnInit {
     }
   }
 
-  setUser(id: string) {
-    this.userService.prepareDataNewUser(this.register.registerForm, id);
-  }
 
   registerUser() {
     const auth = getAuth();
-    const email = this.register.registerForm.value.email;
-    const password = this.register.registerForm.value.password;
-    let user;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, this.userService.createUserInfo.email, this.userService.key)
       .then(async (userCredential) => {
-        user = userCredential.user;
-
-        this.setUser(user.uid);
-
-
-        console.log('user.uid:', user.uid, user);
+        this.userService.createUserInfo.id = userCredential.user.uid;
+        await this.storageService.uploadFile(this.userService.createUserInfo.id)
         await sendEmailVerification(auth.currentUser as User)
-          .then(() => {
-            console.log(auth.currentUser);
-
-          });
+          .then(() => { console.log(auth.currentUser) });
+        await this.userService.createUserProfile();
         this.router.navigate(['/']);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error(error);
       });
   }
 

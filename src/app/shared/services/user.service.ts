@@ -13,15 +13,21 @@ export class UserService {
   firestore: Firestore = inject(Firestore);
   currentUser: string | null;
   userInfo: UserInfo = new UserData();
-  createUserInfo!: UserInfo;
+  createUserInfo: UserInfo ={
+    name:"",
+    email:"",
+    id:"",
+    isLoggedIn:false,
+    profilePicture:"",
+  };
+  key!:string;
   unsubUser;
 
   constructor(private router: Router) {
-    if (sessionStorage.getItem("uid") === null && this.router.url !=='/register')
+    if (sessionStorage.getItem("uid") === null && this.router.url !== '/register')
       this.router.navigate(['/']);
     const data = sessionStorage.getItem("uid");
-    data === null ? this.currentUser ="peYVdjzALERKYH81TcDUD1eajm52" : this.currentUser = data;
-    
+    data === null ? this.currentUser = "peYVdjzALERKYH81TcDUD1eajm52" : this.currentUser = data;
     this.unsubUser = this.retrieveUserProfile();
   }
 
@@ -32,11 +38,11 @@ export class UserService {
    * @returns Unsubscribe from snapshot
    */
   retrieveUserProfile() {
-    return onSnapshot(doc(this.refUserProfile(), this.currentUser as string), (doc) => {
+    return onSnapshot(doc(this.refUserProfile(), this.currentUser as string), { includeMetadataChanges: true },(doc) => {
       this.userInfo = new UserData(doc.data())
       console.log(this.currentUser);
-      
     });
+    
   }
 
 
@@ -78,11 +84,12 @@ export class UserService {
    * @param obj - FormGroup which contains data from the register form 
    * @param uid - user ID from authentification
    */
-  prepareDataNewUser(obj: any, uid: string) {
+  prepareDataNewUser(obj: any) {
     this.createUserInfo.name = obj.name;
     this.createUserInfo.email = obj.email;
-    this.createUserInfo.id = uid;
     this.createUserInfo.isLoggedIn = false;
+    console.log(this.createUserInfo);
+    
   }
 
 
@@ -91,11 +98,12 @@ export class UserService {
    * 
    * @param url - URL of the img uploaded to the firestore
    */
-  newUserAvatar(url: any) {
+  newUserAvatar(url: any, uid: string) {
+    this.createUserInfo.id = uid;
     this.createUserInfo.profilePicture = url;
   }
 
-  
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
