@@ -38,14 +38,14 @@ export class RegisterComponent {
   }
 
 
-  test() {
-    this.userService.prepareDataNewUser(this.registerForm)
+  test(id:string) {
+    this.userService.prepareDataNewUser(this.registerForm, id)
   }
 
 
   // ---------------------------------------------------------------------------
   //TODO:  manage errors & set userdata & set avatar to complete registration!
-  //       Add name :) <3 <3 <3
+  //       Add name :) <3 <3 <3 und ID bitte mit übergeben <3
   register() {
     const auth = getAuth();
     const email = this.registerForm.value.email;

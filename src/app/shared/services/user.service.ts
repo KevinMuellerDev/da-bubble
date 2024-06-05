@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, getDoc, getDocs, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
 import { LoginComponent } from '../../login/login.component';
@@ -13,18 +13,18 @@ export class UserService {
   firestore: Firestore = inject(Firestore);
   currentUser: string | null;
   userInfo: UserInfo = new UserData();
-  createUserInfo:any;
+  createUserInfo!: UserInfo;
   unsubUser;
 
   constructor(private router: Router) {
-    if(sessionStorage.getItem("uid") === null)
+    if (sessionStorage.getItem("uid") === null)
       this.router.navigate(['/']);
     const data = sessionStorage.getItem("uid");
     this.currentUser = data;
     this.unsubUser = this.retrieveUserProfile();
   }
 
-  
+
   /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
@@ -52,6 +52,13 @@ export class UserService {
 
   }
 
+  /**
+   * Creates a new user in firestore
+   */
+  async createUserProfile() {
+    await setDoc(doc(this.firestore, "user", this.createUserInfo.id), this.createUserInfo);
+  }
+
 
   /**
    * Return the collection to which should be referenced to in a snapshot for example
@@ -62,13 +69,30 @@ export class UserService {
   }
 
 
-  prepareDataNewUser(obj:any){
-    //TODO: Objekt aufbereiten !!!
+  /**
+   * Function to assign incoming data to createUserInfo
+   * 
+   * @param obj - FormGroup which contains data from the register form 
+   * @param uid - user ID from authentification
+   */
+  prepareDataNewUser(obj: any, uid: string) {
+    this.createUserInfo.name = obj.name;
+    this.createUserInfo.email = obj.email;
+    this.createUserInfo.id = uid;
+    this.createUserInfo.isLoggedIn = false;
   }
 
-  newUserAvatar(url:any){
-    //TODO: Bild hinzufügen zu createUserObj.
+
+  /**
+   * Function to assign Profile picture url to createUserInfo
+   * 
+   * @param url - URL of the img uploaded to the firestore
+   */
+  newUserAvatar(url: any) {
+    this.createUserInfo.profilePicture = url;
   }
+
+
 
 
   ngOnDestroy(): void {
