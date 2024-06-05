@@ -20,9 +20,8 @@ export class RegisterComponent {
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
 
-  userService: UserService = inject(UserService);
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -38,9 +37,9 @@ export class RegisterComponent {
   }
 
 
-  test(id:string) {
+/*   test(id:string) {
     this.userService.prepareDataNewUser(this.registerForm, id)
-  }
+  } */
 
 
   // ---------------------------------------------------------------------------
@@ -53,9 +52,14 @@ export class RegisterComponent {
     let user;
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         user = userCredential.user;
         console.log('user.uid:', user.uid, user);
+        await sendEmailVerification(auth.currentUser as User)
+        .then(() => {
+          console.log(auth.currentUser);
+          
+        });
         this.router.navigate(['/register/chooseavatar']);
       })
       .catch((error) => {
@@ -64,11 +68,7 @@ export class RegisterComponent {
         console.log(errorCode, errorMessage);
       });
 
-    sendEmailVerification(auth.currentUser as User)
-      .then(() => {
-        console.log(auth.currentUser);
-        
-      });
+
 
   }
 }
