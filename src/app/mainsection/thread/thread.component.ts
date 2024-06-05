@@ -12,6 +12,7 @@ import { MainsectionComponent } from '../mainsection.component';
 })
 export class ThreadComponent {
 
+  closeThread(){}
 
   openDialogUserInfo(){
     

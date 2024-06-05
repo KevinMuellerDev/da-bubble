@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ShowProfileComponent } from '../../show-profile/show-profile.component';
 import { UserService } from '../../../services/user.service';
 import { UserData } from '../../../models/userdata.class';
+import { getAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-user-menu-dialog',
   standalone: true,
@@ -11,12 +12,12 @@ import { UserData } from '../../../models/userdata.class';
   templateUrl: './user-menu-dialog.component.html',
   styleUrl: './user-menu-dialog.component.scss'
 })
-export class UserMenuDialogComponent {
-  userService: UserService = inject(UserService);
-  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>) { }
+export class UserMenuDialogComponent{
+  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private userService: UserService) { }
 
   logout() {
     sessionStorage.removeItem('uid');
+    getAuth().signOut();
     this.dialogRef.close();
   }
 

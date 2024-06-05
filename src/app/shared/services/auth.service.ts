@@ -9,9 +9,8 @@ import { signInWithEmailAndPassword, verifyBeforeUpdateEmail } from '@angular/fi
 })
 export class AuthService {
   firestore: Firestore = inject(Firestore);
-  userService: UserService = inject(UserService);
   verified: boolean = false;
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   async verifyChange(key: string) {
     const auth = getAuth();

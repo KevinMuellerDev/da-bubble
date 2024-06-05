@@ -9,9 +9,9 @@ import { RouterLink, Router } from '@angular/router';
   providedIn: 'root'
 })
 
-export class UserService {
+export class UserService{
   firestore: Firestore = inject(Firestore);
-  currentUser: string | null;
+  currentUser?: string | null;
   userInfo: UserInfo = new UserData();
   createUserInfo: UserInfo ={
     name:"",
@@ -21,28 +21,30 @@ export class UserService {
     profilePicture:"",
   };
   key!:string;
-  unsubUser;
 
   constructor(private router: Router) {
+    console.log('bin da');
     if (sessionStorage.getItem("uid") === null && this.router.url !== '/register')
       this.router.navigate(['/']);
-    const data = sessionStorage.getItem("uid");
-    data === null ? this.currentUser = "peYVdjzALERKYH81TcDUD1eajm52" : this.currentUser = data;
-    this.unsubUser = this.retrieveUserProfile();
+    console.log(this.currentUser);
+    
   }
 
+  //TODO: Daten holen nach der Profil bearbeitung
 
   /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
    * @returns Unsubscribe from snapshot
    */
-  retrieveUserProfile() {
-    return onSnapshot(doc(this.refUserProfile(), this.currentUser as string), { includeMetadataChanges: true },(doc) => {
-      this.userInfo = new UserData(doc.data())
-      console.log(this.currentUser);
-    });
+  async retrieveUserProfile() {
+    const data = sessionStorage.getItem("uid");
     
+    this.currentUser = data;
+    const docRef = doc(this.refUserProfile(), this.currentUser as string);
+    const docSnap = await getDoc(docRef);
+
+    this.userInfo =new UserData(docSnap.data())   
   }
 
 
@@ -107,6 +109,8 @@ export class UserService {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.unsubUser();
+
+    console.log('bin da');
+    
   }
 }

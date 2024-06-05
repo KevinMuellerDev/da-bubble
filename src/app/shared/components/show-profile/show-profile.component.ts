@@ -20,14 +20,12 @@ import { VerifyComponent } from '../verify/verify.component';
 })
 
 export class ShowProfileComponent {
-  userService: UserService = inject(UserService);
-  authService: AuthService = inject(AuthService);
   updateUserForm: FormGroup;
 
   profileEditable: Boolean = false;
   editMode: boolean = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public userService: UserService, public authService: AuthService) {
     this.updateUserForm = new FormGroup({
       name: new FormControl(this.userService.userInfo.name),
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),

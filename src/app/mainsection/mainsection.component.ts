@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
@@ -17,6 +17,10 @@ import { user } from '@angular/fire/auth';
 })
 export class MainsectionComponent {
   rotateToggle: boolean = false;
+
+  constructor(private userService:UserService){
+    userService.retrieveUserProfile();
+  }
   
   rotateIndicator() {
     if (this.rotateToggle == false) {

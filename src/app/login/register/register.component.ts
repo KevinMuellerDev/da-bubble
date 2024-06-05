@@ -13,13 +13,13 @@ import { UserService } from '../../shared/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  userService:UserService = inject(UserService);
+  
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private userService:UserService = inject(UserService)) {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
