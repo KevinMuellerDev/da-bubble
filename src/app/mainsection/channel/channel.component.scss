@@ -1,5 +1,10 @@
 @import "./../../../styles.scss";
 
+.channel-container {
+    position: relative;
+    height: 100%;
+}
+
 .channel-head-wrapper {
     border-radius: 30px 30px 0 0;
     height: 96px;
@@ -258,4 +263,119 @@
         }
     }
 
+}
+
+
+.channel-message-input {
+    @include dFlex();
+    height: 145px;
+    position: absolute;
+    bottom: 40px;
+    left: 35px;
+    right: 35px;
+    border: 1px solid $light-purple;
+    border-radius: 30px;
+    resize: none;
+    padding: 20px 0 0 20px;
+    font-size: 18px;
+
+    &:hover {
+        border: 1px solid $purple2;
+    }
+
+    &:focus-visible {
+        outline: 1px solid $purple3;
+    }
+
+    &::placeholder {
+        font-size: 18px;
+    }
+}
+
+.icon-divider {
+    width: 1px;
+    background-color: $light-purple;
+    height: 40px;
+}
+
+.channel-message-icons {
+    position: absolute;
+    bottom: 60px;
+    left: 55px;
+    gap: 5px;
+    @include dFlex();
+}
+
+.add-icon {
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-image: url("/assets/img/icons/add_light.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/add_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+
+    &:active {
+        background-image: url("/assets/img/icons/add_bold.svg");
+    }
+
+}
+
+.emoji-icon {
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-image: url("/assets/img/icons/emoji_icon.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/emoji_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+
+    &:active {
+        background-image: url("/assets/img/icons/emoji_bold.svg");
+    }
+}
+
+.tag-icon {
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-image: url("/assets/img/icons/at_light.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/at_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+
+    &:active {
+        background-image: url("/assets/img/icons/at_bold.svg");
+    }
+}
+
+.send-icon {
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-image: url("/assets/img/icons/send.svg");
+    position: absolute;
+    bottom: 60px;
+    left: calc(100% - 85px);
+
+    &:hover {
+        background-image: url("/assets/img/icons/send_hover.svg");
+    }
 }
