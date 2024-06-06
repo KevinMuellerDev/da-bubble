@@ -32,6 +32,7 @@ header {
 
         img {
             border-radius: 50% 50%;
+            object-fit: cover;
             padding: 4px;
             cursor: pointer;
 
@@ -49,7 +50,7 @@ header {
         &:hover {
             color: $purple3;
 
-            .menu-btn{
+            .menu-btn {
                 background-image: url("/assets/img/header/menu-arrow-hovered.svg");
             }
         }
@@ -63,7 +64,7 @@ header {
             position: relative;
             @include dFlex();
 
-            img{
+            img {
                 border-radius: 50% 50%;
                 width: 70px;
                 height: 70px;

@@ -6,6 +6,8 @@ import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopu
 import { FirebaseError, firebaseApp$ } from '@angular/fire/app';
 import { signOut } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
+import { UserService } from '../shared/services/user.service';
+import { StorageService } from '../shared/services/storage.service';
 
 
 
@@ -19,6 +21,8 @@ import { Firestore } from '@angular/fire/firestore';
 })
 export class LoginComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
+  userService:UserService = inject(UserService);
+  storageService:StorageService = inject(StorageService);
   showIntroAnimation: boolean = false;
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
@@ -66,7 +70,6 @@ export class LoginComponent implements OnInit {
   async login() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
-    sessionStorage.removeItem	('uid');
     this.isFormSubmitted = true;
     if (this.loginForm.valid || this.guest) {
       const auth = getAuth();
@@ -93,12 +96,15 @@ export class LoginComponent implements OnInit {
     try {
       const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
       const user = result.user;
+      console.log(user);
+      this.userService.prepareDataNewUserGoogle(user)
+      this.userService.createUserProfile();
       console.log('user.uid:', user.uid, user);
+      sessionStorage.setItem("uid", user.uid); 
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
-      const errorCode = (error as FirebaseError).code;
-      const errorMessage = (error as FirebaseError).message;
-      console.log(errorCode, errorMessage);
+      console.error(error);
+      
     }
 
   }
