@@ -5,15 +5,38 @@ import { StorageService } from '../../shared/services/storage.service';
 import { UserService } from '../../shared/services/user.service';
 import { User, sendEmailVerification, getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { RegisterComponent } from '../register/register.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 
 @Component({
   selector: 'app-chooseavatar',
   standalone: true,
   imports: [RouterLink, CommonModule, RegisterComponent],
   templateUrl: './chooseavatar.component.html',
-  styleUrls: ['./chooseavatar.component.scss']
+  styleUrls: ['./chooseavatar.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translateX(0)',
+        opacity: '1'
+      })),
+      state('out', style({
+        transform: 'translateX(100%)',
+        opacity: '0'
+      })),
+      transition('out => in', [
+        animate('0.3s ease-in-out')
+      ]),
+      transition('in => out', [
+        animate('0.3s ease-in-out')
+      ])
+    ])
+  ]
 })
+
 export class ChooseavatarComponent implements OnInit {
+  popupState = 'out';
+
   userService: UserService = inject(UserService);
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
 
@@ -75,7 +98,6 @@ export class ChooseavatarComponent implements OnInit {
 
   registerUser() {
     const auth = getAuth();
-
     createUserWithEmailAndPassword(auth, this.userService.createUserInfo.email, this.userService.key)
       .then(async (userCredential) => {
         this.userService.createUserInfo.id = userCredential.user.uid;
@@ -83,11 +105,18 @@ export class ChooseavatarComponent implements OnInit {
         await sendEmailVerification(auth.currentUser as User)
           .then(() => { console.log(auth.currentUser) });
         await this.userService.createUserProfile();
-        this.router.navigate(['/']);
+
+
+        //----spinner-----
+        this.popupState = 'in';
+        setTimeout(() => {
+          this.popupState = 'out';
+          this.router.navigate(['/']);
+        }, 1000);
       })
+
       .catch((error) => {
         console.error(error);
       });
   }
-
 }

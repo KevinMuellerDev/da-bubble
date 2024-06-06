@@ -27,11 +27,11 @@ $green: #92c83e;
 /* figtree-500 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Figtree';
+    font-family: "Figtree";
     font-style: normal;
     font-weight: 500;
-    src: url('./assets/fonts/figtree-v5-latin-500.woff2') format('woff2');
-  }
+    src: url("./assets/fonts/figtree-v5-latin-500.woff2") format("woff2");
+}
 
 /* nunito-regular - latin */
 @font-face {
@@ -98,20 +98,20 @@ mat-card {
     border-radius: 30px;
 }
 
-.online{
+.online {
     color: $green;
 }
 
-.online-div{
-    background-color:$green;
+.online-div {
+    background-color: $green;
 }
 
-.offline{
+.offline {
     color: $text-gray;
 }
 
-.offline-div{
-    background-color:$text-gray;
+.offline-div {
+    background-color: $text-gray;
 }
 
 button:disabled {
@@ -121,6 +121,27 @@ button:disabled {
 }
 
 .verify .mat-mdc-dialog-container .mdc-dialog__surface {
-    border-radius: 30px!important;
+    border-radius: 30px !important;
     box-shadow: 0px 6px 10px 0px #00000033 !important;
+}
+
+.success-popup {
+    @include dFlex($jc: center, $ai: center);
+    position: absolute;
+    background-color: $purple1;
+    border-radius: 30px 30px 0 30px;
+    padding: 40px;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0;
+    z-index: 1;
+    img {
+        margin-right: 20px;
+    }
+    span {
+        margin: 0;
+        color: $white;
+        font-size: 2.25rem;
+        font-weight: 700;
+    }
 }
