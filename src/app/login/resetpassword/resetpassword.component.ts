@@ -16,7 +16,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         opacity: '1'
       })),
       state('out', style({
-        transform: 'translateX(100%)',
+        transform: 'translateX(100%)' + 'rotate(-30deg)',
+
         opacity: '0'
       })),
       transition('out => in', [
