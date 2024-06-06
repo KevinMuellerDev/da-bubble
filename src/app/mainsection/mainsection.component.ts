@@ -1,12 +1,10 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { UserService } from '../shared/services/user.service';
-import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-mainsection',
@@ -16,12 +14,15 @@ import { user } from '@angular/fire/auth';
   styleUrl: './mainsection.component.scss'
 })
 export class MainsectionComponent {
+  userService:UserService = inject(UserService);
   rotateToggle: boolean = false;
+  unsubProfile;
 
-  constructor(private userService:UserService){
-    userService.retrieveUserProfile();
+  constructor(){
+    this.unsubProfile = this.userService.retrieveUserProfile();
   }
   
+
   rotateIndicator() {
     if (this.rotateToggle == false) {
       document.getElementById('toggle')?.classList.add('rotate-toggle')
@@ -42,6 +43,11 @@ export class MainsectionComponent {
 
   showSidenav(){
     document.getElementById('sidebar')?.classList.remove('hide-show')
+  }
+
+  ngOnDestroy(){
+    console.log('hallo');
+    this.unsubProfile();
   }
 
 

@@ -30,22 +30,19 @@ export class UserService{
     
   }
 
-  //TODO: Daten holen nach der Profil bearbeitung
 
-  /**
+    /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
    * @returns Unsubscribe from snapshot
    */
-  async retrieveUserProfile() {
-    const data = sessionStorage.getItem("uid");
-    
-    this.currentUser = data;
-    const docRef = doc(this.refUserProfile(), this.currentUser as string);
-    const docSnap = await getDoc(docRef);
-
-    this.userInfo =new UserData(docSnap.data())   
-  }
+    retrieveUserProfile() {
+      const unsubscribe = onSnapshot(doc(this.refUserProfile(), sessionStorage.getItem("uid") as string), (doc) => {
+        this.userInfo = new UserData(doc.data())
+        this.currentUser = sessionStorage.getItem("uid");
+      });
+      return unsubscribe
+    }
 
 
   /**
