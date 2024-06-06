@@ -102,6 +102,37 @@
                 </div>
             </div>
         </div>
+        <div class="divider-container">
+            <div class="divider">
+                <span>Dienstag, 14 Januar</span>
+            </div>
+        </div>
+        <div class="single-message-container">
+            <div class="profile-picture">
+                <img src="/assets/img/profile/testchar1.svg" />
+            </div>
+            <div class="message-wrapper">
+                <div class="message-head">
+                    <div class="message-info">
+                        <span> Noah Braun</span>
+                        <div class="message-timestamp">
+                            <span>14:25 Uhr</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="message">
+                    <span> Welche Version von Angular ist aktuell ?</span>
+                </div>
+                <div class="message-reply-wrapper">
+                    <div class="message-replies">
+                        <span (click)="showThreadBar()">2 Antworten</span>
+                    </div>
+                    <div class="reply-timestamp">
+                        <span>Letzte Antwort 14:56</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="channel-message-wrapper">
         <form #channelChatMessage="ngForm" name="channelChatMessage"

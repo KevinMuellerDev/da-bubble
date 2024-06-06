@@ -121,6 +121,8 @@
 
 .channel-conversation-container {
     margin-top: 150px;
+    overflow-y: scroll;
+    height: calc(100% - 450px);
 }
 
 .divider-container {
