@@ -36,6 +36,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 export class ChooseavatarComponent implements OnInit {
   popupState = 'out';
+  showSpinner = false;
 
   userService: UserService = inject(UserService);
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
@@ -100,19 +101,21 @@ export class ChooseavatarComponent implements OnInit {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, this.userService.createUserInfo.email, this.userService.key)
       .then(async (userCredential) => {
+        this.showSpinner = true;
         this.userService.createUserInfo.id = userCredential.user.uid;
         await this.storageService.uploadFile(this.userService.createUserInfo.id)
         await sendEmailVerification(auth.currentUser as User)
           .then(() => { console.log(auth.currentUser) });
         await this.userService.createUserProfile();
 
-
-        //----spinner-----
-        this.popupState = 'in';
         setTimeout(() => {
-          this.popupState = 'out';
-          this.router.navigate(['/']);
-        }, 1000);
+          this.showSpinner = false;
+          this.popupState = 'in';
+          setTimeout(() => {
+            this.popupState = 'out';
+            this.router.navigate(['/']);
+          }, 1500);
+        }, 2500);
       })
 
       .catch((error) => {

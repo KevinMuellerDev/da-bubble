@@ -32,6 +32,41 @@
         <a routerLink="/imprint">Impressum</a>
         <a routerLink="/privacypolicy">Datenschutz</a>
     </footer>
+
+    <div class="loading-spinner" *ngIf="showSpinner">
+        <div class="spinner">
+
+            <div class="spinner-top">
+                <div class="blub">
+                    <img src="../../assets/img/login/logo_spinner/blub1.png">
+                </div>
+                <div class="img-with-dots">
+                    <div class="dots">
+                        <img src="../../assets/img/login/logo_spinner/dot.png">
+                        <img src="../../assets/img/login/logo_spinner/dot.png">
+                        <img src="../../assets/img/login/logo_spinner/dot.png">
+                    </div>
+                    <img src="../../assets/img/login/logo_spinner/blub_green.png">
+                </div>
+            </div>
+
+            <div class="spinner-bottom">
+                <div class="img-with-dots">
+                    <div class="dots">
+                        <img src="../../assets/img/login/logo_spinner/dot.png">
+                        <img src="../../assets/img/login/logo_spinner/dot.png">
+                        <img src="../../assets/img/login/logo_spinner/dot.png">
+                    </div>
+                    <img src="../../assets/img/login/logo_spinner/blub_orange.png">
+                </div>
+                <div class="blub">
+                    <img src="../../assets/img/login/logo_spinner/blub2.png">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="success-popup" [@slideInOut]="popupState">
         <span>Konto erfolgreich erstellt!</span>
     </div>

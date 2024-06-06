@@ -77,3 +77,106 @@ span {
         }
     }
 }
+
+.loading-spinner {
+    position: absolute;
+    @include dFlex($ai: center, $jc: center);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: #444df2af;
+}
+
+.spinner {
+    @include dFlex($ai: center, $jc: center);
+    flex-direction: column;
+    gap: 10px;
+    width: 186px;
+    height: 184px;
+}
+
+.spinner-top {
+    @include dFlex($ai: end, $jc: center);
+    gap: 10px;
+}
+
+.spinner-bottom {
+    @include dFlex($ai: start);
+    gap: 10px;
+}
+
+.img-with-dots {
+    position: relative;
+    @include dFlex($ai: center, $jc: center);
+    gap: 10px;
+    img{
+        animation: scaleAnimationImg 1.4s infinite;
+    }
+}
+
+.dots {
+    position: absolute;
+    @include dFlex($ai: center, $jc: center);
+    gap: 10px;
+    z-index: 1;
+    img{
+        animation: scaleAnimationDots 1.4s infinite;
+    }
+}
+
+.blub {
+    width: 58px;
+    height: 57px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        animation: scaleAnimationBlub 1.4s infinite;
+    }
+}
+
+@keyframes scaleAnimationDots {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    75% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes scaleAnimationImg {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    75% {
+        transform: scale(0.8);
+    }
+}
+
+@keyframes scaleAnimationBlub {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    75% {
+        transform: scale(1.1);
+    }
+}
