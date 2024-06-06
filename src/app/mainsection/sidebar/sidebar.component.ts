@@ -28,7 +28,7 @@ export class SidebarComponent {
   constructor(public dialog: MatDialog) { }
   
   openDialog() {
-    const dialogRef = this.dialog.open(AddNewChannelComponent);
+    const dialogRef = this.dialog.open(AddNewChannelComponent,{panelClass: 'mod-dialog-window'});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
