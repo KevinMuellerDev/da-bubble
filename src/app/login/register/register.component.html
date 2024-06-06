@@ -26,7 +26,8 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
-                    <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email" pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
+                    <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email"
+                        pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
@@ -38,8 +39,8 @@
                 <div class="input-container">
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
-                    <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort"
-                        formControlName="password" autocomplete="current-password">
+                    <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort" formControlName="password"
+                        autocomplete="current-password">
                 </div>
                 <div class="error">
                     <p
@@ -48,6 +49,17 @@
                     <p
                         *ngIf="registerForm.controls['password'].errors?.['minlength'] && registerForm.controls['password'].touched">
                         mindestens 8 Zeichen</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <input type="checkbox" formControlName="privacyCheck">
+                    <span>Ich stimme der<a routerLink="/privacypolicy">Datenschutzerklärung</a>zu.</span>
+                </div>
+                <div class="error">
+                    <p
+                        *ngIf="registerForm.controls['privacyCheck'].touched && registerForm.controls['privacyCheck'].errors?.['required']">
+                        Bitte stimme der Datenschutzerklarung zu</p>
                 </div>
             </div>
             <div class="login-btns">

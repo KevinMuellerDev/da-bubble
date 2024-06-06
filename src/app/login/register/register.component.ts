@@ -13,17 +13,16 @@ import { UserService } from '../../shared/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
-
 
   constructor(private router: Router,private userService:UserService = inject(UserService)) {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      privacyCheck: new FormControl(false, [Validators.requiredTrue])
     });
   }
 
@@ -43,29 +42,4 @@ export class RegisterComponent {
     }
   }
 
-/*   register() {
-    const auth = getAuth();
-    const email = this.registerForm.value.email;
-    const password = this.registerForm.value.password;
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        console.log('user.uid:', user.uid, user);
-        await sendEmailVerification(auth.currentUser as User)
-        .then(() => {
-          console.log(auth.currentUser);
-          
-        });
-        this.router.navigate(['/register/chooseavatar']);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-
-
-
-  } */
 }

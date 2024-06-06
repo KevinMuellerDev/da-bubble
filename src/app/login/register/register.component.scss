@@ -7,4 +7,57 @@ main {
 
 .login-btns {
     @include dFlex($jc: end);
+    margin-top: 24px;
+}
+
+.form-group:nth-child(4) {
+    margin-bottom: 0;
+}
+
+.checkbox {
+    @include dFlex($jc: flex-start, $ai: center);
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+
+    input {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background-image: url(/assets/img/login/checkbox.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
+
+        &:hover {
+            background-image: url(/assets/img/login/checkbox_hover.png);
+        }
+
+        &:checked {
+            background-image: url(/assets/img/login/checkbox_checked.png);
+        }
+
+        &:checked:hover {
+            background-image: url(/assets/img/login/checkbox_checked_hover.png);
+        }
+    }
+
+    span {
+        margin: 0;
+        @include dFlex($jc: flex-start, $ai: center);
+        font-family: "Open Sans" !important;
+        color: #42526e;
+        a {
+            &:hover {
+                font-weight: 400;
+                scale: 1;
+                border: 1px solid transparent;
+            }
+        }
+    }
 }
