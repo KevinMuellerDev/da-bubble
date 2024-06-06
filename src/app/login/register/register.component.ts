@@ -36,7 +36,7 @@ export class RegisterComponent {
   async continue() {
     this.isFormSubmitted = true;
     if (this.registerForm.valid) {
-      await this.userService.prepareDataNewUser(this.registerForm.value);
+      this.userService.prepareDataNewUser(this.registerForm.value);
       this.userService.key = this.registerForm.controls['password'].value
       this.router.navigate(['/register/chooseavatar']);
     }

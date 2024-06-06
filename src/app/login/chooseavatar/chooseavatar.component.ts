@@ -102,9 +102,8 @@ export class ChooseavatarComponent implements OnInit {
     createUserWithEmailAndPassword(auth, this.userService.createUserInfo.email, this.userService.key)
       .then(async (userCredential) => {
         this.userService.createUserInfo.id = userCredential.user.uid;
-        await this.storageService.uploadFile(this.userService.createUserInfo.id)
-        await sendEmailVerification(auth.currentUser as User)
-          .then(() => { console.log(auth.currentUser) });
+        await this.storageService.uploadFile(this.userService.createUserInfo.id);
+        await sendEmailVerification(auth.currentUser as User);
         await this.userService.createUserProfile();
       })
       .catch((error) => {

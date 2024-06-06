@@ -18,7 +18,9 @@ export class UserMenuDialogComponent{
   logout() {
     sessionStorage.removeItem('uid');
     getAuth().signOut();
-    this.userService.userInfo = new UserData();
+    setTimeout(() => {
+      this.userService.userInfo = new UserData();   
+    }, 200);
     this.dialogRef.close();
   }
 
