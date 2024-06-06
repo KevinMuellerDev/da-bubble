@@ -112,15 +112,17 @@ export class ChooseavatarComponent implements OnInit {
       });
   }
 
-  loadingScreen() {
+  delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async loadingScreen() {
     this.showLoading = true;
-    setTimeout(() => {
-      this.showLoading = false;
-      this.popupState = 'in';
-      setTimeout(() => {
-        this.popupState = 'out';
-        this.router.navigate(['/']);
-      }, 1000);
-    }, 2500);
+    await this.delay(2500);
+    this.showLoading = false;
+    this.popupState = 'in';
+    await this.delay(1000);
+    this.popupState = 'out';
+    this.router.navigate(['/']);
   }
 }
