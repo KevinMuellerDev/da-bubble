@@ -11,7 +11,7 @@
             <h1>Konto erstellen</h1>
             <h3>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</h3>
         </div>
-        <form [formGroup]="registerForm">
+        <form [formGroup]="registerForm" autocomplete="on">
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/person.png">
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
-                    <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email">
+                    <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email" pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">

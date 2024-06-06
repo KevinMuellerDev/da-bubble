@@ -88,8 +88,22 @@ export class UserService{
     this.createUserInfo.email = obj.email;
     this.createUserInfo.isLoggedIn = false;
     console.log(this.createUserInfo);
-    
   }
+
+    /**
+   * Function to assign incoming data to createUserInfo
+   * 
+   * @param obj - FormGroup which contains data from the register form 
+   * @param uid - user ID from authentification
+   */
+    prepareDataNewUserGoogle(obj: any) {
+      this.createUserInfo.name = obj.displayName;
+      this.createUserInfo.email = obj.email;
+      this.createUserInfo.isLoggedIn = false;
+      this.createUserInfo.id = obj.uid;
+      this.createUserInfo.profilePicture = obj.photoURL;
+      console.log(this.createUserInfo);
+    }
 
 
   /**

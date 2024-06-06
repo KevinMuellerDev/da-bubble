@@ -9,7 +9,7 @@
     <div class="user-menu"  (click)="openDialog()">
         <span>{{userService.userInfo.name}}</span>
         <div class="profile-picture">
-            <img [src]="userService.userInfo.profilePicture" alt="">
+            <img [src]="userService.userInfo.profilePicture" referrerpolicy="no-referrer" alt="">
             <div [ngClass]="getUserStatus()" class="status"></div>
         </div>
         <div class="menu-btn"></div>

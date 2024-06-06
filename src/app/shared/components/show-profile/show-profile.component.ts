@@ -64,8 +64,8 @@ export class ShowProfileComponent {
         console.log(this.authService.verified);
         
         if (this.authService.verified == true) {
-/*           this.authService.updateUserMail(this.updateUserForm.controls['email'].value)
- */          this.userService.updateUserProfile(this.updateUserForm);
+          this.authService.updateUserMail(this.updateUserForm.controls['email'].value)
+          this.userService.updateUserProfile(this.updateUserForm);
           this.editMode = false;
         }else{
           return
