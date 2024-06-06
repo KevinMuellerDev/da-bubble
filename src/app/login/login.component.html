@@ -18,13 +18,12 @@
             <h3>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
                 verwendest.</h3>
         </div>
-        <form [formGroup]="loginForm">
+        <form [formGroup]="loginForm" autocomplete="on">
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
-                    <input type="email" formControlName="email" placeholder="E-Mail Adresse"
-                        pattern="^(http(s){0,1}:\/\/.){0,1}[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
-                        autocomplete="email">
+                    <input type="email" formControlName="email" placeholder="E-Mail Adresse" autocomplete="email"
+                        pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
                 </div>
                 <div class="error" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
                     <p *ngIf="loginForm.controls['email'].errors?.['required']">Bitte eine gültige E-Mail-Adresse eingeben</p>
