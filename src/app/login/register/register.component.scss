@@ -53,6 +53,8 @@ main {
         font-family: "Open Sans" !important;
         color: #42526e;
         a {
+            margin-top: 2px;
+            padding: 4px;
             &:hover {
                 font-weight: 400;
                 scale: 1;

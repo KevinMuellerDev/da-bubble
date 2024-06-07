@@ -38,7 +38,7 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
+    width: 96%;
     max-width: 606px;
     margin: 0 auto;
     @include dFlex($jc: center, $ai: center);
@@ -310,4 +310,7 @@ a {
         height: 68px;
         z-index: -1;
     }
+}
+
+@media screen and (max-width: 768px) {
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
-
 @Component({
   selector: 'app-confirmpassword',
   standalone: true,
@@ -35,11 +34,7 @@ export class ConfirmpasswordComponent {
   constructor(private router: Router) {
   }
 
-
   confirmPassword() {
-
-
-
 
 
     this.popupState = 'in';

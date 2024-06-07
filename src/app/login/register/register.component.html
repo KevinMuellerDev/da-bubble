@@ -31,8 +31,7 @@
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
-                    <p *ngIf="registerForm.controls['email'].errors?.['required']">Bitte eine gültige E-Mail-Adresse
-                        eingeben</p>
+                    <p *ngIf="registerForm.controls['email'].errors?.['required']">Bitte eine gültige E-Mail-Adresse eingeben</p>
                 </div>
             </div>
             <div class="form-group">
@@ -58,7 +57,7 @@
                 </div>
                 <div class="error">
                     <p
-                        *ngIf="registerForm.controls['privacyCheck'].touched && registerForm.controls['privacyCheck'].errors?.['required']">
+                        *ngIf="registerForm.controls['email'].valid && registerForm.controls['password'].valid && registerForm.controls['name'].valid && registerForm.controls['privacyCheck'].invalid">
                         Bitte stimme der Datenschutzerklarung zu</p>
                 </div>
             </div>
