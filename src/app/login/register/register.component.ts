@@ -41,5 +41,4 @@ export class RegisterComponent {
       this.router.navigate(['/register/chooseavatar']);
     }
   }
-
 }
