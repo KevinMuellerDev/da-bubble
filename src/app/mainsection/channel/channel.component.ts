@@ -18,9 +18,13 @@ export class ChannelComponent {
   submitClick:boolean = false;
 
   @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
+  @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
     ngAfterViewChecked() {
-    this.scrollBottom()
+      this.scrollBottom()
+      
+      
+      
   }
     public scrollBottom() {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
@@ -29,10 +33,11 @@ export class ChannelComponent {
   onSubmit(form: NgForm) {
     this.submitClick = true;
     if (!form.valid) {
-      console.log(form)
+      console.log(form ,this.submitClick)
     } else if(form.valid) {
       console.log(this.message.content);
       form.reset();
+      this.messageContent.nativeElement.focus()
        this.submitClick = false;
     }
   }
