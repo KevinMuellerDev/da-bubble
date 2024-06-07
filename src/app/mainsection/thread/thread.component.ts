@@ -13,7 +13,10 @@ import { MainsectionComponent } from '../mainsection.component';
 export class ThreadComponent {
 
   closeThread() {
-        document.getElementById('threadBar')?.classList.add('hide-show')
+    document.getElementById('threadBar')?.classList.add('hide-show')
+    setTimeout(() => {
+      document.getElementById('threadBar')?.classList.add('d-none')
+    }, 100);
   }
 
   openDialogUserInfo(){

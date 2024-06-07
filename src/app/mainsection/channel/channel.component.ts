@@ -25,6 +25,6 @@ export class ChannelComponent {
   }
   
   showThreadBar() {
-      document.getElementById('threadBar')?.classList.remove('hide-show')
+      document.getElementById('threadBar')?.classList.remove('hide-show','d-none')
   }
 }
