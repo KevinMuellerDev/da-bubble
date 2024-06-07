@@ -16,7 +16,7 @@ export class ChannelComponent {
   }
 
   @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
-  
+
     ngAfterViewChecked() {
     this.scrollBottom()
   }
@@ -24,10 +24,7 @@ export class ChannelComponent {
     console.log(this.scroll.nativeElement.scrollTop);
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
-    public scrollToTop() {
-    this.scroll.nativeElement.scrollTop = 0;
-  }
-
+  
   onSubmit(form:NgForm) {
     if (!form.valid) {
       console.log(form)
