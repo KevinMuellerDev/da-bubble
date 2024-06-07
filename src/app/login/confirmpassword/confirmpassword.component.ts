@@ -50,6 +50,7 @@ export class ConfirmpasswordComponent {
       key: new FormControl(''),
       repeatedKey: new FormControl('')
     },{validators:this.mustMatch('key', 'repeatedKey')});
+    
     this.keyForm.controls['repeatedKey'].valueChanges
       .subscribe(() => { this.compareFormControl() })
   }
@@ -62,7 +63,6 @@ export class ConfirmpasswordComponent {
     await confirmPasswordReset(auth, this.code as string, this.key as string)
       .then(() => {
         console.log(this.key);
-        auth.signOut();
         this.popUpDisplay();
       })
       .catch((error) => {
