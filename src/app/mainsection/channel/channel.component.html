@@ -110,20 +110,24 @@
             </div>
         </div>
     </div>
-    <div class="channel-message-wrapper">
-        <form #channelChatMessage="ngForm" name="channelChatMessage"
-            (ngSubmit)="channelChatMessage.form.valid && onSubmit(channelChatMessage)">
-            <textarea class="channel-message-input" name="message" [(ngModel)]="message.content"
-                placeholder="Nachricht an #Entwicklerteam"></textarea>
+    <div class="channel-message-wrapper form-group">
+        <form #form="ngForm" name="channelChatMessage">
+            <textarea class="channel-message-input form-control" name="message" id="messageContent"
+                [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="1" required
+                [ngClass]="{ 'focus-visible-valid': form.valid &&  (form.dirty || form.touched), 'focus-visible-invalid': form.invalid &&  (form.dirty || form.touched) }">
+
+                </textarea>
             <div class="channel-message-icons">
                 <div class="add-icon"></div>
                 <div class="icon-divider"></div>
                 <div class="emoji-icon"></div>
                 <div class="tag-icon"></div>
             </div>
-            <div class="send-icon" (click)="onSubmit(channelChatMessage)">
-
-            </div>
+            <div class="send-icon" (click)="onSubmit(form)"></div>
         </form>
+
     </div>
+    <div [ngClass]="{ 'focus-visible-valid': form.valid ,
+                      'focus-visible-invalid': form.invalid  }" class="error-message"
+        *ngIf="!form.valid &&  ( form.touched)">Inhalt erforderlich !</div>
 </div>

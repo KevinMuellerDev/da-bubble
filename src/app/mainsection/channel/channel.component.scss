@@ -305,17 +305,30 @@
     padding: 20px 0 0 20px;
     font-size: 18px;
 
-    &:hover {
-        border: 1px solid $purple2;
-    }
-
     &:focus-visible {
         outline: 1px solid $purple3;
     }
 
+    &:hover {
+        border: 1px solid $purple2;
+    }
+
+
+
     &::placeholder {
         font-size: 18px;
     }
+}
+
+.focus-visible-valid:focus-visible {
+    outline: 1px solid $purple3;
+
+}
+
+.focus-visible-invalid:focus-visible {
+    outline: 1px solid $error;
+    border: 1px solid $error;
+    ;
 }
 
 .icon-divider {
@@ -404,4 +417,11 @@
     &:hover {
         background-image: url("/assets/img/icons/send_hover.svg");
     }
+}
+
+.error-message {
+    position: absolute;
+    bottom: 5px;
+    left: 35px;
+    color: $error;
 }

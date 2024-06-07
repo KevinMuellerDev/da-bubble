@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm,FormGroup } from '@angular/forms';
 import { MainsectionComponent } from '../mainsection.component';
 
 @Component({
@@ -13,14 +13,14 @@ import { MainsectionComponent } from '../mainsection.component';
 export class ChannelComponent {
   message = {
   content:''
-}
+  }
 
-  onSubmit(channelChatMessage:NgForm) {
-    if (this.message.content === '') {
-      console.log("nüscht")
-    } else {
+  onSubmit(form:NgForm) {
+    if (!form.valid) {
+      console.log(form)
+    } else if(form.valid) {
       console.log(this.message.content);
-      channelChatMessage.reset();
+      form.reset();
     }
   }
   
