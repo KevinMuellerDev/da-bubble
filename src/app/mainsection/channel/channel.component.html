@@ -111,10 +111,10 @@
         </div>
     </div>
     <div class="channel-message-wrapper form-group">
-        <form #form="ngForm" name="channelChatMessage">
+        <form #form="ngForm" name="form" (ngSubmit)="form.valid && onSubmit(form)">
             <textarea class="channel-message-input form-control" name="message" id="messageContent"
                 [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="1" required
-                [ngClass]="{ 'focus-visible-valid': form.valid &&  (form.dirty || form.touched), 'focus-visible-invalid': form.invalid &&  (form.dirty || form.touched) }">
+                [ngClass]="{ 'focus-visible-invalid': form.invalid && form.touched}">
 
                 </textarea>
             <div class="channel-message-icons">
@@ -127,7 +127,5 @@
         </form>
 
     </div>
-    <div [ngClass]="{ 'focus-visible-valid': form.valid ,
-                      'focus-visible-invalid': form.invalid  }" class="error-message"
-        *ngIf="!form.valid &&  ( form.touched)">Inhalt erforderlich !</div>
+    <div class="error-message" *ngIf="!form.valid &&  ( form.touched)">Inhalt erforderlich !</div>
 </div>

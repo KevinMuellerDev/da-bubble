@@ -325,10 +325,17 @@
 
 }
 
-.focus-visible-invalid:focus-visible {
-    outline: 1px solid $error;
+.focus-visible-invalid {
+    &:focus-visible {
+        outline: 1px solid $error;
+    }
+
+    &:hover {
+        outline: 1px solid $error;
+        border: 1px solid $error;
+    }
+
     border: 1px solid $error;
-    ;
 }
 
 .icon-divider {
