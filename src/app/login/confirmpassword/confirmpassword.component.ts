@@ -5,7 +5,6 @@ import { confirmPasswordReset, getAuth, updatePassword } from '@angular/fire/aut
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-confirmpassword',
   standalone: true,

@@ -1,6 +1,5 @@
 <section>
     <div class="intro-bg-animation" *ngIf="showIntroAnimation"></div>
-
     <div class="intro-logo-animation" *ngIf="showIntroAnimation"></div>
     <header>
         <div>
@@ -15,8 +14,7 @@
     <main>
         <div class="title">
             <h1>Anmelden</h1>
-            <h3>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
-                verwendest.</h3>
+            <h3>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</h3>
         </div>
         <form [formGroup]="loginForm" autocomplete="on">
             <div class="form-group">
@@ -33,12 +31,16 @@
                 <div class="input-container">
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
-                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
-                        placeholder="Passwort" autocomplete="current-password">
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Passwort"
+                        autocomplete="current-password">
                 </div>
                 <div class="error">
-                    <p *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">Falsches Passwort. Bitte noch einmal versuchen</p>
-                    <p *ngIf="loginForm.controls['password'].errors?.['minlength'] && loginForm.controls['password'].touched">mindestens 8 Zeichen</p>
+                    <p
+                        *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">
+                        Falsches Passwort. Bitte noch einmal versuchen</p>
+                    <p
+                        *ngIf="loginForm.controls['password'].errors?.['minlength'] && loginForm.controls['password'].touched">
+                        mindestens 8 Zeichen</p>
                 </div>
             </div>
             <div>
@@ -49,7 +51,8 @@
                 <p>ODER</p>
                 <hr>
             </span>
-            <button class="google-login" (click)="loginWithGoogle()"><img src="../../assets/img/login/google_logo.png">Anmelden mit
+            <button type="button" class="google-login" (click)="loginWithGoogle()"><img
+                    src="../../assets/img/login/google_logo.png">Anmelden mit
                 Google</button>
             <div class="login-btns">
                 <button type="submit" (click)="login()" [disabled]="loginForm.invalid">Anmelden</button>

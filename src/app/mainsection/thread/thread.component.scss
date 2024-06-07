@@ -31,22 +31,17 @@
 
 .close-icon {
   @include dFlex($jc: center);
-  width: 40px;
   height: 40px;
+  width: 40px;
   cursor: pointer;
-
-  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/assets/img/icons/close.svg");
 
   &:hover {
+    background-image: url("/assets/img/icons/close_hover.svg");
     background-color: $bg-color;
-
-    >svg {
-      transform: scale(1.2);
-
-      >path {
-        fill: $purple2;
-      }
-    }
+    border-radius: 50%;
   }
 }
 
@@ -147,4 +142,8 @@
 .hide-show {
   visibility: hidden;
   width: 0 !important;
+}
+
+.d-none {
+  display: none;
 }

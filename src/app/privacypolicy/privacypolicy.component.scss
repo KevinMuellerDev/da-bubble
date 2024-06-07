@@ -1,12 +1,12 @@
 @import "../../styles.scss";
 
 section {
-    height: 100vh;
-    padding: 0 70px;
+    min-height: 100dvh;
+    padding: 0 16px;
 }
 
 header {
-    padding: 55px 0;
+    padding: 55px 70px;
     @include dFlex($jc: space-between, $ai: center);
     div:nth-child(1) {
         @include dFlex($ai: center);
@@ -24,8 +24,9 @@ header {
 
 main {
     position: relative;
-    width: 100%;
-    padding: 40px 70px;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 70px 70px;
     background-color: $white;
     border-radius: 30px;
 }
@@ -46,12 +47,59 @@ main {
     }
 }
 
-// .title {
-// }
-
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
     color: $purple3;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: $purple3;
+}
+
+a {
+    color: $purple3;
+    text-decoration: none;
+    font-weight: 700;
+    word-wrap: break-word;
+    &:hover {
+        color: $purple1;
+    }
+}
+
+ul{
+    padding-left: 20px;
+    li{
+        margin: 8px 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    header{
+        @include dFlex($jc: center, $ai: center);
+        padding: 40px 0;
+    }
+
+    main{
+        padding: 70px 40px;
+    }
+    h1{
+        font-size: 2rem;
+    }
+    h2{
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    main{
+        padding: 70px 20px;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
 }

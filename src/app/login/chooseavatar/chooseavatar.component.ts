@@ -7,7 +7,6 @@ import { User, sendEmailVerification, getAuth, createUserWithEmailAndPassword } 
 import { RegisterComponent } from '../register/register.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
-
 @Component({
   selector: 'app-chooseavatar',
   standalone: true,

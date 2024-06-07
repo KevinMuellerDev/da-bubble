@@ -9,9 +9,6 @@ import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../shared/services/user.service';
 import { StorageService } from '../shared/services/storage.service';
 
-
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,14 +18,13 @@ import { StorageService } from '../shared/services/storage.service';
 })
 export class LoginComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
-  userService:UserService = inject(UserService);
-  storageService:StorageService = inject(StorageService);
+  userService: UserService = inject(UserService);
+  storageService: StorageService = inject(StorageService);
   showIntroAnimation: boolean = false;
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
   guest!: boolean;
-
 
   /**
    * Initializes the login form with email and password form controls.
@@ -43,7 +39,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
   /**
    * Initializes the component and checks if the animation has been seen before.
    * If not, sets the `showIntroAnimation` flag to true and stores it in the session storage.
@@ -56,7 +51,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   /**
   * Toggles the visibility of the password field.
   */
@@ -64,9 +58,6 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-
-  //---------------------------------------------------------------------------
-  //TODO:  manage errors & set userdata!
   async login() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
@@ -86,7 +77,6 @@ export class LoginComponent implements OnInit {
       } catch (error) {
         console.error(error);
       }
-
     }
   }
 
@@ -100,13 +90,11 @@ export class LoginComponent implements OnInit {
       this.userService.prepareDataNewUserGoogle(user)
       this.userService.createUserProfile();
       console.log('user.uid:', user.uid, user);
-      sessionStorage.setItem("uid", user.uid); 
+      sessionStorage.setItem("uid", user.uid);
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
       console.error(error);
-      
     }
-
   }
 
   loginGuest() {

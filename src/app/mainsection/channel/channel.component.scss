@@ -1,7 +1,7 @@
 @import "./../../../styles.scss";
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 
 /* Track */
@@ -48,43 +48,51 @@
     }
 
     &:hover {
+        .channel-head-tag-icon {
+            background-image: url("/assets/img/icons/tag_hover.svg");
+        }
+
+        .channel-head-arrow-icon {
+            background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
+        }
+
         >span {
             color: $purple1;
         }
 
         background-color: $bg-color;
         border-radius: 30px;
-
-        .channel-head-tag {
-            >svg {
-                transform: scale(1.1);
-
-                >path {
-                    fill: $purple1;
-                }
-            }
-        }
-
-        .channel-head-arrow {
-            >svg {
-                transform: scale(1.1);
-
-                >path {
-                    fill: $purple1;
-                }
-            }
-        }
     }
 }
 
-.channel-head-tag {
+.channel-head-tag-icon {
     @include dFlex($jc: center);
     cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/tag.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/tag_hover.svg");
+
+    }
 }
 
-.channel-head-arrow {
+.channel-head-arrow-icon {
     @include dFlex($jc: center);
     cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/channel_arrow_down.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
+
+    }
 }
 
 .channel-head-right {
@@ -120,23 +128,19 @@
 }
 
 .add-user-channel-icon {
-    @include dFlex($jc: center);
-    width: 40px;
     height: 40px;
+    width: 40px;
+    @include dFlex($jc: center);
     background-color: $bg-color;
     border-radius: 50%;
     cursor: pointer;
     margin-left: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/person_add.svg");
 
     &:hover {
-        >svg {
-            transform: scale(1.1);
-        }
-
-        .path-hover {
-
-            fill: $purple1;
-        }
+        background-image: url("/assets/img/icons/person_add_hover.svg");
     }
 }
 
@@ -288,7 +292,6 @@
 
 }
 
-
 .channel-message-input {
     @include dFlex();
     height: 145px;
@@ -302,17 +305,30 @@
     padding: 20px 0 0 20px;
     font-size: 18px;
 
-    &:hover {
-        border: 1px solid $purple2;
-    }
-
     &:focus-visible {
         outline: 1px solid $purple3;
     }
 
+    &:hover {
+        border: 1px solid $purple2;
+    }
+
+
+
     &::placeholder {
         font-size: 18px;
     }
+}
+
+.focus-visible-valid:focus-visible {
+    outline: 1px solid $purple3;
+
+}
+
+.focus-visible-invalid:focus-visible {
+    outline: 1px solid $error;
+    border: 1px solid $error;
+    ;
 }
 
 .icon-divider {
@@ -401,4 +417,11 @@
     &:hover {
         background-image: url("/assets/img/icons/send_hover.svg");
     }
+}
+
+.error-message {
+    position: absolute;
+    bottom: 5px;
+    left: 35px;
+    color: $error;
 }
