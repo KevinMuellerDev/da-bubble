@@ -243,9 +243,11 @@
 }
 
 .message-reply-wrapper {
-    @include dFlex();
+    @include dFlex($jc: space-between);
     margin-top: 8px;
-    gap: 20px;
+    max-width: 258.688px;
+    width: 100%;
+    text-wrap: nowrap;
 }
 
 .message-replies {

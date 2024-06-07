@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, NgForm,FormGroup } from '@angular/forms';
+import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MainsectionComponent } from '../mainsection.component';
 
 @Component({
@@ -15,6 +15,19 @@ export class ChannelComponent {
   content:''
   }
 
+  @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
+  
+    ngAfterViewChecked() {
+    this.scrollBottom()
+  }
+    public scrollBottom() {
+    console.log(this.scroll.nativeElement.scrollTop);
+    this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+  }
+    public scrollToTop() {
+    this.scroll.nativeElement.scrollTop = 0;
+  }
+
   onSubmit(form:NgForm) {
     if (!form.valid) {
       console.log(form)
@@ -23,7 +36,6 @@ export class ChannelComponent {
       form.reset();
     }
   }
-  
   showThreadBar() {
       document.getElementById('threadBar')?.classList.remove('hide-show','d-none')
   }
