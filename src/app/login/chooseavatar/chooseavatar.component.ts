@@ -103,7 +103,7 @@ export class ChooseavatarComponent implements OnInit {
       .then(async (userCredential) => {
         this.userService.createUserInfo.id = userCredential.user.uid;
         await this.storageService.uploadFile(this.userService.createUserInfo.id);
-        await sendEmailVerification(auth.currentUser as User);
+        /* await sendEmailVerification(auth.currentUser as User); */
         await this.userService.createUserProfile();
       })
       .catch((error) => {

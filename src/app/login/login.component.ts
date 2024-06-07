@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
         const user = userCredential.user;
         console.log('user.uid:', user.uid, user);
         sessionStorage.setItem("uid", user.uid); 
-        user.emailVerified ? this.router.navigate(['/mainsection/' + user.uid]) : console.warn('user not verified');
+        this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
         console.error(error);

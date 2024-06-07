@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-resetpassword',
@@ -35,16 +36,28 @@ export class ResetpasswordComponent {
   constructor(private router: Router) { }
 
 
-  sendEmail() {
+  async sendEmail() {
 
     // Simulate email sending logic
 
     console.log('Email sent!');
     this.popupState = 'in';
 
+    const auth = getAuth();
+    await sendPasswordResetEmail(auth, 'kevin.mueller@fenrirdev.de')
+      .then(() => {
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+
     setTimeout(() => {
       this.popupState = 'out';
-      this.router.navigate(['/confirmpassword']);
+      this.router.navigate(['/']);
     }, 1000);
   }
 }
