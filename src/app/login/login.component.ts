@@ -110,8 +110,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginGuest() {
-    this.loginForm.value.email = "guest@dabubble.dev";
-    this.loginForm.value.password = "guest123";
+    this.loginForm.value.email = "info@kevin-mueller-dev.de";
+    this.loginForm.value.password = "Kev9toxo0!";
     this.guest = true
     this.login();
   }
