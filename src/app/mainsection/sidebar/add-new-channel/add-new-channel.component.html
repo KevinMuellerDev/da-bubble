@@ -10,15 +10,18 @@
         (ngSubmit)="createNewChannel.form.valid && onSubmit(createNewChannel)">
         <div class="channel-name">
             <span> Channel-Name</span>
-            <input required type="text" name="channelName" placeholder="# z.B. Kooperationsprojekte"
-                [(ngModel)]="inputs.channelName">
+            <input minlength="1" required type="text" name="channelName" placeholder="# z.B. Kooperationsprojekte"
+                [(ngModel)]="inputs.channelName" [ngClass]="{ 'focus-visible-invalid': createNewChannel.invalid }">
+
+        </div>
+        <div class="error-message" *ngIf="!createNewChannel.valid ">Inhalt erforderlich !
         </div>
         <div class="channel-description">
             <span> Beschreibung <span class="optional-notice">(optional)</span></span>
             <input type="text" name="channelDescription" placeholder="Dein Text hier" [(ngModel)]="inputs.description">
         </div>
         <div class="button-container">
-            <button [mat-dialog-close]="true" (click)="onSubmit(createNewChannel)">
+            <button [disabled]="!createNewChannel.valid" [mat-dialog-close]="true" (click)="onSubmit(createNewChannel)">
                 Erstellen
             </button>
         </div>

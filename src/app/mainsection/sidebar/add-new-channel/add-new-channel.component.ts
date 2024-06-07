@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule,NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -5,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-new-channel',
   standalone: true,
-  imports: [MatDialogModule,FormsModule],
+  imports: [MatDialogModule,FormsModule,CommonModule],
   templateUrl: './add-new-channel.component.html',
   styleUrl: './add-new-channel.component.scss'
 })

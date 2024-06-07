@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import {
   trigger,
   state,
-  style,
-  animate,
-  transition,
+  style
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
@@ -29,14 +27,12 @@ export class SidebarComponent {
   
   openDialog() {
     const dialogRef = this.dialog.open(AddNewChannelComponent,{panelClass: 'mod-dialog-window'});
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   
-}
-
-
+  }
+  
   /**
    * An object representing the states of different menus.
    * Each menu state can either be 'open' or 'closed'.

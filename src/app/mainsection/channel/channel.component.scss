@@ -322,11 +322,6 @@
     }
 }
 
-.focus-visible-valid:focus-visible {
-    outline: 1px solid $purple3;
-
-}
-
 .focus-visible-invalid {
     &:focus-visible {
         outline: 1px solid $error;

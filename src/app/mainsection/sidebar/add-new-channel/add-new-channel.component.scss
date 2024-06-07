@@ -121,3 +121,20 @@ form {
         }
     }
 }
+
+.focus-visible-invalid {
+    &:focus-visible {
+        outline: 1px solid $error !important;
+    }
+
+    &:hover {
+        outline: 1px solid $error;
+        border: 1px solid $error;
+    }
+
+    border: 1px solid $error !important;
+}
+
+.error-message {
+    color: $error;
+}
