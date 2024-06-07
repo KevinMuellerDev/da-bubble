@@ -22,32 +22,37 @@
 
 .header-logo {
   margin-right: 13.5px;
-  > img {
+
+  >img {
     width: 60px;
   }
 }
 
 .headline-left {
   @include dFlex();
-  > span {
+
+  >span {
     font-size: 24px;
     font-weight: 700;
   }
 }
 
 .edit-icon {
-  > svg {
-    cursor: pointer;
-    &:hover {
-      background-color: $bg-color;
-      border-radius: 50%;
-      transform: scale(1.1);
-      > g {
-        > path {
-          fill: $purple1;
-        }
-      }
-    }
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/edit_square.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/edit_square_hover.svg");
+    background-color: $bg-color;
+    border-radius: 50%;
+  }
+
+  &:active {
+    background-image: url("/assets/img/icons/edit_square_bold.svg");
   }
 }
 
@@ -68,69 +73,84 @@
   @include dFlex();
 }
 
-.arrow-down-icon {
-  margin-right: 15px;
-  width: 30px;
-  height: 30px;
-  @include dFlex($jc: center);
-  cursor: pointer;
-  &:hover {
-    > svg {
-      > path {
-        fill: $purple1;
-      }
-    }
-  }
-}
+
 
 .channel-head {
   @include dFlex($jc: center);
   cursor: pointer;
   gap: 10px;
-  > span {
+
+  >span {
     font-size: 20px;
     font-weight: 700;
   }
+
   &:hover {
     .arrow-down-icon {
-      > svg {
-        > path {
-          fill: $purple1;
-        }
-      }
+      background-image: url("/assets/img/icons/arrow_drop_down_hover.svg");
     }
-    > span {
+
+    .channel-icon {
+      background-image: url("/assets/img/icons/workspaces_hover.svg");
+    }
+
+    >span {
       color: $purple1;
     }
-    > div {
-      > svg {
-        > path {
-          fill: $purple1;
-        }
-      }
-    }
+
   }
+}
+
+.arrow-down-icon {
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/arrow_drop_down.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/arrow_drop_down_hover.svg");
+
+  }
+
 }
 
 .channel-icon {
   @include dFlex($jc: center);
-  height: 24px;
-  width: 24px;
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/workspaces.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/workspaces_hover.svg");
+
+  }
+
 }
 
 .channel-head-plus-icon {
   cursor: pointer;
-  > svg {
-    @include dFlex($jc: center);
-  }
+  @include dFlex($jc: center);
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/assets/img/icons/add_bold.svg");
+
   &:hover {
+    background-image: url("/assets/img/icons/add_hover.svg");
     background-color: $bg-color;
     border-radius: 50%;
-    transform: scale(1.2);
-    .icon-path {
-      fill: $purple1;
-    }
   }
+
+  &:active {
+    background-image: url("/assets/img/icons/add_bold.svg");
+  }
+
 }
 
 .channel-wrapper {
@@ -148,12 +168,14 @@
   cursor: pointer;
   @include dFlex();
   gap: 10px;
+
   .channel-hash {
     height: 24px;
     width: 24px;
     font-weight: bold;
     @include dFlex($jc: center);
   }
+
   .channel-name {
     @include dFlex($jc: center);
     font-size: 18px;
@@ -161,34 +183,38 @@
   }
 }
 
-.channel-head-plus-icon {
-  width: 24px;
-  height: 24px;
-}
-
-.add-new-channel {
-  @include dFlex($jc: center);
+.add-new-channel-container {
+  @include dFlex();
   gap: 10px;
   margin-top: 25px;
-  > svg {
-    width: 24px;
-    height: 24px;
-  }
-
   cursor: pointer;
-  > span {
+
+  >span {
     font-size: 18px;
   }
+
   &:hover {
-    > span {
+    .add-new-channel-icon {
+      background-image: url("/assets/img/icons/add_circle_hover.svg");
+    }
+
+    >span {
       color: $purple1;
     }
-    > svg {
-      transform: scale(1.2);
-      > path {
-        fill: $purple1;
-      }
-    }
+  }
+}
+
+.add-new-channel-icon {
+  cursor: pointer;
+  @include dFlex($jc: center);
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/assets/img/icons/add_circle.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/add_circle_hover.svg");
   }
 }
 
@@ -197,19 +223,39 @@
   @include dFlex();
   width: 100%;
   gap: 10px;
-  > span {
+
+  >span {
     font-size: 18px;
   }
+
   &:hover {
-    > span {
-      color: $purple1;
-    }
     .message-icon {
-      transform: scale(1.2);
+      background-image: url("/assets/img/icons/account_circle_hover.svg");
     }
-    .message-icon-hover {
-      fill: $purple1;
+
+    .arrow-down-icon {
+      background-image: url("/assets/img/icons/arrow_drop_down_hover.svg");
     }
+
+    >span {
+      color: $purple1;
+
+
+    }
+  }
+}
+
+.message-icon {
+  cursor: pointer;
+  @include dFlex($jc: center);
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/assets/img/icons/account_circle.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/account_circle_hover.svg");
   }
 }
 
@@ -220,11 +266,6 @@
   padding: 5px 10px;
 }
 
-.message-icon {
-  @include dFlex($jc: center);
-  width: 24px;
-  height: 24px;
-}
 
 .messages-container {
   @include dFlex();
@@ -239,18 +280,22 @@
   @include dFlex($jc: center);
   margin-left: 25px;
   gap: 15px;
-  > img {
+
+  >img {
     width: 50px;
     height: 50px;
     border-radius: 50% 50%;
   }
-  > span {
+
+  >span {
     font-size: 18px;
   }
+
   &:hover {
     background-color: $bg-color;
     border-radius: 30px;
-    > span {
+
+    >span {
       color: $purple1;
     }
   }
