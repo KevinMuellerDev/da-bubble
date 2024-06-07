@@ -15,6 +15,8 @@ export class ChannelComponent {
   content:''
   }
 
+  submitClick:boolean = false;
+
   @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
 
     ngAfterViewChecked() {
@@ -23,13 +25,15 @@ export class ChannelComponent {
     public scrollBottom() {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
-  
-  onSubmit(form:NgForm) {
+
+  onSubmit(form: NgForm) {
+    this.submitClick = true;
     if (!form.valid) {
       console.log(form)
     } else if(form.valid) {
       console.log(this.message.content);
       form.reset();
+       this.submitClick = false;
     }
   }
   showThreadBar() {
