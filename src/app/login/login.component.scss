@@ -161,7 +161,7 @@ span {
     width: 100%;
     @include dFlex($jc: center);
     gap: 30px;
-    margin-top: 40px;
+    margin: 40px 0;
     :nth-child(1) {
         background-color: $purple1;
         color: $white;
@@ -313,4 +313,30 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+    header {
+        @include dFlex($jc: center, $ai: center);
+        div:nth-child(2) {
+            display: none;
+        }
+    }
+
+    main{
+        top: 150px;
+        transform: translate(-50%, 0%);
+    }
+
+    .register-container {
+        display: block;
+        margin-bottom: -150px;
+        height: 100px;
+        width: 200px;
+        span{
+            margin: 20px 0;
+        }
+        a{
+            border: 1px solid $purple2;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+    }
 }
