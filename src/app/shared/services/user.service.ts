@@ -31,7 +31,7 @@ export class UserService{
   }
 
 
-    /**
+  /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
    * @returns Unsubscribe from snapshot
