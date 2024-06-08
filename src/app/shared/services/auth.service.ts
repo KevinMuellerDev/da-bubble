@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { User, getAuth, updateEmail } from "firebase/auth";
 import { UserService } from './user.service';
-import { signInWithEmailAndPassword, verifyBeforeUpdateEmail } from '@angular/fire/auth';
+import { confirmPasswordReset, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,6 @@ export class AuthService {
 
   }
 
-  // TODO: vorherige erneute passwortabfrage
   async updateUserMail(mail: string) {
     const auth = getAuth();
     updateEmail(auth.currentUser as User, mail).then(() => {
@@ -35,6 +34,18 @@ export class AuthService {
     }).catch((error) => {
       console.error(error);
     });
+  }
+
+  async confirmNewPassword(code:string ,key:string){
+    const auth = getAuth();
+;
+    await confirmPasswordReset(auth, code, key)
+    .then(() => {
+      console.log(key);
+    })
+    .catch((error) => {
+      console.error(error.code, '', error.message);
+    })
   }
 
 }

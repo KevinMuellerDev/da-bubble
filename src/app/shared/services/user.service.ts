@@ -24,7 +24,7 @@ export class UserService{
 
   constructor(private router: Router) {
     console.log('bin da');
-    if (sessionStorage.getItem("uid") === null && this.router.url !== '/register')
+    if (sessionStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
       this.router.navigate(['/']);
     console.log(this.currentUser);
     

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { confirmPasswordReset, getAuth, updatePassword } from '@angular/fire/auth';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-confirmpassword',
@@ -32,6 +33,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class ConfirmpasswordComponent {
+  authService:AuthService = inject(AuthService);
   popupState = 'out';
   params!: URLSearchParams;
   code?: string | null;
@@ -57,17 +59,10 @@ export class ConfirmpasswordComponent {
 
 
   async confirmPassword() {
-    const auth = getAuth();
     this.key = this.keyForm.controls['key'].value	;
-    
-    await confirmPasswordReset(auth, this.code as string, this.key as string)
-      .then(() => {
-        console.log(this.key);
-        this.popUpDisplay();
-      })
-      .catch((error) => {
-        console.error(error.code, '', error.message);
-      })
+
+    await this.authService.confirmNewPassword(this.code as string, this.key as string);
+    this.popUpDisplay();
   }
 
   compareFormControl() {
