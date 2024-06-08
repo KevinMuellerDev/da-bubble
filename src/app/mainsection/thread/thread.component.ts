@@ -16,14 +16,13 @@ export class ThreadComponent {
 
   constructor(public dialog: MatDialog){}
   
-
-  closeThread() {
-    document.getElementById('threadBar')?.classList.add('hide-show')
+ closeThread() {
+  document.getElementById('threadBar')?.classList.add('hide-thread')
+  document.getElementById('threadBar')?.classList.remove('show-thread')
     setTimeout(() => {
       document.getElementById('threadBar')?.classList.add('d-none')
-    }, 100);
+    }, 200);
   }
-
 
   /**
   * This function opens the dialog and determines if the ShowProfile component is editable or not
