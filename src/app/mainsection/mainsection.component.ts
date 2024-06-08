@@ -14,14 +14,16 @@ import { UserService } from '../shared/services/user.service';
   styleUrl: './mainsection.component.scss'
 })
 export class MainsectionComponent {
-  userService:UserService = inject(UserService);
+  userService: UserService = inject(UserService);
   rotateToggle: boolean = false;
   unsubProfile;
+  unsubUserChannels;
 
-  constructor(){
+  constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
+    this.unsubUserChannels = this.userService.retrieveUserChannels();
   }
-  
+
 
   rotateIndicator() {
     if (this.rotateToggle == false) {
@@ -36,18 +38,19 @@ export class MainsectionComponent {
   }
 
 
-  hideSidenav(){
+  hideSidenav() {
     document.getElementById('sidebar')?.classList.add('hide-show')
   }
 
 
-  showSidenav(){
+  showSidenav() {
     document.getElementById('sidebar')?.classList.remove('hide-show')
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     console.log('hallo');
     this.unsubProfile();
+    this.unsubUserChannels();
   }
 
 

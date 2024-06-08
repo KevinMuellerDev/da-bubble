@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewChannelComponent } from './add-new-channel/add-new-channel.component';
+import { SidebarService } from '../../shared/services/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule,AddNewChannelComponent],
+  imports: [CommonModule, AddNewChannelComponent],
   animations: [
     trigger('openClose', [
       state('closed', style({ display: 'none' })),
@@ -22,17 +23,24 @@ import { AddNewChannelComponent } from './add-new-channel/add-new-channel.compon
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
+
+
 export class SidebarComponent {
-  constructor(public dialog: MatDialog) { }
-  
+  userService:UserService = inject(UserService);
+  sidebarService:SidebarService = inject(SidebarService);
+  unsubChannels;
+  constructor(public dialog: MatDialog) {
+    this.unsubChannels = this.sidebarService.retrieveChannels();
+   }
+
   openDialog() {
-    const dialogRef = this.dialog.open(AddNewChannelComponent,{panelClass: 'mod-dialog-window'});
+    const dialogRef = this.dialog.open(AddNewChannelComponent, { panelClass: 'mod-dialog-window' });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-  
+
   }
-  
+
   /**
    * An object representing the states of different menus.
    * Each menu state can either be 'open' or 'closed'.
@@ -44,7 +52,6 @@ export class SidebarComponent {
     channel: 'closed',
     message: 'closed',
   };
-  userService: UserService = inject(UserService);
 
   /**
    * Toggles the state of the specified menu between 'open' and 'closed'.
@@ -65,5 +72,10 @@ export class SidebarComponent {
     const loggedIn =
       this.userService.userInfo.isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
+  }
+
+
+  ngOnDestroy(){
+    this.unsubChannels();
   }
 }
