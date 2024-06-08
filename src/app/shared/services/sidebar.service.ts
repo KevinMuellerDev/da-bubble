@@ -34,20 +34,20 @@ export class SidebarService {
         channelCounter++;
       });
       if (channelCounter != this.channels.length) {
-        const querySnapshot = await getDocs(query(this.refChannels()));
-        this.channels = [],
-        querySnapshot.forEach(channel => {
-          if (this.userService.userChannels.includes(channel.id)) {
-            this.channels.push(channel.data()['title'])
-          }
-        });
+        await this.removeChannelUser();
       }
     });
     return unsubscribe
   }
 
-  removeChannelUser(){
-
+  async removeChannelUser(){
+    const querySnapshot = await getDocs(query(this.refChannels()));
+    this.channels = [],
+    querySnapshot.forEach(channel => {
+      if (this.userService.userChannels.includes(channel.id)) {
+        this.channels.push(channel.data()['title'])
+      }
+    });
   }
 
   refChannels(){
