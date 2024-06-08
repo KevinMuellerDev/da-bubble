@@ -29,8 +29,10 @@ export class SidebarComponent {
   userService:UserService = inject(UserService);
   sidebarService:SidebarService = inject(SidebarService);
   unsubChannels;
+  unsubCurrentChannels;
   constructor(public dialog: MatDialog) {
     this.unsubChannels = this.sidebarService.retrieveChannels();
+    this.unsubCurrentChannels = this.sidebarService.retrieveCurrentChannels();
    }
 
   openDialog() {
@@ -77,5 +79,6 @@ export class SidebarComponent {
 
   ngOnDestroy(){
     this.unsubChannels();
+    this.unsubCurrentChannels();
   }
 }
