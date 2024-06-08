@@ -116,7 +116,6 @@
                 [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="4" required
                 [ngClass]="{ 'focus-visible-invalid': !form.valid  && (form.touched || submitClick) && textareaBlur}"
                 (keyup.enter)="onSubmit(form)" (blur)=" textareaBlur=false">
-
                 </textarea>
             <div class="channel-message-icons">
                 <div class="add-icon"></div>

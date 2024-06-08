@@ -37,6 +37,7 @@ export class ChannelComponent {
     this.textareaBlur = true;
     if (!form.valid) {
       console.log(form)
+      form.reset();
     } else if (form.valid) {
       console.log(this.message.content);
       form.reset();
