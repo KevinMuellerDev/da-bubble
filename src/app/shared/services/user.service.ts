@@ -47,12 +47,16 @@ export class UserService{
 
 
 
-
+  /**
+   * listens to changes to referenced collection and stores the data
+   * in userChannels
+   * @returns Unsubscribe from snapshot
+   */
     retrieveUserChannels(){
       const unsubscribe = onSnapshot(query(this.refUserChannels()), (querySnapshot) => {
         this.userChannels = [];
         querySnapshot.forEach(element => {
-          this.userChannels.unshift(element.data()['channelid'] as string);
+          this.userChannels.unshift(element.data()['channelid']);
         });
         console.log(this.userChannels);
       });

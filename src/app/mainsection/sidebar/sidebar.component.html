@@ -14,7 +14,7 @@
     <div class="channels">
       <div class="channel-left-side">
         <div (click)="toggleMenu('channel')" [ngClass]="{ 'rotate-180': menuStates['channel'] === 'closed' }"
-          class="arrow-down-icon">
+             class="arrow-down-icon">
         </div>
         <div class="channel-head">
           <div (click)="toggleMenu('channel')" class="channel-icon">
@@ -27,10 +27,12 @@
     </div>
 
     <div class="channel-wrapper">
+      @for (channel of sidebarService.channels; track $index) {
       <div [@openClose]="menuStates['channel']" class="single-channel-container">
-        <span class="channel-hash"><img src="assets/img/icons/tag.svg" /></span><span
-          class="channel-name">Entwicklerteam</span>
+        <span class="channel-hash"><img src="assets/img/icons/tag.svg" /></span>
+        <span class="channel-name">{{channel}}</span>
       </div>
+      }
     </div>
   </div>
 
@@ -40,7 +42,7 @@
   </div>
   <div class="direct-message-container">
     <div (click)="toggleMenu('message')" [ngClass]="{ 'rotate-180': menuStates['message'] === 'closed' }"
-      class="arrow-down-icon">
+         class="arrow-down-icon">
 
     </div>
     <div class="direct-message-head">
