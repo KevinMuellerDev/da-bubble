@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ThreadComponent {
 
-  constructor(public dialog: MatDialog,){}
+  constructor(public dialog: MatDialog){}
   
 
   closeThread() {
@@ -38,7 +38,5 @@ export class ThreadComponent {
     dialogRef
       .afterClosed()
       .subscribe();
-
-
   }
 }
