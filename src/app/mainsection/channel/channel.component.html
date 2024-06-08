@@ -111,11 +111,11 @@
         </div>
     </div>
     <div class="channel-message-wrapper form-group">
-        <form #form="ngForm" name="form" (ngSubmit)="form.valid && onSubmit(form)">
+        <form #form="ngForm" name="form" (ngSubmit)="onSubmit(form)">
             <textarea class="channel-message-input form-control" name="message" #messageContent id="messageContent"
-                [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="1" required
-                [ngClass]="{ 'focus-visible-invalid': !form.valid  && (form.touched || submitClick)}"
-                (keyup.enter)="onSubmit(form)">
+                [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="4" required
+                [ngClass]="{ 'focus-visible-invalid': !form.valid  && (form.touched || submitClick) && textareaBlur}"
+                (keyup.enter)="onSubmit(form)" (blur)=" textareaBlur=false">
 
                 </textarea>
             <div class="channel-message-icons">
@@ -127,7 +127,7 @@
             <div class="send-icon" (click)="onSubmit(form)"></div>
         </form>
     </div>
-    <div class="error-message" *ngIf="!form.valid && (form.touched || submitClick)">Inhalt
-        erforderlich !
+    <div class="error-message" *ngIf="!form.valid && (form.touched || submitClick) && textareaBlur">Inhalt
+        mit min. 4 Zeichen erforderlich !
     </div>
 </div>

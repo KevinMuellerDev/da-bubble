@@ -18,6 +18,7 @@ export class ChannelComponent {
   }
 
   submitClick: boolean = false;
+  textareaBlur: boolean = false;
 
   @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
@@ -25,19 +26,17 @@ export class ChannelComponent {
   constructor(public dialog: MatDialog){}
 
   ngAfterViewChecked() {
-    this.scrollBottom()
-
-
-
+    this.scrollBottom();
   }
   public scrollBottom() {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
 
   onSubmit(form: NgForm) {
-    this.submitClick = true;
+   this.submitClick = true;
+    this.textareaBlur = true;
     if (!form.valid) {
-      console.log(form, this.submitClick)
+      console.log(form)
     } else if (form.valid) {
       console.log(this.message.content);
       form.reset();
@@ -45,7 +44,7 @@ export class ChannelComponent {
       this.submitClick = false;
     }
   }
-  
+ 
   showThreadBar() {
     document.getElementById('threadBar')?.classList.remove('hide-show', 'd-none')
   }
