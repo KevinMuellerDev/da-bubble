@@ -17,11 +17,7 @@ export class ThreadComponent {
   constructor(public dialog: MatDialog){}
   
  closeThread() {
-  document.getElementById('threadBar')?.classList.add('hide-thread')
-  document.getElementById('threadBar')?.classList.remove('show-thread')
-    setTimeout(() => {
-      document.getElementById('threadBar')?.classList.add('d-none')
-    }, 200);
+  document.getElementById('threadBar')?.classList.add('hide-show')
   }
 
   /**
