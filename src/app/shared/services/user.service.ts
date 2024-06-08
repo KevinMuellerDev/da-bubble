@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
 import { LoginComponent } from '../../login/login.component';
@@ -13,6 +13,7 @@ export class UserService{
   firestore: Firestore = inject(Firestore);
   currentUser?: string | null;
   userInfo: UserInfo = new UserData();
+  userChannels:string[] = [];
   createUserInfo: UserInfo ={
     name:"",
     email:"",
@@ -45,6 +46,22 @@ export class UserService{
     }
 
 
+
+
+    retrieveUserChannels(){
+      const unsubscribe = onSnapshot(query(this.refUserChannels()), (querySnapshot) => {
+        this.userChannels = [];
+        querySnapshot.forEach(element => {
+          this.userChannels.unshift(element.data()['channelid'] as string);
+        });
+        console.log(this.userChannels);
+      });
+      return unsubscribe
+    }
+
+
+
+
   /**
    * Gets the Data from input parameter and updates it in the firestore of the current user
    * 
@@ -74,6 +91,11 @@ export class UserService{
    */
   refUserProfile() {
     return collection(this.firestore, "user")
+  }
+
+
+  refUserChannels(){
+    return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
   }
 
 
