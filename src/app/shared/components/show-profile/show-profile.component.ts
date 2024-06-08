@@ -21,8 +21,8 @@ import { VerifyComponent } from '../verify/verify.component';
 
 export class ShowProfileComponent {
   updateUserForm: FormGroup;
-
-  profileEditable: Boolean = false;
+  otherUser:boolean = false;
+  profileEditable: boolean = false;
   editMode: boolean = false;
 
   constructor(public dialog: MatDialog, public userService: UserService, public authService: AuthService) {
@@ -30,6 +30,8 @@ export class ShowProfileComponent {
       name: new FormControl(this.userService.userInfo.name),
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
     });
+    console.log(this.otherUser);
+    
   }
 
   /**
@@ -55,6 +57,11 @@ export class ShowProfileComponent {
     if (this.updateUserForm.valid) {
       this.openDialog()
     }
+  }
+
+  sendMessage(){
+    console.warn('message send');
+    
   }
 
   openDialog() {

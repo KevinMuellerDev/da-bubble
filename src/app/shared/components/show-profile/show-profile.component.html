@@ -6,12 +6,14 @@
         </div>
     </div>
     <div class="profile-picture">
-        <img [src]="userService.userInfo.profilePicture" alt="">
+        <img *ngIf="otherUser==true" src="/assets/img/profile/noah_braun.png" alt="">
+        <img *ngIf="otherUser==false" [src]="userService.userInfo.profilePicture" alt="">
     </div>
     @if (editMode == false) {
     <div class="profile-edit-container">
         <div class="profile-edit">
-            <span>{{userService.userInfo.name}}</span>
+            <span *ngIf="otherUser==true">Noah Braun</span>
+            <span *ngIf="otherUser==false">{{userService.userInfo.name}}</span>
             @if (profileEditable) {<a (click)="editMode=true">Bearbeiten</a>}
         </div>
         <div class="user-status">
@@ -25,12 +27,23 @@
         </div>
         <div class="email-content">
             <span>E-mail Adresse</span>
-            <a [href]="'mailto:'+ userService.userInfo.email">{{userService.userInfo.email}}</a>
+            <a *ngIf="otherUser==true" [href]="'mailto:noah.braun@dabubble.de'">noah.braun&#64;dabubble.de</a>
+            <a *ngIf="otherUser==false"
+               [href]="'mailto:'+ userService.userInfo.email">{{userService.userInfo.email}}</a>
+        </div>
+    </div>
+    @if (otherUser=== true) {
+    <div class="profile-msg-btn">
+        <div class="msg-btn" (click)="sendMessage()">
+            <img src="/assets/img/profile/message.svg" alt="">
+            <span>Nachricht</span>
         </div>
     </div>}
+    }
     @if (editMode == true) {
     <div class="edit-user-form-container">
-        <form (ngSubmit)="userService.updateUserProfile(updateUserForm)" [formGroup]="updateUserForm" autocomplete="off">
+        <form (ngSubmit)="userService.updateUserProfile(updateUserForm)" [formGroup]="updateUserForm"
+              autocomplete="off">
             <div class="input-container">
                 <div>
                     <img src="/assets/img/profile/account-circle.svg" alt="">
@@ -44,7 +57,7 @@
                     <span>E-mail Adresse</span>
                 </div>
                 <input [placeholder]="userService.userInfo.email" type="email" formControlName="email"
-                pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
+                       pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
             </div>
 
         </form>
@@ -52,7 +65,7 @@
             <div class="cancel-btn" (click)="editMode=false">
                 Abbrechen
             </div>
-            <div class="save-btn" (click)="checkUpdateInput()" >
+            <div class="save-btn" (click)="checkUpdateInput()">
                 Speichern
             </div>
         </div>

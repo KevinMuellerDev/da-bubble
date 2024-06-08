@@ -12,6 +12,7 @@ export class AuthService {
   verified: boolean = false;
   constructor(private userService: UserService) { }
 
+  
   async verifyChange(key: string) {
     const auth = getAuth();
     console.log(this.userService.userInfo.email);
@@ -27,6 +28,7 @@ export class AuthService {
 
   }
 
+
   async updateUserMail(mail: string) {
     const auth = getAuth();
     updateEmail(auth.currentUser as User, mail).then(() => {
@@ -35,6 +37,7 @@ export class AuthService {
       console.error(error);
     });
   }
+
 
   async confirmNewPassword(code:string ,key:string){
     const auth = getAuth();

@@ -91,6 +91,7 @@
 
             a {
                 text-decoration: none;
+                outline: none;
             }
         }
     }
@@ -189,5 +190,28 @@ input.ng-valid {
 input.ng-invalid {
     &:focus {
         border-color: $error!important;
+    }
+}
+
+.profile-msg-btn{
+    @include dFlex($jc: center);
+    width: 100%;
+}
+
+.msg-btn {
+    @include dFlex($jc:center, $ai:center);
+    gap: 10px;
+    padding: 12px 25px;
+    border-radius: 50px;
+    color: #ffffff;
+    background-color: $purple1;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $purple2;
+    }
+
+    &:active {
+        background-color: $purple1;
     }
 }

@@ -65,11 +65,13 @@ export class ConfirmpasswordComponent {
     this.popUpDisplay();
   }
 
+
   compareFormControl() {
     const key1 = this.keyForm.controls['key'].value
     const key2 = this.keyForm.controls['repeatedKey'].value
     key1 === key2 ? this.isDisabled = false : this.isDisabled = true 
   }
+
 
   popUpDisplay() {
     this.popupState = 'in';
@@ -79,6 +81,7 @@ export class ConfirmpasswordComponent {
     }, 1000);
   }
 
+  
   mustMatch(controlName: string, matchingControlName: string): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const control = formGroup.get(controlName);
