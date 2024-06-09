@@ -30,11 +30,16 @@ export class SidebarComponent {
   sidebarService:SidebarService = inject(SidebarService);
   unsubChannels;
   unsubCurrentChannels;
+
   constructor(public dialog: MatDialog) {
     this.unsubChannels = this.sidebarService.retrieveChannels();
     this.unsubCurrentChannels = this.sidebarService.retrieveCurrentChannels();
    }
 
+
+/**
+ * Opens the AddNewChannel dialog.
+ */
   openDialog() {
     const dialogRef = this.dialog.open(AddNewChannelComponent, { panelClass: 'mod-dialog-window' });
     dialogRef.afterClosed().subscribe(result => {
