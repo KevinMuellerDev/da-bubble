@@ -9,7 +9,7 @@ import { AuthService } from '../../shared/services/auth.service';
 @Component({
   selector: 'app-confirmpassword',
   standalone: true,
-  imports: [CommonModule,RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './confirmpassword.component.html',
   styleUrl: './confirmpassword.component.scss',
   animations: [
@@ -33,7 +33,7 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 
 export class ConfirmpasswordComponent {
-  authService:AuthService = inject(AuthService);
+  authService: AuthService = inject(AuthService);
   popupState = 'out';
   params!: URLSearchParams;
   code?: string | null;
@@ -41,38 +41,54 @@ export class ConfirmpasswordComponent {
   key!: string | null;
   isDisabled: boolean = true;
 
+  /**
+   * Initializes a new instance of the class with the given Router.
+   * @param {Router} router - The Router instance to use for navigation.
+   */
   constructor(private router: Router) {
     this.params = new URLSearchParams(window.location.search);
     this.code = this.params.get('oobCode');
     console.log(this.code);
   }
 
-  ngOnInit(){
+  /**
+   * Initializes the component and sets up the form for password confirmation.
+   * The form has two fields: 'key' and 'repeatedKey'.
+   * The 'repeatedKey' field is validated against the 'key' field using the 'mustMatch' validator.
+   * When the value of 'repeatedKey' changes, the 'compareFormControl' method is called to check if the values match.
+   */
+  ngOnInit() {
     this.keyForm = new FormGroup({
       key: new FormControl(''),
       repeatedKey: new FormControl('')
-    },{validators:this.mustMatch('key', 'repeatedKey')});
-    
+    }, { validators: this.mustMatch('key', 'repeatedKey') });
     this.keyForm.controls['repeatedKey'].valueChanges
       .subscribe(() => { this.compareFormControl() })
   }
 
-
+/**
+ * Confirms the password by retrieving the value from the 'key' form control,
+ * and then calls the `confirmNewPassword` method of the `authService` with the
+ * retrieved value and the `code` value. Finally, calls the `popUpDisplay` method.
+ */
   async confirmPassword() {
-    this.key = this.keyForm.controls['key'].value	;
-
+    this.key = this.keyForm.controls['key'].value;
     await this.authService.confirmNewPassword(this.code as string, this.key as string);
     this.popUpDisplay();
   }
 
-
+  /**
+   * Compares the values of the 'key' and 'repeatedKey' form controls and sets the 'isDisabled' property accordingly.
+   */
   compareFormControl() {
     const key1 = this.keyForm.controls['key'].value
     const key2 = this.keyForm.controls['repeatedKey'].value
-    key1 === key2 ? this.isDisabled = false : this.isDisabled = true 
+    key1 === key2 ? this.isDisabled = false : this.isDisabled = true
   }
 
-
+  /**
+   * Displays a popup for a short duration and then navigates to the root route.
+   */
   popUpDisplay() {
     this.popupState = 'in';
     setTimeout(() => {
@@ -81,7 +97,12 @@ export class ConfirmpasswordComponent {
     }, 1000);
   }
 
-  
+/**
+ * Creates a validator function that checks if two form controls have the same value.
+ * @param {string} controlName - The name of the first form control.
+ * @param {string} matchingControlName - The name of the second form control.
+ * @return {ValidatorFn} A validator function that returns null if the form controls have the same value, or an object with the 'mustMatch' error if they don't.
+ */
   mustMatch(controlName: string, matchingControlName: string): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const control = formGroup.get(controlName);
@@ -98,7 +119,6 @@ export class ConfirmpasswordComponent {
       return null;
     };
   }
-
 }
 
 

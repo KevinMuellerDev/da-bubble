@@ -34,13 +34,10 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 
 export class ChooseavatarComponent implements OnInit {
+  selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
   popupState = 'out';
   showLoading = false;
   userName: string = '';
-
-  userService: UserService = inject(UserService);
-  selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
-
   avatars: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
@@ -50,8 +47,16 @@ export class ChooseavatarComponent implements OnInit {
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile3.svg?alt=media&token=7bd92926-13d9-476b-8c39-fde34aa7044e'
   ];
 
+  userService: UserService = inject(UserService);
+
   constructor(private storageService: StorageService, private router: Router) { }
 
+  /**
+   * Initializes the component and sets the list of avatars and the user's name.
+   * This function is called automatically by Angular when the component is initialized.
+   * It retrieves the list of avatars using the `getAvatars` method and sets it to the `avatars` property.
+   * It also sets the user's name by accessing the `name` property of the `createUserInfo` object in the `userService`.
+   */
   ngOnInit() {
     this.avatars = this.getAvatars();
     this.userName = this.userService.createUserInfo.name;
@@ -97,6 +102,9 @@ export class ChooseavatarComponent implements OnInit {
     }
   }
 
+  /**
+   * Registers a new user.
+   */
   registerUser() {
     this.loadingScreen();
     const auth = getAuth();
@@ -112,10 +120,17 @@ export class ChooseavatarComponent implements OnInit {
       });
   }
 
+  /**
+   * Creates a Promise that resolves after a specified delay.
+   * @param {number} ms - The delay in milliseconds.
+   */
   delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  /**
+   * Displays a loading screen for a specified duration and navigates to the home page.
+   */
   async loadingScreen() {
     this.showLoading = true;
     await this.delay(2500);

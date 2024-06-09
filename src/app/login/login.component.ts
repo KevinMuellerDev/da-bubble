@@ -16,6 +16,7 @@ import { StorageService } from '../shared/services/storage.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
+
 export class LoginComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
@@ -58,6 +59,19 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  /**
+   * Asynchronously logs in a user with the provided email and password.
+   * This function first hides the intro animation and removes the 'hasSeenAnimation'
+   * flag from the session storage. It then sets the 'isFormSubmitted' flag to true.
+   * If the login form is valid or the user is a guest, it retrieves the authentication
+   * instance and the email and password from the login form. It then attempts to
+   * sign in the user with the provided email and password using the signInWithEmailAndPassword
+   * function from the Firebase Authentication library. If successful, it retrieves the
+   * user from the user credential, logs the user's UID to the console, stores the UID
+   * in the session storage, navigates to the main section page for the user, and sets
+   * the 'isFormSubmitted' flag to false. If an error occurs during the login process,
+   * it logs the error to the console.
+   */
   async login() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
@@ -71,7 +85,7 @@ export class LoginComponent implements OnInit {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log('user.uid:', user.uid, user);
-        sessionStorage.setItem("uid", user.uid); 
+        sessionStorage.setItem("uid", user.uid);
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
@@ -80,6 +94,16 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * Asynchronously logs in a user with Google authentication.
+   * This function first hides the intro animation and removes the 'hasSeenAnimation'
+   * flag from the session storage. It then attempts to sign in the user with Google
+   * authentication using the signInWithPopup function from the Firebase Authentication
+   * library. If successful, it retrieves the user from the user credential, logs the
+   * user's UID to the console, stores the UID in the session storage, creates the
+   * user's profile, and navigates to the main section page for the user. If an error
+   * occurs during the login process, it logs the error to the console.
+   */
   async loginWithGoogle() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
@@ -97,6 +121,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * Logs in as a guest by setting the email and password of the login form to the guest's credentials.
+   */
   loginGuest() {
     this.loginForm.value.email = "guest@dabubble.de";
     this.loginForm.value.password = "guest123";

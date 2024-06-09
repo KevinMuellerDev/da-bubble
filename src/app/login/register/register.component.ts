@@ -17,7 +17,13 @@ export class RegisterComponent {
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
 
-  constructor(private router: Router,private userService:UserService = inject(UserService)) {
+  /**
+   * Constructs a new instance of the RegisterComponent class.
+   * @param {Router} router - The Angular Router service used for navigation.
+   * @param {UserService} userService - The UserService dependency injected into the component.
+   * Defaults to a new instance of UserService if not provided.
+   */
+  constructor(private router: Router, private userService: UserService = inject(UserService)) {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -33,6 +39,14 @@ export class RegisterComponent {
     this.showPassword = !this.showPassword;
   }
 
+  /**
+   * Continues the registration process if the form is valid.
+   * This function sets the `isFormSubmitted` flag to `true` and checks if the `registerForm` is valid.
+   * If the form is valid, it prepares the data for a new user by calling the `prepareDataNewUser` method
+   * of the `userService` with the form value. It also sets the `key` property of the `userService` to the
+   * value of the `password` control of the `registerForm`. Finally, it navigates to the `/register/chooseavatar`
+   * route using the `router`.
+   */
   async continue() {
     this.isFormSubmitted = true;
     if (this.registerForm.valid) {
