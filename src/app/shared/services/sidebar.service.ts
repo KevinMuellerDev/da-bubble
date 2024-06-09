@@ -12,9 +12,12 @@ export class SidebarService {
 
   constructor() { }
 
-  //TODO: snapshot implementieren der auf die user channels schaut, wenn sich diese ändern wird
-  //      der user aus dem jeweiligen channel array gelöscht.
 
+  /**
+   * Starts snapshot on Channels Collection
+   * 
+   * @returns Unsubscribe
+   */
   retrieveChannels(){
     const unsubscribe = onSnapshot(query(this.refChannels()), (querySnapshot) => {
       this.channels = [];
@@ -27,6 +30,13 @@ export class SidebarService {
     return unsubscribe
   }
 
+
+  /**
+   * Starts snapshot on userchannels and rearranges the channels in the sidebar when a user left or has been
+   * added to a channel.
+   * 
+   * @returns Unsubscribe
+   */
   retrieveCurrentChannels(){
     const unsubscribe = onSnapshot(query(this.userService.refUserChannels()), async (querySnapshot) => {
       let channelCounter = 0;
@@ -40,6 +50,10 @@ export class SidebarService {
     return unsubscribe
   }
 
+
+  /**
+   * Pushes the actual channels of the user into the channel array
+   */
   async removeChannelUser(){
     const querySnapshot = await getDocs(query(this.refChannels()));
     this.channels = [],
@@ -50,6 +64,12 @@ export class SidebarService {
     });
   }
 
+
+  /**
+   * Firestore collection reference for Channels
+   * 
+   * @returns collection
+   */
   refChannels(){
     return collection(this.firestore, "Channels")
   }
