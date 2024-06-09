@@ -27,7 +27,7 @@
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
                     <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email"
-                        pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
+                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
@@ -53,7 +53,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <input type="checkbox" formControlName="privacyCheck">
-                    <span>Ich stimme der<a routerLink="/privacypolicy">Datenschutzerklärung</a>zu.</span>
+                    <span>Ich stimme der <div><a routerLink="/privacypolicy">Datenschutzerklärung</a>zu.</div></span>
                 </div>
                 <div class="error">
                     <p

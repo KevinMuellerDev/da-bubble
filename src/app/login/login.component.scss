@@ -2,9 +2,10 @@
 
 section {
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 header {
@@ -148,7 +149,7 @@ span {
     @include dFlex($jc: center);
     width: 100%;
     font-size: 1.125rem;
-    margin: 33px 0 43px 0;
+    margin: 34px 0 43px 0;
     hr {
         width: 100%;
     }
@@ -211,10 +212,12 @@ button {
 }
 
 footer {
+    @include dFlex($jc: center, $ai: center);
     position: absolute;
+    left: 0;
+    right: 0;
     bottom: 48px;
     width: 100%;
-    @include dFlex($jc: center, $ai: center);
     gap: 18px;
 }
 
@@ -315,28 +318,171 @@ a {
 @media screen and (max-width: 768px) {
     header {
         @include dFlex($jc: center, $ai: center);
+        margin-top: 24px;
         div:nth-child(2) {
             display: none;
         }
     }
 
-    main{
-        top: 150px;
+    main {
+        top: 116px;
+        padding: 24px !important;
         transform: translate(-50%, 0%);
+        .back-arrow {
+            top: 30px;
+            left: 24px;
+        }
+    }
+
+    .title {
+        margin-bottom: 24px;
+        h1 {
+            padding: 0 40px;
+            margin-bottom: 8px;
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.125rem;
+        }
+    }
+
+    form {
+        a {
+            padding: 0;
+        }
+        span {
+            margin: 24px 0 24px 0;
+        }
+    }
+
+    .login-btns {
+        margin: 24px 0 24px;
+    }
+
+    .input-container {
+        input {
+            padding: 12px 12px 12px 48px;
+        }
+    }
+
+    .form-group {
+        height: 50px;
+        margin-bottom: 24px;
+    }
+
+    .google-login {
+        height: 50px;
     }
 
     .register-container {
         display: block;
-        margin-bottom: -150px;
+        margin-bottom: -124px;
         height: 100px;
         width: 200px;
-        span{
+        span {
             margin: 20px 0;
         }
-        a{
+        a {
             border: 1px solid $purple2;
             border-radius: 50px;
             font-weight: 700;
+        }
+    }
+
+    footer {
+        bottom: 16px;
+    }
+}
+
+@media screen and (max-height: 767px) {
+    footer {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        margin: 6px 0 0;
+        img {
+            width: 50px !important;
+            height: 50px !important;
+        }
+        h1 {
+            font-size: 1.75rem;
+        }
+    }
+
+    main {
+        top: 88px;
+    }
+
+    .title {
+        margin-bottom: 24px;
+        h1 {
+            margin-bottom: 8px;
+            font-size: 1.75rem;
+        }
+        h3 {
+            font-size: 1rem;
+        }
+    }
+
+    form {
+        a {
+            font-size: 1rem;
+        }
+        span {
+            font-size: 1rem;
+            margin: 12px 0;
+        }
+    }
+
+    .input-container {
+        input {
+            padding: 12px 12px 12px 48px;
+            font-size: 1rem;
+        }
+        img{
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .register-container {
+        span{
+            font-size: 1rem;
+            margin: 16px 0;
+        }
+        a{
+            font-size: 1rem;
+        }
+    }
+
+    .login-btns {
+        margin: 16px 0;
+        gap: 16px;
+    }
+
+    .google-login {
+        height: 40px;
+        img{
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    button{
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+
+    .success-popup {
+        padding: 24px;
+        span {
+            font-size: 1.5rem;
+        }
+        img {
+            margin-right: 16px;
         }
     }
 }
