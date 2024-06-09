@@ -36,6 +36,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class ChooseavatarComponent implements OnInit {
   popupState = 'out';
   showLoading = false;
+  userName: string = '';
 
   userService: UserService = inject(UserService);
   selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
@@ -53,6 +54,7 @@ export class ChooseavatarComponent implements OnInit {
 
   ngOnInit() {
     this.avatars = this.getAvatars();
+    this.userName = this.userService.createUserInfo.name;
   }
 
   /**

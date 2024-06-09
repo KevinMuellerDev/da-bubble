@@ -13,7 +13,7 @@
         <div class="avatar">
             <img [src]="selectedAvatar">
         </div>
-        <h3>Var Namen vom ´Konto erstellen´</h3>
+        <h3>{{userName}}</h3>
         <span>Aus der Liste wählen</span>
         <div class="avatar-list">
             <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)"
