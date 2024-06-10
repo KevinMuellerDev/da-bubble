@@ -26,28 +26,30 @@ export class AddNewUserToChannelComponent {
     this.specificUser = false;
   }
 
+  
   onSubmit(addUserInputs: NgForm) {
     if (this.specificUser = true) {
       this.searchUser();
-    } else{
+    } else {
       this.getUsersFromChannel();
     }
   }
 
+
   searchUser() {
     this.userService.allUsers.forEach(element => {
-      const name:string = element['name'];
-      const contains:boolean = name.toLocaleLowerCase().indexOf(this.inputs.specificUser.toLocaleLowerCase()) != -1;
+      const name: string = element['name'];
+      const contains: boolean = name.toLocaleLowerCase().indexOf(this.inputs.specificUser.toLocaleLowerCase()) != -1;
       if (contains) {
         console.log(element['name']);
-        this.userList.push({user: name ,uid: element['id']})
+        this.userList.push({ user: name, uid: element['id'] })
       }
     });
-    console.log(this.userList);  
+    console.log(this.userList);
   }
 
 
-  getUsersFromChannel(){
+  getUsersFromChannel() {
     return
   }
 
