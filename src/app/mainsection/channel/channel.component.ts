@@ -5,6 +5,7 @@ import { MainsectionComponent } from '../mainsection.component';
 import { ShowProfileComponent } from '../../shared/components/show-profile/show-profile.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditChannelDialogComponent } from './edit-channel-dialog/edit-channel-dialog.component';
+import { AddUserToChannelDialogComponent } from './add-user-to-channel-dialog/add-user-to-channel-dialog.component';
 
 @Component({
   selector: 'app-channel',
@@ -54,6 +55,11 @@ export class ChannelComponent {
   openDialogEditChannel() {
        this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
   }
+
+    openDialogAddUserToChannel() {
+       this.dialog.open(AddUserToChannelDialogComponent, { panelClass: 'mod-dialog-window-3' })
+  }
+
 
   /**
   * This function opens the dialog and determines if the ShowProfile component is editable or not

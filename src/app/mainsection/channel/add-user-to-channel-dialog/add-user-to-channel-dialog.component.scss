@@ -1,0 +1,118 @@
+@import "./../../../../styles.scss";
+
+
+.main-container {
+    padding: 40px;
+    @include dFlex($ai: flex-start);
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    min-width: 398px;
+    max-width: 398px;
+}
+
+.channel-close-icon {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    cursor: pointer;
+    @include dFlex($jc: center);
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/close.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/close_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+}
+
+.headline {
+    >span {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
+
+.member-list-container {
+    @include dFlex ($ai: flex-start);
+    flex-direction: column;
+    gap: 17px;
+}
+
+.member-name {
+    @include dFlex();
+}
+
+.single-member {
+    position: relative;
+    cursor: pointer;
+    @include dFlex($jc: center);
+    gap: 15px;
+    padding-right: 20px;
+
+    >img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50% 50%;
+    }
+
+    >span {
+        font-size: 18px;
+    }
+
+    &:hover {
+        background-color: $bg-color;
+        border-radius: 30px;
+
+        >span {
+            color: $purple1;
+        }
+    }
+}
+
+.online-indicator {
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    left: 40px;
+    bottom: 3px;
+    border: 2px solid white;
+}
+
+.add-member-icon {
+    height: 40px;
+    width: 40px;
+    @include dFlex($jc: center);
+    background-color: $bg-color;
+    border-radius: 50%;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/person_add.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/person_add_hover.svg");
+    }
+}
+
+.add-member-container {
+    @include dFlex();
+    gap: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &:hover {
+        color: $purple3;
+        background-color: $bg-color;
+        border-radius: 30px;
+
+        .add-member-icon {
+            background-image: url("/assets/img/icons/person_add_hover.svg");
+        }
+    }
+}
