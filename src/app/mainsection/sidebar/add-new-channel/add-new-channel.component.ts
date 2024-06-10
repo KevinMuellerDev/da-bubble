@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FormsModule,NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { ChannelService } from '../../../shared/services/channel.service';
+import { ChannelInfo } from '../../../shared/interfaces/channelinfo';
+import { ChannelData } from '../../../shared/models/channels.class';
 @Component({
   selector: 'app-add-new-channel',
   standalone: true,
@@ -11,6 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './add-new-channel.component.scss'
 })
 export class AddNewChannelComponent {
+  channelService:ChannelService = inject(ChannelService)
+  newChannel!:ChannelInfo;
   inputs  = {
     'channelName': '',
     'description': ''
@@ -21,9 +25,17 @@ export class AddNewChannelComponent {
         }
     }
 
-  onSubmit(createNewChannel:NgForm) {
-    console.log(this.inputs.channelName);
-    console.log(this.inputs.description);
+  async onSubmit(createNewChannel:NgForm) {    
+    this.prepareNewChannelData();
+    console.log(this.newChannel);
+    await this.channelService.createNewChannel(this.newChannel);
+    console.log(this.newChannel);
     createNewChannel.reset();
+ }
+
+ prepareNewChannelData(){
+  let channelDummy= new ChannelData('');
+  channelDummy.setData(this.inputs.channelName, this.inputs.description, this.inputs.channelName);
+  this.newChannel = channelDummy.toJson();
  }
 }

@@ -1,34 +1,34 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, DocumentData } from '@angular/fire/firestore';
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
-import { LoginComponent } from '../../login/login.component';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class UserService{
+export class UserService {
   firestore: Firestore = inject(Firestore);
   currentUser?: string | null;
   userInfo: UserInfo = new UserData();
-  userChannels:string[] = [];
-  createUserInfo: UserInfo ={
-    name:"",
-    email:"",
-    id:"",
-    isLoggedIn:false,
-    profilePicture:"",
+  userChannels: string[] = [];
+  allUsers: DocumentData[] = [];
+  createUserInfo: UserInfo = {
+    name: "",
+    email: "",
+    id: "",
+    isLoggedIn: false,
+    profilePicture: "",
   };
-  key!:string;
+  key!: string;
 
   constructor(private router: Router) {
     console.log('bin da');
     if (sessionStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
       this.router.navigate(['/']);
     console.log(this.currentUser);
-    
+
   }
 
 
@@ -37,13 +37,13 @@ export class UserService{
    * in userInfo
    * @returns Unsubscribe from snapshot
    */
-    retrieveUserProfile() {
-      const unsubscribe = onSnapshot(doc(this.refUserProfile(), sessionStorage.getItem("uid") as string), (doc) => {
-        this.userInfo = new UserData(doc.data())
-        this.currentUser = sessionStorage.getItem("uid");
-      });
-      return unsubscribe
-    }
+  retrieveUserProfile() {
+    const unsubscribe = onSnapshot(doc(this.refUserProfile(), sessionStorage.getItem("uid") as string), (doc) => {
+      this.userInfo = new UserData(doc.data())
+      this.currentUser = sessionStorage.getItem("uid");
+    });
+    return unsubscribe
+  }
 
 
 
@@ -52,16 +52,28 @@ export class UserService{
    * in userChannels
    * @returns Unsubscribe from snapshot
    */
-    retrieveUserChannels(){
-      const unsubscribe = onSnapshot(query(this.refUserChannels()), (querySnapshot) => {
-        this.userChannels = [];
-        querySnapshot.forEach(element => {
-          this.userChannels.unshift(element.data()['channelid']);
-        });
-        console.log(this.userChannels);
+  retrieveUserChannels() {
+    const unsubscribe = onSnapshot(query(this.refUserChannels()), (querySnapshot) => {
+      this.userChannels = [];
+      querySnapshot.forEach(element => {
+        this.userChannels.unshift(element.data()['channelid']);
       });
-      return unsubscribe
-    }
+      console.log(this.userChannels);
+    });
+    return unsubscribe
+  }
+
+
+  retrieveAllUsers() {
+    const unsubscribe = onSnapshot(query(this.refUserProfile()), (querySnapshot) => {
+      this.allUsers = [];
+      querySnapshot.forEach((doc) => {
+          this.allUsers.push(doc.data())
+      });
+      console.log(this.allUsers);
+    });
+    return unsubscribe
+  }
 
 
 
@@ -98,7 +110,7 @@ export class UserService{
   }
 
 
-  refUserChannels(){
+  refUserChannels() {
     return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
   }
 
@@ -116,20 +128,20 @@ export class UserService{
     console.log(this.createUserInfo);
   }
 
-    /**
-   * Function to assign incoming data to createUserInfo
-   * 
-   * @param obj - FormGroup which contains data from the register form 
-   * @param uid - user ID from authentification
-   */
-    prepareDataNewUserGoogle(obj: any) {
-      this.createUserInfo.name = obj.displayName;
-      this.createUserInfo.email = obj.email;
-      this.createUserInfo.isLoggedIn = false;
-      this.createUserInfo.id = obj.uid;
-      this.createUserInfo.profilePicture = obj.photoURL;
-      console.log(this.createUserInfo);
-    }
+  /**
+ * Function to assign incoming data to createUserInfo
+ * 
+ * @param obj - FormGroup which contains data from the register form 
+ * @param uid - user ID from authentification
+ */
+  prepareDataNewUserGoogle(obj: any) {
+    this.createUserInfo.name = obj.displayName;
+    this.createUserInfo.email = obj.email;
+    this.createUserInfo.isLoggedIn = false;
+    this.createUserInfo.id = obj.uid;
+    this.createUserInfo.profilePicture = obj.photoURL;
+    console.log(this.createUserInfo);
+  }
 
 
   /**
@@ -148,6 +160,6 @@ export class UserService{
     //Add 'implements OnDestroy' to the class.
 
     console.log('bin da');
-    
+
   }
 }

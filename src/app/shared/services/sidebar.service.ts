@@ -67,7 +67,6 @@ export class SidebarService {
 
   /**
    * Firestore collection reference for Channels
-   * 
    * @returns collection
    */
   refChannels(){
