@@ -1,0 +1,118 @@
+@import "./../../../../styles.scss";
+
+
+.main-container {
+    padding: 40px;
+    @include dFlex($ai: flex-start);
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    min-width: 792px;
+}
+
+.channel-close-icon {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    cursor: pointer;
+    @include dFlex($jc: center);
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/close.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/close_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+}
+
+.headline {
+    >span {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
+
+.channel-name-container {
+    margin-top: 20px;
+    padding: 20px;
+    @include dFlex($ai: flex-start);
+    gap: 20px;
+    flex-direction: column;
+    border: 1px solid $light-purple;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.editable-name-container {
+    @include dFlex();
+
+}
+
+.hash-icon {
+    @include dFlex($jc: center);
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/tag.svg");
+}
+
+
+.edit-head {
+    @include dFlex($jc: space-between);
+    width: 100%;
+
+    .channel-name {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .channel-name-edit {
+        cursor: pointer;
+        font-size: 18px;
+        color: $purple3;
+
+        &:hover {
+            font-weight: 700;
+        }
+    }
+}
+
+.channel-name-unedited {
+    font-size: 18px;
+}
+
+.new-channel-name {
+    @include dFlex($ai: flex-start);
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+    >input {
+        cursor: pointer;
+        width: 100%;
+        height: 60px;
+        border-radius: 40px;
+        padding: 18px 20px;
+        border: 1px solid $light-purple;
+        font-size: 18px;
+        caret-color: black;
+
+        &:hover {
+            border: 1px solid $purple2;
+        }
+
+        &:focus-visible {
+            outline: 1px solid $purple3;
+        }
+
+        &::placeholder {
+            font-size: 18px;
+        }
+    }
+}
