@@ -1,0 +1,25 @@
+<div class="main-container">
+    <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true">
+    </div>
+    <div class="headline">
+        <span>Leute hinzufügen</span>
+    </div>
+    <form class="radio-container" #addUserInputs="ngForm" name="addUserInputs">
+        <label>
+            <input type="radio" name="option" [(ngModel)]="selectedOption" value="alleMitglieder">
+            Alle Mitglieder von <span>EntwicklerTeam</span> hinzufügen
+        </label>
+        <label>
+            <input type="radio" name="option" [(ngModel)]="selectedOption" value="bestimmteLeute">
+            Bestimmte Leute hinzufügen
+        </label>
+        <div class="selected-user-input" *ngIf="selectedOption==='bestimmteLeute'">
+            <input type="text" name="specificUserInput" placeholder="Name eingeben" [(ngModel)]="inputs.specificUser">
+        </div>
+        <div class="button-container">
+            <button (click)="onSubmit(addUserInputs)" [mat-dialog-close]="true">
+                Erstellen
+            </button>
+        </div>
+    </form>
+</div>
