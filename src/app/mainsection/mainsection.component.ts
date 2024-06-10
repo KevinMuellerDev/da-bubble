@@ -18,10 +18,12 @@ export class MainsectionComponent {
   rotateToggle: boolean = false;
   unsubProfile;
   unsubUserChannels;
+  unsubUserList;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
     this.unsubUserChannels = this.userService.retrieveUserChannels();
+    this.unsubUserList = this.userService.retrieveAllUsers();
   }
 
 
@@ -51,6 +53,7 @@ export class MainsectionComponent {
     console.log('hallo');
     this.unsubProfile();
     this.unsubUserChannels();
+    this.unsubUserList();
   }
 
 
