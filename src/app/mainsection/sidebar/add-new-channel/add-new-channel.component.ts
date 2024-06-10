@@ -19,11 +19,6 @@ export class AddNewChannelComponent {
     'channelName': '',
     'description': ''
   }
-  prependHash() {
-        if (this.inputs.channelName && !this.inputs.channelName.startsWith('#')) {
-            this.inputs.channelName = '# ' + this.inputs.channelName;
-        }
-    }
 
   async onSubmit(createNewChannel:NgForm) {    
     this.prepareNewChannelData();
