@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule ,NgForm} from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {  MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-channel-dialog',
@@ -13,16 +13,35 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 export class EditChannelDialogComponent {
 
   editChannelName: boolean = false;
+  editDescription: boolean = false;
   
-  newChannelName = {
-    'name':''
+  newChannelValues = {
+    'name': '',
+    'newDescription':''
   }
 
   changeEditChannelStatus() {
     this.editChannelName =true
   }
-
-    saveEditChannelStatus() {
-    this.editChannelName =false
+    saveEditChannelStatus(channelName:NgForm) {
+      this.editChannelName = false
+      console.log(this.newChannelValues.name);
+      channelName.reset();
   }
+
+    changeEditDescriptionStatus() {
+    this.editDescription =true
+  }
+
+    saveEditDescriptionStatus(changedDescription:NgForm) {
+      this.editDescription = false
+      console.log(this.newChannelValues.newDescription);
+      changedDescription.reset();
+  }
+
+  leaveChannel() {
+    console.log("ciao");
+    
+  }
+
 }
