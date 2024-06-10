@@ -28,9 +28,7 @@ export class LoginComponent implements OnInit {
   guest!: boolean;
 
   /**
-   * Initializes the login form with email and password form controls.
-   * The email form control requires a value and must be a valid email address.
-   * The password form control requires a value and must have a minimum length of 8 characters.
+   * Initializes the login form with email and password controls.
    * @constructor
    */
   constructor(private router: Router) {
@@ -60,17 +58,10 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Asynchronously logs in a user with the provided email and password.
-   * This function first hides the intro animation and removes the 'hasSeenAnimation'
-   * flag from the session storage. It then sets the 'isFormSubmitted' flag to true.
-   * If the login form is valid or the user is a guest, it retrieves the authentication
-   * instance and the email and password from the login form. It then attempts to
-   * sign in the user with the provided email and password using the signInWithEmailAndPassword
-   * function from the Firebase Authentication library. If successful, it retrieves the
-   * user from the user credential, logs the user's UID to the console, stores the UID
-   * in the session storage, navigates to the main section page for the user, and sets
-   * the 'isFormSubmitted' flag to false. If an error occurs during the login process,
-   * it logs the error to the console.
+   * Logs in a user asynchronously.
+   * - Hides intro animation, removes 'hasSeenAnimation' flag.
+   * - Submits form if valid or guest user.
+   * - Authenticates with Firebase, stores UID, navigates on success.
    */
   async login() {
     this.showIntroAnimation = false;
@@ -95,14 +86,10 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Asynchronously logs in a user with Google authentication.
-   * This function first hides the intro animation and removes the 'hasSeenAnimation'
-   * flag from the session storage. It then attempts to sign in the user with Google
-   * authentication using the signInWithPopup function from the Firebase Authentication
-   * library. If successful, it retrieves the user from the user credential, logs the
-   * user's UID to the console, stores the UID in the session storage, creates the
-   * user's profile, and navigates to the main section page for the user. If an error
-   * occurs during the login process, it logs the error to the console.
+   * Logs in a user asynchronously using Google authentication.
+   * - Hides intro animation, removes 'hasSeenAnimation' flag.
+   * - Authenticates with Firebase using Google provider.
+   * - Stores UID, creates user profile, navigates on success.
    */
   async loginWithGoogle() {
     this.showIntroAnimation = false;
