@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MainsectionComponent } from '../mainsection.component';
 import { ShowProfileComponent } from '../../shared/components/show-profile/show-profile.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EditChannelDialogComponent } from './edit-channel-dialog/edit-channel-dialog.component';
 
 @Component({
   selector: 'app-channel',
@@ -48,6 +49,10 @@ export class ChannelComponent {
  
   showThreadBar() {
     document.getElementById('threadBar')?.classList.remove('hide-show')
+  }
+
+  openDialogEditChannel() {
+       this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
   }
 
   /**

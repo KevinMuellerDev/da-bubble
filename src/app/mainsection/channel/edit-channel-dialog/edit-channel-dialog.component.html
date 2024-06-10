@@ -1,0 +1,22 @@
+<div class="main-container">
+    <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true"></div>
+    <div class="headline">
+        <span># Entwicklerteam</span>
+    </div>
+    <div class="channel-name-container">
+        <div class="edit-head">
+            <span class="channel-name">Channel-Name</span>
+            <span *ngIf="!editChannelName" (click)=" changeEditChannelStatus()"
+                class="channel-name-edit">Bearbeiten</span>
+            <span *ngIf="editChannelName" (click)="saveEditChannelStatus()" class="channel-name-edit">Speichern</span>
+        </div>
+        <div class="editable-name-container">
+            <div class="hash-icon"></div><span *ngIf="!editChannelName"
+                class="channel-name-unedited">Entwicklerteam</span>
+        </div>
+
+        <div *ngIf="editChannelName" class="new-channel-name">
+            <input [(ngModel)]="newChannelName.name" type="text" placeholder="Entwicklerteam">
+        </div>
+    </div>
+</div>
