@@ -41,6 +41,7 @@ export class SidebarComponent {
  */
   openDialog() {
    this.dialog.open(AddNewChannelComponent, { panelClass: 'mod-dialog-window' });
+
   }
 
   /**

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { FormsModule,NgForm } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule,MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { ChannelInfo } from '../../../shared/interfaces/channelinfo';
 import { ChannelData } from '../../../shared/models/channels.class';
+import { AddNewUserToChannelComponent } from '../add-new-user-to-channel/add-new-user-to-channel.component';
 @Component({
   selector: 'app-add-new-channel',
   standalone: true,
@@ -18,6 +19,12 @@ export class AddNewChannelComponent {
   inputs  = {
     'channelName': '',
     'description': ''
+  }
+
+  constructor(public dialog: MatDialog) { }
+
+  openDialog() {
+       this.dialog.open(AddNewUserToChannelComponent, { panelClass: 'mod-dialog-window' });
   }
 
   async onSubmit(createNewChannel:NgForm) {    
