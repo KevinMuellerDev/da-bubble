@@ -52,10 +52,9 @@ export class ConfirmpasswordComponent {
   }
 
   /**
-   * Initializes the component and sets up the form for password confirmation.
-   * The form has two fields: 'key' and 'repeatedKey'.
-   * The 'repeatedKey' field is validated against the 'key' field using the 'mustMatch' validator.
-   * When the value of 'repeatedKey' changes, the 'compareFormControl' method is called to check if the values match.
+   * Initializes the form with 'key' and 'repeatedKey' fields.
+   * Validates 'repeatedKey' against 'key' using the 'mustMatch' validator.
+   * Calls 'compareFormControl' on 'repeatedKey' value changes.
    */
   ngOnInit() {
     this.keyForm = new FormGroup({
@@ -66,11 +65,11 @@ export class ConfirmpasswordComponent {
       .subscribe(() => { this.compareFormControl() })
   }
 
-/**
- * Confirms the password by retrieving the value from the 'key' form control,
- * and then calls the `confirmNewPassword` method of the `authService` with the
- * retrieved value and the `code` value. Finally, calls the `popUpDisplay` method.
- */
+  /**
+   * Confirms the password by retrieving the value from the 'key' form control,
+   * and then calls the `confirmNewPassword` method of the `authService` with the
+   * retrieved value and the `code` value. Finally, calls the `popUpDisplay` method.
+   */
   async confirmPassword() {
     this.key = this.keyForm.controls['key'].value;
     await this.authService.confirmNewPassword(this.code as string, this.key as string);
@@ -97,12 +96,12 @@ export class ConfirmpasswordComponent {
     }, 1000);
   }
 
-/**
- * Creates a validator function that checks if two form controls have the same value.
- * @param {string} controlName - The name of the first form control.
- * @param {string} matchingControlName - The name of the second form control.
- * @return {ValidatorFn} A validator function that returns null if the form controls have the same value, or an object with the 'mustMatch' error if they don't.
- */
+  /**
+   * Validator function to check if two form controls have the same value.
+   * @param {string} controlName - The first form control.
+   * @param {string} matchingControlName - The second form control.
+   * @return {ValidatorFn} A validator that returns null if values match, or an error object if they don't.
+   */
   mustMatch(controlName: string, matchingControlName: string): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const control = formGroup.get(controlName);

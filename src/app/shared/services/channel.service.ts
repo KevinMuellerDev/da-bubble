@@ -7,7 +7,7 @@ import { ChannelInfo } from '../interfaces/channelinfo';
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
-
+  newChannel?:ChannelInfo;
   constructor() { }
 
 
