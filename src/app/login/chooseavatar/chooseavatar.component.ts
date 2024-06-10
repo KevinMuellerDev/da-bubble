@@ -51,12 +51,10 @@ export class ChooseavatarComponent implements OnInit {
 
   constructor(private storageService: StorageService, private router: Router) { }
 
-  /**
-   * Initializes the component and sets the list of avatars and the user's name.
-   * This function is called automatically by Angular when the component is initialized.
-   * It retrieves the list of avatars using the `getAvatars` method and sets it to the `avatars` property.
-   * It also sets the user's name by accessing the `name` property of the `createUserInfo` object in the `userService`.
-   */
+/**
+ * Initializes the component, setting the list of avatars and the user's name.
+ * Called automatically by Angular on component initialization.
+ */
   ngOnInit() {
     this.avatars = this.getAvatars();
     this.userName = this.userService.createUserInfo.name;
