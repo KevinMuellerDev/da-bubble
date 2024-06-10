@@ -19,7 +19,7 @@ export class AddNewUserToChannelComponent {
   specificUser: boolean;
   userList: object[] = [];
   inputs = {
-    'specificUser': ''
+    specificUser: ''
   }
 
   constructor() {
@@ -37,7 +37,7 @@ export class AddNewUserToChannelComponent {
   searchUser() {
     this.userService.allUsers.forEach(element => {
       const name:string = element['name'];
-      const contains = name.toLocaleLowerCase().indexOf(this.inputs.specificUser.toLocaleLowerCase()) != -1;
+      const contains:boolean = name.toLocaleLowerCase().indexOf(this.inputs.specificUser.toLocaleLowerCase()) != -1;
       if (contains) {
         console.log(element['name']);
         this.userList.push({user: name ,uid: element['id']})
