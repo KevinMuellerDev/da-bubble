@@ -6,6 +6,7 @@ import { ChannelService } from '../../../shared/services/channel.service';
 import { ChannelInfo } from '../../../shared/interfaces/channelinfo';
 import { ChannelData } from '../../../shared/models/channels.class';
 import { AddNewUserToChannelComponent } from '../add-new-user-to-channel/add-new-user-to-channel.component';
+
 @Component({
   selector: 'app-add-new-channel',
   standalone: true,
@@ -13,6 +14,7 @@ import { AddNewUserToChannelComponent } from '../add-new-user-to-channel/add-new
   templateUrl: './add-new-channel.component.html',
   styleUrl: './add-new-channel.component.scss'
 })
+
 export class AddNewChannelComponent {
   channelService:ChannelService = inject(ChannelService)
   newChannel!:ChannelInfo;
