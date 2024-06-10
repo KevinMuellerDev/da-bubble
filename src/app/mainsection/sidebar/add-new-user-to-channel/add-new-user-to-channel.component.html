@@ -6,14 +6,14 @@
     </div>
     <form class="radio-container" #addUserInputs="ngForm" name="addUserInputs">
         <label>
-            <input type="radio" name="option" [(ngModel)]="selectedOption" value="alleMitglieder">
+            <input type="radio" name="option" [(ngModel)]="specificUser" [value]="false" [checked]="specificUser == false">
             Alle Mitglieder von <span>EntwicklerTeam</span> hinzufügen
         </label>
         <label>
-            <input type="radio" name="option" [(ngModel)]="selectedOption" value="bestimmteLeute">
+            <input type="radio" name="option" [(ngModel)]="specificUser" [value]="true" [checked]="specificUser == true">
             Bestimmte Leute hinzufügen
         </label>
-        <div class="selected-user-input" *ngIf="selectedOption==='bestimmteLeute'">
+        <div class="selected-user-input" *ngIf="specificUser === true">
             <input type="text" name="specificUserInput" placeholder="Name eingeben" [(ngModel)]="inputs.specificUser">
         </div>
         <div class="button-container">
