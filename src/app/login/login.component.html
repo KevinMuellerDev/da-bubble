@@ -1,6 +1,13 @@
 <section>
     <div class="intro-bg-animation" *ngIf="showIntroAnimation"></div>
-    <div class="intro-logo-animation" *ngIf="showIntroAnimation"></div>
+
+    <div class="intro-logo-animation" [@slideLogoContainer]="{ value: logoContainerState, params: { left: leftPosition, transform: transform } }" *ngIf="showIntroAnimation">
+        <div class="intro-logo" [@slideLogo]="logoState"></div>
+        <div class="intro-logo-text" [@slideLogoTextContainer]="logoTextContainerState">
+            <span [@slideLogoText]="logoTextState">DaBubble</span>
+        </div>
+    </div>
+
     <header>
         <div>
             <img src="../../assets/img/Logo.png" alt="Logo">

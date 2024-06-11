@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,13 +8,77 @@ import { signOut } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../shared/services/user.service';
 import { StorageService } from '../shared/services/storage.service';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [RouterLink, CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  animations: [
+    trigger('slideLogoContainer', [
+      state('initial', style({ opacity: 1 })),
+      state('final', style({
+        opacity: 0,
+        transform: '{{transform}}',
+        height: '70px',
+        gap: '16px',
+        top: '55px', left: '{{left}}'
+      }),
+        {
+          params: {
+            left: '70px',
+            transform: 'translate(0%, 0%)'
+          }
+        }),
+      transition('initial=>final', [
+        animate('1.15s ease-in-out')
+      ])
+    ]),
+    trigger('slideLogoTextContainer', [
+      state('initial', style({ opacity: 0 })),
+      state('final', style({
+        opacity: 1,
+        transform: 'translate(0%, 0%)'
+      })),
+      transition('initial=>final', [
+        animate('0.25s ease-in-out')
+      ])
+    ]),
+    trigger('slideLogoText', [
+      state('initial', style({
+        fontSize: '1rem',
+      })),
+      state('final', style({
+        fontSize: '1rem',
+      })),
+      transition('initial=>final', [
+        animate('2.5s ease-in-out', keyframes([
+          style({ fontSize: '0.75rem', offset: 0 }),
+          style({ fontSize: '2rem', transform: 'rotate(360deg)', offset: 0.01 }),
+          style({ fontSize: '4rem', offset: 0.45 }),
+          style({ fontSize: '4.5rem', offset: 0.5 }),
+          style({ fontSize: '4rem', offset: 0.55 }),
+          style({ fontSize: '3rem', offset: 0.9 }),
+          style({ fontSize: '1rem', offset: 1 }),
+        ]))
+      ])
+    ]),
+    trigger('slideLogo', [
+      state('initial', style({
+        width: '187px',
+        height: '184px',
+      })),
+      state('final', style({
+        width: '70px',
+        height: '70px',
+      })),
+      transition('initial=>final', [
+        animate('1s ease-in-out')
+      ])
+    ]),
+  ]
 })
 
 export class LoginComponent implements OnInit {
@@ -26,6 +90,12 @@ export class LoginComponent implements OnInit {
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
   guest!: boolean;
+  logoContainerState: string = 'initial';
+  logoState: string = 'initial';
+  logoTextContainerState: string = 'initial';
+  logoTextState: string = 'initial';
+  leftPosition: string = '';
+  transform: string = '';
 
   /**
    * Initializes the login form with email and password controls.
@@ -38,16 +108,44 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /**
-   * Initializes the component and checks if the animation has been seen before.
-   * If not, sets the `showIntroAnimation` flag to true and stores it in the session storage.
-   */
+
   ngOnInit() {
     const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
     if (!hasSeenAnimation) {
       this.showIntroAnimation = true;
-      sessionStorage.setItem('hasSeenAnimation', 'true');
+      // sessionStorage.setItem('hasSeenAnimation', 'true');
+      this.delayIntroAnimation();
+      this.checkScreenWidth();
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    this.leftPosition = window.innerWidth <= 768 ? '50%' : '70px';
+    this.transform = window.innerWidth <= 768 ? 'translate(-50%, -50%)' : 'translate(0%, 0%)';
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  delayIntroAnimation() {
+    this.delay(500).then(() => {
+      this.logoTextState = 'final';
+    });
+    this.delay(1750).then(() => {
+      this.logoState = 'final';
+    });
+    this.delay(250).then(() => {
+      this.logoTextContainerState = 'final';
+    });
+    this.delay(1750).then(() => {
+      this.logoContainerState = 'final';
+    });
   }
 
   /**
