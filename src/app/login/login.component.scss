@@ -238,29 +238,43 @@ a {
 }
 
 .intro-bg-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    @include dFlex($jc: center, $ai: center);
     width: 100%;
     height: 100vh;
     background-image: linear-gradient($purple2, $purple1);
-    animation: fadeOut 1s ease-in-out forwards 1s;
+    animation: fadeOut 2s ease-in-out forwards 2s;
     z-index: 1;
 }
 
 .intro-logo-animation {
     position: absolute;
+    @include dFlex($jc: space-between, $ai: center);
+    gap: 16px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.intro-logo-text {
+    transform: translateX(-400px);
+    span {
+        margin: 0;
+        font-weight: 700;
+        color: $white;
+        font-size: 1rem;
+    }
+}
+
+.intro-logo {
     width: 187px;
     height: 184px;
     background-image: url("/assets/img/Logo.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    animation: topLeft 0.75s ease-in-out forwards 1s;
-    z-index: 2;
+    z-index: 1;
 }
 
 .back-arrow {
@@ -288,29 +302,6 @@ a {
     }
     100% {
         opacity: 0;
-        z-index: -1;
-    }
-}
-
-@keyframes topLeft {
-    0% {
-        opacity: 1;
-        top: 50%;
-        left: 50%;
-        width: 187px;
-        height: 184px;
-    }
-    80% {
-        opacity: 0.95;
-        z-index: 1;
-    }
-    100% {
-        opacity: 0;
-        top: 0;
-        left: 0;
-        transform: translate(115%, 90%);
-        width: 68px;
-        height: 68px;
         z-index: -1;
     }
 }
@@ -407,9 +398,6 @@ a {
             width: 50px !important;
             height: 50px !important;
         }
-        h1 {
-            font-size: 1.75rem;
-        }
     }
 
     main {
@@ -442,18 +430,18 @@ a {
             padding: 12px 12px 12px 48px;
             font-size: 1rem;
         }
-        img{
+        img {
             width: 20px;
             height: 20px;
         }
     }
 
     .register-container {
-        span{
+        span {
             font-size: 1rem;
             margin: 16px 0;
         }
-        a{
+        a {
             font-size: 1rem;
         }
     }
@@ -465,13 +453,13 @@ a {
 
     .google-login {
         height: 40px;
-        img{
+        img {
             width: 24px;
             height: 24px;
         }
     }
 
-    button{
+    button {
         font-size: 1rem;
         padding: 8px 16px;
     }
