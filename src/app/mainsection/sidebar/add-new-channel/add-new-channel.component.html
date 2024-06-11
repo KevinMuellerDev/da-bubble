@@ -13,9 +13,10 @@
         <div class="channel-name">
             <span> Channel-Name</span>
             <input minlength="1" required type="text" name="channelName" placeholder="# z.B. Kooperationsprojekte"
-                [(ngModel)]="inputs.channelName" [ngClass]="{ 'focus-visible-invalid': createNewChannel.invalid }">
+                [(ngModel)]="inputs.channelName"
+                [ngClass]="{ 'focus-visible-invalid': createNewChannel.invalid && createNewChannel.touched }">
         </div>
-        <div class="error-message" *ngIf="!createNewChannel.valid ">Inhalt erforderlich !
+        <div class="error-message" *ngIf="!createNewChannel.valid && createNewChannel.touched ">Inhalt erforderlich !
         </div>
         <div class="channel-description">
             <span> Beschreibung <span class="optional-notice">(optional)</span></span>
