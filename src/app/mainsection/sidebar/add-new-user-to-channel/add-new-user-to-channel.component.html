@@ -6,20 +6,39 @@
     </div>
     <form class="radio-container" #addUserInputs="ngForm" name="addUserInputs">
         <label>
-            <input type="radio" name="option" [(ngModel)]="specificUser" [value]="false" [checked]="specificUser == false">
+            <input type="radio" name="option" [(ngModel)]="specificUser" [value]="false"
+                [checked]="specificUser == false">
             Alle Mitglieder von <span>EntwicklerTeam</span> hinzufügen
         </label>
         <label>
-            <input type="radio" name="option" [(ngModel)]="specificUser" [value]="true" [checked]="specificUser == true">
+            <input type="radio" name="option" [(ngModel)]="specificUser" [value]="true"
+                [checked]="specificUser == true">
             Bestimmte Leute hinzufügen
         </label>
         <div class="selected-user-input" *ngIf="specificUser === true">
-            <input type="text" name="specificUserInput" placeholder="Name eingeben" [(ngModel)]="inputs.specificUser">
+            <div class="search-wrapper" (click)="focusOnUserInput()" [matMenuTriggerFor]="menu">
+                <input type="text" autocomplete="off" #specificUserInput name="specificUserInput"
+                    [matMenuTriggerFor]="menu" (input)="searchUser()" placeholder="Name eingeben"
+                    [(ngModel)]="inputs.specificUser">
+            </div>
         </div>
         <div class="button-container">
             <button (click)="onSubmit(addUserInputs)" [mat-dialog-close]="true">
                 Erstellen
             </button>
         </div>
+        <mat-menu #menu="matMenu" hasBackdrop="false">
+            @if (userList.length != 0) {
+            <div class="button-wrapper">
+                @for (user of userList; track $index) {
+                    <div class="user-wrapper">
+                        <img [src]="user.img" alt="">
+                        <span>{{user.user}}</span>
+                    </div>
+                    }
+            </div>
+            }
+
+        </mat-menu>
     </form>
 </div>
