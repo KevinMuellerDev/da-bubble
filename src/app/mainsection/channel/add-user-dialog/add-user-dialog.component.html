@@ -1,0 +1,20 @@
+<div class="main-container">
+    <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true"></div>
+    <div class="headline">
+        <span>Leute hinzufügen</span>
+    </div>
+    <div class="channel-name">
+        <div class="hash-icon"></div>
+        <span>Entwicklerteam</span>
+    </div>
+    <form #addUser="ngForm" [ngClass]="{ 'focus-visible-invalid': !addUser.valid && addUser.touched}">
+        <input name="addUser" type="text" [(ngModel)]="addUser.name" placeholder="Name eingeben" required minlength="2">
+    </form>
+    <div class="error-message" *ngIf="!addUser.valid && addUser.touched ">
+        Min. 2 Zeichen erforderlich !
+    </div>
+    <div class="button-container">
+        <button [disabled]="!addUser.valid">
+            Hinzfügen
+        </button>
+    </div>
