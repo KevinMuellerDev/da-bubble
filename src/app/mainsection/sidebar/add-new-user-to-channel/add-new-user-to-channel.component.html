@@ -16,7 +16,14 @@
             Bestimmte Leute hinzufügen
         </label>
         <div class="selected-user-input" *ngIf="specificUser === true">
-            <div class="search-wrapper" (click)="focusOnUserInput()" [matMenuTriggerFor]="menu">
+            <div class="search-wrapper">
+                @for (user of selectedUser; track $index) {
+                <div class="user-wrapper">
+                    <img [src]="user.img" alt="">
+                    <span>{{user.user}}</span>
+                    <div class="deleteUser" (click)="removeUserFromSelection(user)"></div>
+                </div>
+                }
                 <input type="text" autocomplete="off" #specificUserInput name="specificUserInput"
                     [matMenuTriggerFor]="menu" (input)="searchUser()" placeholder="Name eingeben"
                     [(ngModel)]="inputs.specificUser">
@@ -31,11 +38,11 @@
             @if (userList.length != 0) {
             <div class="button-wrapper">
                 @for (user of userList; track $index) {
-                    <div class="user-wrapper">
-                        <img [src]="user.img" alt="">
-                        <span>{{user.user}}</span>
-                    </div>
-                    }
+                <div class="user-wrapper" (click)="pushToSelection(user)">
+                    <img [src]="user.img" alt="">
+                    <span>{{user.user}}</span>
+                </div>
+                }
             </div>
             }
 
