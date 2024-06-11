@@ -68,7 +68,7 @@ export class UserService {
     const unsubscribe = onSnapshot(query(this.refUserProfile()), (querySnapshot) => {
       this.allUsers = [];
       querySnapshot.forEach((doc) => {
-          this.allUsers.push(doc.data())
+        this.allUsers.push(doc.data())
       });
       console.log(this.allUsers);
     });
@@ -97,7 +97,11 @@ export class UserService {
    * Creates a new user in firestore
    */
   async createUserProfile() {
-    await setDoc(doc(this.firestore, "user", this.createUserInfo.id), this.createUserInfo);
+    await setDoc(doc(this.firestore, "user", this.createUserInfo.id), this.createUserInfo)
+      .then(async () => {
+        const channelId= {channelid: 'eGATth4XDS0ztUbhnYsR'};
+        await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'userchannels'), channelId);
+      });
   }
 
 
