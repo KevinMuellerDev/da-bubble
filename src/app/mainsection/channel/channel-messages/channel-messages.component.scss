@@ -1,172 +1,124 @@
 @import "../../../../styles.scss";
 
-::-webkit-scrollbar {
-    width: 5px;
+.channel-container {
+    position: relative;
+    height: 100%;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: $light-purple;
-    border-radius: 30px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: $purple2;
-    border-radius: 30px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: $purple3;
-}
-
-.channel-conversation-container {
-    margin-top: 20px;
-    overflow-y: scroll;
-    height: calc(100% - 338px);
-}
-
-.divider-container {
-    padding: 20px 35px 20px 35px;
-    @include dFlex($jc: center);
-}
-
-.divider {
-    @include dFlex($jc: center);
+.channel-head-wrapper {
+    border-radius: 30px 30px 0 0;
+    height: 96px;
+    @include dFlex($jc: space-between);
     width: 100%;
-    height: 1px;
-    background-color: $light-purple;
-
-    >span {
-        font-size: 18px;
-        padding: 5px 15px;
-        text-wrap: nowrap;
-        border: 1px $light-purple solid;
-        border-radius: 30px;
-        background-color: white;
-    }
+    box-shadow: 0px 2px 10px 0px #00000014;
+    padding: 25px 45px 0 45px;
 }
 
-.single-message-container {
-    padding: 35px 0 35px 45px;
-    width: 100%;
-    @include dFlex($ai: flex-start);
+.channel-head-arrow-icon {
+    @include dFlex($jc: center);
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/channel_arrow_down.svg");
 
     &:hover {
-        background-color: rgba(red($bg-color), green($bg-color), blue($bg-color), 0.5);
+        background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
 
-        .message {
-            background-color: white;
-        }
-
-        .reply-timestamp {
-            color: black;
-        }
     }
 }
 
-.message-wrapper {
-    margin-top: 10px;
-    @include dFlex($ai: flex-start);
-    flex-direction: column;
-    max-width: 352px;
-    margin-left: 20px;
-}
+.channel-head-tag-icon {
+    @include dFlex($jc: center);
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/tag.svg");
 
-.profile-picture {
-    margin-top: 10px;
-    @include dFlex();
+    &:hover {
+        background-image: url("/assets/img/icons/tag_hover.svg");
 
-    >img {
-        border-radius: 50%;
-        max-width: 70px;
     }
 }
 
-.message-head {
-    @include dFlex();
-    margin-bottom: 8px;
-}
-
-.message-info {
-    @include dFlex();
-    gap: 20px;
+.channel-head {
+    @include dFlex($jc: center);
+    gap: 10px;
+    max-width: 278px;
+    cursor: pointer;
+    padding: 6px 10px;
 
     >span {
-        cursor: pointer;
-        font-size: 18px;
+        font-size: 24px;
         font-weight: 700;
+    }
 
-        &:hover {
+    &:hover {
+        .channel-head-tag-icon {
+            background-image: url("/assets/img/icons/tag_hover.svg");
+        }
+
+        .channel-head-arrow-icon {
+            background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
+        }
+
+        >span {
+            color: $purple1;
+        }
+
+        background-color: $bg-color;
+        border-radius: 30px;
+    }
+}
+
+.channel-head-right {
+    @include dFlex($jc: center);
+}
+
+.channel-user-icons {
+    @include dFlex($jc: center);
+    padding: 3px 10px 3px 20px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $bg-color;
+        border-radius: 30px;
+
+        >span {
             color: $purple1;
         }
     }
 
-    .message-timestamp {
-        font-size: 14px;
-        color: $text-gray;
-    }
-}
-
-.message {
-    @include dFlex();
-    background-color: $bg-color;
-    border-radius: 0px 20px 20px 20px;
-
     >span {
-        padding: 15px;
+        margin-left: 10px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    >img {
+        width: 40px;
+        border-radius: 50%;
+        border: 1px solid white;
+        margin-left: -10px;
     }
 }
 
-.message-reply-wrapper {
-    @include dFlex($jc: space-between);
-    margin-top: 8px;
-    max-width: 258.688px;
-    width: 100%;
-    text-wrap: nowrap;
-}
-
-.message-replies {
+.add-user-channel-icon {
+    height: 40px;
+    width: 40px;
+    @include dFlex($jc: center);
+    background-color: $bg-color;
+    border-radius: 50%;
     cursor: pointer;
-    color: $purple3;
-    font-size: 18px;
-    font-weight: 400;
+    margin-left: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/person_add.svg");
 
     &:hover {
-        font-weight: 700;
+        background-image: url("/assets/img/icons/person_add_hover.svg");
     }
-}
-
-.reply-timestamp {
-    font-size: 14px;
-    color: $text-gray;
-}
-
-.inverted-message {
-    flex-direction: row-reverse;
-    padding-right: 45px;
-
-    .message-info {
-        flex-direction: row-reverse;
-    }
-
-    .message-wrapper {
-        align-items: flex-end;
-        margin-right: 30px;
-    }
-
-    .message {
-        border-radius: 20px 0 20px 20px;
-        background-color: $purple2;
-        color: white;
-    }
-
-    &:hover {
-        .message {
-            background-color: $purple2;
-
-        }
-    }
-
 }

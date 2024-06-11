@@ -1,95 +1,20 @@
-<div #scroll id="messageContainer" ref={messageContainer} class="channel-conversation-container">
-    <div class="divider-container">
-        <div class="divider">
-            <span>Dienstag, 14 Januar</span>
+<div class="channel-container">
+    <div class="channel-head-wrapper">
+        <div (click)="openDialogEditChannel()" class="channel-head">
+            <div class="channel-head-tag-icon"></div>
+            <span>Entwicklerteam </span>
+            <div class="channel-head-arrow-icon"></div>
+        </div>
+        <div class="channel-head-right">
+            <div (click)="openDialogAddUserToChannel()" class="channel-user-icons">
+                <img src="/assets/img/profile/testchar1.svg">
+                <img src="/assets/img/profile/testchar1.svg">
+                <img src="/assets/img/profile/testchar1.svg">
+                <span>3</span>
+            </div>
+            <div (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
         </div>
     </div>
-    <div class="single-message-container">
-        <div class="profile-picture">
-            <img src="/assets/img/profile/testchar1.svg" />
-        </div>
-        <div class="message-wrapper">
-            <div class="message-head">
-                <div class="message-info">
-                    <span (click)="openDialogUserInfo()"> Noah Braun</span>
-                    <div class="message-timestamp">
-                        <span>14:25 Uhr</span>
-                    </div>
-                </div>
-            </div>
-            <div class="message">
-                <span> Welche Version von Angular ist aktuell ?</span>
-            </div>
-            <div class="message-reply-wrapper">
-                <div class="message-replies">
-                    <span (click)="showThreadBar()">2 Antworten</span>
-                </div>
-                <div class="reply-timestamp">
-                    <span>Letzte Antwort 14:56</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="divider-container">
-        <div class="divider">
-            <span>Heute</span>
-        </div>
-    </div>
-    <div class="single-message-container inverted-message ">
-        <div class="profile-picture">
-            <img src="/assets/img/profile/testchar1.svg" />
-        </div>
-        <div class="message-wrapper">
-            <div class="message-head">
-                <div class="message-info">
-                    <span (click)="openDialogUserInfo()"> Noah Braun</span>
-                    <div class="message-timestamp">
-                        <span>14:25 Uhr</span>
-                    </div>
-                </div>
-            </div>
-            <div class="message">
-                <span> Welche Version von Angular ist aktuell ?</span>
-            </div>
-            <div class="message-reply-wrapper">
-                <div class="message-replies">
-                    <span (click)="showThreadBar()">2 Antworten</span>
-                </div>
-                <div class="reply-timestamp">
-                    <span>Letzte Antwort 15:06</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="divider-container">
-        <div class="divider">
-            <span>Dienstag, 14 Januar</span>
-        </div>
-    </div>
-    <div class="single-message-container">
-        <div class="profile-picture">
-            <img src="/assets/img/profile/testchar1.svg" />
-        </div>
-        <div class="message-wrapper">
-            <div class="message-head">
-                <div class="message-info">
-                    <span (click)="openDialogUserInfo()"> Noah Braun</span>
-                    <div class="message-timestamp">
-                        <span>14:25 Uhr</span>
-                    </div>
-                </div>
-            </div>
-            <div class="message">
-                <span> Welche Version von Angular ist aktuell ?</span>
-            </div>
-            <div class="message-reply-wrapper">
-                <div class="message-replies">
-                    <span (click)="showThreadBar()">2 Antworten</span>
-                </div>
-                <div class="reply-timestamp">
-                    <span>Letzte Antwort 14:56</span>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <app-message></app-message>
 </div>
