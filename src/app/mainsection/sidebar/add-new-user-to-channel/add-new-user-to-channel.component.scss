@@ -63,7 +63,7 @@ form {
 
     .search-wrapper {
         @include dFlex($ai: center);
-        cursor: pointer;
+        gap: 15px;
         width: 100%;
         height: 60px;
         border-radius: 40px;
@@ -84,9 +84,38 @@ form {
             font-size: 18px;
         }
 
+        .user-wrapper{
+            height: 40px;
+            padding: 5px 10px;
+            background-color: $bg-color;
+            cursor: default;
+
+            img{
+                height: 34px;
+                width: 34px;
+            }
+
+            span{
+                text-wrap: nowrap;
+            }
+
+            .deleteUser{
+                height: 30px;
+                width: 30px;
+                background-image: url(/assets/img/mainsection/close.svg);
+                background-position: center;
+                background-repeat: no-repeat;
+                cursor: pointer;
+                
+                &:hover{
+                    background-image: url(/assets/img/mainsection/close-hover.svg);
+                }
+            }
+        }
 
         input {
             cursor: pointer;
+            width: 100%;
             height: 40px;
             font-size: 18px;
             border: none;
@@ -125,6 +154,8 @@ form {
     gap: 15px;
     padding: 5px 20px;
     border-radius: 40px;
+    font-size: 18px;
+    width: fit-content;
     
     img{
         height: 50px;
@@ -140,7 +171,7 @@ form {
 }
 
 .mat-mdc-menu-panel {
-    min-width: none !important;
+    min-width: 335px!important;
     padding: 0px 0px !important;
     border-radius: 0px 20px 20px 20px !important;
 }

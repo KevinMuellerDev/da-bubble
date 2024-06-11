@@ -31,7 +31,6 @@ export class AddNewChannelComponent {
 
   async onSubmit(createNewChannel: NgForm) {
     this.prepareNewChannelData();
-    /* await this.channelService.createNewChannel(this.newChannel); */
     this.channelService.newChannel = this.newChannel;
     createNewChannel.reset();
   }

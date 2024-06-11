@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { ChannelData } from '../models/channels.class';
 import { ChannelInfo } from '../interfaces/channelinfo';
 @Injectable({
@@ -8,6 +8,7 @@ import { ChannelInfo } from '../interfaces/channelinfo';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   newChannel?:ChannelInfo;
+
   constructor() { }
 
 
@@ -15,7 +16,13 @@ export class ChannelService {
    * Creates a new Channel in firestore
    */
   async createNewChannel(channelData:ChannelInfo) {
-    await addDoc(collection(this.firestore, "Channels"), channelData);
+    await addDoc(collection(this.firestore, "Channels"), channelData)
+    .then((docRef)=>{
+      channelData.users.forEach(async user => {
+        const channelId= {channelid: docRef.id}
+        await addDoc(collection(this.firestore, 'user', user, 'userchannels'), channelId)
+      });
+    });
   }
 
 

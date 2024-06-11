@@ -4,9 +4,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
-import { user } from '@angular/fire/auth';
-import {MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
@@ -24,6 +23,7 @@ export class AddNewUserToChannelComponent {
 
   specificUser: boolean;
   userList: any[] = [];
+  selectedUser: any[] = [];
   inputs = {
     specificUser: ''
   }
@@ -32,10 +32,13 @@ export class AddNewUserToChannelComponent {
     this.specificUser = false;
   }
 
-  
+
   onSubmit(addUserInputs: NgForm) {
     if (this.specificUser = true) {
-      this.searchUser();
+      this.selectedUser.forEach(user => {
+        this.channelService.newChannel?.users.push(user.uid)
+      });
+      this.channelService.createNewChannel(this.channelService.newChannel!);
     } else {
       this.getUsersFromChannel();
     }
@@ -48,16 +51,27 @@ export class AddNewUserToChannelComponent {
       const name: string = element['name'];
       const contains: boolean = name.toLocaleLowerCase().indexOf(this.inputs.specificUser.toLocaleLowerCase()) != -1;
       if (contains && this.inputs.specificUser != '') {
-        this.userList.push({ user: name, uid: element['id'], img: element['profilePicture'] });  
+        this.userList.push({ user: name, uid: element['id'], img: element['profilePicture'] });
       }
     });
     console.log(this.userList);
   }
 
+  pushToSelection(user:object){
+    this.selectedUser.push(user);
+    this.userList=[];
+    this.inputs.specificUser =''
+  }
 
-  focusOnUserInput(){
+  removeUserFromSelection(user:any){
+    const contains = this.selectedUser.indexOf(user);
+    this.selectedUser.splice(contains,1);
+  }
+
+  focusOnUserInput() {
     this.specificUserInput?.nativeElement.focus();
   }
+
 
   getUsersFromChannel() {
     return
