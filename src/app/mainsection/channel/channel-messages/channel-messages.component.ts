@@ -20,8 +20,6 @@ export class ChannelMessagesComponent {
 
   constructor(public dialog: MatDialog){}
   
-
-
       openDialogAddUser() {
        this.dialog.open(AddUserDialogComponent, { panelClass: 'mod-dialog-window-3' })
   }
@@ -34,8 +32,4 @@ export class ChannelMessagesComponent {
     openDialogEditChannel() {
        this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
   }
-
-
-
-
 }

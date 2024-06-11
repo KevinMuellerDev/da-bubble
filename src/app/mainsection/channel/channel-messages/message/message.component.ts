@@ -16,7 +16,6 @@ import { ShowProfileComponent } from '../../../../shared/components/show-profile
 })
 export class MessageComponent {
 
-  
   constructor(public dialog: MatDialog) { }
   
     @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
