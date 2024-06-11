@@ -85,8 +85,8 @@
 }
 
 .add-member-icon {
-    height: 40px;
-    width: 40px;
+    height: 32px;
+    width: 32px;
     @include dFlex($jc: center);
     background-color: $bg-color;
     border-radius: 50%;
@@ -102,9 +102,10 @@
 
 .add-member-container {
     @include dFlex();
-    gap: 20px;
-    padding: 5px 10px;
+    gap: 15px;
+    padding: 12px 29px;
     cursor: pointer;
+    margin-left: -20px;
 
     &:hover {
         color: $purple3;

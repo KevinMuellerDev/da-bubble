@@ -20,11 +20,9 @@
                 <span>(Du)</span>
             </div>
         </div>
-        <div class="add-member-container">
+        <div [mat-dialog-close]="true" (click)=" openDialogAddUser()" class="add-member-container">
             <div class="add-member-icon"></div>
             <span>Mitglieder hinzufügen</span>
         </div>
     </div>
-
-
 </div>

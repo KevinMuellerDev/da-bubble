@@ -6,6 +6,7 @@ import { ShowProfileComponent } from '../../shared/components/show-profile/show-
 import { MatDialog } from '@angular/material/dialog';
 import { EditChannelDialogComponent } from './edit-channel-dialog/edit-channel-dialog.component';
 import { AddUserToChannelDialogComponent } from './add-user-to-channel-dialog/add-user-to-channel-dialog.component';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 
 @Component({
   selector: 'app-channel',
@@ -54,6 +55,10 @@ export class ChannelComponent {
 
   openDialogEditChannel() {
        this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
+  }
+
+    openDialogAddUser() {
+       this.dialog.open(AddUserDialogComponent, { panelClass: 'mod-dialog-window-3' })
   }
 
     openDialogAddUserToChannel() {
