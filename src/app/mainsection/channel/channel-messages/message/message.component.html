@@ -4,91 +4,36 @@
             <span>Dienstag, 14 Januar</span>
         </div>
     </div>
-    <div class="single-message-container">
-        <div class="profile-picture">
-            <img src="/assets/img/profile/testchar1.svg" />
-        </div>
-        <div class="message-wrapper">
-            <div class="message-head">
-                <div class="message-info">
-                    <span (click)="openDialogUserInfo()"> Noah Braun</span>
-                    <div class="message-timestamp">
-                        <span>14:25 Uhr</span>
+    <div *ngFor="let message of messages; let i = index; let isEven = even; let isLast = last">
+        <div [ngClass]="{ 'inverted-message': isEven }" class="single-message-container">
+            <div class="profile-picture">
+                <img [src]="message.profilePicture" />
+            </div>
+            <div class="message-wrapper">
+                <div class="message-head">
+                    <div class="message-info">
+                        <span (click)="openDialogUserInfo()">{{ message.userName }}</span>
+                        <div class="message-timestamp">
+                            <span>{{ message.timeStamp }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="message">
+                    <span>{{ message.messageText }}</span>
+                </div>
+                <div class="message-reply-wrapper">
+                    <div class="message-replies">
+                        <span (click)="showThreadBar()">{{ message.repliesCount }} Antworten</span>
+                    </div>
+                    <div class="reply-timestamp">
+                        <span>Letzte Antwort {{ message.lastReplyTimeStamp }}</span>
                     </div>
                 </div>
             </div>
-            <div class="message">
-                <span> Welche Version von Angular ist aktuell ?</span>
-            </div>
-            <div class="message-reply-wrapper">
-                <div class="message-replies">
-                    <span (click)="showThreadBar()">2 Antworten</span>
-                </div>
-                <div class="reply-timestamp">
-                    <span>Letzte Antwort 14:56</span>
-                </div>
-            </div>
         </div>
-    </div>
-    <div class="divider-container">
-        <div class="divider">
-            <span>Heute</span>
-        </div>
-    </div>
-    <div class="single-message-container inverted-message ">
-        <div class="profile-picture">
-            <img src="/assets/img/profile/testchar1.svg" />
-        </div>
-        <div class="message-wrapper">
-            <div class="message-head">
-                <div class="message-info">
-                    <span (click)="openDialogUserInfo()"> Noah Braun</span>
-                    <div class="message-timestamp">
-                        <span>14:25 Uhr</span>
-                    </div>
-                </div>
-            </div>
-            <div class="message">
-                <span> Welche Version von Angular ist aktuell ?</span>
-            </div>
-            <div class="message-reply-wrapper">
-                <div class="message-replies">
-                    <span (click)="showThreadBar()">2 Antworten</span>
-                </div>
-                <div class="reply-timestamp">
-                    <span>Letzte Antwort 15:06</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="divider-container">
-        <div class="divider">
-            <span>Dienstag, 14 Januar</span>
-        </div>
-    </div>
-    <div class="single-message-container">
-        <div class="profile-picture">
-            <img src="/assets/img/profile/testchar1.svg" />
-        </div>
-        <div class="message-wrapper">
-            <div class="message-head">
-                <div class="message-info">
-                    <span (click)="openDialogUserInfo()"> Noah Braun</span>
-                    <div class="message-timestamp">
-                        <span>14:25 Uhr</span>
-                    </div>
-                </div>
-            </div>
-            <div class="message">
-                <span> Welche Version von Angular ist aktuell ?</span>
-            </div>
-            <div class="message-reply-wrapper">
-                <div class="message-replies">
-                    <span (click)="showThreadBar()">2 Antworten</span>
-                </div>
-                <div class="reply-timestamp">
-                    <span>Letzte Antwort 14:56</span>
-                </div>
+        <div *ngIf="!isLast" class="divider-container">
+            <div class="divider">
+                <span>Heute</span>
             </div>
         </div>
     </div>

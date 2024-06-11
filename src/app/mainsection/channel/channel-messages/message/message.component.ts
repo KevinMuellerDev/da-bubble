@@ -1,4 +1,3 @@
-import { DialogRef } from '@angular/cdk/dialog';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,6 +16,32 @@ import { ShowProfileComponent } from '../../../../shared/components/show-profile
 export class MessageComponent {
 
   constructor(public dialog: MatDialog) { }
+//test Nachrichtaufbau
+  messages = [{
+    'profilePicture': '/assets/img/profile/testchar1.svg',
+    'userName': 'Noah Braun',
+    'timeStamp': '14:25 Uhr',
+    'messageText': 'Welche Version von Angular ist aktuell ?',
+    'repliesCount': 2,
+    'lastReplyTimeStamp':'14:56'
+  }, {
+    'profilePicture': '/assets/img/profile/testchar1.svg',
+    'userName': 'Noah Braun',
+    'timeStamp': '14:25 Uhr',
+    'messageText': 'Welche Version von Angular ist aktuell ?',
+    'repliesCount': 2,
+    'lastReplyTimeStamp':'14:56'
+    },
+    {
+      'profilePicture': '/assets/img/profile/testchar1.svg',
+      'userName': 'Noah Braun',
+      'timeStamp': '14:25 Uhr',
+      'messageText': 'Welche Version von Angular ist aktuell?',
+      'repliesCount': 2,
+      'lastReplyTimeStamp':'14:56'
+    }
+  
+  ]
   
     @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
