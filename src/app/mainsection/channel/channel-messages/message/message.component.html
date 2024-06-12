@@ -27,7 +27,9 @@
                         (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]" set="twitter"></emoji-mart>
                 </div>
                 <div class="selected-emoji">
-                    <span *ngFor="let emoji of message.selectedEmoji">{{ emoji }}</span>
+                    <span *ngFor="let emojiCount of message.emojiCounts">
+                        {{ emojiCount.emoji }} {{ emojiCount.count }}
+                    </span>
                 </div>
                 <div class="message-reply-wrapper">
                     <div class="message-replies">

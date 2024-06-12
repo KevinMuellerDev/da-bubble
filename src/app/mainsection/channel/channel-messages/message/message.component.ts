@@ -21,13 +21,14 @@ export class MessageComponent {
 
   showEmojiPickerArray: boolean[] = [];
 
-//test Nachrichtaufbau
+//test Nachrichtaufbau entfällt später, da die Daten von Firebase kommen. 
   messages = [{
     'profilePicture': '/assets/img/profile/testchar1.svg',
     'userName': 'Noah Braun',
     'timeStamp': '14:25 Uhr',
     'messageText': 'Welche Version von Angular ist aktuell ?',
     'selectedEmoji': [] as string[], 
+    'emojiCounts': [] as { emoji: string, count: number }[], 
     'repliesCount': 2,
     'lastReplyTimeStamp':'14:56'
   }, {
@@ -35,7 +36,8 @@ export class MessageComponent {
     'userName': 'Noah Braun',
     'timeStamp': '14:25 Uhr',
     'messageText': 'Welche Version von Angular ist aktuell ?',
-      'selectedEmoji':[] as string[], 
+    'selectedEmoji': [] as string[], 
+       'emojiCounts': [] as { emoji: string, count: number }[], 
     'repliesCount': 2,
     'lastReplyTimeStamp':'14:56'
     },
@@ -44,7 +46,8 @@ export class MessageComponent {
       'userName': 'Noah Braun',
       'timeStamp': '14:25 Uhr',
       'messageText': 'Welche Version von Angular ist aktuell?',
-        'selectedEmoji':[] as string[], 
+      'selectedEmoji': [] as string[], 
+       'emojiCounts': [] as { emoji: string, count: number }[], 
       'repliesCount': 2,
       'lastReplyTimeStamp':'14:56'
     }
@@ -65,9 +68,29 @@ export class MessageComponent {
     console.log(event['emoji']['native']);
     console.log(event['emoji']);
     this.toggleEmojiPicker(index);
+    this.emojiCounter();
   }
+
+emojiCounter() {
+  this.messages.forEach(message => {
+    let emojiCountsMap = new Map();
+    let previousEmoji:any = null;
+    let currentCount = 0;
+    message.selectedEmoji.forEach(emoji => {
+      if (emoji === previousEmoji) {
+        currentCount++;
+      } else {
+        previousEmoji = emoji;
+        currentCount = 1;
+      }
+      emojiCountsMap.set(emoji, currentCount);
+    });
+    message.emojiCounts = Array.from(emojiCountsMap, ([emoji, count]) => ({ emoji, count }));
+    console.log(message.emojiCounts);
+  });
+}
   
-    @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
+  @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
       ngAfterViewChecked() {
