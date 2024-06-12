@@ -27,8 +27,6 @@ export class UserService {
     console.log('bin da');
     if (sessionStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
       this.router.navigate(['/']);
-    console.log(this.currentUser);
-
   }
 
 
@@ -46,7 +44,6 @@ export class UserService {
   }
 
 
-
   /**
    * listens to changes to referenced collection and stores the data
    * in userChannels
@@ -58,24 +55,24 @@ export class UserService {
       querySnapshot.forEach(element => {
         this.userChannels.unshift(element.data()['channelid']);
       });
-      console.log(this.userChannels);
     });
     return unsubscribe
   }
 
 
+/**
+ * The function `retrieveAllUsers` retrieves all user data from a Firestore collection
+ * @returns The `unsubscribe` function is being returned from the `retrieveAllUsers` function.
+ */
   retrieveAllUsers() {
     const unsubscribe = onSnapshot(query(this.refUserProfile()), (querySnapshot) => {
       this.allUsers = [];
       querySnapshot.forEach((doc) => {
         this.allUsers.push(doc.data())
       });
-      console.log(this.allUsers);
     });
     return unsubscribe
   }
-
-
 
 
   /**
@@ -136,7 +133,6 @@ export class UserService {
     this.createUserInfo.name = obj.name;
     this.createUserInfo.email = obj.email;
     this.createUserInfo.isLoggedIn = false;
-    console.log(this.createUserInfo);
   }
 
   /**
@@ -151,7 +147,6 @@ export class UserService {
     this.createUserInfo.isLoggedIn = false;
     this.createUserInfo.id = obj.uid;
     this.createUserInfo.profilePicture = obj.photoURL;
-    console.log(this.createUserInfo);
   }
 
 
@@ -165,12 +160,4 @@ export class UserService {
     this.createUserInfo.profilePicture = url;
   }
 
-
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-
-    console.log('bin da');
-
-  }
 }
