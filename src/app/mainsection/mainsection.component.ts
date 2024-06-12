@@ -27,6 +27,10 @@ export class MainsectionComponent {
   }
 
 
+/**
+ * The `rotateIndicator` function toggles a CSS class and shows/hides a side navigation menu based on
+ * the current state of a boolean variable.
+ */
   rotateIndicator() {
     if (this.rotateToggle == false) {
       document.getElementById('toggle')?.classList.add('rotate-toggle')
@@ -40,11 +44,18 @@ export class MainsectionComponent {
   }
 
 
+/**
+ * The `hideSidenav` function adds the 'hide-show' class to the element with the id 'sidebar' to hide
+ * it.
+ */
   hideSidenav() {
     document.getElementById('sidebar')?.classList.add('hide-show')
   }
 
 
+/**
+ * The `showSidenav` function removes the 'hide-show' class from the element with the id 'sidebar'.
+ */
   showSidenav() {
     document.getElementById('sidebar')?.classList.remove('hide-show')
   }
