@@ -6,18 +6,18 @@ import { AddUserDialogComponent } from '../../add-user-dialog/add-user-dialog.co
 import { EditChannelDialogComponent } from '../../edit-channel-dialog/edit-channel-dialog.component';
 import { ShowProfileComponent } from '../../../../shared/components/show-profile/show-profile.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [CommonModule,AddUserToChannelDialogComponent,AddUserDialogComponent,EditChannelDialogComponent,ShowProfileComponent,PickerComponent],
+  imports: [CommonModule,AddUserToChannelDialogComponent,AddUserDialogComponent,EditChannelDialogComponent,ShowProfileComponent,PickerComponent,EmojiComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
   constructor(public dialog: MatDialog) { }
-
-  
 
   showEmojiPickerArray: boolean[] = [];
 
@@ -71,10 +71,14 @@ export class MessageComponent {
     this.emojiCounter();
   }
 
+  /**
+ * Updates the emoji counts for each message. For each message, it counts consecutive identical emojis 
+ * and stores the count along with the emoji in a list of objects.
+ */
 emojiCounter() {
   this.messages.forEach(message => {
     let emojiCountsMap = new Map();
-    let previousEmoji:any = null;
+    let previousEmoji:string|null = null;
     let currentCount = 0;
     message.selectedEmoji.forEach(emoji => {
       if (emoji === previousEmoji) {
@@ -85,6 +89,10 @@ emojiCounter() {
       }
       emojiCountsMap.set(emoji, currentCount);
     });
+      /**
+     * Convert the Map to an array of objects and store it in message.emojiCounts.
+     * Each object contains an emoji and its corresponding count.
+     */
     message.emojiCounts = Array.from(emojiCountsMap, ([emoji, count]) => ({ emoji, count }));
     console.log(message.emojiCounts);
   });

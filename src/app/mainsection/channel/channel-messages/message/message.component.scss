@@ -216,7 +216,8 @@
 
     &:hover {
         background-image: url("/assets/img/icons/add_reaction_hover.svg");
-
+        background-color: $bg-color;
+        border-radius: 50%;
     }
 }
 

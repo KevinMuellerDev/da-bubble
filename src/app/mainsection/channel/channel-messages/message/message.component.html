@@ -8,6 +8,7 @@
         <div [ngClass]="{ 'inverted-message': isOdd }" class="single-message-container">
             <div [ngClass]="{ 'interaction-container-inverted': isOdd }" class="interaction-container">
                 <div (click)="toggleEmojiPicker(i)" class="add-reaction-icon"></div>
+                <ngx-emoji [style]="{display:'flex',cursor:'pointer'}" emoji="santa" set="twitter"></ngx-emoji>
             </div>
             <div class="profile-picture">
                 <img [src]="message.profilePicture" />
@@ -23,7 +24,7 @@
                 </div>
                 <div class="message">
                     <span>{{ message.messageText }}</span>
-                    <emoji-mart [style]="{ position: 'absolute', bottom: '20px', right: '20px' }"
+                    <emoji-mart [style]="{ position: 'absolute', bottom: '-289px', right: '20px','z-index': '999' }"
                         (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]" set="twitter"></emoji-mart>
                 </div>
                 <div class="selected-emoji">
