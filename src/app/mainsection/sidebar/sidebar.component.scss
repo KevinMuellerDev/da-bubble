@@ -23,7 +23,7 @@
 .header-logo {
   margin-right: 13.5px;
 
-  >img {
+  > img {
     width: 60px;
   }
 }
@@ -31,7 +31,7 @@
 .headline-left {
   @include dFlex();
 
-  >span {
+  > span {
     font-size: 24px;
     font-weight: 700;
   }
@@ -73,14 +73,12 @@
   @include dFlex();
 }
 
-
-
 .channel-head {
   @include dFlex($jc: center);
   cursor: pointer;
   gap: 10px;
 
-  >span {
+  > span {
     font-size: 20px;
     font-weight: 700;
   }
@@ -94,10 +92,9 @@
       background-image: url("/assets/img/icons/workspaces_hover.svg");
     }
 
-    >span {
+    > span {
       color: $purple1;
     }
-
   }
 }
 
@@ -111,9 +108,7 @@
 
   &:hover {
     background-image: url("/assets/img/icons/arrow_drop_down_hover.svg");
-
   }
-
 }
 
 .channel-icon {
@@ -127,9 +122,7 @@
 
   &:hover {
     background-image: url("/assets/img/icons/workspaces_hover.svg");
-
   }
-
 }
 
 .channel-head-plus-icon {
@@ -150,7 +143,6 @@
   &:active {
     background-image: url("/assets/img/icons/add_bold.svg");
   }
-
 }
 
 .channel-wrapper {
@@ -189,7 +181,7 @@
   margin-top: 25px;
   cursor: pointer;
 
-  >span {
+  > span {
     font-size: 18px;
   }
 
@@ -198,7 +190,7 @@
       background-image: url("/assets/img/icons/add_circle_hover.svg");
     }
 
-    >span {
+    > span {
       color: $purple1;
     }
   }
@@ -224,7 +216,7 @@
   width: 100%;
   gap: 10px;
 
-  >span {
+  > span {
     font-size: 18px;
   }
 
@@ -237,10 +229,8 @@
       background-image: url("/assets/img/icons/arrow_drop_down_hover.svg");
     }
 
-    >span {
+    > span {
       color: $purple1;
-
-
     }
   }
 }
@@ -266,7 +256,6 @@
   padding: 5px 10px;
 }
 
-
 .messages-container {
   @include dFlex();
   width: 100%;
@@ -281,13 +270,13 @@
   margin-left: 25px;
   gap: 15px;
 
-  >img {
+  > img {
     width: 50px;
     height: 50px;
     border-radius: 50% 50%;
   }
 
-  >span {
+  > span {
     font-size: 18px;
   }
 
@@ -295,7 +284,7 @@
     background-color: $bg-color;
     border-radius: 30px;
 
-    >span {
+    > span {
       color: $purple1;
     }
   }
@@ -309,4 +298,10 @@
   left: 53px;
   bottom: 3px;
   border: 2px solid white;
+}
+
+@media screen and (max-width: 960px) {
+  .sidebar-container {
+    padding: 20px 20px;
+  }
 }

@@ -7,7 +7,6 @@
       <span> Devspace </span>
     </div>
     <div class="edit-icon">
-
     </div>
   </div>
   <div class="channel-container">
@@ -25,7 +24,6 @@
       <div (click)="openDialog()" class="channel-head-plus-icon">
       </div>
     </div>
-
     <div class="channel-wrapper">
       @for (channel of sidebarService.channels; track $index) {
       <div [@openClose]="menuStates['channel']" class="single-channel-container">
@@ -35,7 +33,6 @@
       }
     </div>
   </div>
-
   <div (click)="openDialog()" class="add-new-channel-container">
     <div class="add-new-channel-icon"></div>
     <span>Channel hinzufügen</span>
@@ -43,7 +40,6 @@
   <div class="direct-message-container">
     <div (click)="toggleMenu('message')" [ngClass]="{ 'rotate-180': menuStates['message'] === 'closed' }"
          class="arrow-down-icon">
-
     </div>
     <div class="direct-message-head">
       <div (click)="toggleMenu('message')" class="message-icon">
@@ -51,7 +47,6 @@
       <span (click)="toggleMenu('message')">Direktnachrichten</span>
     </div>
   </div>
-
   <div [@openClose]="menuStates['message']" class="messages-container">
     <div class="message">
       <img [src]="userService.userInfo.profilePicture" alt="" />

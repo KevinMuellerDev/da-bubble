@@ -11,9 +11,10 @@
 .content {
     @include dFlex($jc: space-between);
     gap: 25px;
-    padding-top: 25px;
+    margin-top: 25px;
     height: 100%;
     overflow-x: hidden;
+    position: relative;
 
     app-sidebar,
     app-channel,
@@ -54,6 +55,7 @@
     font: 500 20px "Nunito";
     cursor: pointer;
     box-shadow: 4px 4px 7px 0px #00000033;
+    z-index: 1;
 
     .toggle-img-hide {
         transition: transform 125ms ease-in-out;
@@ -82,3 +84,29 @@
     visibility: hidden;
     width: 0 !important;
 }
+
+@media screen and (max-width: 960px) {
+    .content {
+        gap: 0;
+        app-sidebar {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        app-channel {
+            background-color: $black;
+        }
+
+        app-thread {
+            position: absolute;
+            top: 50%;
+            right: 0%;
+            transform: translateY(-50%);
+            max-width: 366px;
+            width: 100%;
+            z-index: 1;
+        }
+    }
+  }

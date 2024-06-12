@@ -117,11 +117,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
+    this.checkScreenWidth();
     if (!hasSeenAnimation) {
       this.showIntroAnimation = true;
-      // sessionStorage.setItem('hasSeenAnimation', 'true');
+      sessionStorage.setItem('hasSeenAnimation', 'true');
       this.delayIntroAnimation();
-      this.checkScreenWidth();
     }
   }
 

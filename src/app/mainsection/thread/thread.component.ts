@@ -14,19 +14,18 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ThreadComponent {
 
-  constructor(public dialog: MatDialog){}
-  
- closeThread() {
-  document.getElementById('threadBar')?.classList.add('hide-show')
+  constructor(public dialog: MatDialog) { }
+
+  closeThread() {
+    document.getElementById('threadBar')?.classList.add('hide-show')
   }
 
   /**
   * This function opens the dialog and determines if the ShowProfile component is editable or not
-  * 
   * @param profileEditable boolean - determine if ShowUser component is editable or not
   */
   openDialogUserInfo() {
-    let dialogRef = this.dialog.open(ShowProfileComponent, {panelClass:'verify'})
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
 
