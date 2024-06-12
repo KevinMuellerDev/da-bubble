@@ -12,9 +12,14 @@ export class ChannelService {
   constructor() { }
 
 
-  /**
-   * Creates a new Channel in firestore
-   */
+
+/**
+ * The function creates a new channel in Firestore and adds the channel ID to the user's list of
+ * channels.
+ * @param {ChannelInfo} channelData - The `channelData` parameter is an object containing information
+ * about a new channel that needs to be created. It likely includes details such as the channel name,
+ * description, creator, and list of users who will be part of the channel.
+ */
   async createNewChannel(channelData:ChannelInfo) {
     await addDoc(collection(this.firestore, "Channels"), channelData)
     .then((docRef)=>{
@@ -24,6 +29,8 @@ export class ChannelService {
       });
     });
   }
+
+
 
 
   /**

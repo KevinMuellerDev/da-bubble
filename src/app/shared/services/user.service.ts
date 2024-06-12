@@ -114,6 +114,12 @@ export class UserService {
   }
 
 
+/**
+ * The `refUserChannels` function returns a reference to the user channels collection in Firestore
+ * based on the current user's ID stored in sessionStorage.
+ * @returns The `refUserChannels()` function is returning a reference to the 'userchannels' collection
+ * within the 'user' document corresponding to the user ID stored in the session storage.
+ */
   refUserChannels() {
     return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
   }

@@ -33,7 +33,11 @@ export class AddNewUserToChannelComponent {
   }
 
 
-  onSubmit(addUserInputs: NgForm) {
+/**
+ * The onSubmit function checks if a specific user is selected and adds them to a new channel,
+ * otherwise it retrieves users from an existing channel.
+ */
+  onSubmit() {
     if (this.specificUser = true) {
       this.selectedUser.forEach(user => {
         this.channelService.newChannel?.users.push(user.uid)
@@ -45,6 +49,10 @@ export class AddNewUserToChannelComponent {
   }
 
 
+/**
+ * The `searchUser` function filters a list of users based on a specific user input and populates a new
+ * list with matching users' information.
+ */
   searchUser() {
     this.userList = [];
     this.userService.allUsers.forEach(element => {
@@ -54,20 +62,35 @@ export class AddNewUserToChannelComponent {
         this.userList.push({ user: name, uid: element['id'], img: element['profilePicture'] });
       }
     });
-    console.log(this.userList);
   }
 
+  
+/**
+ * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList
+ * array, and resets the specificUser input field.
+ * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
+ */
   pushToSelection(user:object){
     this.selectedUser.push(user);
     this.userList=[];
     this.inputs.specificUser =''
   }
 
+
+/**
+ * The function `removeUserFromSelection` removes a specified user from the `selectedUser` array.
+ * @param {any} user - The `user` parameter in the `removeUserFromSelection` function is of type `any`,
+ * which means it can accept any data type as its value.
+ */
   removeUserFromSelection(user:any){
     const contains = this.selectedUser.indexOf(user);
     this.selectedUser.splice(contains,1);
   }
 
+
+/**
+ * The function `focusOnUserInput` focuses on a specific user input element if it exists.
+ */
   focusOnUserInput() {
     this.specificUserInput?.nativeElement.focus();
   }
