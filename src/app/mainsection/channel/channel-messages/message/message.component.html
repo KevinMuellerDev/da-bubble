@@ -4,8 +4,11 @@
             <span>Dienstag, 14 Januar</span>
         </div>
     </div>
-    <div *ngFor="let message of messages; let i = index; let isEven = even; let isLast = last">
-        <div [ngClass]="{ 'inverted-message': isEven }" class="single-message-container">
+    <div *ngFor="let message of messages; let i = index; let isOdd = odd; let isLast = last">
+        <div [ngClass]="{ 'inverted-message': isOdd }" class="single-message-container">
+            <div [ngClass]="{ 'interaction-container-inverted': isOdd }" class="interaction-container">
+                <div (click)="toggleEmojiPicker()" class="add-reaction-icon"></div>
+            </div>
             <div class="profile-picture">
                 <img [src]="message.profilePicture" />
             </div>

@@ -1,3 +1,5 @@
+@import '@ctrl/ngx-emoji-mart/picker';
+
 $purple1: #444df2;
 $purple2: #797ef3;
 $purple3: #535af1;
@@ -92,7 +94,7 @@ body {
 }
 
 .d-none {
-    display: none!important;
+    display: none !important;
 }
 
 mat-card {

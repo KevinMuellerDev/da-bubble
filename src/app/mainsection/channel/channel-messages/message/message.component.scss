@@ -24,6 +24,7 @@
 .channel-conversation-container {
     margin-top: 20px;
     overflow-y: scroll;
+    overflow-x: hidden;
     height: calc(100% - 338px);
 }
 
@@ -48,7 +49,26 @@
     }
 }
 
+.interaction-container {
+    @include dFlex($jc: center);
+    visibility: hidden;
+    transform: translateX(100%);
+    position: absolute;
+    right: 43.06px;
+    top: 0;
+    min-width: 210px;
+    max-width: 210px;
+    height: 46px;
+    background-color: white;
+    padding: 3px 15px 3px 20px;
+    border-radius: 25px 25px 0px 25px;
+    border: 1px solid $light-purple;
+    transition: all 75ms ease-in-out;
+}
+
+
 .single-message-container {
+    position: relative;
     padding: 35px 0 35px 45px;
     width: 100%;
     @include dFlex($ai: flex-start);
@@ -62,6 +82,12 @@
 
         .reply-timestamp {
             color: black;
+        }
+
+        .interaction-container {
+            transform: translateX(0);
+            transition: all 75ms ease-in-out;
+            visibility: visible;
         }
     }
 }
@@ -147,6 +173,10 @@
     flex-direction: row-reverse;
     padding-right: 45px;
 
+    .interaction-container {
+        transform: translateX(-100%);
+    }
+
     .message-info {
         flex-direction: row-reverse;
     }
@@ -168,5 +198,24 @@
 
         }
     }
+}
 
+.interaction-container-inverted {
+    left: 43.06px;
+    right: 0;
+}
+
+.add-reaction-icon {
+    @include dFlex($jc: center);
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/add_reaction.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/add_reaction_hover.svg");
+
+    }
 }

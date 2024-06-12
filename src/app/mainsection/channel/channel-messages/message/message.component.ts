@@ -5,17 +5,20 @@ import { AddUserToChannelDialogComponent } from '../../add-user-to-channel-dialo
 import { AddUserDialogComponent } from '../../add-user-dialog/add-user-dialog.component';
 import { EditChannelDialogComponent } from '../../edit-channel-dialog/edit-channel-dialog.component';
 import { ShowProfileComponent } from '../../../../shared/components/show-profile/show-profile.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [CommonModule,AddUserToChannelDialogComponent,AddUserDialogComponent,EditChannelDialogComponent,ShowProfileComponent],
+  imports: [CommonModule,AddUserToChannelDialogComponent,AddUserDialogComponent,EditChannelDialogComponent,ShowProfileComponent,PickerComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-
   constructor(public dialog: MatDialog) { }
+
+  showEmojiPicker = false;
+
 //test Nachrichtaufbau
   messages = [{
     'profilePicture': '/assets/img/profile/testchar1.svg',
@@ -42,6 +45,23 @@ export class MessageComponent {
     }
   
   ]
+
+  
+    toggleEmojiPicker() {
+      this.showEmojiPicker = !this.showEmojiPicker;
+      console.log(this.showEmojiPicker);
+      
+  }
+
+ 
+
+  onFocus() {
+    console.log('focus');
+    this.showEmojiPicker = false;
+  }
+  onBlur() {
+    console.log('onblur')
+  }
   
     @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
