@@ -7,7 +7,7 @@
     <div *ngFor="let message of messages; let i = index; let isOdd = odd; let isLast = last">
         <div [ngClass]="{ 'inverted-message': isOdd }" class="single-message-container">
             <div [ngClass]="{ 'interaction-container-inverted': isOdd }" class="interaction-container">
-                <div (click)="toggleEmojiPicker()" class="add-reaction-icon"></div>
+                <div (click)="toggleEmojiPicker(i)" class="add-reaction-icon"></div>
             </div>
             <div class="profile-picture">
                 <img [src]="message.profilePicture" />
@@ -23,6 +23,11 @@
                 </div>
                 <div class="message">
                     <span>{{ message.messageText }}</span>
+                    <emoji-mart [style]="{ position: 'absolute', bottom: '20px', right: '20px' }"
+                        (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]" set="twitter"></emoji-mart>
+                </div>
+                <div class="selected-emoji">
+                    <span *ngFor="let emoji of message.selectedEmoji">{{ emoji }}</span>
                 </div>
                 <div class="message-reply-wrapper">
                     <div class="message-replies">

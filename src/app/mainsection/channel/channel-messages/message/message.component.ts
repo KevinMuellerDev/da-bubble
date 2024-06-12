@@ -17,7 +17,9 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 export class MessageComponent {
   constructor(public dialog: MatDialog) { }
 
-  showEmojiPicker = false;
+  
+
+  showEmojiPickerArray: boolean[] = [];
 
 //test Nachrichtaufbau
   messages = [{
@@ -25,6 +27,7 @@ export class MessageComponent {
     'userName': 'Noah Braun',
     'timeStamp': '14:25 Uhr',
     'messageText': 'Welche Version von Angular ist aktuell ?',
+    'selectedEmoji': [] as string[], 
     'repliesCount': 2,
     'lastReplyTimeStamp':'14:56'
   }, {
@@ -32,6 +35,7 @@ export class MessageComponent {
     'userName': 'Noah Braun',
     'timeStamp': '14:25 Uhr',
     'messageText': 'Welche Version von Angular ist aktuell ?',
+      'selectedEmoji':[] as string[], 
     'repliesCount': 2,
     'lastReplyTimeStamp':'14:56'
     },
@@ -40,27 +44,27 @@ export class MessageComponent {
       'userName': 'Noah Braun',
       'timeStamp': '14:25 Uhr',
       'messageText': 'Welche Version von Angular ist aktuell?',
+        'selectedEmoji':[] as string[], 
       'repliesCount': 2,
       'lastReplyTimeStamp':'14:56'
     }
   
   ]
-
+  ngOnInit() {
+    this.showEmojiPickerArray = this.messages.map(() => false);
+  }
   
-    toggleEmojiPicker() {
-      this.showEmojiPicker = !this.showEmojiPicker;
-      console.log(this.showEmojiPicker);
-      
+     toggleEmojiPicker(index: number) {
+    this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
 
- 
-
-  onFocus() {
-    console.log('focus');
-    this.showEmojiPicker = false;
-  }
-  onBlur() {
-    console.log('onblur')
+  addEmoji(event: any,index: number) {
+    this.messages[index]['selectedEmoji'].push(event['emoji']['native']);
+    console.log(this.messages[index]['selectedEmoji']);
+    console.log(event['emoji']['name']);
+    console.log(event['emoji']['native']);
+    console.log(event['emoji']);
+    this.toggleEmojiPicker(index);
   }
   
     @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;

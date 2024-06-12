@@ -219,3 +219,14 @@
 
     }
 }
+
+.selected-emoji {
+    >span {
+        background-color: white;
+        border: 1px solid $light-purple;
+        height: 34px;
+        min-width: 64px;
+        border-radius: 20px;
+        padding: 5px 10px;
+    }
+}
