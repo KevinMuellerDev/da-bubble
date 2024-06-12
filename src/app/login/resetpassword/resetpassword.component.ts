@@ -33,6 +33,7 @@ import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 
 export class ResetpasswordComponent {
   popupState = 'out';
+  isDisabled = true;
   constructor(private router: Router) { }
 
 

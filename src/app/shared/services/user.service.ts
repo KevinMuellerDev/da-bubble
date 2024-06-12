@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, DocumentData } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, DocumentData, arrayUnion } from '@angular/fire/firestore';
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
 import { Router } from '@angular/router';
@@ -101,6 +101,7 @@ export class UserService {
       .then(async () => {
         const channelId= {channelid: 'eGATth4XDS0ztUbhnYsR'};
         await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'userchannels'), channelId);
+        await updateDoc(doc(this.firestore, "Channels", channelId.channelid), {users: arrayUnion(this.createUserInfo.id)});
       });
   }
 
@@ -114,6 +115,12 @@ export class UserService {
   }
 
 
+/**
+ * The `refUserChannels` function returns a reference to the user channels collection in Firestore
+ * based on the current user's ID stored in sessionStorage.
+ * @returns The `refUserChannels()` function is returning a reference to the 'userchannels' collection
+ * within the 'user' document corresponding to the user ID stored in the session storage.
+ */
   refUserChannels() {
     return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
   }

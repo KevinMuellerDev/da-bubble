@@ -260,6 +260,7 @@ a {
 .intro-logo-text {
     transform: translateX(-400px);
     span {
+        transform: rotate(-180deg);
         margin: 0;
         font-weight: 700;
         color: $white;

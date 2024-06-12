@@ -25,16 +25,33 @@ export class AddNewChannelComponent {
 
   constructor(public dialog: MatDialog) { }
 
+/**
+ * The `openDialog` function opens a dialog window to add new user to a channel using the
+ * `AddNewUserToChannelComponent`.
+ */
   openDialog() {
     this.dialog.open(AddNewUserToChannelComponent, { panelClass: 'mod-dialog-window' });
   }
 
+  
+/**
+ * The onSubmit function prepares new channel data, sets it in the channel service, and resets the
+ * form.
+ * @param {NgForm} createNewChannel - `createNewChannel` is a parameter of type `NgForm`. 
+ * The function `onSubmit` is called when a form is submitted, and it resets the form
+ * afterwards.
+ */
   async onSubmit(createNewChannel: NgForm) {
     this.prepareNewChannelData();
     this.channelService.newChannel = this.newChannel;
     createNewChannel.reset();
   }
 
+
+/**
+ * The function `prepareNewChannelData` creates a new channel object with data from input fields and
+ * converts it to JSON format.
+ */
   prepareNewChannelData() {
     let channelDummy = new ChannelData('');
     channelDummy.setData(this.inputs.channelName, this.inputs.description, this.inputs.channelName);

@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 export class SidebarService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService)
-  channels:string[] = [];
+  channels: string[] = [];
 
   constructor() { }
 
@@ -18,13 +18,12 @@ export class SidebarService {
    * 
    * @returns Unsubscribe
    */
-  retrieveChannels(){
+  retrieveChannels() {
     const unsubscribe = onSnapshot(query(this.refChannels()), (querySnapshot) => {
       this.channels = [];
       querySnapshot.forEach(channel => {
-        if (this.userService.userChannels.includes(channel.id)) {
+        if (this.userService.userChannels.includes(channel.id))
           this.channels.push(channel.data()['title'])
-        }
       });
     });
     return unsubscribe
@@ -37,7 +36,7 @@ export class SidebarService {
    * 
    * @returns Unsubscribe
    */
-  retrieveCurrentChannels(){
+  retrieveCurrentChannels() {
     const unsubscribe = onSnapshot(query(this.userService.refUserChannels()), async (querySnapshot) => {
       let channelCounter = 0;
       querySnapshot.forEach(() => {
@@ -54,14 +53,14 @@ export class SidebarService {
   /**
    * Pushes the actual channels of the user into the channel array
    */
-  async removeChannelUser(){
+  async removeChannelUser() {
     const querySnapshot = await getDocs(query(this.refChannels()));
     this.channels = [],
-    querySnapshot.forEach(channel => {
-      if (this.userService.userChannels.includes(channel.id)) {
-        this.channels.push(channel.data()['title'])
-      }
-    });
+      querySnapshot.forEach(channel => {
+        if (this.userService.userChannels.includes(channel.id)) {
+          this.channels.push(channel.data()['title'])
+        }
+      });
   }
 
 
@@ -69,7 +68,7 @@ export class SidebarService {
    * Firestore collection reference for Channels
    * @returns collection
    */
-  refChannels(){
+  refChannels() {
     return collection(this.firestore, "Channels")
   }
 }
