@@ -30,9 +30,6 @@ export class ChannelService {
     });
   }
 
-
-
-
   /**
    * Firestore collection reference for Channels
    * @returns collection

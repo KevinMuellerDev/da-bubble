@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, DocumentData } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, DocumentData, arrayUnion } from '@angular/fire/firestore';
 import { UserInfo } from '../interfaces/userinfo';
 import { UserData } from '../models/userdata.class';
 import { Router } from '@angular/router';
@@ -101,6 +101,7 @@ export class UserService {
       .then(async () => {
         const channelId= {channelid: 'eGATth4XDS0ztUbhnYsR'};
         await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'userchannels'), channelId);
+        await updateDoc(doc(this.firestore, "Channels", channelId.channelid), {users: arrayUnion(this.createUserInfo.id)});
       });
   }
 

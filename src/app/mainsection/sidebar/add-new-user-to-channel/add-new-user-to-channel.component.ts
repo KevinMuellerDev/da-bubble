@@ -38,6 +38,8 @@ export class AddNewUserToChannelComponent {
  * otherwise it retrieves users from an existing channel.
  */
   onSubmit() {
+    const creatorId = sessionStorage.getItem('uid')
+    this.channelService.newChannel?.users.push(creatorId as string)
     if (this.specificUser = true) {
       this.selectedUser.forEach(user => {
         this.channelService.newChannel?.users.push(user.uid)
@@ -64,7 +66,7 @@ export class AddNewUserToChannelComponent {
     });
   }
 
-  
+
 /**
  * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList
  * array, and resets the specificUser input field.
