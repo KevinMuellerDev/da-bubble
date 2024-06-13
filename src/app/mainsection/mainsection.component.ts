@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -13,12 +13,15 @@ import { UserService } from '../shared/services/user.service';
   templateUrl: './mainsection.component.html',
   styleUrl: './mainsection.component.scss'
 })
-export class MainsectionComponent {
+export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
   rotateToggle: boolean = false;
   unsubProfile;
   unsubUserChannels;
   unsubUserList;
+  @ViewChild('toggle', { read: ElementRef }) toggleElement!: ElementRef;
+  @ViewChild('sidebar', { read: ElementRef }) sidebarElement!: ElementRef;
+  @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
@@ -27,20 +30,32 @@ export class MainsectionComponent {
     this.userService.userLoggedIn();
   }
 
+  ngAfterViewInit() {
+    this.showSidenav();
+  }
+
   /**
    * The `rotateIndicator` function toggles a CSS class and shows/hides a side navigation menu based on
    * the current state of a boolean variable.
    */
   rotateIndicator() {
     if (this.rotateToggle == false) {
-      document.getElementById('toggle')?.classList.add('rotate-toggle')
+      this.toggleElement.nativeElement.classList.add('rotate-toggle')
       this.hideSidenav();
       this.rotateToggle = true;
     } else {
-      document.getElementById('toggle')?.classList.remove('rotate-toggle')
+      this.toggleElement.nativeElement.classList.remove('rotate-toggle')
       this.showSidenav();
       this.rotateToggle = false;
     }
+  }
+
+  closeThread() {
+    this.threadBarElement.nativeElement.classList.add('hide-show')
+  }
+
+  openThread() {
+    this.threadBarElement.nativeElement.classList.remove('hide-show')
   }
 
   /**
@@ -48,14 +63,15 @@ export class MainsectionComponent {
    * it.
    */
   hideSidenav() {
-    document.getElementById('sidebar')?.classList.add('hide-show')
+    this.sidebarElement.nativeElement.classList.add('hide-show')
   }
 
   /**
    * The `showSidenav` function removes the 'hide-show' class from the element with the id 'sidebar'.
    */
   showSidenav() {
-    document.getElementById('sidebar')?.classList.remove('hide-show')
+    this.sidebarElement.nativeElement.classList.remove('hide-show')
+    this.threadBarElement.nativeElement.classList.add('hide-show')
   }
 
   ngOnDestroy() {
