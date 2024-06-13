@@ -56,7 +56,6 @@ export class MessageComponent {
   ngOnInit() {
     this.showEmojiPickerArray = this.messages.map(() => false);
   }
-  
      toggleEmojiPicker(index: number) {
     this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
@@ -102,8 +101,9 @@ emojiCounter() {
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
       ngAfterViewChecked() {
-    this.scrollBottom();
+        this.scrollBottom();
   }
+
   public scrollBottom() {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }

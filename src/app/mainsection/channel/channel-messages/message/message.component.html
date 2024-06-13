@@ -24,8 +24,12 @@
                 </div>
                 <div class="message">
                     <span>{{ message.messageText }}</span>
-                    <emoji-mart [style]="{ position: 'absolute', bottom: '-289px', right: '20px','z-index': '999' }"
-                        (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]" set="twitter"></emoji-mart>
+                    <div>
+                        <emoji-mart [darkMode]=false #emojiPickerContainer
+                            [style]="{ position: 'absolute', bottom: '-289px', right: '20px','z-index': '999' }"
+                            (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]"
+                            set="twitter"></emoji-mart>
+                    </div>
                 </div>
                 <div class="selected-emoji">
                     <span *ngFor="let emojiCount of message.emojiCounts">
