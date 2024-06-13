@@ -124,7 +124,6 @@ export class MessageComponent {
   }
 
   showThreadBar() {
-    this.mainsectionComponent.openThread();
+    this.mainsectionComponent.showThread();
   }
-
 }
