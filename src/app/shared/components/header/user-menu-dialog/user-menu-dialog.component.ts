@@ -15,7 +15,8 @@ import { getAuth } from '@angular/fire/auth';
 export class UserMenuDialogComponent{
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private userService: UserService) { }
 
-  logout() {
+  async logout() {
+    await this.userService.userLoggedOut();
     sessionStorage.removeItem('uid');
     getAuth().signOut();
     setTimeout(() => {

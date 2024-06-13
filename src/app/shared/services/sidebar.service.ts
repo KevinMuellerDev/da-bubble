@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, FieldValue, arrayRemove } from '@angular/fire/firestore';
 import { UserService } from './user.service';
-
+import { UserData } from '../models/userdata.class';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +9,9 @@ export class SidebarService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService)
   channels: string[] = [];
+  channelUsers: string[] = [];
+  userDmIds: string[] = [];
+  userDmData: any[] = [];
 
   constructor() { }
 
@@ -49,6 +52,35 @@ export class SidebarService {
     return unsubscribe
   }
 
+  retrieveCurrentDirectMsgs() {
+    const unsubscribe = onSnapshot(query(this.refUserDirectMsgs()), (querySnapshot) => {
+      this.userDmIds = [];
+      querySnapshot.forEach((userDm) => {
+        this.userDmIds.push(userDm.data()['dmUserId'])
+
+      });
+    });
+
+    return unsubscribe
+  }
+
+  retrieveDmUserData() {
+    const unsubscribe = onSnapshot(query(this.userService.refUserProfile()), (querySnapshot) => {
+      setTimeout(() => {
+        this.userDmData=[];
+        querySnapshot.forEach((userDm) => {
+          if (this.userDmIds.includes(userDm.id)) {
+            const data: any = userDm.data();
+            this.userDmData.push(data)
+            console.log(this.userDmData);
+          }
+        });
+      }, 200);
+    });
+
+    return unsubscribe
+  }
+
 
   /**
    * Pushes the actual channels of the user into the channel array
@@ -71,4 +103,19 @@ export class SidebarService {
   refChannels() {
     return collection(this.firestore, "Channels")
   }
+
+  async getUsersFromChannel() {
+    const docRef = doc(this.firestore, "Channels", "eGATth4XDS0ztUbhnYsR");
+    const docSnap = await getDoc(docRef);
+    const channel: any = docSnap.data();
+    channel.users.forEach((element: any) => {
+      this.channelUsers.push(element);
+    });
+  }
+
+
+  refUserDirectMsgs() {
+    return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'directmessages')
+  }
+
 }

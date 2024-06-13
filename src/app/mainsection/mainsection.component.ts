@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, inject, ViewChild, ElementRef } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -19,11 +19,15 @@ export class MainsectionComponent {
   unsubProfile;
   unsubUserChannels;
   unsubUserList;
+  @ViewChild('toggle', { static : true }) toggleElement!: ElementRef;
+  @ViewChild('sidebar', { read: ElementRef }) sidebarElement!: ElementRef;
+  @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
     this.unsubUserChannels = this.userService.retrieveUserChannels();
     this.unsubUserList = this.userService.retrieveAllUsers();
+    this.userService.userLoggedIn();
   }
 
   /**
@@ -32,11 +36,11 @@ export class MainsectionComponent {
    */
   rotateIndicator() {
     if (this.rotateToggle == false) {
-      document.getElementById('toggle')?.classList.add('rotate-toggle')
+      this.toggleElement.nativeElement.classList.add('rotate-toggle')
       this.hideSidenav();
       this.rotateToggle = true;
     } else {
-      document.getElementById('toggle')?.classList.remove('rotate-toggle')
+      this.toggleElement.nativeElement.classList.remove('rotate-toggle')
       this.showSidenav();
       this.rotateToggle = false;
     }
@@ -47,14 +51,15 @@ export class MainsectionComponent {
    * it.
    */
   hideSidenav() {
-    document.getElementById('sidebar')?.classList.add('hide-show')
+    this.sidebarElement.nativeElement.classList.add('hide-show')
   }
 
   /**
    * The `showSidenav` function removes the 'hide-show' class from the element with the id 'sidebar'.
    */
   showSidenav() {
-    document.getElementById('sidebar')?.classList.remove('hide-show')
+    this.sidebarElement.nativeElement.classList.remove('hide-show')
+    this.threadBarElement.nativeElement.classList.add('hide-show')
   }
 
   ngOnDestroy() {
@@ -62,5 +67,6 @@ export class MainsectionComponent {
     this.unsubProfile();
     this.unsubUserChannels();
     this.unsubUserList();
+    this.userService.userLoggedOut();
   }
 }

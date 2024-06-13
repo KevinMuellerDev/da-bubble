@@ -6,6 +6,8 @@ import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { firebaseAppFactory } from '@angular/fire/app/app.module';
+import { SidebarService } from '../../../shared/services/sidebar.service';
 
 
 @Component({
@@ -19,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class AddNewUserToChannelComponent {
   @ViewChild("specificUserInput") specificUserInput?: { nativeElement: { focus: () => void; }; };
   channelService: ChannelService = inject(ChannelService);
+  sidebarService: SidebarService = inject(SidebarService);
   userService: UserService = inject(UserService);
 
   specificUser: boolean;
@@ -40,13 +43,14 @@ export class AddNewUserToChannelComponent {
   onSubmit() {
     const creatorId = sessionStorage.getItem('uid')
     this.channelService.newChannel?.users.push(creatorId as string)
-    if (this.specificUser = true) {
+    if (this.specificUser == true) {
       this.selectedUser.forEach(user => {
         this.channelService.newChannel?.users.push(user.uid)
       });
       this.channelService.createNewChannel(this.channelService.newChannel!);
     } else {
       this.getUsersFromChannel();
+      this.channelService.createNewChannel(this.channelService.newChannel!);
     }
   }
 
@@ -98,8 +102,12 @@ export class AddNewUserToChannelComponent {
   }
 
 
-  getUsersFromChannel() {
-    return
+  async getUsersFromChannel() {
+    this.userList=[];
+    await this.sidebarService.getUsersFromChannel();
+    this.sidebarService.channelUsers.forEach(user => {
+      this.channelService.newChannel?.users.push(user);
+    });
   }
 
 
