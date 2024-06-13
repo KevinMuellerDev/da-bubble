@@ -14,10 +14,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ThreadComponent {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent) { }
 
   closeThread() {
-    document.getElementById('threadBar')?.classList.add('hide-show')
+    this.mainsectionComponent.closeThread();
   }
 
   /**
@@ -28,7 +28,6 @@ export class ThreadComponent {
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
-
     dialogRef
       .afterClosed()
       .subscribe();

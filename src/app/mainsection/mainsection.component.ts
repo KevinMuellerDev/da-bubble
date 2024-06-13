@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -13,13 +13,13 @@ import { UserService } from '../shared/services/user.service';
   templateUrl: './mainsection.component.html',
   styleUrl: './mainsection.component.scss'
 })
-export class MainsectionComponent {
+export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
   rotateToggle: boolean = false;
   unsubProfile;
   unsubUserChannels;
   unsubUserList;
-  @ViewChild('toggle', { static : true }) toggleElement!: ElementRef;
+  @ViewChild('toggle', { read: ElementRef }) toggleElement!: ElementRef;
   @ViewChild('sidebar', { read: ElementRef }) sidebarElement!: ElementRef;
   @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
 
@@ -28,6 +28,10 @@ export class MainsectionComponent {
     this.unsubUserChannels = this.userService.retrieveUserChannels();
     this.unsubUserList = this.userService.retrieveAllUsers();
     this.userService.userLoggedIn();
+  }
+
+  ngAfterViewInit() {
+    this.showSidenav();
   }
 
   /**
@@ -44,6 +48,14 @@ export class MainsectionComponent {
       this.showSidenav();
       this.rotateToggle = false;
     }
+  }
+
+  closeThread() {
+    this.threadBarElement.nativeElement.classList.add('hide-show')
+  }
+
+  openThread() {
+    this.threadBarElement.nativeElement.classList.remove('hide-show')
   }
 
   /**
