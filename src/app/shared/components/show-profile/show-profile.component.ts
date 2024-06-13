@@ -48,11 +48,19 @@ export class ShowProfileComponent {
     return status + '-div'
   }
 
+/**
+ * The `getStatusText` function returns "Aktiv" if the user is logged in and "Inaktiv" if the user is
+ * not logged in.
+ * @returns `string`
+ */
   getStatusText() {
     const text = this.userService.userInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
     return text
   }
 
+/**
+ * The function `checkUpdateInput` checks if the `updateUserForm` is valid and opens a dialog if it is.
+ */
   checkUpdateInput() {
     if (this.updateUserForm.valid) {
       this.openDialog()
@@ -61,15 +69,16 @@ export class ShowProfileComponent {
 
   sendMessage(){
     console.warn('message send');
-    
   }
 
+/**
+ * The `openDialog` function opens a dialog window to verify user information and updates user email
+ * and profile if verified.
+ */
   openDialog() {
     this.dialog.open(VerifyComponent,{panelClass: 'verify'})
       .afterClosed()
       .subscribe(() => {
-        console.log(this.authService.verified);
-        
         if (this.authService.verified == true) {
           this.authService.updateUserMail(this.updateUserForm.controls['email'].value)
           this.userService.updateUserProfile(this.updateUserForm);

@@ -9,6 +9,7 @@ import { UserService } from '../../shared/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewChannelComponent } from './add-new-channel/add-new-channel.component';
 import { SidebarService } from '../../shared/services/sidebar.service';
+import { Unsubscribe } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,10 +31,15 @@ export class SidebarComponent {
   sidebarService:SidebarService = inject(SidebarService);
   unsubChannels;
   unsubCurrentChannels;
+  unsubUserDmIds;
+  unsubUserDmData?:Unsubscribe;
+
 
   constructor(public dialog: MatDialog) {
     this.unsubChannels = this.sidebarService.retrieveChannels();
     this.unsubCurrentChannels = this.sidebarService.retrieveCurrentChannels();
+    this.unsubUserDmIds = this.sidebarService.retrieveCurrentDirectMsgs();
+    this.unsubUserDmData = this.sidebarService.retrieveDmUserData();
   }
 
 /**
@@ -72,14 +78,18 @@ export class SidebarComponent {
    * @returns class as a string
    */
   getUserStatus() {
-    const loggedIn =
-      this.userService.userInfo.isLoggedIn == true ? 'online-div' : 'offline-div';
+    const loggedIn = this.userService.userInfo.isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
 
+  getDmStatus(index:number){
+    const loggedIn = this.sidebarService.userDmData[index].isLoggedIn == true ? 'online-div' : 'offline-div';
+    return loggedIn;
+  }
 
   ngOnDestroy(){
     this.unsubChannels();
     this.unsubCurrentChannels();
+    this.unsubUserDmIds();
   }
 }

@@ -53,5 +53,12 @@
       <div [ngClass]="getUserStatus()" class="online-indicator"></div>
       <span>{{userService.userInfo.name}} (Du)</span>
     </div>
+    @for (dm of sidebarService.userDmData; track dm; let i = $index) {
+      <div class="message">
+        <img [src]="dm.profilePicture" alt="" />
+        <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
+        <span>{{dm.name}}</span>
+      </div>
+    }
   </div>
 </div>

@@ -36,11 +36,23 @@ export class UserService {
    * @returns Unsubscribe from snapshot
    */
   retrieveUserProfile() {
-    const unsubscribe = onSnapshot(doc(this.refUserProfile(), sessionStorage.getItem("uid") as string), (doc) => {
-      this.userInfo = new UserData(doc.data())
+    const unsubscribe = onSnapshot(doc(this.refUserProfile(), sessionStorage.getItem("uid") as string), async (user) => {
+      this.userInfo = new UserData(user.data())
       this.currentUser = sessionStorage.getItem("uid");
     });
     return unsubscribe
+  }
+
+  async userLoggedIn(){
+    await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
+      isLoggedIn: true
+    });
+  }
+
+  async userLoggedOut(){
+    await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
+      isLoggedIn: false
+    });
   }
 
 

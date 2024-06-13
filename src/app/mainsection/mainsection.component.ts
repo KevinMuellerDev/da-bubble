@@ -24,6 +24,7 @@ export class MainsectionComponent {
     this.unsubProfile = this.userService.retrieveUserProfile();
     this.unsubUserChannels = this.userService.retrieveUserChannels();
     this.unsubUserList = this.userService.retrieveAllUsers();
+    this.userService.userLoggedIn();
   }
 
   /**
@@ -62,5 +63,6 @@ export class MainsectionComponent {
     this.unsubProfile();
     this.unsubUserChannels();
     this.unsubUserList();
+    this.userService.userLoggedOut();
   }
 }
