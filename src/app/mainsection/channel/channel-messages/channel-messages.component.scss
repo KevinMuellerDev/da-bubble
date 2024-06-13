@@ -138,6 +138,10 @@
 
     >span {
         font: 700 24px 'Nunito';
+
+        &:hover{
+            color: $purple1;
+        }
     }
 
     .online-indicator {
@@ -145,8 +149,8 @@
         height: 14px;
         width: 14px;
         border-radius: 50%;
-        left: 35px;
-        bottom: 0px;
+        left: 33px;
+        top: 38px;
         border: 2px solid white;
     }
 }

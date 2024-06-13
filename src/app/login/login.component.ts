@@ -185,7 +185,6 @@ export class LoginComponent implements OnInit {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        console.log('user.uid:', user.uid, user);
         sessionStorage.setItem("uid", user.uid);
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
@@ -207,10 +206,8 @@ export class LoginComponent implements OnInit {
     try {
       const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
       const user = result.user;
-      console.log(user);
       this.userService.prepareDataNewUserGoogle(user)
       this.userService.createUserProfile();
-      console.log('user.uid:', user.uid, user);
       sessionStorage.setItem("uid", user.uid);
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
