@@ -17,7 +17,7 @@ export class ThreadComponent {
   constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent) { }
 
   closeThread() {
-    this.mainsectionComponent.closeThread();
+    this.mainsectionComponent.hideThread();
   }
 
   /**
