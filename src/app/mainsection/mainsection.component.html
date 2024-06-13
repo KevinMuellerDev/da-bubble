@@ -1,12 +1,12 @@
 <div class="main-landing">
     <app-header></app-header>
     <div class="content">
-        <app-sidebar id="sidebar"></app-sidebar>
+        <app-sidebar #sidebar></app-sidebar>
         <app-channel></app-channel>
         <app-thread id="threadBar" class="hide-show "></app-thread>
     </div>
 </div>
 <div class="toggle-navbar" (click)="rotateIndicator()">
     <span>Workspace-Menü schließen</span>
-    <div id="toggle" class="toggle-img-hide"></div>
+    <div #toggle class="toggle-img-hide"></div>
 </div>
