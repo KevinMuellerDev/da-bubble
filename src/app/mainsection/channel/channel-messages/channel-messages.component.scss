@@ -122,3 +122,21 @@
         background-image: url("/assets/img/icons/person_add_hover.svg");
     }
 }
+
+.message {
+    position: relative;
+    cursor: pointer;
+    @include dFlex($jc: center);
+    gap: 15px;
+
+
+    >img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50% 50%;
+    }
+
+    >span {
+        font: 700 24px 'Nunito';
+    }
+}

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { DocumentData, Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { ChannelData } from '../models/channels.class';
 import { ChannelInfo } from '../interfaces/channelinfo';
 @Injectable({
@@ -7,7 +7,10 @@ import { ChannelInfo } from '../interfaces/channelinfo';
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
-  newChannel?:ChannelInfo;
+  channelMsg?:boolean;
+  privateMsg?:boolean;
+  newChannel?:ChannelInfo
+  privateMsgData:any;
 
   constructor() { }
 
@@ -28,6 +31,14 @@ export class ChannelService {
         await addDoc(collection(this.firestore, 'user', user, 'userchannels'), channelId)
       });
     });
+  }
+
+  chooseChannelType(dm:boolean, user?:DocumentData){
+    dm ? this.privateMsg=true: this.channelMsg = true;
+    if (this.privateMsg) {
+      this.privateMsgData=user;   
+    }
+    
   }
 
   /**

@@ -54,7 +54,7 @@
       <span>{{userService.userInfo.name}} (Du)</span>
     </div>
     @for (dm of sidebarService.userDmData; track dm; let i = $index) {
-      <div class="message">
+      <div class="message" (click)="channelService.chooseChannelType(true, dm)">
         <img [src]="dm.profilePicture" alt="" />
         <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
         <span>{{dm.name}}</span>

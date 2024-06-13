@@ -82,6 +82,12 @@ export class SidebarService {
   }
 
 
+  getDmStatus(isLoggedIn:boolean){
+    const loggedIn = isLoggedIn == true ? 'online-div' : 'offline-div';
+    return loggedIn;
+  }
+
+
   /**
    * Pushes the actual channels of the user into the channel array
    */

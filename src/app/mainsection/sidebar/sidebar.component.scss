@@ -257,7 +257,7 @@
 }
 
 .messages-container {
-  @include dFlex();
+  @include dFlex($ai:flex-start);
   flex-direction: column;
   gap:13px;
   width: 100%;

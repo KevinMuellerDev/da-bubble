@@ -44,13 +44,13 @@ export class UserService {
   }
 
   async userLoggedIn(){
-    await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
+    await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
       isLoggedIn: true
     });
   }
 
   async userLoggedOut(){
-    await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
+    await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
       isLoggedIn: false
     });
   }

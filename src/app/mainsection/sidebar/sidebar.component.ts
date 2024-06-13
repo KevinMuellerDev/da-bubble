@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddNewChannelComponent } from './add-new-channel/add-new-channel.component';
 import { SidebarService } from '../../shared/services/sidebar.service';
 import { Unsubscribe } from '@angular/fire/auth';
+import { ChannelService } from '../../shared/services/channel.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,6 +30,7 @@ import { Unsubscribe } from '@angular/fire/auth';
 export class SidebarComponent {
   userService:UserService = inject(UserService);
   sidebarService:SidebarService = inject(SidebarService);
+  channelService:ChannelService = inject(ChannelService);
   unsubChannels;
   unsubCurrentChannels;
   unsubUserDmIds;
