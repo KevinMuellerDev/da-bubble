@@ -139,4 +139,14 @@
     >span {
         font: 700 24px 'Nunito';
     }
+
+    .online-indicator {
+        position: absolute;
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        left: 35px;
+        bottom: 0px;
+        border: 2px solid white;
+    }
 }
