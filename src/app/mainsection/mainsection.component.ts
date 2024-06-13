@@ -21,6 +21,7 @@ export class MainsectionComponent {
   unsubUserList;
   @ViewChild('toggle', { static : true }) toggleElement!: ElementRef;
   @ViewChild('sidebar', { read: ElementRef }) sidebarElement!: ElementRef;
+  @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
@@ -58,6 +59,7 @@ export class MainsectionComponent {
    */
   showSidenav() {
     this.sidebarElement.nativeElement.classList.remove('hide-show')
+    this.threadBarElement.nativeElement.classList.add('hide-show')
   }
 
   ngOnDestroy() {
