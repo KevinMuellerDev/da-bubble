@@ -120,6 +120,10 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.threadOpen = false;
   }
 
+  getToggleText(): string {
+    return this.sidenavOpen ? 'schließen' : 'öffnen';
+  }
+
   ngOnDestroy() {
     console.log('hallo');
     this.unsubProfile();
