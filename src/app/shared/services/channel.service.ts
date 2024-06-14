@@ -12,6 +12,7 @@ export class ChannelService {
   newChannel?: ChannelInfo
   privateMsgData: any;
   currentMessagesId!:string;
+  messages:any;
 
 
   constructor() { }
@@ -71,7 +72,6 @@ export class ChannelService {
         });
       });
     }, 10);
-
     return unsubscribe
   }
 
@@ -88,7 +88,7 @@ export class ChannelService {
   }
 
   refDirectMessageData(id:string){
-    return collection(this.firestore, "user" ,sessionStorage.getItem('uid') as string , 'directmessages',id, 'messages')
+    return collection(this.firestore, "user" ,sessionStorage.getItem('uid') as string , 'directmessages',id, 'test')
   }
 
 }
