@@ -14,19 +14,27 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 @Component({
   selector: 'app-channel-messages',
   standalone: true,
-  imports: [CommonModule, MainsectionComponent, ShowProfileComponent, EditChannelDialogComponent, AddUserToChannelDialogComponent, AddUserDialogComponent, MessageComponent ,NgOptimizedImage],
+  imports: [
+    CommonModule,
+    ShowProfileComponent,
+    EditChannelDialogComponent,
+    AddUserToChannelDialogComponent,
+    AddUserDialogComponent,
+    MessageComponent,
+    NgOptimizedImage,
+    MainsectionComponent
+  ],
   templateUrl: './channel-messages.component.html',
   styleUrl: './channel-messages.component.scss'
 })
 export class ChannelMessagesComponent {
-  channelService:ChannelService = inject(ChannelService);
-  sidebarService:SidebarService = inject(SidebarService);
+  channelService: ChannelService = inject(ChannelService);
+  sidebarService: SidebarService = inject(SidebarService);
   constructor(public dialog: MatDialog) { }
 
   openDialogAddUser() {
     this.dialog.open(AddUserDialogComponent, { panelClass: 'mod-dialog-window-3' })
   }
-
 
   openDialogAddUserToChannel() {
     this.dialog.open(AddUserToChannelDialogComponent, { panelClass: 'mod-dialog-window-3' })

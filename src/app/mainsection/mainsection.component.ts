@@ -18,12 +18,15 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
   rotateToggle: boolean = false;
   mediumScreen: boolean = false;
+  sidenavOpen: boolean = false;
+  threadOpen: boolean = false;
   unsubProfile;
   unsubUserChannels;
   unsubUserList;
   @ViewChild('toggle', { read: ElementRef }) toggleElement!: ElementRef;
   @ViewChild('sidebar', { read: ElementRef }) sidebarElement!: ElementRef;
   @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
+  @ViewChild('channel', { read: ElementRef }) channelElement!: ElementRef;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
@@ -40,13 +43,14 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.checkInnerWidth(window.innerWidth);
   }
 
-  /**
-   * Initializes the component after the view has been fully initialized.
-   * Calls the `showSidenav()` and `hideThread()` methods to show and hide the side navigation menu and thread respectively.
-   */
   ngAfterViewInit() {
-    this.showSidenav();
     this.hideThread();
+    if (window.innerWidth <= 960) {
+      this.hideSidenav();
+      this.hideThread();
+      this.rotateToggle = true;
+      this.toggleElement.nativeElement.classList.add('rotate-toggle');
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -62,11 +66,11 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   rotateIndicator() {
     if (this.rotateToggle == false) {
-      this.toggleElement.nativeElement.classList.add('rotate-toggle')
+      this.toggleElement.nativeElement.classList.add('rotate-toggle');
       this.hideSidenav();
       this.rotateToggle = true;
     } else {
-      this.toggleElement.nativeElement.classList.remove('rotate-toggle')
+      this.toggleElement.nativeElement.classList.remove('rotate-toggle');
       this.showSidenav();
       this.rotateToggle = false;
     }
@@ -77,6 +81,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   showThread() {
     if (this.mediumScreen == true) {
+      this.threadOpen = true;
       this.threadBarElement.nativeElement.classList.remove('hide-show');
       this.hideSidenav();
       this.toggleElement.nativeElement.classList.add('rotate-toggle')
@@ -91,6 +96,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   showSidenav() {
     if (this.mediumScreen == true) {
+      this.sidenavOpen = true;
       this.sidebarElement.nativeElement.classList.remove('hide-show');
       this.hideThread();
     } else {
@@ -103,6 +109,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   hideSidenav() {
     this.sidebarElement.nativeElement.classList.add('hide-show');
+    this.sidenavOpen = false;
   }
 
   /**
@@ -110,6 +117,11 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   hideThread() {
     this.threadBarElement.nativeElement.classList.add('hide-show');
+    this.threadOpen = false;
+  }
+
+  getToggleText(): string {
+    return this.sidenavOpen ? 'schließen' : 'öffnen';
   }
 
   ngOnDestroy() {
