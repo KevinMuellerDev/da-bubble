@@ -2,11 +2,11 @@
     <app-header></app-header>
     <div class="content">
         <app-sidebar #sidebar></app-sidebar>
-        <app-channel></app-channel>
+        <app-channel #channel></app-channel>
         <app-thread #threadBar></app-thread>
     </div>
 </div>
 <div class="toggle-navbar" (click)="rotateIndicator()">
-    <span>Workspace-Menü schließen</span>
+    <span>Workspace-Menü {{getToggleText()}}</span>
     <div #toggle class="toggle-img-hide"></div>
 </div>

@@ -8,7 +8,7 @@ import { ChannelMessagesComponent } from './channel-messages/channel-messages.co
 @Component({
   selector: 'app-channel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MainsectionComponent,ChannelMessagesComponent],
+  imports: [CommonModule, FormsModule, ChannelMessagesComponent, MainsectionComponent],
   templateUrl: './channel.component.html',
   styleUrl: './channel.component.scss'
 })
@@ -20,11 +20,10 @@ export class ChannelComponent {
   submitClick: boolean = false;
   textareaBlur: boolean = false;
 
-
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
   constructor(public dialog: MatDialog) { }
-  
+
   onSubmit(form: NgForm) {
    this.submitClick = true;
     this.textareaBlur = true;
@@ -38,9 +37,4 @@ export class ChannelComponent {
       this.submitClick = false;
     }
   }
-
-
-
-
-
 }

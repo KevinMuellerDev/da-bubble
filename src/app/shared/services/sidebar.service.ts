@@ -75,7 +75,7 @@ export class SidebarService {
             console.log(this.userDmData);
           }
         });
-      }, 200);
+      }, 25);
     });
 
     return unsubscribe

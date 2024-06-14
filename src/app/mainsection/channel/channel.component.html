@@ -1,24 +1,22 @@
 <div class="channel-container">
-
-        <app-channel-messages></app-channel-messages>
-
-        <div class="channel-message-wrapper form-group">
-            <form #form="ngForm" name="form" (ngSubmit)="onSubmit(form)">
-                <textarea class="channel-message-input form-control" name="message" #messageContent id="messageContent"
-                    [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="2" required
-                    [ngClass]="{ 'focus-visible-invalid': !form.valid  && (form.touched || submitClick) && textareaBlur }"
-                    (keyup.enter)="onSubmit(form)" (blur)=" textareaBlur=false">
+    <app-channel-messages></app-channel-messages>
+    <div class="channel-message-wrapper form-group">
+        <form #form="ngForm" name="form" (ngSubmit)="onSubmit(form)">
+            <textarea class="channel-message-input form-control" name="message" #messageContent id="messageContent"
+                [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="2" required
+                [ngClass]="{ 'focus-visible-invalid': !form.valid  && (form.touched || submitClick) && textareaBlur }"
+                (keyup.enter)="onSubmit(form)" (blur)=" textareaBlur=false">
                 </textarea>
-                <div class="channel-message-icons">
-                    <div class="add-icon"></div>
-                    <div class="icon-divider"></div>
-                    <div class="emoji-icon"></div>
-                    <div class="tag-icon"></div>
-                </div>
-                <div class="send-icon" (click)="onSubmit(form)"></div>
-            </form>
-        </div>
-        <div class="error-message" *ngIf="!form.valid && (form.touched || submitClick) && textareaBlur">Inhalt
-            mit min. 1 Zeichen erforderlich !
-        </div>
+            <div class="channel-message-icons">
+                <div class="add-icon"></div>
+                <div class="icon-divider"></div>
+                <div class="emoji-icon"></div>
+                <div class="tag-icon"></div>
+            </div>
+            <div class="send-icon" (click)="onSubmit(form)"></div>
+        </form>
+    </div>
+    <div class="error-message" *ngIf="!form.valid && (form.touched || submitClick) && textareaBlur">Inhalt
+        mit min. 1 Zeichen erforderlich !
+    </div>
 </div>

@@ -9,8 +9,8 @@ import { UserService } from '../../shared/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewChannelComponent } from './add-new-channel/add-new-channel.component';
 import { SidebarService } from '../../shared/services/sidebar.service';
-import { Unsubscribe } from '@angular/fire/auth';
 import { ChannelService } from '../../shared/services/channel.service';
+import { Unsubscribe } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,13 +28,13 @@ import { ChannelService } from '../../shared/services/channel.service';
 
 
 export class SidebarComponent {
-  userService:UserService = inject(UserService);
-  sidebarService:SidebarService = inject(SidebarService);
-  channelService:ChannelService = inject(ChannelService);
+  userService: UserService = inject(UserService);
+  sidebarService: SidebarService = inject(SidebarService);
+  channelService: ChannelService = inject(ChannelService);
   unsubChannels;
   unsubCurrentChannels;
   unsubUserDmIds;
-  unsubUserDmData?:Unsubscribe;
+  unsubUserDmData!: Unsubscribe;
 
 
   constructor(public dialog: MatDialog) {
@@ -44,11 +44,12 @@ export class SidebarComponent {
     this.unsubUserDmData = this.sidebarService.retrieveDmUserData();
   }
 
-/**
- * Opens the AddNewChannel dialog.
- */
+
+  /**
+   * Opens the AddNewChannel dialog.
+   */
   openDialog() {
-   this.dialog.open(AddNewChannelComponent, { panelClass: 'mod-dialog-window' });
+    this.dialog.open(AddNewChannelComponent, { panelClass: 'mod-dialog-window' });
 
   }
 
@@ -60,8 +61,8 @@ export class SidebarComponent {
    */
 
   menuStates: { [state: string]: 'open' | 'closed' } = {
-    channel: 'closed',
-    message: 'closed',
+    channel: 'open',
+    message: 'open',
   };
 
   /**
@@ -84,14 +85,15 @@ export class SidebarComponent {
     return loggedIn;
   }
 
-  getDmStatus(index:number){
+  getDmStatus(index: number) {
     const loggedIn = this.sidebarService.userDmData[index].isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.unsubChannels();
     this.unsubCurrentChannels();
     this.unsubUserDmIds();
+    this.unsubUserDmData();
   }
 }
