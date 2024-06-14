@@ -99,7 +99,7 @@ export class MessageComponent {
     console.log(event['emoji']);
     this.toggleEmojiPicker(index);
     this.emojiCounter();
-   
+    this.isEmojiPickerVisible = false; 
   }
 
   /**
