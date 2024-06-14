@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MainsectionComponent } from '../../../mainsection.component';
 import { AddUserToChannelDialogComponent } from '../../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
@@ -8,6 +8,7 @@ import { EditChannelDialogComponent } from '../../edit-channel-dialog/edit-chann
 import { ShowProfileComponent } from '../../../../shared/components/show-profile/show-profile.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { ChannelService } from '../../../../shared/services/channel.service';
 
 
 @Component({
@@ -18,8 +19,8 @@ import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) { }
-
+  channelService: ChannelService = inject(ChannelService);
+  unsubMessageData;
   showEmojiPickerArray: boolean[] = [];
 
   //test Nachrichtaufbau entfällt später, da die Daten von Firebase kommen. 
@@ -51,9 +52,14 @@ export class MessageComponent {
     'emojiCounts': [] as { emoji: string, count: number }[],
     'repliesCount': 2,
     'lastReplyTimeStamp': '14:56'
+  }];
+
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
+    this.channelService.getDmId();
+    this.unsubMessageData = this.channelService.retrieveDirectMessage();
   }
 
-  ]
+
   ngOnInit() {
     this.showEmojiPickerArray = this.messages.map(() => false);
   }
@@ -125,5 +131,9 @@ export class MessageComponent {
 
   showThreadBar() {
     this.mainsectionComponent.showThread();
+  }
+
+  ngOnDestroy(){
+    this.unsubMessageData();
   }
 }
