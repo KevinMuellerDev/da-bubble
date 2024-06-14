@@ -4,10 +4,10 @@
             <span>Dienstag, 14 Januar</span>
         </div>
     </div>
-    <div *ngFor="let message of messages; let i = index; let isOdd = odd; let isLast = last">
-        <div [ngClass]="{ 'inverted-message': isOdd }" class="single-message-container">
-            <div [ngClass]="{ 'interaction-container-inverted': isOdd }" class="interaction-container">
-                <div (click)="toggleEmojiPicker(i)" class="add-reaction-icon"></div>
+    <div *ngFor="let message of messages; let i = index; let isEven = even; let isLast = last">
+        <div [ngClass]="{ 'inverted-message': isEven }" class="single-message-container">
+            <div [ngClass]="{ 'interaction-container-inverted': isEven }" class="interaction-container">
+                <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
                 <ngx-emoji [style]="{display:'flex',cursor:'pointer'}" emoji="santa" set="twitter"></ngx-emoji>
             </div>
             <div class="profile-picture">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="message">
                     <span>{{ message.messageText }}</span>
-                    <div>
+                    <div id="emojiPickerContainer">
                         <emoji-mart [darkMode]=false #emojiPickerContainer
                             [style]="{ position: 'absolute', bottom: '-289px', right: '20px','z-index': '999' }"
                             (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]"
