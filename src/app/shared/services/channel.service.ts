@@ -39,6 +39,15 @@ export class ChannelService {
       });
   }
 
+/**
+ * The function `chooseChannelType` sets a boolean flag based on whether the message is a direct
+ * message or a channel message, and assigns user data if it is a direct message.
+ * @param {boolean} dm - The `dm` parameter is a boolean value that indicates whether the message
+ * should be sent as a direct message (private message) or not.
+ * @param {DocumentData} [user] - The `user` parameter is of type `DocumentData` and is optional in the
+ * `chooseChannelType` function. It is used to pass user data when the `dm` parameter is set to true,
+ * indicating that a private message channel should be used.
+ */
   chooseChannelType(dm: boolean, user?: DocumentData) {
     dm ? this.privateMsg = true : this.channelMsg = true;
     if (this.privateMsg) {
