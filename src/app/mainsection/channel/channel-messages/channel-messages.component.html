@@ -1,29 +1,37 @@
 <div class="channel-container">
     <div class="channel-head-wrapper">
         @if (channelService.channelMsg) {
-            <div (click)="openDialogEditChannel()" class="channel-head">
-                <div class="channel-head-tag-icon"></div>
-                <span>Entwicklerteam </span>
-                <div class="channel-head-arrow-icon"></div>
+        <div (click)="openDialogEditChannel()" class="channel-head">
+            <div class="channel-head-tag-icon"></div>
+            <span>Entwicklerteam </span>
+            <div class="channel-head-arrow-icon"></div>
+        </div>
+        <div class="channel-head-right">
+            <div (click)="openDialogAddUserToChannel()" class="channel-user-icons">
+                <img src="/assets/img/profile/testchar1.svg">
+                <img src="/assets/img/profile/testchar1.svg">
+                <img src="/assets/img/profile/testchar1.svg">
+                <span>3</span>
             </div>
-            <div class="channel-head-right">
-                <div (click)="openDialogAddUserToChannel()" class="channel-user-icons">
-                    <img src="/assets/img/profile/testchar1.svg">
-                    <img src="/assets/img/profile/testchar1.svg">
-                    <img src="/assets/img/profile/testchar1.svg">
-                    <span>3</span>
+            <div (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
+        </div>
+        }@else if (channelService.privateMsg) {
+        <div class="message">
+            <img [src]="channelService.privateMsgData['profilePicture']"  alt="" />
+            <div [ngClass]="sidebarService.getDmStatus(channelService.privateMsgData['isLoggedIn'])"
+                class="online-indicator"></div>
+            <span>{{channelService.privateMsgData['name']}}</span>
+        </div>
+        }@else {
+            <div class="head-newmsg">
+                <span>Neue Nachricht</span>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="" class="selectReceiver">
                 </div>
-                <div (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
-            </div>
-        }
-        @else if (channelService.privateMsg) {
-            <div class="message">
-                <img [src]="channelService.privateMsgData['profilePicture']" alt="" />
-                <div [ngClass]="sidebarService.getDmStatus(channelService.privateMsgData['isLoggedIn'])" class="online-indicator"></div>
-                <span>{{channelService.privateMsgData['name']}}</span>
             </div>
         }
 
     </div>
+    
     <app-message></app-message>
 </div>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { MainsectionComponent } from '../../mainsection.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 @Component({
   selector: 'app-channel-messages',
   standalone: true,
-  imports: [CommonModule, MainsectionComponent, ShowProfileComponent, EditChannelDialogComponent, AddUserToChannelDialogComponent, AddUserDialogComponent, MessageComponent],
+  imports: [CommonModule, MainsectionComponent, ShowProfileComponent, EditChannelDialogComponent, AddUserToChannelDialogComponent, AddUserDialogComponent, MessageComponent ,NgOptimizedImage],
   templateUrl: './channel-messages.component.html',
   styleUrl: './channel-messages.component.scss'
 })

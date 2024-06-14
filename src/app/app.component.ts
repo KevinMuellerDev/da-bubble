@@ -14,6 +14,7 @@ import { Firestore } from '@angular/fire/firestore';
 export class AppComponent {
   title = 'da-bubble';
   firestore: Firestore = inject(Firestore);
+  userService:UserService = inject(UserService);
   constructor(){}
 
 }
