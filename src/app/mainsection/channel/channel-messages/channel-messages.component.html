@@ -31,7 +31,7 @@
         </div>
         }
     </div>
-    @if (channelService.privateMsgData!=undefined) {
+    @if (channelService.privateMsgData!=undefined || channelService.channelMsg ==true) {
     <app-message></app-message>
     }
 </div>

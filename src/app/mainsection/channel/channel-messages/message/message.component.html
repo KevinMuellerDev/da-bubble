@@ -1,5 +1,5 @@
 <div #scroll id="messageContainer" ref={messageContainer} class="channel-conversation-container">
-@if (channelService.messages != undefined) {
+@if (channelService.messages != undefined || channelService.channelMsg) {
     <div class="divider-container">
         <div class="divider">
             <span>Dienstag, 14 Januar</span>

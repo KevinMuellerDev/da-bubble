@@ -9,6 +9,7 @@ import { ShowProfileComponent } from '../../../../shared/components/show-profile
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../../shared/services/channel.service';
+import { Unsubscribe } from '@angular/fire/firestore';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { ChannelService } from '../../../../shared/services/channel.service';
 })
 export class MessageComponent {
   channelService: ChannelService = inject(ChannelService);
-  unsubMessageData;
+  unsubMessageData!:Unsubscribe;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible:boolean = false;
 
@@ -56,8 +57,11 @@ export class MessageComponent {
   }];
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
-    this.channelService.getDmId();
-    this.unsubMessageData = this.channelService.retrieveDirectMessage();
+
+    if (!this.channelService.channelMsg) {
+      this.channelService.getDmId();
+      this.unsubMessageData = this.channelService.retrieveDirectMessage();
+    }
   }
 
 

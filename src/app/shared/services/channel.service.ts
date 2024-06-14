@@ -15,7 +15,10 @@ export class ChannelService {
   messages:any;
 
 
-  constructor() { }
+  constructor() { 
+    //turn on for test in messages:
+    this.channelMsg=true;
+  }
 
 
 
