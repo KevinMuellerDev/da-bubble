@@ -8,6 +8,11 @@
     background-color: $bg-color;
 }
 
+.disabled{
+    cursor: disabled;
+    opacity: 0.5;
+}
+
 .content {
     @include dFlex($jc: space-between);
     gap: 25px;
@@ -94,9 +99,6 @@
             left: 0%;
             transform: translateY(-50%);
             z-index: 1;
-        }
-        app-channel {
-            background-color: $black;
         }
 
         app-thread {
