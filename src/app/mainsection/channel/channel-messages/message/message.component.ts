@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild,HostListener,OnInit,AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild,HostListener} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MainsectionComponent } from '../../../mainsection.component';
 import { AddUserToChannelDialogComponent } from '../../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
