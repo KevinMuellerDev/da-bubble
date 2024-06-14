@@ -11,13 +11,6 @@ header {
         height: 70px;
         background-color: #ffffff;
         border-radius: 42px;
-    }
-
-    .header-logo {
-        padding-left: 20px;
-    }
-
-    .header-search {
         margin: 0 20px;
 
         input {
@@ -41,6 +34,10 @@ header {
                 background: rgba(0.1, 0.1, 0.1, 0.05);
             }
         }
+    }
+
+    .header-logo {
+        padding-left: 20px;
     }
 
     .user-menu {
@@ -117,5 +114,11 @@ header {
 
     ::placeholder {
         font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .header-search {
+        display: none !important;
     }
 }
