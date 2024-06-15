@@ -26,7 +26,9 @@ export class MessageComponent {
   isEmojiPickerVisible:boolean = false;
 
   //test Nachrichtaufbau entfällt später, da die Daten von Firebase kommen. 
-  messages = [{
+  messages:any[] = [];
+
+/*   {
     'profilePicture': '/assets/img/profile/testchar1.svg',
     'userName': 'Noah Braun',
     'timeStamp': '14:25 Uhr',
@@ -54,13 +56,18 @@ export class MessageComponent {
     'emojiCounts': [] as { emoji: string, count: number }[],
     'repliesCount': 2,
     'lastReplyTimeStamp': '14:56'
-  }];
+  } */
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
 
     if (!this.channelService.channelMsg) {
       this.channelService.getDmId();
       this.unsubMessageData = this.channelService.retrieveDirectMessage();
+      setTimeout(() => {
+        this.channelService.messagesLoaded = true;
+      }, 200);
+      console.log(this.channelService.privateMsg);
+      
     }
   }
 
@@ -111,7 +118,7 @@ export class MessageComponent {
       let emojiCountsMap = new Map();
       let previousEmoji: string | null = null;
       let currentCount = 0;
-      message.selectedEmoji.forEach(emoji => {
+      message.selectedEmoji.forEach((emoji: string | null) => {
         if (emoji === previousEmoji) {
           currentCount++;
         } else {

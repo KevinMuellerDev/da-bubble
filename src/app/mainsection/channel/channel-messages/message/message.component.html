@@ -1,11 +1,11 @@
 <div #scroll id="messageContainer" ref={messageContainer} class="channel-conversation-container">
-@if (channelService.messages != undefined || channelService.channelMsg) {
+@if (channelService.messages.length != 0 || channelService.channelMsg) {
     <div class="divider-container">
         <div class="divider">
             <span>Dienstag, 14 Januar</span>
         </div>
     </div>
-    <div *ngFor="let message of messages; let i = index; let isEven = even; let isLast = last">
+    <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
         <div [ngClass]="{ 'inverted-message': isEven }" class="single-message-container">
             <div [ngClass]="{ 'interaction-container-inverted': isEven }" class="interaction-container">
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
@@ -17,14 +17,14 @@
             <div class="message-wrapper">
                 <div class="message-head">
                     <div class="message-info">
-                        <span (click)="openDialogUserInfo()">{{ message.userName }}</span>
+                        <span (click)="openDialogUserInfo()">{{ message.name }}</span>
                         <div class="message-timestamp">
                             <span>{{ message.timeStamp }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="message">
-                    <span>{{ message.messageText }}</span>
+                    <span>{{ message.message }}</span>
                     <div id="emojiPickerContainer">
                         <emoji-mart [darkMode]=false #emojiPickerContainer
                             [style]="{ position: 'absolute', bottom: '-289px', right: '20px','z-index': '999' }"
@@ -37,7 +37,7 @@
                         {{ emojiCount.emoji }} {{ emojiCount.count }}
                     </span>
                 </div>
-                <div class="message-reply-wrapper">
+                <div *ngIf="channelService.channelMsg" class="message-reply-wrapper">
                     <div class="message-replies">
                         <span (click)="showThreadBar()">{{ message.repliesCount }} Antworten</span>
                     </div>
@@ -53,8 +53,16 @@
             </div>
         </div>
     </div>
-}@else {
-    test
+} @else if (channelService.messages.length == 0 && channelService.messagesLoaded == true) {
+    <div class="wrapper-start-msg">
+        <div class="user-info">
+            <img [src]="channelService.privateMsgData['profilePicture']" alt="">
+            <span>{{channelService.privateMsgData['name']}}</span>
+        </div>
+        <div class="start-text">
+            <span>Diese Unterhaltung findet nur zwischen <span class="name-clickable">&#64;{{channelService.privateMsgData['name']}}</span> und dir statt.</span>
+        </div>
+    </div>
 }
 
 

@@ -22,6 +22,7 @@
 }
 
 .channel-conversation-container {
+    position: relative;
     margin-top: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -149,6 +150,7 @@
     @include dFlex($jc: space-between);
     margin-top: 8px;
     max-width: 258.688px;
+    gap: 20px;
     width: 100%;
     text-wrap: nowrap;
 }
@@ -230,4 +232,51 @@
         border-radius: 20px;
         padding: 5px 10px;
     }
+}
+
+.wrapper-start-msg {
+    position: absolute;
+    left: 35px;
+    bottom: 0;
+    @include dFlex($ai: flex-start);
+    gap: 25px;
+    flex-direction: column;
+
+
+    .user-info {
+        @include dFlex($ai: flex-end);
+        gap: 25px;
+        cursor: pointer;
+
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50% 50%;
+            object-fit: cover;
+        }
+
+        span {
+            font: 700 24px 'Nunito';
+
+            &:hover {
+                color: $purple3;
+            }
+        }
+    }
+
+    .start-text {
+        font: 400 20px 'Nunito';
+        color: $text-gray;
+
+        .name-clickable {
+            cursor: pointer;
+            color: $purple3;
+
+            &:hover {
+                font-weight: 700;
+            }
+        }
+    }
+
+
 }

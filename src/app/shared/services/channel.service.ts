@@ -12,12 +12,13 @@ export class ChannelService {
   newChannel?: ChannelInfo
   privateMsgData: any;
   currentMessagesId!:string;
-  messages:any;
+  messages:any[] = [];
+  messagesLoaded:boolean=false;
 
 
   constructor() { 
     //turn on for test in messages:
-    this.channelMsg=true;
+    this.channelMsg=false;
   }
 
 
@@ -51,7 +52,7 @@ export class ChannelService {
   chooseChannelType(dm: boolean, user?: DocumentData) {
     dm ? this.privateMsg = true : this.channelMsg = true;
     if (this.privateMsg) {
-      this.privateMsgData = user;
+      this.privateMsgData = user;      
     }
 
   }
@@ -77,13 +78,18 @@ export class ChannelService {
  */
   retrieveDirectMessage() {
     let unsubscribe!: Unsubscribe;
+    this.messagesLoaded=false;
     setTimeout(() => {
       unsubscribe = onSnapshot(query(this.refDirectMessageData(this.currentMessagesId)), (querySnapshot) => {
+        this.messages = [];
         querySnapshot.forEach(async (doc) => {
           console.log(doc.data());
+          this.messages.push(doc.data())
+          console.log(this.messages);
         });
       });
     }, 10);
+    
     return unsubscribe
   }
 
@@ -100,7 +106,7 @@ export class ChannelService {
   }
 
   refDirectMessageData(id:string){
-    return collection(this.firestore, "user" ,sessionStorage.getItem('uid') as string , 'directmessages',id, 'test')
+    return collection(this.firestore, "user" ,sessionStorage.getItem('uid') as string , 'directmessages',id, 'messages')
   }
 
 }

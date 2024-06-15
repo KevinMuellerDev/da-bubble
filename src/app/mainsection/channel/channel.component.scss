@@ -17,6 +17,7 @@
     resize: none;
     padding: 20px 0 0 20px;
     font-size: 18px;
+    caret-color: black;
 
     &:focus-visible {
         outline: 1px solid $purple3;
@@ -25,8 +26,6 @@
     &:hover {
         border: 1px solid $purple2;
     }
-
-
 
     &::placeholder {
         font-size: 18px;
