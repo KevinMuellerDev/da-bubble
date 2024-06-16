@@ -43,4 +43,12 @@ export class ChannelMessagesComponent {
   openDialogEditChannel() {
     this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
   }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.channelService.privateMsgData = undefined;
+    this.channelService.privateMsg = false;
+    this.channelService.channelMsg = false;
+  }
 }

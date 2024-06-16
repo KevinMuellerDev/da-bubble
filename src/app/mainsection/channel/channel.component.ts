@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MainsectionComponent } from '../mainsection.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelMessagesComponent } from './channel-messages/channel-messages.component';
+import { ChannelService } from '../../shared/services/channel.service';
+import { MessageData } from '../../shared/models/message.class';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-channel',
@@ -13,6 +16,9 @@ import { ChannelMessagesComponent } from './channel-messages/channel-messages.co
   styleUrl: './channel.component.scss'
 })
 export class ChannelComponent {
+  channelService:ChannelService = inject(ChannelService);
+  userService:UserService = inject(UserService);
+  dmData!:any;
   message = {
     content: ''
   }
@@ -24,17 +30,31 @@ export class ChannelComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
    this.submitClick = true;
     this.textareaBlur = true;
     if (!form.valid) {
       console.log(form)
       form.reset();
     } else if (form.valid) {
-      console.log(this.message.content);
+      if (this.channelService.privateMsg) {
+        this.arrangeDirectData();
+      }
       form.reset();
       this.messageContent.nativeElement.focus()
       this.submitClick = false;
     }
   }
+
+  arrangeDirectData(){
+    let dummy = new MessageData();
+    dummy.id = sessionStorage.getItem('uid')!;
+    dummy.name = this.userService.userInfo.name;
+    dummy.profilePicture = this.userService.userInfo.profilePicture; 
+    dummy.message = this.message.content;
+    dummy.emoji = [];
+    const dmData = dummy.toJson();
+    this.channelService.createDirectMessage(dmData);
+  }
+
 }

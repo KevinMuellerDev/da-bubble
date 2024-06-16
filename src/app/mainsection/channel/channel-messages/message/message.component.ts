@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild,HostListener, inject} from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MainsectionComponent } from '../../../mainsection.component';
 import { AddUserToChannelDialogComponent } from '../../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
@@ -21,72 +21,46 @@ import { Unsubscribe } from '@angular/fire/firestore';
 })
 export class MessageComponent {
   channelService: ChannelService = inject(ChannelService);
-  unsubMessageData!:Unsubscribe;
+  unsubMessageData!: Unsubscribe;
   showEmojiPickerArray: boolean[] = [];
-  isEmojiPickerVisible:boolean = false;
+  isEmojiPickerVisible: boolean = false;
 
   //test Nachrichtaufbau entfällt später, da die Daten von Firebase kommen. 
-  messages: any[] = [
-     {
-    'profilePicture': '/assets/img/profile/testchar1.svg',
-    'userName': 'Noah Braun',
-    'timeStamp': '14:25 Uhr',
-    'messageText': 'Welche Version von Angular ist aktuell ?',
-    'emojiCounts': [] as { emoji: string, count: number }[],
-    'repliesCount': 2,
-    'lastReplyTimeStamp': '14:56'
-    },
-     {
-    'profilePicture': '/assets/img/profile/testchar1.svg',
-    'userName': 'Noah Braun',
-    'timeStamp': '14:25 Uhr',
-    'messageText': 'Welche Version von Angular ist aktuell ?',
-    'emojiCounts': [] as { emoji: string, count: number }[],
-    'repliesCount': 2,
-    'lastReplyTimeStamp': '14:56'
-  }
-  ];
+  messages: any[] = [];
+  /*   messages: any[] = [
+      {
+     'profilePicture': '/assets/img/profile/testchar1.svg',
+     'userName': 'Noah Braun',
+     'timeStamp': '14:25 Uhr',
+     'messageText': 'Welche Version von Angular ist aktuell ?',
+     'emojiCounts': [] as { emoji: string, count: number }[],
+     'repliesCount': 2,
+     'lastReplyTimeStamp': '14:56'
+     },
+      {
+     'profilePicture': '/assets/img/profile/testchar1.svg',
+     'userName': 'Noah Braun',
+     'timeStamp': '14:25 Uhr',
+     'messageText': 'Welche Version von Angular ist aktuell ?',
+     'emojiCounts': [] as { emoji: string, count: number }[],
+     'repliesCount': 2,
+     'lastReplyTimeStamp': '14:56'
+   }
+   ]; */
 
-/*   {
-    'profilePicture': '/assets/img/profile/testchar1.svg',
-    'userName': 'Noah Braun',
-    'timeStamp': '14:25 Uhr',
-    'messageText': 'Welche Version von Angular ist aktuell ?',
-    'selectedEmoji': [] as string[],
-    'emojiCounts': [] as { emoji: string, count: number }[],
-    'repliesCount': 2,
-    'lastReplyTimeStamp': '14:56'
-  }, {
-    'profilePicture': '/assets/img/profile/testchar1.svg',
-    'userName': 'Noah Braun',
-    'timeStamp': '14:25 Uhr',
-    'messageText': 'Welche Version von Angular ist aktuell ?',
-    'selectedEmoji': [] as string[],
-    'emojiCounts': [] as { emoji: string, count: number }[],
-    'repliesCount': 2,
-    'lastReplyTimeStamp': '14:56'
-  },
-  {
-    'profilePicture': '/assets/img/profile/testchar1.svg',
-    'userName': 'Noah Braun',
-    'timeStamp': '14:25 Uhr',
-    'messageText': 'Welche Version von Angular ist aktuell?',
-    'selectedEmoji': [] as string[],
-    'emojiCounts': [] as { emoji: string, count: number }[],
-    'repliesCount': 2,
-    'lastReplyTimeStamp': '14:56'
-  } */
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
 
     if (!this.channelService.channelMsg) {
       this.channelService.getDmId();
-      this.unsubMessageData = this.channelService.retrieveDirectMessage();
+      setTimeout(() => {
+        this.unsubMessageData = this.channelService.retrieveDirectMessage()!;
+      }, 10);
       setTimeout(() => {
         this.channelService.messagesLoaded = true;
-      }, 200);
+      }, 500);
       console.log(this.channelService.privateMsg);
-      
+
     }
   }
 
@@ -99,45 +73,45 @@ export class MessageComponent {
     this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
 
-    /**
- * Toggles the visibility of the emoji picker.
- * It stops the propagation of the event to prevent it from bubbling up to other event listeners.
- * It then toggles the `isEmojiPickerVisible` property, which determines whether the emoji picker is visible or not.
- * @param event - The click event that triggered this function.
- */
-    toggleEmojiPickerEvent(event: Event) {
-    event.stopPropagation(); 
+  /**
+* Toggles the visibility of the emoji picker.
+* It stops the propagation of the event to prevent it from bubbling up to other event listeners.
+* It then toggles the `isEmojiPickerVisible` property, which determines whether the emoji picker is visible or not.
+* @param event - The click event that triggered this function.
+*/
+  toggleEmojiPickerEvent(event: Event) {
+    event.stopPropagation();
     this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
   }
 
-/**
- * Adds an emoji to the message at the specified index.
- * If the emoji already exists in the message's emojiCounts, increment its count.
- * If the emoji does not exist, add it to the emojiCounts with a count of 0.
- * @param event - The event object containing the emoji data.
- * @param index - The index of the message to which the emoji should be added.
- */
+  /**
+   * Adds an emoji to the message at the specified index.
+   * If the emoji already exists in the message's emojiCounts, increment its count.
+   * If the emoji does not exist, add it to the emojiCounts with a count of 0.
+   * @param event - The event object containing the emoji data.
+   * @param index - The index of the message to which the emoji should be added.
+   */
 
-addEmoji(event: any, index: number) {
-  const emoji = event['emoji']['native'];
-  let foundEmoji = false;
-  // Check if emoji already exists in emojiCounts
-  for (let i = 0; i < this.messages[index].emojiCounts.length; i++) {
-    if (this.messages[index].emojiCounts[i].emoji === emoji) {
-      this.messages[index].emojiCounts[i].count++;
-      foundEmoji = true;
-      break;
+  addEmoji(event: any, index: number) {
+    const emoji = event['emoji']['native'];
+    let foundEmoji = false;
+    // Check if emoji already exists in emojiCounts
+    for (let i = 0; i < this.messages[index].emojiCounts.length; i++) {
+      if (this.messages[index].emojiCounts[i].emoji === emoji) {
+        this.messages[index].emojiCounts[i].count++;
+        foundEmoji = true;
+        break;
+      }
     }
-  }
-  if (!foundEmoji) {
-    this.messages[index].emojiCounts.push({ emoji: emoji, count: 0 });
-  }
-  //console.log(this.messages[index].emojiCounts);
-  //console.log(event['emoji']['name']);
-  //console.log(event['emoji']['native']);
-  //console.log(event['emoji']);
-  this.toggleEmojiPicker(index);
-  this.isEmojiPickerVisible = false; 
+    if (!foundEmoji) {
+      this.messages[index].emojiCounts.push({ emoji: emoji, count: 0 });
+    }
+    //console.log(this.messages[index].emojiCounts);
+    //console.log(event['emoji']['name']);
+    //console.log(event['emoji']['native']);
+    //console.log(event['emoji']);
+    this.toggleEmojiPicker(index);
+    this.isEmojiPickerVisible = false;
   }
 
   /**
@@ -176,22 +150,22 @@ addEmoji(event: any, index: number) {
     return false;
   }
 
- @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
+  @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
 
   /**
  * Listens for click events on the document and closes the emoji picker if the click is outside of it.
  * @param event - The click event.
  */
- @HostListener('document:click', ['$event'])
+  @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event) {
     if (!this.isEmojiPickerVisible || !this.emojiPickerContainer) {
-      return; 
+      return;
     }
 
     if (!this.isClickedElementOrChildWithClass(event.target, 'emoji-mart') && this.emojiPickerContainer) {
       console.log('Clicked outside class "emoji-mart"');
       this.showEmojiPickerArray = this.messages.map(() => false);
-       this.isEmojiPickerVisible = false; 
+      this.isEmojiPickerVisible = false;
     }
   }
 
@@ -224,7 +198,10 @@ addEmoji(event: any, index: number) {
     this.mainsectionComponent.showThread();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.unsubMessageData();
+    this.channelService.messages = [];
+    this.channelService.messagesLoaded=false;
+    this.channelService.currentMessagesId = '';
   }
 }

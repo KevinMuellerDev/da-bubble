@@ -11,14 +11,15 @@ export class ChannelService {
   privateMsg?: boolean;
   newChannel?: ChannelInfo
   privateMsgData: any;
-  currentMessagesId!:string;
-  messages:any[] = [];
-  messagesLoaded:boolean=false;
+  currentMessagesId!: string;
+  oppositeMessagesId!:string;
+  messages: any[] = [];
+  messagesLoaded: boolean = false;
+  privateMsgIds: string[] = [];
 
-
-  constructor() { 
+  constructor() {
     //turn on for test in messages:
-    this.channelMsg=true;
+    this.channelMsg = false;
   }
 
 
@@ -40,28 +41,28 @@ export class ChannelService {
       });
   }
 
-/**
- * The function `chooseChannelType` sets a boolean flag based on whether the message is a direct
- * message or a channel message, and assigns user data if it is a direct message.
- * @param {boolean} dm - The `dm` parameter is a boolean value that indicates whether the message
- * should be sent as a direct message (private message) or not.
- * @param {DocumentData} [user] - The `user` parameter is of type `DocumentData` and is optional in the
- * `chooseChannelType` function. It is used to pass user data when the `dm` parameter is set to true,
- * indicating that a private message channel should be used.
- */
+  /**
+   * The function `chooseChannelType` sets a boolean flag based on whether the message is a direct
+   * message or a channel message, and assigns user data if it is a direct message.
+   * @param {boolean} dm - The `dm` parameter is a boolean value that indicates whether the message
+   * should be sent as a direct message (private message) or not.
+   * @param {DocumentData} [user] - The `user` parameter is of type `DocumentData` and is optional in the
+   * `chooseChannelType` function. It is used to pass user data when the `dm` parameter is set to true,
+   * indicating that a private message channel should be used.
+   */
   chooseChannelType(dm: boolean, user?: DocumentData) {
     dm ? this.privateMsg = true : this.channelMsg = true;
     if (this.privateMsg) {
-      this.privateMsgData = user;      
+      this.privateMsgData = user;
     }
 
   }
 
-/**
- * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
- * Firestore collection.
- */
-  async getDmId(){
+  /**
+   * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
+   * Firestore collection.
+   */
+  async getDmId() {
     const querySnapshot = await getDocs(query(this.refDirectMessage()));
     querySnapshot.forEach(element => {
       console.log(element.data());
@@ -71,27 +72,43 @@ export class ChannelService {
     });
   }
 
-/**
- * The function `retrieveDirectMessage` retrieves direct messages using Firestore and returns an
- * unsubscribe function.
- * @returns The `unsubscribe` function is being returned from the `retrieveDirectMessage()` function.
- */
-  retrieveDirectMessage() {
-    let unsubscribe!: Unsubscribe;
-    this.messagesLoaded=false;
-    setTimeout(() => {
-      unsubscribe = onSnapshot(query(this.refDirectMessageData(this.currentMessagesId)), (querySnapshot) => {
-        this.messages = [];
-        querySnapshot.forEach(async (doc) => {
-          console.log(doc.data());
-          this.messages.push(doc.data())
-          console.log(this.messages);
-        });
+    /**
+   * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
+   * Firestore collection.
+   */
+    async getOppositeDmId() {
+      const querySnapshot = await getDocs(query(this.refOppositeDirectMessage(this.privateMsgData.id)));
+      querySnapshot.forEach(element => {
+        console.log(element.data());
+        if (element.data()['dmUserId'] == sessionStorage.getItem('uid')) {
+          this.oppositeMessagesId = element.id
+        }
       });
-    }, 10);
-    
+    }
+
+  /**
+   * The function `retrieveDirectMessage` retrieves direct messages using Firestore and returns an
+   * unsubscribe function.
+   * @returns The `unsubscribe` function is being returned from the `retrieveDirectMessage()` function.
+   */
+  retrieveDirectMessage() {
+    const unsubscribe = onSnapshot(query(this.refDirectMessageData(this.currentMessagesId)), (querySnapshot) => {
+      this.messages = [];
+      querySnapshot.forEach(async (doc) => {
+        console.log(doc.data());
+        this.messages.unshift(doc.data())
+        console.log(this.messages);
+      });
+    });
     return unsubscribe
   }
+
+  async createDirectMessage(obj:any) { 
+    await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
+    await this.getOppositeDmId();
+    await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
+  }
+
 
   /**
    * Firestore collection reference for Channels
@@ -101,12 +118,20 @@ export class ChannelService {
     return collection(this.firestore, "Channels")
   }
 
-  refDirectMessage(){
-    return collection(this.firestore, "user" ,sessionStorage.getItem('uid') as string , 'directmessages')
+  refDirectMessage() {
+    return collection(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages')
   }
 
-  refDirectMessageData(id:string){
-    return collection(this.firestore, "user" ,sessionStorage.getItem('uid') as string , 'directmessages',id, 'messages')
+  refOppositeDirectMessage(id:string) {
+    return collection(this.firestore, "user", id, 'directmessages')
+  }
+
+  refDirectMessageData(id: string) {
+    return collection(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', id, 'messages')
+  }
+
+  refCreateDM(sender: string, receiver: string) {
+    return collection(this.firestore, "user", sender, 'directmessages', receiver, 'messages')
   }
 
 }

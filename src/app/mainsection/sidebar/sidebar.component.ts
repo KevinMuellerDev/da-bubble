@@ -95,5 +95,6 @@ export class SidebarComponent {
     this.unsubCurrentChannels();
     this.unsubUserDmIds();
     this.unsubUserDmData();
+    this.sidebarService.userDmData = [];
   }
 }

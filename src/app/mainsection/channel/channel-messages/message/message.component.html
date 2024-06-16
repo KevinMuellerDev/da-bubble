@@ -5,9 +5,9 @@
             <span>Dienstag, 14 Januar</span>
         </div>
     </div>
-    <div *ngFor="let message of messages; let i = index; let isEven = even; let isLast = last">
-        <div [ngClass]="{ 'inverted-message': isEven }" class="single-message-container">
-            <div [ngClass]="{ 'interaction-container-inverted': isEven }" class="interaction-container">
+    <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
+        <div [ngClass]="{ 'inverted-message': channelService.privateMsgData.id != message.id}" class="single-message-container">
+            <div [ngClass]="{ 'interaction-container-inverted': channelService.privateMsgData.id != message.id }" class="interaction-container">
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
                 <ngx-emoji [style]="{display:'flex',cursor:'pointer'}" emoji="santa" set="twitter"></ngx-emoji>
             </div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="message">
-                    <span>{{ message.messageText }}</span>
+                    <span>{{ message.message }}</span>
                     <div id="emojiPickerContainer">
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
