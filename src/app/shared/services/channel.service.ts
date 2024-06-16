@@ -103,6 +103,12 @@ export class ChannelService {
     return unsubscribe
   }
 
+/**
+ * The `createDirectMessage` function asynchronously creates a direct message between two users.
+ * @param {any} obj - The `obj` parameter in the `createDirectMessage` function likely represents the
+ * data or message object that you want to add to a direct message conversation. This object could
+ * contain information such as the message content, sender details, timestamp, etc.
+ */
   async createDirectMessage(obj:any) { 
     await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
     await this.getOppositeDmId();

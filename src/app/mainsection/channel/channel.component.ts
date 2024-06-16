@@ -46,6 +46,11 @@ export class ChannelComponent {
     }
   }
 
+/**
+ * The function `arrangeDirectData` creates a new `MessageData` object, populates it with data from
+ * user input and session storage, and then sends it to the `channelService` to create a direct
+ * message.
+ */
   arrangeDirectData(){
     let dummy = new MessageData();
     dummy.id = sessionStorage.getItem('uid')!;
