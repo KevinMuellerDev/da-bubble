@@ -1,5 +1,13 @@
 @import '@ctrl/ngx-emoji-mart/picker';
 
+.emoji-mart-scroll {
+    height: 150px !important;
+}
+
+.emoji-mart-preview {
+    display: none !important;
+}
+
 $purple1: #444df2;
 $purple2: #797ef3;
 $purple3: #535af1;
@@ -15,6 +23,27 @@ $green: #92c83e;
     display: flex;
     justify-content: $jc;
     align-items: $ai;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $light-purple;
+    border-radius: 30px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $purple2;
+    border-radius: 30px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $purple3;
 }
 
 /* figtree-regular - latin */

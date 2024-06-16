@@ -1,26 +1,5 @@
 @import "../../../../../styles.scss";
 
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: $light-purple;
-    border-radius: 30px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: $purple2;
-    border-radius: 30px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: $purple3;
-}
-
 .channel-conversation-container {
     position: relative;
     margin-top: 20px;
@@ -225,6 +204,7 @@
 
 .selected-emoji {
     >span {
+        cursor: pointer;
         background-color: white;
         border: 1px solid $light-purple;
         height: 34px;

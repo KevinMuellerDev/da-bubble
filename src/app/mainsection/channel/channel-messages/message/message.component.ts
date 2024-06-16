@@ -26,7 +26,26 @@ export class MessageComponent {
   isEmojiPickerVisible:boolean = false;
 
   //test Nachrichtaufbau entfällt später, da die Daten von Firebase kommen. 
-  messages:any[] = [];
+  messages: any[] = [
+     {
+    'profilePicture': '/assets/img/profile/testchar1.svg',
+    'userName': 'Noah Braun',
+    'timeStamp': '14:25 Uhr',
+    'messageText': 'Welche Version von Angular ist aktuell ?',
+    'emojiCounts': [] as { emoji: string, count: number }[],
+    'repliesCount': 2,
+    'lastReplyTimeStamp': '14:56'
+    },
+     {
+    'profilePicture': '/assets/img/profile/testchar1.svg',
+    'userName': 'Noah Braun',
+    'timeStamp': '14:25 Uhr',
+    'messageText': 'Welche Version von Angular ist aktuell ?',
+    'emojiCounts': [] as { emoji: string, count: number }[],
+    'repliesCount': 2,
+    'lastReplyTimeStamp': '14:56'
+  }
+  ];
 
 /*   {
     'profilePicture': '/assets/img/profile/testchar1.svg',
@@ -91,49 +110,54 @@ export class MessageComponent {
     this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
   }
 
-  /**
- * Adds an emoji to the selected message.
- * @param event - The event object that contains the emoji data.
+/**
+ * Adds an emoji to the message at the specified index.
+ * If the emoji already exists in the message's emojiCounts, increment its count.
+ * If the emoji does not exist, add it to the emojiCounts with a count of 0.
+ * @param event - The event object containing the emoji data.
  * @param index - The index of the message to which the emoji should be added.
- * @returns {void}
  */
 
-  addEmoji(event: any, index: number) {
-    this.messages[index]['selectedEmoji'].push(event['emoji']['native']);
-    console.log(this.messages[index]['selectedEmoji']);
-    console.log(event['emoji']['name']);
-    console.log(event['emoji']['native']);
-    console.log(event['emoji']);
-    this.toggleEmojiPicker(index);
-    this.emojiCounter();
-    this.isEmojiPickerVisible = false; 
+addEmoji(event: any, index: number) {
+  const emoji = event['emoji']['native'];
+  let foundEmoji = false;
+  // Check if emoji already exists in emojiCounts
+  for (let i = 0; i < this.messages[index].emojiCounts.length; i++) {
+    if (this.messages[index].emojiCounts[i].emoji === emoji) {
+      this.messages[index].emojiCounts[i].count++;
+      foundEmoji = true;
+      break;
+    }
+  }
+  if (!foundEmoji) {
+    this.messages[index].emojiCounts.push({ emoji: emoji, count: 0 });
+  }
+  //console.log(this.messages[index].emojiCounts);
+  //console.log(event['emoji']['name']);
+  //console.log(event['emoji']['native']);
+  //console.log(event['emoji']);
+  this.toggleEmojiPicker(index);
+  this.isEmojiPickerVisible = false; 
   }
 
   /**
-   * Updates the emoji counts for each message. For each message, it counts consecutive identical emojis 
-   * and stores the count along with the emoji in a list of objects.
-   */
-  emojiCounter() {
-    this.messages.forEach(message => {
-      let emojiCountsMap = new Map();
-      let previousEmoji: string | null = null;
-      let currentCount = 0;
-      message.selectedEmoji.forEach((emoji: string | null) => {
-        if (emoji === previousEmoji) {
-          currentCount++;
+ * Removes an emoji from the message at the specified index.
+ * If the emoji count is greater than 1, it decrements the count.
+ * If the emoji count is 1, it removes the emoji from the emojiCounts array.
+ * @param index - The index of the message from which the emoji should be removed.
+ * @param emoji - The emoji to be removed.
+ */
+  removeEmoji(index: number, emoji: string) {
+    for (let i = 0; i < this.messages[index].emojiCounts.length; i++) {
+      if (this.messages[index].emojiCounts[i].emoji === emoji) {
+        if (this.messages[index].emojiCounts[i].count > 1) {
+          this.messages[index].emojiCounts[i].count--;
         } else {
-          previousEmoji = emoji;
-          currentCount = 1;
+          this.messages[index].emojiCounts.splice(i, 1);
         }
-        emojiCountsMap.set(emoji, currentCount);
-      });
-      /**
-     * Convert the Map to an array of objects and store it in message.emojiCounts.
-     * Each object contains an emoji and its corresponding count.
-     */
-      message.emojiCounts = Array.from(emojiCountsMap, ([emoji, count]) => ({ emoji, count }));
-      console.log(message.emojiCounts);
-    });
+        break;
+      }
+    }
   }
 
   /**
