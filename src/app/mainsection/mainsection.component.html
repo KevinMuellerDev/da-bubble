@@ -4,6 +4,7 @@
         <app-sidebar #sidebar></app-sidebar>
         <app-channel #channel></app-channel>
         <app-thread #threadBar></app-thread>
+        <div #overlay class="overlay" (click)="closeSides()"></div>
     </div>
 </div>
 <div class="toggle-navbar" (click)="rotateIndicator()">

@@ -18,6 +18,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
   rotateToggle: boolean = false;
   mediumScreen: boolean = false;
+  smallerMediumScreen: boolean = false;
   sidenavOpen: boolean = false;
   threadOpen: boolean = false;
   unsubProfile;
@@ -27,6 +28,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   @ViewChild('sidebar', { read: ElementRef }) sidebarElement!: ElementRef;
   @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
   @ViewChild('channel', { read: ElementRef }) channelElement!: ElementRef;
+  @ViewChild('overlay', { read: ElementRef }) overlayElement!: ElementRef;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
@@ -58,6 +60,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     if (window.innerWidth <= 1440) {
       this.mediumScreen = true;
     }
+    if (window.innerWidth <= 960) {
+      this.smallerMediumScreen = true;
+    }
   }
 
   /**
@@ -84,10 +89,13 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
       this.threadOpen = true;
       this.threadBarElement.nativeElement.classList.remove('hide-show');
       this.hideSidenav();
-      this.toggleElement.nativeElement.classList.add('rotate-toggle')
+      this.toggleElement.nativeElement.classList.add('rotate-toggle');
       this.rotateToggle = true;
     } else {
       this.threadBarElement.nativeElement.classList.remove('hide-show');
+    }
+    if (this.smallerMediumScreen == true) {
+      this.overlayElement.nativeElement.style.display = 'block';
     }
   }
 
@@ -102,6 +110,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     } else {
       this.sidebarElement.nativeElement.classList.remove('hide-show');
     }
+    if (this.smallerMediumScreen == true) {
+      this.overlayElement.nativeElement.style.display = 'block';
+    }
   }
 
   /**
@@ -110,6 +121,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   hideSidenav() {
     this.sidebarElement.nativeElement.classList.add('hide-show');
     this.sidenavOpen = false;
+    this.overlayElement.nativeElement.style.display = 'none';
   }
 
   /**
@@ -118,6 +130,17 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   hideThread() {
     this.threadBarElement.nativeElement.classList.add('hide-show');
     this.threadOpen = false;
+    this.overlayElement.nativeElement.style.display = 'none';
+  }
+
+  closeSides() {
+    if (this.rotateToggle == false) {
+      this.hideSidenav();
+      this.rotateToggle = true;
+      this.toggleElement.nativeElement.classList.add('rotate-toggle');
+    } else {
+      this.hideThread();
+    }
   }
 
   getToggleText(): string {
