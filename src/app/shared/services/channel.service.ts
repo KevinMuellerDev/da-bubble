@@ -46,6 +46,7 @@ export class ChannelService {
         console.log(this.messages);
         this.isSubscribed = true;
       });
+      this.messages.sort((a, b) => a.timestamp - b.timestamp);
     });
     setTimeout(() => {
       this.messagesLoaded = true;
