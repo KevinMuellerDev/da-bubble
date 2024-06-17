@@ -51,7 +51,6 @@ export class MessageComponent {
    }
    ]; */
 
-
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
     this.userId = sessionStorage.getItem('uid')!;
     if (!this.channelService.channelMsg) {
@@ -61,7 +60,7 @@ export class MessageComponent {
             setTimeout(() => {
               this.showEmojiPickerArray = [];
               this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-            }, 200);
+            }, 500);
             
           }
         });
@@ -98,28 +97,36 @@ export class MessageComponent {
    * @param index - The index of the message to which the emoji should be added.
    */
 
-  addEmoji(event: any, index: number) {
+addEmoji(event: any, index: number, messageId: string, userId: string) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
-    
-    
-    // Check if emoji already exists in emojiCounts
+    let userMatched = messageId === userId;
+  console.log(messageId);
+  
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-        this.channelService.messages[index].emoji[i].count++;
-        foundEmoji = true;
-        break;
-      }
+        if (this.channelService.messages[index].emoji[i].emoji === emoji) {
+            if (!this.channelService.messages[index].emoji[i].users) {
+                this.channelService.messages[index].emoji[i].users = [];
+            }
+            if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
+                this.channelService.messages[index].emoji[i].count++;
+                this.channelService.messages[index].emoji[i].users.push(userId);
+            }
+            foundEmoji = true;
+            break;
+        }
     }
-    console.log('test');
+
     if (!foundEmoji) {
-      this.channelService.messages[index].emoji.push({ emoji: emoji, count: 0 });
+      const count = userMatched ? 0 : 1;
+      const users = userMatched ? [] : [userId];
+        this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
     }
-    this.toggleEmojiPicker(index);
-    this.channelService.updateDirectMessage(this.channelService.messages[index])
     
+    this.toggleEmojiPicker(index);
+    this.channelService.updateDirectMessage(this.channelService.messages[index]);
     this.isEmojiPickerVisible = false;
-  }
+}
 
   /**
  * Removes an emoji from the message at the specified index.
@@ -128,18 +135,20 @@ export class MessageComponent {
  * @param index - The index of the message from which the emoji should be removed.
  * @param emoji - The emoji to be removed.
  */
-  removeEmoji(index: number, emoji: string) {
-    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-        if (this.channelService.messages[index].emoji[i].count > 1) {
+  removeEmoji(index: number, currentEmoji: string, messageId: string, userId: string) {
+for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) 
+      if (this.channelService.messages[index].emoji[i].emoji === currentEmoji && messageId === userId ) {
+        if (this.channelService.messages[index].emoji[i].count > 0 ) {
           this.channelService.messages[index].emoji[i].count--;
-        } else {
+        } else  {
+          console.log("splice");
           this.channelService.messages[index].emoji.splice(i, 1);
+            this.channelService.updateDirectMessage(this.channelService.messages[index])
         }
         break;
       }
     }
-  }
+  
 
   /**
  * Checks if a given element or any of its parent elements have a specific class.
