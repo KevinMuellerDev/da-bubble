@@ -27,33 +27,44 @@ export class ChannelService {
     this.channelMsg = false;
   }
 
+
+  /**
+   * The `changeData` function in TypeScript updates the data and restarts the listener.
+   * @param {string} data - The `data` parameter is a string that is passed to the `changeData` method.
+   * This string is then used to update the data subject using `this.dataSubject.next(data)` and to
+   * restart a listener using `this.restartListener(data)`.
+   */
   changeData(data: string) {
     this.dataSubject.next(data);
     this.restartListener(data);
   }
 
+
+  /**
+   * The `startListener` function subscribes to real-time updates and sorts the
+   * received messages by timestamp.
+   * @param {string} data -  the `startListener` function is used to subscribe to real-time
+   * updates for direct messages based on the provided `data`. 
+   */
   startListener(data: string) {
-    if (this.isSubscribed) {
+    if (this.isSubscribed)
       this.unsub();
-    }
 
     this.unsub = onSnapshot(query(this.refDirectMessageData(data)), (querySnapshot) => {
       this.messages = [];
-      
       querySnapshot.forEach(async (doc) => {
-        console.log(doc.data());
         this.messages.unshift(doc.data())
-        console.log(this.messages);
         this.isSubscribed = true;
       });
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
     });
-    setTimeout(() => {
-      this.messagesLoaded = true;
-    }, 200);
-
+    setTimeout(() => { this.messagesLoaded = true; }, 200);
   }
 
+
+  /**
+   * The `stopListener` function checks if a subscription is active and unsubscribes if it is.
+   */
   stopListener() {
     if (this.isSubscribed) {
       this.unsub();
@@ -61,6 +72,14 @@ export class ChannelService {
     }
   }
 
+
+  /**
+   * The `restartListener` function stops the current listener and then starts a new listener with the
+   * provided data.
+   * @param {string} data - The `restartListener` function takes a `data` parameter of type string. This
+   * parameter is used to restart the listener by stopping it and then starting it again with the new
+   * data provided.
+   */
   restartListener(data: string) {
     this.stopListener();
     this.startListener(data);
