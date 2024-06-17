@@ -97,15 +97,15 @@ export class MessageComponent {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
     // Check if emoji already exists in emojiCounts
-    for (let i = 0; i < this.messages[index].emojiCounts.length; i++) {
-      if (this.messages[index].emojiCounts[i].emoji === emoji) {
-        this.messages[index].emojiCounts[i].count++;
+    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
+      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
+        this.channelService.messages[index].emoji[i].count++;
         foundEmoji = true;
         break;
       }
     }
     if (!foundEmoji) {
-      this.messages[index].emojiCounts.push({ emoji: emoji, count: 0 });
+      this.channelService.messages[index].emoji.push({ emoji: emoji, count: 0 });
     }
     //console.log(this.messages[index].emojiCounts);
     //console.log(event['emoji']['name']);
@@ -123,12 +123,12 @@ export class MessageComponent {
  * @param emoji - The emoji to be removed.
  */
   removeEmoji(index: number, emoji: string) {
-    for (let i = 0; i < this.messages[index].emojiCounts.length; i++) {
-      if (this.messages[index].emojiCounts[i].emoji === emoji) {
-        if (this.messages[index].emojiCounts[i].count > 1) {
-          this.messages[index].emojiCounts[i].count--;
+    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
+      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
+        if (this.channelService.messages[index].emoji[i].count > 1) {
+          this.channelService.messages[index].emoji[i].count--;
         } else {
-          this.messages[index].emojiCounts.splice(i, 1);
+          this.channelService.messages[index].emoji.splice(i, 1);
         }
         break;
       }

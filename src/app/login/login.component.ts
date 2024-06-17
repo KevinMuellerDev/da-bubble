@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, HostListener } from '@angular/core';
+import { Component, OnInit, inject, HostListener, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -85,7 +85,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
   ]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
   storageService: StorageService = inject(StorageService);
@@ -93,6 +93,7 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   loginForm: FormGroup;
+  firstFocus: boolean = true;
   guest!: boolean;
   logoContainerState: string = 'initial';
   logoState: string = 'initial';
@@ -103,6 +104,7 @@ export class LoginComponent implements OnInit {
   logoWidth: string = '';
   logoHeight: string = '';
   logoTextSize: string = '';
+  @ViewChild('emailInput') emailInput!: ElementRef;
 
   /**
    * Initializes the login form with email and password controls.
@@ -123,6 +125,18 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('hasSeenAnimation', 'true');
       this.delayIntroAnimation();
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.emailInput.nativeElement.focus();
+  }
+
+  onFocus() {
+    this.firstFocus = true;
+  }
+
+  onInput() {
+    this.firstFocus = false;
   }
 
   @HostListener('window:resize', ['$event'])

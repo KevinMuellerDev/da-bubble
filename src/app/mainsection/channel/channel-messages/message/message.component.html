@@ -29,15 +29,14 @@
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
                             [style]="{ position: 'absolute', bottom: '0', right: '25px','z-index': '999',width:'273px',cursor: 'pointer'}"
-                            (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]"
-                            set="twitter"></emoji-mart>
+                            (emojiClick)="addEmoji($event,i)" set="twitter"></emoji-mart>
                     </div>
                 </div>
                 <div class="selected-emoji">
-                    <span (click)="removeEmoji(i,emojiCount.emoji)" *ngFor="let emojiCount of message.emojiCounts">
+                    <span (click)="removeEmoji(i,message.emoji.emoji)" *ngFor="let emojiCount of message.emoji">
                         {{ emojiCount.emoji }}
-                        <ng-container *ngIf="emojiCount.count > 0">
-                            {{ emojiCount.count }}
+                        <ng-container *ngIf="message.emoji.count > 0">
+                            {{ message.emoji.count }}
                         </ng-container>
                     </span>
                 </div>
@@ -57,7 +56,8 @@
             </div>
         </div>
     </div>
-    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded == true && channelService.privateMsg) {
+    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded == true &&
+    channelService.privateMsg) {
     <div class="wrapper-start-msg">
         <div class="user-info">
             <img [src]="channelService.privateMsgData['profilePicture']" alt="">
