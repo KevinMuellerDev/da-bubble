@@ -1,7 +1,7 @@
 @import "./../../../../styles.scss";
 
 header {
-    @include dFlex($jc: space-between);
+    @include dFlex($jc: space-between, $ai: center);
 
     .header-search {
         @include dFlex($jc: space-between);
@@ -38,11 +38,11 @@ header {
 
     .header-logo {
         padding-left: 20px;
+        height: 100%;
     }
 
     .user-menu {
         @include dFlex($jc: space-between);
-        gap: 20px;
         cursor: pointer;
 
         &:hover {
@@ -56,6 +56,8 @@ header {
         span {
             font: 700 32px "Nunito";
             text-wrap: nowrap;
+            text-align: end;
+            padding: 0 16px;
         }
 
         .profile-picture {
@@ -64,6 +66,7 @@ header {
 
             img {
                 border-radius: 50% 50%;
+                object-fit: cover;
                 width: 70px;
                 height: 70px;
             }
@@ -83,6 +86,7 @@ header {
             background-image: url("/assets/img/header/menu-arrow.svg");
             height: 30px;
             width: 30px;
+            margin-left: 8px;
         }
     }
 }
@@ -106,7 +110,6 @@ header {
 
 @media screen and (max-width: 1024px) {
     .user-menu {
-        gap: 10px !important;
         span {
             font-size: 28px !important;
         }
@@ -120,5 +123,31 @@ header {
 @media screen and (max-width: 960px) {
     .header-search {
         display: none !important;
+    }
+    .header-logo {
+        padding-left: 0 !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        height: 50px;
+
+        .profile-picture {
+            img {
+                width: 50px !important;
+                height: 50px !important;
+            }
+        }
+        .user-menu {
+            span {
+                text-wrap: wrap;
+                font-size: 24px !important;
+            }
+        }
+
+        img {
+            height: 50px;
+        }
     }
 }

@@ -45,10 +45,6 @@
   transform: rotate(180deg);
 }
 
-.d-none {
-  display: none !important;
-}
-
 .headline-container {
   @include dFlex($jc: space-between);
   width: 100%;
@@ -340,8 +336,15 @@
   .sidebar-container {
     padding: 20px 20px;
   }
-
   .search-bar {
     @include dFlex($jc: space-between);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .direct-message-container,
+  .messages-container,
+  .channel-container {
+    margin-left: 35px;
   }
 }
