@@ -57,18 +57,22 @@ export class MessageComponent {
     if (!this.channelService.channelMsg) {
         this.dataSubscription = this.channelService.data$.subscribe(data => {
           if (data) {
-            this.channelService.messagesLoaded=true;
+            this.channelService.messagesLoaded = true;
+            setTimeout(() => {
+              this.showEmojiPickerArray = this.channelService.messages.map(() => false);
+            }, 90);
+            
           }
         });
     }
   }
 
-
-
-  ngOnInit() {
-    this.showEmojiPickerArray = this.messages.map(() => false);
-  }
-
+  /**
+ * Toggles the visibility of the emoji picker for the message at the specified index.
+ * It sets the corresponding value in the `showEmojiPickerArray` to the opposite of its current value.
+ * All other values in the array are set to false, ensuring that only one emoji picker is visible at a time.
+ * @param index - The index of the message for which the emoji picker should be toggled.
+ */
 
   toggleEmojiPicker(index: number) {
     this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
@@ -107,10 +111,6 @@ export class MessageComponent {
     if (!foundEmoji) {
       this.channelService.messages[index].emoji.push({ emoji: emoji, count: 0 });
     }
-    //console.log(this.messages[index].emojiCounts);
-    //console.log(event['emoji']['name']);
-    //console.log(event['emoji']['native']);
-    //console.log(event['emoji']);
     this.toggleEmojiPicker(index);
     this.channelService.updateDirectMessage(this.channelService.messages[index])
     
@@ -166,8 +166,7 @@ export class MessageComponent {
     }
 
     if (!this.isClickedElementOrChildWithClass(event.target, 'emoji-mart') && this.emojiPickerContainer) {
-      console.log('Clicked outside class "emoji-mart"');
-      this.showEmojiPickerArray = this.messages.map(() => false);
+      this.showEmojiPickerArray = this.channelService.messages.map(() => false);
       this.isEmojiPickerVisible = false;
     }
   }

@@ -29,7 +29,7 @@
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
                             [style]="{ position: 'absolute', bottom: '0', right: '25px','z-index': '999',width:'273px',cursor: 'pointer'}"
-                            (emojiClick)="addEmoji($event,i)" set="twitter"></emoji-mart>
+                            (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]" set="google"></emoji-mart>
                     </div>
                 </div>
                 <div class="selected-emoji">

@@ -57,11 +57,18 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   checkInnerWidth(event: any) {
-    if (window.innerWidth <= 1440) {
-      this.mediumScreen = true;
-    }
-    if (window.innerWidth <= 960) {
-      this.smallerMediumScreen = true;
+    this.mediumScreen = window.innerWidth <= 1440;
+    this.smallerMediumScreen = window.innerWidth <= 960;
+    this.updateOverlayDisplay();
+  }
+
+  updateOverlayDisplay() {
+    if (this.overlayElement && this.overlayElement.nativeElement) {
+      if (window.innerWidth <= 960 && this.sidenavOpen == true || window.innerWidth <= 960 && this.threadOpen == true) {
+        this.overlayElement.nativeElement.style.display = 'block';
+      } else {
+        this.overlayElement.nativeElement.style.display = 'none';
+      }
     }
   }
 
