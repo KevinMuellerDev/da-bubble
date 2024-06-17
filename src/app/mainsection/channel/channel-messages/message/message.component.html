@@ -29,14 +29,15 @@
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
                             [style]="{ position: 'absolute', bottom: '0', right: '25px','z-index': '999',width:'273px',cursor: 'pointer'}"
-                            (emojiClick)="addEmoji($event,i)" *ngIf="showEmojiPickerArray[i]" set="google"></emoji-mart>
+                            (emojiClick)="addEmoji($event,i,message.id,userId)" *ngIf="showEmojiPickerArray[i]"
+                            set="google"></emoji-mart>
                     </div>
                 </div>
                 <div class="selected-emoji">
-                    <span (click)="removeEmoji(i,message.emoji[i].emoji)"
+                    <span (click)="removeEmoji(i,message.emoji[i].emoji,message.id,userId)"
                         *ngFor="let emojiCount let i = index of message.emoji">
                         {{ emojiCount.emoji }}
-                        <ng-container *ngIf="message.emoji[i].count > 0">
+                        <ng-container *ngIf="message.emoji[i].count > 1">
                             {{ message.emoji[i].count }}
                         </ng-container>
                     </span>
