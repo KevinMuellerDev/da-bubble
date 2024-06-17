@@ -51,7 +51,6 @@ export class MessageComponent {
    }
    ]; */
 
-
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
     this.userId = sessionStorage.getItem('uid')!;
     if (!this.channelService.channelMsg) {

@@ -98,6 +98,7 @@ form {
         background-color: $bg-color;
         padding: 15px 25px 15px 50px;
         font-size: 1.125rem;
+        caret-color: auto;
         cursor: pointer;
         &:hover {
             border-color: $text-gray;
