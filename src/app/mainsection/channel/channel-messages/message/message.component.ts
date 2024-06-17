@@ -102,30 +102,33 @@ addEmoji(event: any, index: number, messageId: string, userId: string) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
     let userMatched = messageId === userId;
-  console.log(messageId);
   
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
         if (this.channelService.messages[index].emoji[i].emoji === emoji) {
             if (!this.channelService.messages[index].emoji[i].users) {
                 this.channelService.messages[index].emoji[i].users = [];
             }
-            if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
+          if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
+            console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
                 this.channelService.messages[index].emoji[i].count++;
                 this.channelService.messages[index].emoji[i].users.push(userId);
-            }
-            foundEmoji = true;
-            break;
+          }
+          foundEmoji = true;
+          this.channelService.updateDirectMessage(this.channelService.messages[index]);
+          break;
+          
         }
     }
 
-    if (!foundEmoji) {
-      const count = userMatched ? 0 : 1;
-      const users = userMatched ? [] : [userId];
-        this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
-    }
-    
-    this.toggleEmojiPicker(index);
+  if (!foundEmoji) {
+      //wenn ich keinen emoji gefunden habe startet der count immer mit 0
+    const count = 0//userMatched ? 0 : 1;
+    const users = userMatched ? [] : [userId];
+    console.log(count,userMatched,emoji);
+    this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
     this.channelService.updateDirectMessage(this.channelService.messages[index]);
+    }
+    this.toggleEmojiPicker(index);
     this.isEmojiPickerVisible = false;
 }
 
@@ -136,18 +139,14 @@ addEmoji(event: any, index: number, messageId: string, userId: string) {
  * @param index - The index of the message from which the emoji should be removed.
  * @param emoji - The emoji to be removed.
  */
-  removeEmoji(index: number, currentEmoji: string, messageId: string, userId: string) {
-for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) 
-      if (this.channelService.messages[index].emoji[i].emoji === currentEmoji && messageId === userId ) {
-        if (this.channelService.messages[index].emoji[i].count > 0 ) {
-          this.channelService.messages[index].emoji[i].count--;
-        } else  {
-          console.log("splice");
-          this.channelService.messages[index].emoji.splice(i, 1);
-            this.channelService.updateDirectMessage(this.channelService.messages[index])
-        }
-        break;
-      }
+  removeEmoji(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
+    //leert einzelne emojis bei meinen nachrichten  oder meine Reaktion
+    console.log(this.channelService.messages, currentMessageIndex);
+    if (messageId === userId || this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users.includes(userId)) {
+       this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+    this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+    } 
+   
     }
   
 
