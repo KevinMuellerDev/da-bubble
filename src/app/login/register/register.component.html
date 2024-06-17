@@ -15,7 +15,7 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/person.png">
-                    <input type="text" placeholder="Name und Nachname" formControlName="name" autocomplete="name">
+                    <input #nameInput type="text" minlength="5" placeholder="Name und Nachname" formControlName="name" autocomplete="name" [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
@@ -27,7 +27,7 @@
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
                     <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email"
-                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$">
+                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$" [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
                 </div>
                 <div class="error"
                     *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
@@ -39,7 +39,7 @@
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
                     <input [type]="showPassword ? 'text' : 'password'" placeholder="Passwort" formControlName="password"
-                        autocomplete="current-password">
+                        autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
                 </div>
                 <div class="error">
                     <p

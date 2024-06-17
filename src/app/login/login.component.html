@@ -25,8 +25,9 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
-                    <input #emailInput type="email" autofocus formControlName="email" placeholder="E-Mail Adresse" autocomplete="email"
-                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$">
+                    <input #emailInput type="email" formControlName="email" placeholder="E-Mail Adresse" autocomplete="email"
+                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$"
+                           [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
                 </div>
                 <div class="error" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
                     <p *ngIf="loginForm.controls['email'].errors?.['required']">Bitte eine gültige E-Mail-Adresse
@@ -38,7 +39,7 @@
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
                     <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Passwort"
-                        autocomplete="current-password">
+                        autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
                 </div>
                 <div class="error">
                     <p

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +12,9 @@ import { UserService } from '../../shared/services/user.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
+  @ViewChild('nameInput') nameInput!: ElementRef;
+  firstFocus: boolean = true;
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
   registerForm: FormGroup;
@@ -29,6 +31,18 @@ export class RegisterComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       privacyCheck: new FormControl(false, [Validators.requiredTrue])
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.nameInput.nativeElement.focus();
+  }
+
+  onFocus() {
+    this.firstFocus = true;
+  }
+
+  onInput() {
+    this.firstFocus = false;
   }
 
   /**
