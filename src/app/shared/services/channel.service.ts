@@ -8,9 +8,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
+
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
   isSubscribed: boolean = false;
+
   unsub!: Unsubscribe;
   channelMsg?: boolean;
   privateMsg?: boolean;
@@ -165,7 +167,7 @@ export class ChannelService {
    * unsubscribe function.
    * @returns The `unsubscribe` function is being returned from the `retrieveDirectMessage()` function.
    */
-  retrieveDirectMessage() {
+/*   retrieveDirectMessage() {
     const unsubscribe = onSnapshot(query(this.refDirectMessageData(this.currentMessagesId)), (querySnapshot) => {
       this.messages = [];
       querySnapshot.forEach(async (doc) => {
@@ -175,7 +177,7 @@ export class ChannelService {
       });
     });
     return unsubscribe
-  }
+  } */
 
   /**
    * The `createDirectMessage` function asynchronously creates a direct message between two users.
