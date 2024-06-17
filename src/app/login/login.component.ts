@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, HostListener, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EmailValidator, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FirebaseError, firebaseApp$ } from '@angular/fire/app';
 import { signOut } from '@angular/fire/auth';
@@ -129,10 +129,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.emailInput.nativeElement.focus();
-  }
-
-  onFocus() {
-    this.firstFocus = true;
   }
 
   onInput() {

@@ -126,6 +126,9 @@ form {
         &:focus {
             border-color: $error;
         }
+        &:invalid {
+            border-color: $error;
+        }
     }
 
     input.first-focus {
@@ -374,7 +377,7 @@ a {
     }
 
     .register-container {
-        display: block;
+        display: block !important;
         margin-bottom: -124px;
         height: 100px;
         width: 200px;

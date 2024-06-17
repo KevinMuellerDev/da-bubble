@@ -27,10 +27,10 @@
                     <img src="../../assets/img/login/email.png">
                     <input #emailInput type="email" formControlName="email" placeholder="E-Mail Adresse" autocomplete="email"
                         pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$"
-                           [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
+                           [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
-                <div class="error" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-                    <p *ngIf="loginForm.controls['email'].errors?.['required']">Bitte eine gültige E-Mail-Adresse
+                <div class="error">
+                    <p *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">Bitte eine gültige E-Mail-Adresse
                         eingeben</p>
                 </div>
             </div>
@@ -39,14 +39,11 @@
                     <img src="../../assets/img/login/{{ showPassword ? 'unlock.png' : 'lock.png'}}"
                         (click)="togglePasswordVisibility()">
                     <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Passwort"
-                        autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (focus)="onFocus()" (input)="onInput()">
+                        autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
                     <p
-                        *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">
-                        Falsches Passwort. Bitte noch einmal versuchen</p>
-                    <p
-                        *ngIf="loginForm.controls['password'].errors?.['minlength'] && loginForm.controls['password'].touched">
+                        *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
                         mindestens 8 Zeichen</p>
                 </div>
             </div>

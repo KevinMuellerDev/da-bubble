@@ -37,10 +37,6 @@ export class RegisterComponent implements AfterViewInit {
     this.nameInput.nativeElement.focus();
   }
 
-  onFocus() {
-    this.firstFocus = true;
-  }
-
   onInput() {
     this.firstFocus = false;
   }
