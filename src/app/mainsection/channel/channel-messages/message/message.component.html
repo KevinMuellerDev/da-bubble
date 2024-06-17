@@ -33,10 +33,11 @@
                     </div>
                 </div>
                 <div class="selected-emoji">
-                    <span (click)="removeEmoji(i,message.emoji.emoji)" *ngFor="let emojiCount of message.emoji">
+                    <span (click)="removeEmoji(i,message.emoji[i].emoji)"
+                        *ngFor="let emojiCount let i = index of message.emoji">
                         {{ emojiCount.emoji }}
-                        <ng-container *ngIf="message.emoji.count > 0">
-                            {{ message.emoji.count }}
+                        <ng-container *ngIf="message.emoji[i].count > 0">
+                            {{ message.emoji[i].count }}
                         </ng-container>
                     </span>
                 </div>
