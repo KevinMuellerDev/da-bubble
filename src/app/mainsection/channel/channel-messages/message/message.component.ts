@@ -51,7 +51,6 @@ export class MessageComponent {
    }
    ]; */
 
-
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
     this.userId = sessionStorage.getItem('uid')!;
     if (!this.channelService.channelMsg) {
@@ -61,8 +60,7 @@ export class MessageComponent {
             setTimeout(() => {
               this.showEmojiPickerArray = [];
               this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-            }, 200);
-            
+            }, 500);
           }
         });
     }
