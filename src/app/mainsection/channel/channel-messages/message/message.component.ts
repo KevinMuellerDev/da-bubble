@@ -59,8 +59,9 @@ export class MessageComponent {
           if (data) {
             this.channelService.messagesLoaded = true;
             setTimeout(() => {
+              this.showEmojiPickerArray = [];
               this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-            }, 90);
+            }, 200);
             
           }
         });
@@ -100,6 +101,8 @@ export class MessageComponent {
   addEmoji(event: any, index: number) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
+    
+    
     // Check if emoji already exists in emojiCounts
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
       if (this.channelService.messages[index].emoji[i].emoji === emoji) {
@@ -108,6 +111,7 @@ export class MessageComponent {
         break;
       }
     }
+    console.log('test');
     if (!foundEmoji) {
       this.channelService.messages[index].emoji.push({ emoji: emoji, count: 0 });
     }
@@ -208,5 +212,7 @@ export class MessageComponent {
     if (this.dataSubscription) {
       this.dataSubscription.unsubscribe();
     }
+    console.log('true?');
+    
   }
 }

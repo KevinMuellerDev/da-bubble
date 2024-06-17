@@ -153,7 +153,7 @@ export class ChannelService {
   async getOppositeDmId() {
     const querySnapshot = await getDocs(query(this.refOppositeDirectMessage(this.privateMsgData.id)));
     querySnapshot.forEach(element => {
-      console.log(element.data());
+      console.log(element.data()['dmUserId']);
       if (element.data()['dmUserId'] == sessionStorage.getItem('uid')) {
         this.oppositeMessagesId = element.id
       }
@@ -195,19 +195,35 @@ export class ChannelService {
   async updateDirectMessage(data:any) {
     await this.getDmId();
     await this.getOppositeDmId();
-
-    const qSelf = query(this.refCreateDM(sessionStorage.getItem('uid')!, this.oppositeMessagesId));
+    console.log(this.oppositeMessagesId);
+    const qSelf = query(this.refCreateDM(sessionStorage.getItem('uid')!, this.currentMessagesId));
     const qOpposite= query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
 
     const querySnapshotSelf = await getDocs(qSelf);
     const querySnapshotOpposite = await getDocs(qOpposite);
 
-    querySnapshotSelf.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      if(data.timestamp == doc.data()['timestamp']){
-        console.log('gefunden => ' , doc.data());
+    querySnapshotSelf.forEach(async (dataset) => {
+      if(data.timestamp == dataset.data()['timestamp']){
+        console.log('gefunden => ' , dataset.data());
         console.log('gefunden => ' , data);
-      }
+
+
+        await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
+          emoji: data.emoji,
+        });
+      }  
+    });
+    
+    querySnapshotOpposite.forEach(async (dataset) => {
+      if(data.timestamp == dataset.data()['timestamp']){
+        console.log('gefunden => ' , dataset.data());
+        console.log('gefunden => ' , data);
+
+
+        await updateDoc(doc(this.firestore, "user", this.privateMsgData.id, 'directmessages', this.oppositeMessagesId, 'messages', dataset.id), {
+          emoji: data.emoji,
+        });
+      }  
     });
   }
 
