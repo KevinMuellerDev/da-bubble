@@ -37,7 +37,7 @@
                     <span (click)="removeEmoji(i,message.emoji[i].emoji,message.id,userId)"
                         *ngFor="let emojiCount let i = index of message.emoji">
                         {{ emojiCount.emoji }}
-                        <ng-container *ngIf="message.emoji[i].count > 1">
+                        <ng-container *ngIf="message.emoji[i].count === 1">
                             {{ message.emoji[i].count }}
                         </ng-container>
                     </span>

@@ -61,7 +61,7 @@ export class MessageComponent {
             setTimeout(() => {
               this.showEmojiPickerArray = [];
               this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-            }, 200);
+            }, 500);
             
           }
         });
@@ -102,6 +102,7 @@ addEmoji(event: any, index: number, messageId: string, userId: string) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
     let userMatched = messageId === userId;
+  console.log(messageId);
   
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
         if (this.channelService.messages[index].emoji[i].emoji === emoji) {
