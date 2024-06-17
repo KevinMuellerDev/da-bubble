@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { ChannelData } from '../models/channels.class';
 import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject } from 'rxjs';
@@ -56,6 +56,7 @@ export class ChannelService {
         this.messages.unshift(doc.data())
         this.isSubscribed = true;
       });
+      console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
     });
     setTimeout(() => { this.messagesLoaded = true; }, 200);
@@ -170,7 +171,7 @@ export class ChannelService {
       querySnapshot.forEach(async (doc) => {
         console.log(doc.data());
         this.messages.unshift(doc.data())
-        console.log(this.messages);
+
       });
     });
     return unsubscribe
@@ -188,6 +189,26 @@ export class ChannelService {
     if (this.currentMessagesId != this.oppositeMessagesId) {
       await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
     }
+  }
+
+
+  async updateDirectMessage(data:any) {
+    await this.getDmId();
+    await this.getOppositeDmId();
+
+    const qSelf = query(this.refCreateDM(sessionStorage.getItem('uid')!, this.oppositeMessagesId));
+    const qOpposite= query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
+
+    const querySnapshotSelf = await getDocs(qSelf);
+    const querySnapshotOpposite = await getDocs(qOpposite);
+
+    querySnapshotSelf.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      if(data.timestamp == doc.data()['timestamp']){
+        console.log('gefunden => ' , doc.data());
+        console.log('gefunden => ' , data);
+      }
+    });
   }
 
 

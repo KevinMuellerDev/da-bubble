@@ -112,6 +112,8 @@ export class MessageComponent {
     //console.log(event['emoji']['native']);
     //console.log(event['emoji']);
     this.toggleEmojiPicker(index);
+    this.channelService.updateDirectMessage(this.channelService.messages[index])
+    
     this.isEmojiPickerVisible = false;
   }
 
