@@ -110,6 +110,7 @@ export class UserService {
       .then(async () => {
         const channelId= {channelid: 'eGATth4XDS0ztUbhnYsR'};
         await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'userchannels'), channelId);
+        await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'directmessages'), {dmUserId: this.createUserInfo.id});
         await updateDoc(doc(this.firestore, "Channels", channelId.channelid), {users: arrayUnion(this.createUserInfo.id)});
       });
   }

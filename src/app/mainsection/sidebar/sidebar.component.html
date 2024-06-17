@@ -52,17 +52,19 @@
     </div>
   </div>
   <div [@openClose]="menuStates['message']" class="messages-container">
-    <div class="message">
+    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo)">
       <img [src]="userService.userInfo.profilePicture" alt="" />
       <div [ngClass]="getUserStatus()" class="online-indicator"></div>
       <span>{{userService.userInfo.name}} (Du)</span>
     </div>
     @for (dm of sidebarService.userDmData; track dm; let i = $index) {
-      <div class="message" (click)="channelService.chooseChannelType(true, dm)">
-        <img [src]="dm.profilePicture" alt="" />
-        <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
-        <span>{{dm.name}}</span>
-      </div>
+      @if (dm.id != userService.userInfo.id) {
+        <div class="message" (click)="channelService.chooseChannelType(true, dm)">
+          <img [src]="dm.profilePicture" alt="" />
+          <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
+          <span>{{dm.name}}</span>
+        </div>
+      }
     }
   </div>
 </div>

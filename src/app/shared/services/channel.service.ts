@@ -2,17 +2,22 @@ import { Injectable, inject } from '@angular/core';
 import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { ChannelData } from '../models/channels.class';
 import { ChannelInfo } from '../interfaces/channelinfo';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
+  private dataSubject = new BehaviorSubject<string>('');
+  data$ = this.dataSubject.asObservable();
+  isSubscribed: boolean = false;
+  unsub!: Unsubscribe;
   channelMsg?: boolean;
   privateMsg?: boolean;
   newChannel?: ChannelInfo
   privateMsgData: any;
   currentMessagesId!: string;
-  oppositeMessagesId!:string;
+  oppositeMessagesId!: string;
   messages: any[] = [];
   messagesLoaded: boolean = false;
   privateMsgIds: string[] = [];
@@ -21,6 +26,47 @@ export class ChannelService {
     //turn on for test in messages:
     this.channelMsg = false;
   }
+
+  changeData(data: string) {
+    this.dataSubject.next(data);
+    this.restartListener(data);
+  }
+
+  startListener(data: string) {
+    if (this.isSubscribed) {
+      this.unsub();
+    }
+
+    this.unsub = onSnapshot(query(this.refDirectMessageData(data)), (querySnapshot) => {
+      this.messages = [];
+      
+      querySnapshot.forEach(async (doc) => {
+        console.log(doc.data());
+        this.messages.unshift(doc.data())
+        console.log(this.messages);
+        this.isSubscribed = true;
+      });
+    });
+    setTimeout(() => {
+      this.messagesLoaded = true;
+    }, 200);
+
+  }
+
+  stopListener() {
+    if (this.isSubscribed) {
+      this.unsub();
+      this.isSubscribed = false;
+    }
+  }
+
+  restartListener(data: string) {
+    this.stopListener();
+    this.startListener(data);
+  }
+
+
+
 
 
 
@@ -53,10 +99,14 @@ export class ChannelService {
   chooseChannelType(dm: boolean, user?: DocumentData) {
     dm ? this.privateMsg = true : this.channelMsg = true;
     if (this.privateMsg) {
+      this.currentMessagesId = '';
+      this.oppositeMessagesId = '';
       this.privateMsgData = user;
+      this.messagesLoaded = false;
+      this.getDmId();
     }
-
   }
+
 
   /**
    * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
@@ -66,25 +116,28 @@ export class ChannelService {
     const querySnapshot = await getDocs(query(this.refDirectMessage()));
     querySnapshot.forEach(element => {
       console.log(element.data());
+      console.log(element.data()['dmUserID']);
       if (element.data()['dmUserId'] == this.privateMsgData.id) {
         this.currentMessagesId = element.id
+        console.log(this.currentMessagesId);
+        this.changeData(this.currentMessagesId)
       }
     });
   }
 
-    /**
-   * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
-   * Firestore collection.
-   */
-    async getOppositeDmId() {
-      const querySnapshot = await getDocs(query(this.refOppositeDirectMessage(this.privateMsgData.id)));
-      querySnapshot.forEach(element => {
-        console.log(element.data());
-        if (element.data()['dmUserId'] == sessionStorage.getItem('uid')) {
-          this.oppositeMessagesId = element.id
-        }
-      });
-    }
+  /**
+ * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
+ * Firestore collection.
+ */
+  async getOppositeDmId() {
+    const querySnapshot = await getDocs(query(this.refOppositeDirectMessage(this.privateMsgData.id)));
+    querySnapshot.forEach(element => {
+      console.log(element.data());
+      if (element.data()['dmUserId'] == sessionStorage.getItem('uid')) {
+        this.oppositeMessagesId = element.id
+      }
+    });
+  }
 
   /**
    * The function `retrieveDirectMessage` retrieves direct messages using Firestore and returns an
@@ -103,16 +156,18 @@ export class ChannelService {
     return unsubscribe
   }
 
-/**
- * The `createDirectMessage` function asynchronously creates a direct message between two users.
- * @param {any} obj - The `obj` parameter in the `createDirectMessage` function likely represents the
- * data or message object that you want to add to a direct message conversation. This object could
- * contain information such as the message content, sender details, timestamp, etc.
- */
-  async createDirectMessage(obj:any) { 
+  /**
+   * The `createDirectMessage` function asynchronously creates a direct message between two users.
+   * @param {any} obj - The `obj` parameter in the `createDirectMessage` function likely represents the
+   * data or message object that you want to add to a direct message conversation. This object could
+   * contain information such as the message content, sender details, timestamp, etc.
+   */
+  async createDirectMessage(obj: any) {
     await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
     await this.getOppositeDmId();
-    await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
+    if (this.currentMessagesId != this.oppositeMessagesId) {
+      await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
+    }
   }
 
 
@@ -128,7 +183,7 @@ export class ChannelService {
     return collection(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages')
   }
 
-  refOppositeDirectMessage(id:string) {
+  refOppositeDirectMessage(id: string) {
     return collection(this.firestore, "user", id, 'directmessages')
   }
 

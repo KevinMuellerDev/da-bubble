@@ -15,14 +15,14 @@
             </div>
             <div (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
         </div>
-        }@else if (channelService.privateMsg) {
+        }@else if (channelService.privateMsg && channelService.messagesLoaded) {
         <div class="message">
             <img [src]="channelService.privateMsgData['profilePicture']" alt="" />
             <div [ngClass]="sidebarService.getDmStatus(channelService.privateMsgData['isLoggedIn'])"
                 class="online-indicator"></div>
             <span>{{channelService.privateMsgData['name']}}</span>
         </div>
-        }@else {
+        }@else if(channelService.messages.length == 0 && channelService.messagesLoaded) {
         <div class="head-newmsg">
             <span>Neue Nachricht</span>
             <div class="input-wrapper">

@@ -10,6 +10,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../../shared/services/channel.service';
 import { Unsubscribe } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,7 +22,9 @@ import { Unsubscribe } from '@angular/fire/firestore';
 })
 export class MessageComponent {
   channelService: ChannelService = inject(ChannelService);
+  private dataSubscription!: Subscription;
   unsubMessageData!: Unsubscribe;
+  userId!:string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
 
@@ -50,24 +53,22 @@ export class MessageComponent {
 
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
-
+    this.userId = sessionStorage.getItem('uid')!;
     if (!this.channelService.channelMsg) {
-      this.channelService.getDmId();
-      setTimeout(() => {
-        this.unsubMessageData = this.channelService.retrieveDirectMessage()!;
-      }, 10);
-      setTimeout(() => {
-        this.channelService.messagesLoaded = true;
-      }, 500);
-      console.log(this.channelService.privateMsg);
-
+        this.dataSubscription = this.channelService.data$.subscribe(data => {
+          if (data) {
+            this.channelService.messagesLoaded=true;
+          }
+        });
     }
   }
+
 
 
   ngOnInit() {
     this.showEmojiPickerArray = this.messages.map(() => false);
   }
+
 
   toggleEmojiPicker(index: number) {
     this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
@@ -199,9 +200,12 @@ export class MessageComponent {
   }
 
   ngOnDestroy() {
-    this.unsubMessageData();
+    /* this.unsubMessageData(); */
     this.channelService.messages = [];
     this.channelService.messagesLoaded=false;
     this.channelService.currentMessagesId = '';
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
   }
 }

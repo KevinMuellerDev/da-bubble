@@ -1,13 +1,13 @@
 <div #scroll id="messageContainer" ref={messageContainer} class="channel-conversation-container">
-    @if (channelService.messages.length != 0 || channelService.channelMsg) {
+    @if (channelService.messages.length != 0 && channelService.messagesLoaded==true || channelService.channelMsg) {
     <div class="divider-container">
         <div class="divider">
             <span>Dienstag, 14 Januar</span>
         </div>
     </div>
     <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
-        <div [ngClass]="{ 'inverted-message': channelService.privateMsgData.id != message.id}" class="single-message-container">
-            <div [ngClass]="{ 'interaction-container-inverted': channelService.privateMsgData.id != message.id }" class="interaction-container">
+        <div [ngClass]="{ 'inverted-message': userId != message.id}" class="single-message-container">
+            <div [ngClass]="{ 'interaction-container-inverted': userId != message.id }" class="interaction-container">
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
                 <ngx-emoji [style]="{display:'flex',cursor:'pointer'}" emoji="santa" set="twitter"></ngx-emoji>
             </div>
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded == true) {
+    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded == true && channelService.privateMsg) {
     <div class="wrapper-start-msg">
         <div class="user-info">
             <img [src]="channelService.privateMsgData['profilePicture']" alt="">
