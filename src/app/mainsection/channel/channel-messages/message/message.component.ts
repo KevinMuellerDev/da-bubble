@@ -122,13 +122,10 @@ export class MessageComponent {
 
   toggleEditMessage(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-    console.log(this.editMessage);
-    
   }
 
   editMessageFunction(index: number) {
     console.log("she fucking hates me, laaaaalaaaa",index);
-    
   }
 
   /**
