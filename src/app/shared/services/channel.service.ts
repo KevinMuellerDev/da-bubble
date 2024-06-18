@@ -21,6 +21,7 @@ export class ChannelService {
   currentMessagesId!: string;
   oppositeMessagesId!: string;
   messages: any[] = [];
+  messagesTimestamp: any[] = [];
   messagesLoaded: boolean = false;
   privateMsgIds: string[] = [];
 
@@ -54,6 +55,7 @@ export class ChannelService {
 
     this.unsub = onSnapshot(query(this.refDirectMessageData(data)), (querySnapshot) => {
       this.messages = [];
+      this.messagesTimestamp = [];
       querySnapshot.forEach(async (doc) => {
         this.messages.unshift(doc.data())
         this.isSubscribed = true;
@@ -61,6 +63,7 @@ export class ChannelService {
       console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
     });
+
     setTimeout(() => { this.messagesLoaded = true; }, 200);
   }
 
@@ -178,32 +181,32 @@ export class ChannelService {
   }
 
 
-  async updateDirectMessage(data:any) {
+  async updateDirectMessage(data: any) {
     await this.getDmId();
     await this.getOppositeDmId();
     const querySnapshotSelf = await getDocs(this.refQuerySelf());
     const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
 
     querySnapshotSelf.forEach(async (dataset) => {
-      if(data.timestamp == dataset.data()['timestamp']){
-        console.log('gefunden => ' , dataset.data());
-        console.log('gefunden => ' , data);
+      if (data.timestamp == dataset.data()['timestamp']) {
+        console.log('gefunden => ', dataset.data());
+        console.log('gefunden => ', data);
 
         await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
         });
-      }  
+      }
     });
-    
+
     querySnapshotOpposite.forEach(async (dataset) => {
-      if(data.timestamp == dataset.data()['timestamp']){
-        console.log('gefunden => ' , dataset.data());
-        console.log('gefunden => ' , data);
+      if (data.timestamp == dataset.data()['timestamp']) {
+        console.log('gefunden => ', dataset.data());
+        console.log('gefunden => ', data);
 
         await updateDoc(doc(this.firestore, "user", this.privateMsgData.id, 'directmessages', this.oppositeMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
         });
-      }  
+      }
     });
   }
 
@@ -231,11 +234,11 @@ export class ChannelService {
   refCreateDM(sender: string, receiver: string) {
     return collection(this.firestore, "user", sender, 'directmessages', receiver, 'messages')
   }
-  refQuerySelf(){
+  refQuerySelf() {
     return query(this.refCreateDM(sessionStorage.getItem('uid')!, this.currentMessagesId));
   }
 
-  refQueryOpposite(){
+  refQueryOpposite() {
     return query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
   }
 

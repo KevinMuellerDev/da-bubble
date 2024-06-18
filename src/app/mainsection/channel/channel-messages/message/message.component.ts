@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener, inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MainsectionComponent } from '../../../mainsection.component';
 import { AddUserToChannelDialogComponent } from '../../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
@@ -32,10 +32,11 @@ export class MessageComponent {
   userId!: string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
+  dateMap:string[] = [];
 
   messages: any[] = [];
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
     this.userId = sessionStorage.getItem('uid')!;
     if (!this.channelService.channelMsg) {
       this.dataSubscription = this.channelService.data$.subscribe(data => {
@@ -68,6 +69,28 @@ export class MessageComponent {
 }
   ngOnInit(){
     this.dateToday = Date.now() as number;
+  }
+
+  hasSeen(date:any){
+    const arrangedDate = new Date(date) 
+    let index = this.channelService.messagesTimestamp.indexOf(arrangedDate.toLocaleDateString());
+    console.log(index);
+    
+    return true
+  }
+
+  ngAfterViewInit(){
+    this.changeDetectorRef.detectChanges();
+  }
+
+  pushTimestamp(timestamp:string | null){
+    this.dateMap.push(timestamp as string);
+    console.log(this.dateMap);
+  }
+  checkIfDateExists(timestamp:string | null){
+    console.log(this.dateMap.includes(timestamp as string));
+    
+    return this.dateMap.includes(timestamp as string)
   }
 
   /**
