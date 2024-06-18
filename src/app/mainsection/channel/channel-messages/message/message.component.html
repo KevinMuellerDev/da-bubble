@@ -2,7 +2,7 @@
     @if (channelService.messages.length != 0 && channelService.messagesLoaded==true || channelService.channelMsg) {
 
     <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
-        @if ((dateToday | date: 'longDate') != (message.timestamp | date: 'longDate') ) {
+        @if ((dateToday | date: 'longDate') != (message.timestamp | date: 'longDate')) {
             <div class="divider-container">
                 <div class="divider">
                     <span>{{message.timestamp | date: 'longDate':'': 'de'}}</span>
