@@ -98,10 +98,11 @@ export class MessageComponent {
    * @param event - The event object containing the emoji data.
    * @param index - The index of the message to which the emoji should be added.
    */
-  addEmoji(event: any, index: number, messageId: string, userId: string) {
+  addEmoji(event: any, index: number, messageId: string, userId: string,calledFromFunction: boolean = false) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
     let userMatched = messageId === userId;
+     let callFromSingleEmoji = calledFromFunction;
 
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
       if (this.channelService.messages[index].emoji[i].emoji === emoji) {
@@ -128,8 +129,11 @@ export class MessageComponent {
       this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
       this.channelService.updateDirectMessage(this.channelService.messages[index]);
     }
-    this.toggleEmojiPicker(index);
+    if (!callFromSingleEmoji) {
+       this.toggleEmojiPicker(index);
     this.isEmojiPickerVisible = false;
+    }
+   
   }
 
 
@@ -177,11 +181,11 @@ updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEm
   
   addCheckEmoji(event: any,currentMessageIndex: number, messageId: string, userId: string): void {
     console.log(event.emoji.native, currentMessageIndex, messageId, userId);
-    this.addEmoji(event, currentMessageIndex, messageId, userId) 
+    this.addEmoji(event, currentMessageIndex, messageId, userId,true) 
   }
 
   addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void{
-    this.addEmoji(event, currentMessageIndex, messageId, userId) 
+    this.addEmoji(event, currentMessageIndex, messageId, userId,true) 
   }
 
 
