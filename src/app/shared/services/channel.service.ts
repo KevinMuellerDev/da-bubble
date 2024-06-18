@@ -162,22 +162,6 @@ export class ChannelService {
     });
   }
 
-  /**
-   * The function `retrieveDirectMessage` retrieves direct messages using Firestore and returns an
-   * unsubscribe function.
-   * @returns The `unsubscribe` function is being returned from the `retrieveDirectMessage()` function.
-   */
-/*   retrieveDirectMessage() {
-    const unsubscribe = onSnapshot(query(this.refDirectMessageData(this.currentMessagesId)), (querySnapshot) => {
-      this.messages = [];
-      querySnapshot.forEach(async (doc) => {
-        console.log(doc.data());
-        this.messages.unshift(doc.data())
-
-      });
-    });
-    return unsubscribe
-  } */
 
   /**
    * The `createDirectMessage` function asynchronously creates a direct message between two users.
@@ -197,18 +181,13 @@ export class ChannelService {
   async updateDirectMessage(data:any) {
     await this.getDmId();
     await this.getOppositeDmId();
-    console.log(this.oppositeMessagesId);
-    const qSelf = query(this.refCreateDM(sessionStorage.getItem('uid')!, this.currentMessagesId));
-    const qOpposite= query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
-
-    const querySnapshotSelf = await getDocs(qSelf);
-    const querySnapshotOpposite = await getDocs(qOpposite);
+    const querySnapshotSelf = await getDocs(this.refQuerySelf());
+    const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
 
     querySnapshotSelf.forEach(async (dataset) => {
       if(data.timestamp == dataset.data()['timestamp']){
         console.log('gefunden => ' , dataset.data());
         console.log('gefunden => ' , data);
-
 
         await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
@@ -220,7 +199,6 @@ export class ChannelService {
       if(data.timestamp == dataset.data()['timestamp']){
         console.log('gefunden => ' , dataset.data());
         console.log('gefunden => ' , data);
-
 
         await updateDoc(doc(this.firestore, "user", this.privateMsgData.id, 'directmessages', this.oppositeMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
@@ -252,6 +230,13 @@ export class ChannelService {
 
   refCreateDM(sender: string, receiver: string) {
     return collection(this.firestore, "user", sender, 'directmessages', receiver, 'messages')
+  }
+  refQuerySelf(){
+    return query(this.refCreateDM(sessionStorage.getItem('uid')!, this.currentMessagesId));
+  }
+
+  refQueryOpposite(){
+    return query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
   }
 
 }

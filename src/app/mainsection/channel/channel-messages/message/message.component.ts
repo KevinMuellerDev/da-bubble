@@ -11,6 +11,8 @@ import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../../shared/services/channel.service';
 import { Unsubscribe } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
+import { UserService } from '../../../../shared/services/user.service';
+import { UserInfo } from '@angular/fire/auth';
 
 
 @Component({
@@ -22,9 +24,10 @@ import { Subscription } from 'rxjs';
 })
 export class MessageComponent {
   channelService: ChannelService = inject(ChannelService);
+  userService: UserService = inject(UserService);
   private dataSubscription!: Subscription;
   unsubMessageData!: Unsubscribe;
-  userId!:string;
+  userId!: string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
 
@@ -54,16 +57,16 @@ export class MessageComponent {
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent) {
     this.userId = sessionStorage.getItem('uid')!;
     if (!this.channelService.channelMsg) {
-        this.dataSubscription = this.channelService.data$.subscribe(data => {
-          if (data) {
-            this.channelService.messagesLoaded = true;
-            setTimeout(() => {
-              this.showEmojiPickerArray = [];
-              this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-            }, 500);
-            
-          }
-        });
+      this.dataSubscription = this.channelService.data$.subscribe(data => {
+        if (data) {
+          this.channelService.messagesLoaded = true;
+          setTimeout(() => {
+            this.showEmojiPickerArray = [];
+            this.showEmojiPickerArray = this.channelService.messages.map(() => false);
+          }, 500);
+
+        }
+      });
     }
   }
 
@@ -97,39 +100,39 @@ export class MessageComponent {
    * @param index - The index of the message to which the emoji should be added.
    */
 
-addEmoji(event: any, index: number, messageId: string, userId: string) {
+  addEmoji(event: any, index: number, messageId: string, userId: string) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
     let userMatched = messageId === userId;
-  
+
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-        if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-            if (!this.channelService.messages[index].emoji[i].users) {
-                this.channelService.messages[index].emoji[i].users = [];
-            }
-          if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
-            console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
-                this.channelService.messages[index].emoji[i].count++;
-                this.channelService.messages[index].emoji[i].users.push(userId);
-          }
-          foundEmoji = true;
-          this.channelService.updateDirectMessage(this.channelService.messages[index]);
-          break;
-          
+      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
+        if (!this.channelService.messages[index].emoji[i].users) {
+          this.channelService.messages[index].emoji[i].users = [];
         }
+        if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
+          console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
+          this.channelService.messages[index].emoji[i].count++;
+          this.channelService.messages[index].emoji[i].users.push(userId);
+        }
+        foundEmoji = true;
+        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+        break;
+
+      }
     }
 
-  if (!foundEmoji) {
+    if (!foundEmoji) {
       //wenn ich keinen emoji gefunden habe startet der count immer mit 0
-    const count = 0//userMatched ? 0 : 1;
-    const users = userMatched ? [] : [userId];
-    console.log(count,userMatched,emoji);
-    this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
-    this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      const count = 0//userMatched ? 0 : 1;
+      const users = userMatched ? [] : [userId];
+      console.log(count, userMatched, emoji);
+      this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
+      this.channelService.updateDirectMessage(this.channelService.messages[index]);
     }
     this.toggleEmojiPicker(index);
     this.isEmojiPickerVisible = false;
-}
+  }
 
   /**
  * Removes an emoji from the message at the specified index.
@@ -142,12 +145,12 @@ addEmoji(event: any, index: number, messageId: string, userId: string) {
     //leert einzelne emojis bei meinen nachrichten  oder meine Reaktion
     console.log(this.channelService.messages, currentMessageIndex);
     if (messageId === userId || this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users.includes(userId)) {
-       this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
-    this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-    } 
-   
+      this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+      this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
     }
-  
+
+  }
+
 
   /**
  * Checks if a given element or any of its parent elements have a specific class.
@@ -194,12 +197,17 @@ addEmoji(event: any, index: number, messageId: string, userId: string) {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
 
-  /**
-* This function opens the dialog and determines if the ShowProfile component is editable or not
-* @param profileEditable boolean - determine if ShowUser component is editable or not
-*/
+  async getOtherUserData(id?: string) {
+    await this.userService.retrieveOtherUserProfile(id!);
+    this.openDialogUserInfo();
+  }
 
-  openDialogUserInfo() {
+  /**
+  * This function opens the dialog and determines if the ShowProfile component is editable or not
+  * @param profileEditable boolean - determine if ShowUser component is editable or not
+  */
+
+  async openDialogUserInfo() {
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
@@ -215,12 +223,12 @@ addEmoji(event: any, index: number, messageId: string, userId: string) {
   ngOnDestroy() {
     /* this.unsubMessageData(); */
     this.channelService.messages = [];
-    this.channelService.messagesLoaded=false;
+    this.channelService.messagesLoaded = false;
     this.channelService.currentMessagesId = '';
     if (this.dataSubscription) {
       this.dataSubscription.unsubscribe();
     }
     console.log('true?');
-    
+
   }
 }

@@ -17,7 +17,7 @@
             <div class="message-wrapper">
                 <div class="message-head">
                     <div class="message-info">
-                        <span (click)="openDialogUserInfo()">{{ message.name }}</span>
+                        <span (click)="getOtherUserData(message.id)">{{ message.name }}</span>
                         <div class="message-timestamp">
                             <span>{{ message.timeStamp }}</span>
                         </div>

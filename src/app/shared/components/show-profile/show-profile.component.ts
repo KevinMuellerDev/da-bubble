@@ -9,6 +9,9 @@ import { UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { VerifyComponent } from '../verify/verify.component';
+import { UserData } from '../../models/userdata.class';
+import { UserInfo } from '@angular/fire/auth';
+import { DocumentData } from '@angular/fire/firestore';
 
 
 @Component({
@@ -24,14 +27,14 @@ export class ShowProfileComponent {
   otherUser:boolean = false;
   profileEditable: boolean = false;
   editMode: boolean = false;
+  otherUserInfo!:any;
+  otherUserId!:string;
 
   constructor(public dialog: MatDialog, public userService: UserService, public authService: AuthService) {
     this.updateUserForm = new FormGroup({
       name: new FormControl(this.userService.userInfo.name),
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
     });
-    console.log(this.otherUser);
-    
   }
 
   /**
@@ -41,11 +44,17 @@ export class ShowProfileComponent {
    * @returns class as a string
    */
   getUserStatus(type: string) {
-    const status = this.userService.userInfo.isLoggedIn == true ? "online" : "offline";
-    if (type == 'text')
-      return status
-
-    return status + '-div'
+    if (!this.otherUser) {
+      const status = this.userService.userInfo.isLoggedIn == true ? "online" : "offline";
+      if (type == 'text')
+        return status
+      return status + '-div'
+    }else{
+      const status = this.userService.otherUserInfo.isLoggedIn == true ? "online" : "offline";
+      if (type == 'text')
+        return status
+      return status + '-div'
+    }
   }
 
 /**
@@ -54,8 +63,13 @@ export class ShowProfileComponent {
  * @returns `string`
  */
   getStatusText() {
-    const text = this.userService.userInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
-    return text
+    if (!this.otherUser) {
+      const text = this.userService.userInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
+      return text
+    }else{
+      const text = this.userService.otherUserInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
+      return text
+    }
   }
 
 /**

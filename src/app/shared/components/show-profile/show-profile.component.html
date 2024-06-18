@@ -6,13 +6,13 @@
         </div>
     </div>
     <div class="profile-picture">
-        <img *ngIf="otherUser==true" src="/assets/img/profile/noah_braun.png" alt="">
+        <img *ngIf="otherUser==true" [src]="userService.otherUserInfo.profilePicture" alt="">
         <img *ngIf="otherUser==false" [src]="userService.userInfo.profilePicture" alt="">
     </div>
     @if (editMode == false) {
     <div class="profile-edit-container">
         <div class="profile-edit">
-            <span *ngIf="otherUser==true">Noah Braun</span>
+            <span *ngIf="otherUser==true">{{userService.otherUserInfo.name}}</span>
             <span *ngIf="otherUser==false">{{userService.userInfo.name}}</span>
             @if (profileEditable) {<a (click)="editMode=true">Bearbeiten</a>}
         </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="email-content">
             <span>E-mail Adresse</span>
-            <a *ngIf="otherUser==true" [href]="'mailto:noah.braun@dabubble.de'">noah.braun&#64;dabubble.de</a>
+            <a *ngIf="otherUser==true" [href]="'mailto:' + userService.otherUserInfo.email">{{userService.otherUserInfo.email}}</a>
             <a *ngIf="otherUser==false"
                [href]="'mailto:'+ userService.userInfo.email">{{userService.userInfo.email}}</a>
         </div>

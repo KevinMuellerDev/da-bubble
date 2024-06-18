@@ -12,6 +12,7 @@ export class UserService {
   firestore: Firestore = inject(Firestore);
   currentUser?: string | null;
   userInfo: UserInfo = new UserData();
+  otherUserInfo!: any;
   userChannels: string[] = [];
   allUsers: DocumentData[] = [];
   createUserInfo: UserInfo = {
@@ -43,13 +44,19 @@ export class UserService {
     return unsubscribe
   }
 
-  async userLoggedIn(){
+  async retrieveOtherUserProfile(id: string) {
+    const docRef = doc(this.firestore, "user", id);
+    const docSnap = await getDoc(docRef);
+    this.otherUserInfo = docSnap.data();
+  }
+
+  async userLoggedIn() {
     await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
       isLoggedIn: true
     });
   }
 
-  async userLoggedOut(){
+  async userLoggedOut() {
     await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
       isLoggedIn: false
     });
@@ -72,10 +79,10 @@ export class UserService {
   }
 
 
-/**
- * The function `retrieveAllUsers` retrieves all user data from a Firestore collection
- * @returns The `unsubscribe` function is being returned from the `retrieveAllUsers` function.
- */
+  /**
+   * The function `retrieveAllUsers` retrieves all user data from a Firestore collection
+   * @returns The `unsubscribe` function is being returned from the `retrieveAllUsers` function.
+   */
   retrieveAllUsers() {
     const unsubscribe = onSnapshot(query(this.refUserProfile()), (querySnapshot) => {
       this.allUsers = [];
@@ -108,10 +115,10 @@ export class UserService {
   async createUserProfile() {
     await setDoc(doc(this.firestore, "user", this.createUserInfo.id), this.createUserInfo)
       .then(async () => {
-        const channelId= {channelid: 'eGATth4XDS0ztUbhnYsR'};
+        const channelId = { channelid: 'eGATth4XDS0ztUbhnYsR' };
         await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'userchannels'), channelId);
-        await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'directmessages'), {dmUserId: this.createUserInfo.id});
-        await updateDoc(doc(this.firestore, "Channels", channelId.channelid), {users: arrayUnion(this.createUserInfo.id)});
+        await addDoc(collection(this.firestore, 'user', this.createUserInfo.id, 'directmessages'), { dmUserId: this.createUserInfo.id });
+        await updateDoc(doc(this.firestore, "Channels", channelId.channelid), { users: arrayUnion(this.createUserInfo.id) });
       });
   }
 
@@ -125,12 +132,12 @@ export class UserService {
   }
 
 
-/**
- * The `refUserChannels` function returns a reference to the user channels collection in Firestore
- * based on the current user's ID stored in sessionStorage.
- * @returns The `refUserChannels()` function is returning a reference to the 'userchannels' collection
- * within the 'user' document corresponding to the user ID stored in the session storage.
- */
+  /**
+   * The `refUserChannels` function returns a reference to the user channels collection in Firestore
+   * based on the current user's ID stored in sessionStorage.
+   * @returns The `refUserChannels()` function is returning a reference to the 'userchannels' collection
+   * within the 'user' document corresponding to the user ID stored in the session storage.
+   */
   refUserChannels() {
     return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
   }
