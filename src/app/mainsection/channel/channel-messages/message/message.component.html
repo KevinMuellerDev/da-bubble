@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="selected-emoji">
-                    <span (click)="removeEmoji(e,i,message.emoji[e].emoji,message.id,userId)"
+                    <span (click)="updateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
                         *ngFor="let emojiCount let e = index of message.emoji">
                         {{ emojiCount.emoji }}
                         <ng-container *ngIf="message.emoji[e].count >0">
