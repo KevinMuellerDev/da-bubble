@@ -34,28 +34,7 @@ export class MessageComponent {
   isEmojiPickerVisible: boolean = false;
   dateMap:string[] = [];
 
-  //test Nachrichtaufbau entfällt später, da die Daten von Firebase kommen. 
   messages: any[] = [];
-  /*   messages: any[] = [
-      {
-     'profilePicture': '/assets/img/profile/testchar1.svg',
-     'userName': 'Noah Braun',
-     'timeStamp': '14:25 Uhr',
-     'messageText': 'Welche Version von Angular ist aktuell ?',
-     'emojiCounts': [] as { emoji: string, count: number }[],
-     'repliesCount': 2,
-     'lastReplyTimeStamp': '14:56'
-     },
-      {
-     'profilePicture': '/assets/img/profile/testchar1.svg',
-     'userName': 'Noah Braun',
-     'timeStamp': '14:25 Uhr',
-     'messageText': 'Welche Version von Angular ist aktuell ?',
-     'emojiCounts': [] as { emoji: string, count: number }[],
-     'repliesCount': 2,
-     'lastReplyTimeStamp': '14:56'
-   }
-   ]; */
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
     this.userId = sessionStorage.getItem('uid')!;
@@ -72,6 +51,22 @@ export class MessageComponent {
     }
   }
 
+  @ViewChild('scroll', { static: false })  scroll!: ElementRef;
+  @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
+  @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
+
+  ngAfterViewChecked() {
+  this.scrollBottom();
+    console.log("trigger warnung");
+  }
+  
+  scrollBottom() {
+    
+    if (this.scroll && this.scroll.nativeElement) {
+      this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+    }
+  
+}
   ngOnInit(){
     this.dateToday = Date.now() as number;
   }
@@ -152,7 +147,7 @@ export class MessageComponent {
       //wenn ich keinen emoji gefunden habe startet der count immer mit 0
       const count = 0//userMatched ? 0 : 1;
       const users = userMatched ? [] : [userId];
-      console.log(count, userMatched, emoji);
+      console.log(count, userMatched, emoji,users);
       this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
       this.channelService.updateDirectMessage(this.channelService.messages[index]);
     }
@@ -160,21 +155,56 @@ export class MessageComponent {
     this.isEmojiPickerVisible = false;
   }
 
-  /**
- * Removes an emoji from the message at the specified index.
- * If the emoji count is greater than 1, it decrements the count.
- * If the emoji count is 1, it removes the emoji from the emojiCounts array.
- * @param index - The index of the message from which the emoji should be removed.
- * @param emoji - The emoji to be removed.
- */
-  removeEmoji(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-    //leert einzelne emojis bei meinen nachrichten  oder meine Reaktion
-    console.log(this.channelService.messages, currentMessageIndex);
-    if (messageId === userId || this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users.includes(userId)) {
-      this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
-      this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-    }
 
+updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
+  let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
+  let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
+
+  //es muss nicht geprüft werden ob ein Emoji vorhanden ist. 
+  // Prüfen, ob die Nachricht von mir stammt oder ob ich bereits reagiert habe
+  if (messageId === userId || emojiUserIds.includes(userId) ) {
+    // Wenn der count des emojis 0 und die Reaktion mit mir zusammenhängt, soll dieses entfernt werden
+    if (emojiCount === 0) {
+      this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+    } else {
+      // Wenn count > 0, den count um 1 verringern
+      this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
+      // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
+      const userIndex = emojiUserIds.indexOf(userId);
+      if (userIndex !== -1) {
+        emojiUserIds.splice(userIndex, 1);
+      }
+    }
+    this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+  } else {
+    // Wenn die Nachricht nicht von mir stammt
+    if (emojiUserIds.includes(userId)) {
+      // Wenn count > 0, den count um 1 verringern
+      if (emojiCount > 0) {
+        this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
+        // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
+        const userIndex = emojiUserIds.indexOf(userId);
+        if (userIndex !== -1) {
+          emojiUserIds.splice(userIndex, 1);
+        }
+      }
+    } else {
+      // Wenn es bereits ein emoji gibt, soll der countWert erhöht werden
+      this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
+      // Hinzufügen meiner Benutzer-ID zur Liste der Reaktionen
+      emojiUserIds.push(userId);
+    }
+    this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+  }
+  }
+  
+  addCheckEmoji(event: any,currentMessageIndex: number, messageId: string, userId: string): void {
+    console.log(event.emoji.native, currentMessageIndex, messageId, userId);
+    this.addEmoji(event, currentMessageIndex, messageId, userId) 
+  }
+
+  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void{
+    this.addEmoji(event, currentMessageIndex, messageId, userId) 
   }
 
 
@@ -194,8 +224,6 @@ export class MessageComponent {
     return false;
   }
 
-  @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
-
   /**
  * Listens for click events on the document and closes the emoji picker if the click is outside of it.
  * @param event - The click event.
@@ -210,17 +238,6 @@ export class MessageComponent {
       this.showEmojiPickerArray = this.channelService.messages.map(() => false);
       this.isEmojiPickerVisible = false;
     }
-  }
-
-  @ViewChild('scroll', { read: ElementRef }) public scroll!: ElementRef<any>;
-  @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
-
-  ngAfterViewChecked() {
-    this.scrollBottom();
-  }
-
-  public scrollBottom() {
-    this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
 
   async getOtherUserData(id?: string) {
