@@ -173,7 +173,16 @@ updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEm
     }
     this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
   }
-}
+  }
+  
+  addCheckEmoji(event: any,currentMessageIndex: number, messageId: string, userId: string): void {
+    console.log(event.emoji.native, currentMessageIndex, messageId, userId);
+    this.addEmoji(event, currentMessageIndex, messageId, userId) 
+  }
+
+  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void{
+    this.addEmoji(event, currentMessageIndex, messageId, userId) 
+  }
 
 
   /**
