@@ -12,8 +12,9 @@ import { ChannelService } from '../../../../shared/services/channel.service';
 import { Unsubscribe } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../../shared/services/user.service';
-import { UserInfo } from '@angular/fire/auth';
-
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe);
 
 @Component({
   selector: 'app-message',
@@ -27,6 +28,7 @@ export class MessageComponent {
   userService: UserService = inject(UserService);
   private dataSubscription!: Subscription;
   unsubMessageData!: Unsubscribe;
+  dateToday!:number;
   userId!: string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
@@ -64,10 +66,13 @@ export class MessageComponent {
             this.showEmojiPickerArray = [];
             this.showEmojiPickerArray = this.channelService.messages.map(() => false);
           }, 500);
-
         }
       });
     }
+  }
+
+  ngOnInit(){
+    this.dateToday = Date.now() as number;
   }
 
   /**
@@ -76,7 +81,6 @@ export class MessageComponent {
  * All other values in the array are set to false, ensuring that only one emoji picker is visible at a time.
  * @param index - The index of the message for which the emoji picker should be toggled.
  */
-
   toggleEmojiPicker(index: number) {
     this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
@@ -99,7 +103,6 @@ export class MessageComponent {
    * @param event - The event object containing the emoji data.
    * @param index - The index of the message to which the emoji should be added.
    */
-
   addEmoji(event: any, index: number, messageId: string, userId: string) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
@@ -206,7 +209,6 @@ export class MessageComponent {
   * This function opens the dialog and determines if the ShowProfile component is editable or not
   * @param profileEditable boolean - determine if ShowUser component is editable or not
   */
-
   async openDialogUserInfo() {
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
     dialogRef.componentInstance.otherUser = true;
