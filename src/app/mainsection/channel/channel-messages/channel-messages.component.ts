@@ -9,6 +9,7 @@ import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.compo
 import { MessageComponent } from './message/message.component';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { SidebarService } from '../../../shared/services/sidebar.service';
+import { UserService } from '../../../shared/services/user.service';
 
 
 @Component({
@@ -30,6 +31,7 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 export class ChannelMessagesComponent {
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
+  userService: UserService = inject(UserService);
   constructor(public dialog: MatDialog) { }
 
   openDialogAddUser() {
@@ -42,6 +44,20 @@ export class ChannelMessagesComponent {
 
   openDialogEditChannel() {
     this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
+  }
+
+  async getOtherUserData(id?: string) {
+    await this.userService.retrieveOtherUserProfile(id!);
+    this.openDialogUserInfo();
+  }
+
+  async openDialogUserInfo() {
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
+    dialogRef.componentInstance.otherUser = true;
+    dialogRef.componentInstance.profileEditable = false;
+    dialogRef
+      .afterClosed()
+      .subscribe();
   }
 
   ngOnDestroy(): void {
