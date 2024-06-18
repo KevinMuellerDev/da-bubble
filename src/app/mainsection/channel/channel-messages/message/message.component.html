@@ -17,8 +17,12 @@
         }
         <div [ngClass]="{ 'inverted-message': userId == message.id}" class="single-message-container">
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
+                <ngx-emoji [ngClass]="'single-emoji'" [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
+                <ngx-emoji [ngClass]="'single-emoji'" [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
-                <ngx-emoji [style]="{display:'flex',cursor:'pointer'}" emoji="santa" set="twitter"></ngx-emoji>
+                <div class="edit-message-icon"></div>
+
+
             </div>
             <div class="profile-picture">
                 <img [src]="message.profilePicture" />
