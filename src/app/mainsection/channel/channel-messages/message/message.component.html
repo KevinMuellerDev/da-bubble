@@ -2,19 +2,13 @@
     @if (channelService.messages.length != 0 && channelService.messagesLoaded==true || channelService.channelMsg) {
 
     <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
-        @if ((dateToday | date: 'longDate') != (message.timestamp | date: 'longDate')) {
+        @if (i == 0 || (i != 0 && isNewDate(channelService.messages[i-1].timestamp, message.timestamp))) {
         <div class="divider-container">
             <div class="divider">
                 <span>{{message.timestamp | date: 'longDate':'': 'de'}}</span>
             </div>
         </div>
 
-        }@else {
-        <div class="divider-container">
-            <div class="divider">
-                <span>Heute</span>
-            </div>
-        </div>
         }
         <div [ngClass]="{ 'inverted-message': userId == message.id}" class="single-message-container">
 
@@ -40,7 +34,7 @@
                     <div class="message-info">
                         <span (click)="getOtherUserData(message.id)">{{ message.name }}</span>
                         <div class="message-timestamp">
-                            <span>{{ message.timeStamp }}</span>
+                            <span>{{ message.timestamp | date:'shortTime':'':'de' }}</span>
                         </div>
                     </div>
                 </div>

@@ -75,13 +75,15 @@ export class MessageComponent {
    
   }
 
-  hasSeen(date:any){
-    const arrangedDate = new Date(date) 
-    let index = this.channelService.messagesTimestamp.indexOf(arrangedDate.toLocaleDateString());
-    console.log(index);
-    
-    return true
+
+  isNewDate(oldDate: number, newDate: number) {
+    /* let oldDateAsString = this.convertToDate(oldDate);
+    let newDateAsString = this.convertToDate(newDate); */
+    let oldDateAsString = new Date(oldDate).toLocaleDateString();
+    let newDateAsString = new Date(newDate).toLocaleDateString();
+    return oldDateAsString != newDateAsString;
   }
+
 
   ngAfterViewInit(){
     this.changeDetectorRef.detectChanges();
