@@ -29,7 +29,7 @@
                     <div class="message-info">
                         <span (click)="getOtherUserData(message.id)">{{ message.name }}</span>
                         <div class="message-timestamp">
-                            <span>{{ message.timeStamp }}</span>
+                            <span>{{ message.timestamp | date:'shortTime':'':'de' }}</span>
                         </div>
                     </div>
                 </div>
