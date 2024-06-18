@@ -12,7 +12,7 @@ import { getAuth } from '@angular/fire/auth';
   templateUrl: './user-menu-dialog.component.html',
   styleUrl: './user-menu-dialog.component.scss'
 })
-export class UserMenuDialogComponent{
+export class UserMenuDialogComponent {
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private userService: UserService) { }
 
   async logout() {
@@ -20,18 +20,17 @@ export class UserMenuDialogComponent{
     sessionStorage.removeItem('uid');
     getAuth().signOut();
     setTimeout(() => {
-      this.userService.userInfo = new UserData();   
+      this.userService.userInfo = new UserData();
     }, 200);
     this.dialogRef.close();
   }
 
   /**
    * This function opens the dialog and determines if the ShowProfile component is editable or not
-   * 
    * @param profileEditable boolean - determine if ShowUser component is editable or not
    */
   openDialog() {
-    let dialogRef = this.dialog.open(ShowProfileComponent, { position: { top: '120px', right: '25px' } })
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile', 'box-shadow', 'box-radius-right-corner'] });
     dialogRef.componentInstance.profileEditable = true;
     dialogRef
       .afterClosed()

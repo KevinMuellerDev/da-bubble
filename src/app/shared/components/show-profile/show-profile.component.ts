@@ -24,11 +24,11 @@ import { DocumentData } from '@angular/fire/firestore';
 
 export class ShowProfileComponent {
   updateUserForm: FormGroup;
-  otherUser:boolean = false;
+  otherUser: boolean = false;
   profileEditable: boolean = false;
   editMode: boolean = false;
-  otherUserInfo!:any;
-  otherUserId!:string;
+  otherUserInfo!: any;
+  otherUserId!: string;
 
   constructor(public dialog: MatDialog, public userService: UserService, public authService: AuthService) {
     this.updateUserForm = new FormGroup({
@@ -49,7 +49,7 @@ export class ShowProfileComponent {
       if (type == 'text')
         return status
       return status + '-div'
-    }else{
+    } else {
       const status = this.userService.otherUserInfo.isLoggedIn == true ? "online" : "offline";
       if (type == 'text')
         return status
@@ -57,50 +57,49 @@ export class ShowProfileComponent {
     }
   }
 
-/**
- * The `getStatusText` function returns "Aktiv" if the user is logged in and "Inaktiv" if the user is
- * not logged in.
- * @returns `string`
- */
+  /**
+   * The `getStatusText` function returns "Aktiv" if the user is logged in and "Inaktiv" if the user is
+   * not logged in.
+   * @returns `string`
+   */
   getStatusText() {
     if (!this.otherUser) {
       const text = this.userService.userInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
       return text
-    }else{
+    } else {
       const text = this.userService.otherUserInfo.isLoggedIn == true ? "Aktiv" : "Inaktiv";
       return text
     }
   }
 
-/**
- * The function `checkUpdateInput` checks if the `updateUserForm` is valid and opens a dialog if it is.
- */
+  /**
+   * The function `checkUpdateInput` checks if the `updateUserForm` is valid and opens a dialog if it is.
+   */
   checkUpdateInput() {
     if (this.updateUserForm.valid) {
       this.openDialog()
     }
   }
 
-  sendMessage(){
+  sendMessage() {
     console.warn('message send');
   }
 
-/**
- * The `openDialog` function opens a dialog window to verify user information and updates user email
- * and profile if verified.
- */
+  /**
+   * The `openDialog` function opens a dialog window to verify user information and updates user email
+   * and profile if verified.
+   */
   openDialog() {
-    this.dialog.open(VerifyComponent,{panelClass: 'verify'})
+    this.dialog.open(VerifyComponent, { panelClass: ['box-shadow', 'box-radius'] })
       .afterClosed()
       .subscribe(() => {
         if (this.authService.verified == true) {
           this.authService.updateUserMail(this.updateUserForm.controls['email'].value)
           this.userService.updateUserProfile(this.updateUserForm);
           this.editMode = false;
-        }else{
+        } else {
           return
         }
       })
   }
-
 }

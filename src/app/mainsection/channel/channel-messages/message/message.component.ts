@@ -28,7 +28,7 @@ export class MessageComponent {
   userService: UserService = inject(UserService);
   private dataSubscription!: Subscription;
   unsubMessageData!: Unsubscribe;
-  dateToday!:number;
+  dateToday!: number;
   userId!: string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
@@ -54,25 +54,25 @@ export class MessageComponent {
     }
   }
 
-  @ViewChild('scroll', { static: false })  scroll!: ElementRef;
+  @ViewChild('scroll', { static: false }) scroll!: ElementRef;
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
 
   ngAfterViewChecked() {
-  this.scrollBottom();
+    this.scrollBottom();
     console.log("trigger warnung");
   }
-  
+
   scrollBottom() {
-    
+
     if (this.scroll && this.scroll.nativeElement) {
       this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
-  
-}
-  ngOnInit(){
+
+  }
+  ngOnInit() {
     this.dateToday = Date.now() as number;
-   
+
   }
 
 
@@ -85,17 +85,17 @@ export class MessageComponent {
   }
 
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
   }
 
-  pushTimestamp(timestamp:string | null){
+  pushTimestamp(timestamp: string | null) {
     this.dateMap.push(timestamp as string);
     console.log(this.dateMap);
   }
-  checkIfDateExists(timestamp:string | null){
+  checkIfDateExists(timestamp: string | null) {
     console.log(this.dateMap.includes(timestamp as string));
-    
+
     return this.dateMap.includes(timestamp as string)
   }
 
@@ -125,7 +125,7 @@ export class MessageComponent {
   }
 
   editMessageFunction(index: number) {
-    console.log("she fucking hates me, laaaaalaaaa",index);
+    console.log("she fucking hates me, laaaaalaaaa", index);
   }
 
   /**
@@ -135,11 +135,11 @@ export class MessageComponent {
    * @param event - The event object containing the emoji data.
    * @param index - The index of the message to which the emoji should be added.
    */
-  addEmoji(event: any, index: number, messageId: string, userId: string,calledFromFunction: boolean = false) {
+  addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     const emoji = event['emoji']['native'];
     let foundEmoji = false;
     let userMatched = messageId === userId;
-     let callFromSingleEmoji = calledFromFunction;
+    let callFromSingleEmoji = calledFromFunction;
 
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
       if (this.channelService.messages[index].emoji[i].emoji === emoji) {
@@ -162,43 +162,30 @@ export class MessageComponent {
       //wenn ich keinen emoji gefunden habe startet der count immer mit 0
       const count = 0//userMatched ? 0 : 1;
       const users = userMatched ? [] : [userId];
-      console.log(count, userMatched, emoji,users);
+      console.log(count, userMatched, emoji, users);
       this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
       this.channelService.updateDirectMessage(this.channelService.messages[index]);
     }
     if (!callFromSingleEmoji) {
-       this.toggleEmojiPicker(index);
-    this.isEmojiPickerVisible = false;
+      this.toggleEmojiPicker(index);
+      this.isEmojiPickerVisible = false;
     }
-   
+
   }
 
 
-updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-  let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
-  let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
+  updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
+    let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
+    let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
 
-  //es muss nicht geprüft werden ob ein Emoji vorhanden ist. 
-  // Prüfen, ob die Nachricht von mir stammt oder ob ich bereits reagiert habe
-  if (messageId === userId || emojiUserIds.includes(userId) ) {
-    // Wenn der count des emojis 0 und die Reaktion mit mir zusammenhängt, soll dieses entfernt werden
-    if (emojiCount === 0) {
-      this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
-    } else {
-      // Wenn count > 0, den count um 1 verringern
-      this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-      // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
-      const userIndex = emojiUserIds.indexOf(userId);
-      if (userIndex !== -1) {
-        emojiUserIds.splice(userIndex, 1);
-      }
-    }
-    this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-  } else {
-    // Wenn die Nachricht nicht von mir stammt
-    if (emojiUserIds.includes(userId)) {
-      // Wenn count > 0, den count um 1 verringern
-      if (emojiCount > 0) {
+    //es muss nicht geprüft werden ob ein Emoji vorhanden ist. 
+    // Prüfen, ob die Nachricht von mir stammt oder ob ich bereits reagiert habe
+    if (messageId === userId || emojiUserIds.includes(userId)) {
+      // Wenn der count des emojis 0 und die Reaktion mit mir zusammenhängt, soll dieses entfernt werden
+      if (emojiCount === 0) {
+        this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+      } else {
+        // Wenn count > 0, den count um 1 verringern
         this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
         // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
         const userIndex = emojiUserIds.indexOf(userId);
@@ -206,23 +193,36 @@ updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEm
           emojiUserIds.splice(userIndex, 1);
         }
       }
+      this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
     } else {
-      // Wenn es bereits ein emoji gibt, soll der countWert erhöht werden
-      this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
-      // Hinzufügen meiner Benutzer-ID zur Liste der Reaktionen
-      emojiUserIds.push(userId);
+      // Wenn die Nachricht nicht von mir stammt
+      if (emojiUserIds.includes(userId)) {
+        // Wenn count > 0, den count um 1 verringern
+        if (emojiCount > 0) {
+          this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
+          // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
+          const userIndex = emojiUserIds.indexOf(userId);
+          if (userIndex !== -1) {
+            emojiUserIds.splice(userIndex, 1);
+          }
+        }
+      } else {
+        // Wenn es bereits ein emoji gibt, soll der countWert erhöht werden
+        this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
+        // Hinzufügen meiner Benutzer-ID zur Liste der Reaktionen
+        emojiUserIds.push(userId);
+      }
+      this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
     }
-    this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-  }
-  }
-  
-  addCheckEmoji(event: any,currentMessageIndex: number, messageId: string, userId: string): void {
-    console.log(event.emoji.native, currentMessageIndex, messageId, userId);
-    this.addEmoji(event, currentMessageIndex, messageId, userId,true) 
   }
 
-  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void{
-    this.addEmoji(event, currentMessageIndex, messageId, userId,true) 
+  addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
+    console.log(event.emoji.native, currentMessageIndex, messageId, userId);
+    this.addEmoji(event, currentMessageIndex, messageId, userId, true)
+  }
+
+  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
+    this.addEmoji(event, currentMessageIndex, messageId, userId, true)
   }
 
 
@@ -268,7 +268,7 @@ updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEm
   * @param profileEditable boolean - determine if ShowUser component is editable or not
   */
   async openDialogUserInfo() {
-    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
     dialogRef

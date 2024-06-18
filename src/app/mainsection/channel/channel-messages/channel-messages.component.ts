@@ -35,15 +35,15 @@ export class ChannelMessagesComponent {
   constructor(public dialog: MatDialog) { }
 
   openDialogAddUser() {
-    this.dialog.open(AddUserDialogComponent, { panelClass: 'mod-dialog-window-3' })
+    this.dialog.open(AddUserDialogComponent, { panelClass: ['box-radius-right-corner', 'box-shadow'] })
   }
 
   openDialogAddUserToChannel() {
-    this.dialog.open(AddUserToChannelDialogComponent, { panelClass: 'mod-dialog-window-3' })
+    this.dialog.open(AddUserToChannelDialogComponent, { panelClass: ['box-radius-right-corner', 'box-shadow'] })
   }
 
   openDialogEditChannel() {
-    this.dialog.open(EditChannelDialogComponent, { panelClass: 'mod-dialog-window-2' })
+    this.dialog.open(EditChannelDialogComponent, { panelClass: ['box-radius-left-corner', 'box-shadow'] })
   }
 
   async getOtherUserData(id?: string) {
@@ -52,7 +52,7 @@ export class ChannelMessagesComponent {
   }
 
   async openDialogUserInfo() {
-    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile', 'box-shadow'] })
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
     dialogRef

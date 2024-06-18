@@ -36,8 +36,6 @@ export class SidebarComponent {
   unsubUserDmIds;
   unsubUserDmData!: Unsubscribe;
 
-
-
   constructor(public dialog: MatDialog) {
     this.unsubChannels = this.sidebarService.retrieveChannels();
     this.unsubCurrentChannels = this.sidebarService.retrieveCurrentChannels();
@@ -45,13 +43,11 @@ export class SidebarComponent {
     this.unsubUserDmData = this.sidebarService.retrieveDmUserData();
   }
 
-
   /**
    * Opens the AddNewChannel dialog.
    */
   openDialog() {
-    this.dialog.open(AddNewChannelComponent, { panelClass: 'mod-dialog-window' });
-
+    this.dialog.open(AddNewChannelComponent, { panelClass: ['box-radius', 'box-shadow'] });
   }
 
   /**
@@ -60,7 +56,6 @@ export class SidebarComponent {
    *
    * @type {{ [state: string]: 'open' | 'closed' }}
    */
-
   menuStates: { [state: string]: 'open' | 'closed' } = {
     channel: 'open',
     message: 'open',

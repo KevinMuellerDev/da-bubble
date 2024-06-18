@@ -55,7 +55,7 @@ export class ChannelComponent {
     let dummy = new MessageData();
     dummy.id = sessionStorage.getItem('uid')!;
     dummy.name = this.userService.userInfo.name;
-    dummy.profilePicture = this.userService.userInfo.profilePicture; 
+    dummy.profilePicture = this.userService.userInfo.profilePicture;
     dummy.message = this.message.content;
     dummy.emoji = [];
     const dmData = dummy.toJson();

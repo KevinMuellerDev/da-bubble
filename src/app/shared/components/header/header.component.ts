@@ -23,22 +23,21 @@ export class HeaderComponent {
 
   constructor(public dialog: MatDialog) { }
 
-
   /**
    * The `openDialog` function opens a dialog box for the UserMenuDialogComponent at a specific position
    * and subscribes to the afterClosed event.
    */
   openDialog() {
-    this.dialog.open(UserMenuDialogComponent, { position: { top: '120px', right: '25px' } })
+    this.dialog.open(UserMenuDialogComponent, { panelClass: ['user-menu', 'box-shadow', 'box-radius-right-corner'] })
       .afterClosed()
       .subscribe();
   }
 
   /**
- * Function returns the class of user status for online indicator div
- * @param type string - to determine which value should be returned
- * @returns class as a string
- */
+   * Function returns the class of user status for online indicator div
+   * @param type string - to determine which value should be returned
+   * @returns class as a string
+   */
   getUserStatus() {
     const loggedIn = this.userService.userInfo.isLoggedIn == true ? "online-div" : "offline-div";
     return loggedIn

@@ -1,0 +1,76 @@
+.box-radius .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 30px;
+}
+
+.box-radius-left-corner .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 0 30px 30px 30px;
+}
+
+.box-radius-right-corner .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 30px 0 30px 30px;
+}
+
+.box-shadow .mat-mdc-dialog-container .mdc-dialog__surface {
+    box-shadow: 0px 6px 10px 0px #00000033;
+}
+
+.user-menu .mat-mdc-dialog-container .mdc-dialog__surface {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    top: 126px;
+    right: 49px;
+}
+
+.show-profile .mat-mdc-dialog-container .mdc-dialog__surface {
+    position: absolute;
+    max-width: 500px;
+    width: 100%;
+    height: fit-content;
+    top: 126px;
+    right: 49px;
+}
+
+.show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface {
+    position: absolute;
+    max-width: 500px;
+    width: 100%;
+    height: fit-content;
+}
+
+
+
+
+@media screen and (max-width: 960px) {
+    .user-menu .mat-mdc-dialog-container .mdc-dialog__surface,
+    .show-profile .mat-mdc-dialog-container .mdc-dialog__surface {
+        right: 24px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .user-menu .mat-mdc-dialog-container .mdc-dialog__surface,
+    .show-profile .mat-mdc-dialog-container .mdc-dialog__surface {
+        max-width: 398px;
+        top: 100px;
+    }
+    .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface {
+        max-width: 398px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .show-profile .mat-mdc-dialog-container .mdc-dialog__surface {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .show-profile .mat-mdc-dialog-container .mdc-dialog__surface,
+    .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface {
+        width: 90vw;
+    }
+}

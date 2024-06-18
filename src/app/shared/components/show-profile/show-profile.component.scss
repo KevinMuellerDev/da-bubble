@@ -4,7 +4,6 @@
     @include dFlex($ai: flex-start);
     flex-direction: column;
     padding: 45px 40px;
-    min-width: 500px;
     gap: 38px;
 
     .profile-head {
@@ -23,7 +22,6 @@
                 background-color: rgba(0, 0, 0, 0.05);
             }
         }
-
     }
 
     .profile-picture {
@@ -48,7 +46,7 @@
             width: 100%;
 
             span {
-                font: 700 32px "Nunito"
+                font: 700 32px "Nunito";
             }
 
             a {
@@ -101,7 +99,6 @@
     width: 100%;
     @include dFlex($jc: center, $ai: center);
     flex-direction: column;
-
 
     form {
         width: 100%;
@@ -172,34 +169,32 @@
                 background-color: $purple1;
             }
         }
-
     }
-
 }
 
 input.ng-valid {
-    border-color: $green!important;
+    border-color: $green !important;
     &:hover {
-        border-color: $green!important;
+        border-color: $green !important;
     }
     &:focus {
-        border-color: $green!important;
+        border-color: $green !important;
     }
 }
 
 input.ng-invalid {
     &:focus {
-        border-color: $error!important;
+        border-color: $error !important;
     }
 }
 
-.profile-msg-btn{
+.profile-msg-btn {
     @include dFlex($jc: center);
     width: 100%;
 }
 
 .msg-btn {
-    @include dFlex($jc:center, $ai:center);
+    @include dFlex($jc: center, $ai: center);
     gap: 10px;
     padding: 12px 25px;
     border-radius: 50px;

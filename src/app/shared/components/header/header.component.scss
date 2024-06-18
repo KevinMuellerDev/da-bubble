@@ -151,3 +151,12 @@ header {
         }
     }
 }
+
+@media screen and (max-width: 480px) {
+    .user-menu {
+        span,
+        .menu-btn {
+            display: none;
+        }
+    }
+}
