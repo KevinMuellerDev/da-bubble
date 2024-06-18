@@ -204,6 +204,62 @@
     }
 }
 
+.edit-message-left {
+    @include dFlex($jc: center);
+    position: absolute;
+    left: 164px;
+    top: 46px;
+    width: 269px;
+    background-color: white;
+    height: 67px;
+    border-radius: 0 30px 30px 30px;
+    padding: 10px 20px;
+    box-shadow: 0px 6px 14px 0px #00000033;
+    font-size: 20px;
+    font-weight: 500;
+    text-wrap: nowrap;
+
+    >span {
+        cursor: pointer;
+
+        &:hover {
+            background-color: $bg-color;
+            color: $purple3;
+            padding: 10px 15px 10px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+    }
+}
+
+.edit-message-right {
+    @include dFlex($jc: center);
+    position: absolute;
+    right: 149px;
+    top: 46px;
+    width: 269px;
+    background-color: white;
+    height: 67px;
+    border-radius: 30px 0 30px 30px;
+    padding: 10px 20px;
+    box-shadow: 0px 6px 14px 0px #00000033;
+    font-size: 20px;
+    font-weight: 500;
+    text-wrap: nowrap;
+
+    >span {
+        cursor: pointer;
+
+        &:hover {
+            background-color: $bg-color;
+            color: $purple3;
+            padding: 10px 15px 10px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+    }
+}
+
 .edit-message-icon {
     @include dFlex($jc: center);
     cursor: pointer;

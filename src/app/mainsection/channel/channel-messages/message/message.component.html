@@ -3,12 +3,12 @@
 
     <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
         @if ((dateToday | date: 'longDate') != (message.timestamp | date: 'longDate')) {
-            <div class="divider-container">
-                <div class="divider">
-                    <span>{{message.timestamp | date: 'longDate':'': 'de'}}</span>
-                </div>
+        <div class="divider-container">
+            <div class="divider">
+                <span>{{message.timestamp | date: 'longDate':'': 'de'}}</span>
             </div>
-        
+        </div>
+
         }@else {
         <div class="divider-container">
             <div class="divider">
@@ -17,16 +17,21 @@
         </div>
         }
         <div [ngClass]="{ 'inverted-message': userId == message.id}" class="single-message-container">
+
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="addCheckEmoji($event,i,message.id,userId)"
                     [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="addCheckEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
-                <div class="edit-message-icon"></div>
-
-
+                <div (click)="toggleEditMessage(i)" class="edit-message-icon"></div>
+                <div [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
+                    *ngIf="editMessage[i]">
+                    <span (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
+                </div>
             </div>
+
+
             <div class="profile-picture">
                 <img [src]="message.profilePicture" />
             </div>

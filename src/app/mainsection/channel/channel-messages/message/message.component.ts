@@ -32,7 +32,8 @@ export class MessageComponent {
   userId!: string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
-  dateMap:string[] = [];
+  dateMap: string[] = [];
+  editMessage: boolean[] = [];
 
   messages: any[] = [];
 
@@ -44,7 +45,9 @@ export class MessageComponent {
           this.channelService.messagesLoaded = true;
           setTimeout(() => {
             this.showEmojiPickerArray = [];
+            this.editMessage = [];
             this.showEmojiPickerArray = this.channelService.messages.map(() => false);
+            this.editMessage = this.channelService.messages.map(() => false);
           }, 500);
         }
       });
@@ -69,6 +72,7 @@ export class MessageComponent {
 }
   ngOnInit(){
     this.dateToday = Date.now() as number;
+   
   }
 
   hasSeen(date:any){
@@ -112,6 +116,17 @@ export class MessageComponent {
   toggleEmojiPickerEvent(event: Event) {
     event.stopPropagation();
     this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+  }
+
+  toggleEditMessage(index: number) {
+    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+    console.log(this.editMessage);
+    
+  }
+
+  editMessageFunction(index: number) {
+    console.log("she fucking hates me, laaaaalaaaa",index);
+    
   }
 
   /**
