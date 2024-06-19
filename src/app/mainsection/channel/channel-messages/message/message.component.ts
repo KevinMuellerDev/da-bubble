@@ -58,23 +58,21 @@ export class MessageComponent {
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
 
+  /*
   ngAfterViewChecked() {
-    //this.scrollBottom();
-    //console.log("trigger warnung");
+    this.scrollBottom();
+    console.log("trigger warnung");
   }
 
   scrollBottom() {
-
     if (this.scroll && this.scroll.nativeElement) {
       this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
-
   }
+   */
   ngOnInit() {
     this.dateToday = Date.now() as number;
-
   }
-
 
   isNewDate(oldDate: number, newDate: number) {
     /* let oldDateAsString = this.convertToDate(oldDate);
