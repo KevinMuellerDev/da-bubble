@@ -39,19 +39,19 @@ export class MessageComponent {
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
     this.userId = sessionStorage.getItem('uid')!;
-    if (!this.channelService.channelMsg) {
-      this.dataSubscription = this.channelService.data$.subscribe(data => {
-        if (data) {
-          this.channelService.messagesLoaded = true;
-          setTimeout(() => {
-            this.showEmojiPickerArray = [];
-            this.editMessage = [];
-            this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-            this.editMessage = this.channelService.messages.map(() => false);
-          }, 500);
-        }
-      });
-    }
+
+    this.dataSubscription = this.channelService.data$.subscribe(data => {
+      if (data) {
+        this.channelService.messagesLoaded = true;
+        setTimeout(() => {
+          this.showEmojiPickerArray = [];
+          this.editMessage = [];
+          this.showEmojiPickerArray = this.channelService.messages.map(() => false);
+          this.editMessage = this.channelService.messages.map(() => false);
+        }, 500);
+      }
+    });
+
   }
 
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
