@@ -106,9 +106,9 @@ export class ChannelService {
    */
   restartListener(data: string) {
     this.stopListener();
-    if(this.privateMsg){
+    if (this.privateMsg) {
       this.startListenerDm(data);
-    }else if(this.channelMsg){
+    } else if (this.channelMsg) {
       this.startListenerChannel(data);
     }
   }
@@ -194,11 +194,11 @@ export class ChannelService {
     querySnapshot.forEach(element => {
       console.log(element.data());
       console.log(element.data()['dmUserID']);
-      
-        this.currentMessagesId = element.id
-        console.log(this.currentMessagesId);
-        this.changeData(this.currentMessagesId)
-      
+
+      this.currentMessagesId = element.id
+      console.log(this.currentMessagesId);
+      this.changeData(this.currentMessagesId)
+
     });
   }
 
@@ -232,7 +232,7 @@ export class ChannelService {
     }
   }
 
-  async createChannelMessage(obj:any) {
+  async createChannelMessage(obj: any) {
     await addDoc(this.refCreateChannelMsg(), obj);
   }
 
@@ -266,11 +266,26 @@ export class ChannelService {
     });
   }
 
+  async updateChannelMessage(data: any) {
+    const querySnapshot = await getDocs(this.refQueryChannelMsg());
+
+    querySnapshot.forEach(async (dataset) => {
+      if (data.timestamp == dataset.data()['timestamp']) {
+        console.log('gefunden => ', dataset.data());
+        console.log('gefunden => ', data);
+
+        await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
+          emoji: data.emoji,
+        });
+      }
+    });
+  }
+
   async retrieveCurrentChannelUsers() {
     const docRef = collection(this.firestore, "user");
     const docSnap = await getDocs(docRef);
     this.currentChannelUsers = [];
-    docSnap.forEach((element: any) => {   
+    docSnap.forEach((element: any) => {
       if (this.channelMsgData.users.includes(element.id)) {
         this.currentChannelUsers.push(element.data())
       }
@@ -309,12 +324,16 @@ export class ChannelService {
     return query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
   }
 
-  refCreateChannelMsg(){
+  refCreateChannelMsg() {
     return collection(this.firestore, "Channels", this.channelMsgData.collection, "messages")
   }
 
-  refChannelMessage(){
+  refChannelMessage() {
     return collection(this.firestore, "Channels", this.channelMsgData.collection, 'messages')
+  }
+
+  refQueryChannelMsg() {
+    return query(this.refChannelMessage())
 
   }
 

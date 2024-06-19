@@ -152,7 +152,13 @@ export class MessageComponent {
           this.channelService.messages[index].emoji[i].users.push(userId);
         }
         foundEmoji = true;
-        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+        if (this.channelService.privateMsg) {
+          console.log('hier bin ich');
+          
+          this.channelService.updateDirectMessage(this.channelService.messages[index]);
+        } else{
+          this.channelService.updateChannelMessage(this.channelService.messages[index])
+        }
         break;
 
       }
@@ -164,7 +170,11 @@ export class MessageComponent {
       const users = userMatched ? [] : [userId];
       console.log(count, userMatched, emoji, users);
       this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
-      this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      if (this.channelService.privateMsg) {
+        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      } else{
+        this.channelService.updateChannelMessage(this.channelService.messages[index])
+      }
     }
     if (!callFromSingleEmoji) {
       this.toggleEmojiPicker(index);
@@ -193,7 +203,11 @@ export class MessageComponent {
           emojiUserIds.splice(userIndex, 1);
         }
       }
-      this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+      if (this.channelService.privateMsg) {
+        this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+      } else{
+        this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
+      }
     } else {
       // Wenn die Nachricht nicht von mir stammt
       if (emojiUserIds.includes(userId)) {
@@ -212,7 +226,11 @@ export class MessageComponent {
         // Hinzufügen meiner Benutzer-ID zur Liste der Reaktionen
         emojiUserIds.push(userId);
       }
-      this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+      if (this.channelService.privateMsg) {
+        this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
+      } else{
+        this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
+      }
     }
   }
 
