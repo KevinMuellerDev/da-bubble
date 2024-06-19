@@ -34,7 +34,7 @@ export class SidebarComponent {
   /* unsubChannels; */
   unsubCurrentChannels;
   unsubUserDmIds;
-  unsubUserDmData!: Unsubscribe;
+  unsubUserDmData;
 
   constructor(public dialog: MatDialog) {
 /*     this.unsubChannels = this.sidebarService.retrieveChannels(); */
@@ -92,5 +92,7 @@ export class SidebarComponent {
     this.unsubUserDmIds();
     this.unsubUserDmData();
     this.sidebarService.userDmData = [];
+    console.log(this.sidebarService.userDmData);
+    
   }
 }
