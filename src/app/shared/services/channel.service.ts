@@ -149,6 +149,8 @@ export class ChannelService {
     console.log(data);
 
     if (this.privateMsg) {
+      console.log('im here');
+      
       this.privateMsgData = data;
       this.messagesLoaded = false;
       this.getDmId();
@@ -193,13 +195,9 @@ export class ChannelService {
     const querySnapshot = await getDocs(query(this.refChannelMessage()));
     querySnapshot.forEach(element => {
       console.log(element.data());
-      console.log(element.data()['dmUserID']);
-
       this.currentMessagesId = element.id
-      console.log(this.currentMessagesId);
-      this.changeData(this.currentMessagesId)
-
     });
+    this.changeData(this.currentMessagesId)
   }
 
 
