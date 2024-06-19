@@ -62,7 +62,7 @@ export class ChannelService {
         this.messages.unshift(doc.data())
         this.isSubscribed = true;
       });
-      console.table(this.messages);
+      console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
       this.messagesLoaded = true;
     });
@@ -124,9 +124,9 @@ export class ChannelService {
    * indicating that a private message channel should be used.
    */
   chooseChannelType(dm: boolean, data?: any) {
-    /* this.resetMessageType(); */
+    this.resetMessageType();
     dm ? this.privateMsg = true : this.channelMsg = true;
-    console.table(data);
+    console.log(data);
 
     if (this.privateMsg) {
       this.privateMsgData = data;
@@ -143,6 +143,8 @@ export class ChannelService {
   resetMessageType() {
     this.privateMsg = false;
     this.channelMsg = false;
+    this.currentMessagesId = '';
+    this.oppositeMessagesId = '';
     this.privateMsgData = [];
     this.messages = [];
   }
@@ -209,7 +211,7 @@ export class ChannelService {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
-
+        
         await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
         });
