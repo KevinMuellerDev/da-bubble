@@ -51,7 +51,7 @@ export class ChannelService {
    * @param {string} data -  the `startListener` function is used to subscribe to real-time
    * updates for direct messages based on the provided `data`. 
    */
-  startListener(data: string) {
+  startListenerDm(data: string) {
     if (this.isSubscribed)
       this.unsub();
 
@@ -66,7 +66,23 @@ export class ChannelService {
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
       this.messagesLoaded = true;
     });
+  }
 
+  startListenerChannel(data: string) {
+    if (this.isSubscribed)
+      this.unsub();
+
+    this.unsub = onSnapshot(query(this.refChannelMessage()), (querySnapshot) => {
+      this.messages = [];
+      this.messagesTimestamp = [];
+      querySnapshot.forEach(async (doc) => {
+        this.messages.unshift(doc.data())
+        this.isSubscribed = true;
+      });
+      console.log(this.messages);
+      this.messages.sort((a, b) => a.timestamp - b.timestamp);
+      this.messagesLoaded = true;
+    });
   }
 
 
@@ -90,7 +106,11 @@ export class ChannelService {
    */
   restartListener(data: string) {
     this.stopListener();
-    this.startListener(data);
+    if (this.privateMsg) {
+      this.startListenerDm(data);
+    } else if (this.channelMsg) {
+      this.startListenerChannel(data);
+    }
   }
 
 
@@ -136,6 +156,7 @@ export class ChannelService {
       this.channelMsgData = data;
       this.messagesLoaded = false;
       this.retrieveCurrentChannelUsers();
+      this.getChannelId();
     }
   }
 
@@ -167,6 +188,21 @@ export class ChannelService {
     });
   }
 
+
+  async getChannelId() {
+    const querySnapshot = await getDocs(query(this.refChannelMessage()));
+    querySnapshot.forEach(element => {
+      console.log(element.data());
+      console.log(element.data()['dmUserID']);
+
+      this.currentMessagesId = element.id
+      console.log(this.currentMessagesId);
+      this.changeData(this.currentMessagesId)
+
+    });
+  }
+
+
   /**
  * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
  * Firestore collection.
@@ -196,7 +232,7 @@ export class ChannelService {
     }
   }
 
-  async createChannelMessage(obj:any) {
+  async createChannelMessage(obj: any) {
     await addDoc(this.refCreateChannelMsg(), obj);
   }
 
@@ -211,7 +247,7 @@ export class ChannelService {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
-        
+
         await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
         });
@@ -230,11 +266,26 @@ export class ChannelService {
     });
   }
 
+  async updateChannelMessage(data: any) {
+    const querySnapshot = await getDocs(this.refQueryChannelMsg());
+
+    querySnapshot.forEach(async (dataset) => {
+      if (data.timestamp == dataset.data()['timestamp']) {
+        console.log('gefunden => ', dataset.data());
+        console.log('gefunden => ', data);
+
+        await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
+          emoji: data.emoji,
+        });
+      }
+    });
+  }
+
   async retrieveCurrentChannelUsers() {
     const docRef = collection(this.firestore, "user");
     const docSnap = await getDocs(docRef);
     this.currentChannelUsers = [];
-    docSnap.forEach((element: any) => {   
+    docSnap.forEach((element: any) => {
       if (this.channelMsgData.users.includes(element.id)) {
         this.currentChannelUsers.push(element.data())
       }
@@ -273,8 +324,17 @@ export class ChannelService {
     return query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
   }
 
-  refCreateChannelMsg(){
+  refCreateChannelMsg() {
     return collection(this.firestore, "Channels", this.channelMsgData.collection, "messages")
+  }
+
+  refChannelMessage() {
+    return collection(this.firestore, "Channels", this.channelMsgData.collection, 'messages')
+  }
+
+  refQueryChannelMsg() {
+    return query(this.refChannelMessage())
+
   }
 
 }
