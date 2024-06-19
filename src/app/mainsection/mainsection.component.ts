@@ -47,6 +47,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.hideThread();
+    this.sidebarElement.nativeElement.classList.add('margin-right');
     if (window.innerWidth <= 960) {
       this.hideSidenav();
       this.hideThread();
@@ -92,6 +93,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    * Toggles the visibility of the app-thread based on the current screen size.
    */
   showThread() {
+    this.threadBarElement.nativeElement.classList.add('margin-left');
     if (this.mediumScreen == true) {
       this.threadOpen = true;
       this.threadBarElement.nativeElement.classList.remove('hide-show');
@@ -110,6 +112,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    * Toggles the visibility of the app-sidebar based on the current screen size.
    */
   showSidenav() {
+    this.sidebarElement.nativeElement.classList.add('margin-right');
     if (this.mediumScreen == true) {
       this.sidenavOpen = true;
       this.sidebarElement.nativeElement.classList.remove('hide-show');
@@ -126,8 +129,11 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    * Adds the 'hide-show' class to the thread bar element (app-sidebar) to hide the thread.
    */
   hideSidenav() {
-    this.sidebarElement.nativeElement.classList.add('hide-show');
-    this.sidenavOpen = false;
+    this.sidebarElement.nativeElement.classList.remove('margin-right');
+    setTimeout(() => {
+      this.sidebarElement.nativeElement.classList.add('hide-show');
+      this.sidenavOpen = false;
+    }, 100);
     this.overlayElement.nativeElement.style.display = 'none';
   }
 
@@ -135,8 +141,11 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    * Adds the 'hide-show' class to the thread bar element (app-thread) to hide the thread.
    */
   hideThread() {
-    this.threadBarElement.nativeElement.classList.add('hide-show');
-    this.threadOpen = false;
+    this.threadBarElement.nativeElement.classList.remove('margin-left');
+    setTimeout(() => {
+      this.threadBarElement.nativeElement.classList.add('hide-show');
+      this.threadOpen = false;
+    }, 100);
     this.overlayElement.nativeElement.style.display = 'none';
   }
 
