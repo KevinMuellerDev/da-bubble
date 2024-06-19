@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule,ViewportScroller } from '@angular/common';
 import { Component, ElementRef, ViewChild, HostListener, inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MainsectionComponent } from '../../../mainsection.component';
@@ -14,12 +14,13 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../../../shared/services/user.service';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+
 registerLocaleData(localeDe);
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent],
+  imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent ],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
@@ -37,7 +38,7 @@ export class MessageComponent {
 
   messages: any[] = [];
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,public ViewportScroller: ViewportScroller) {
     this.userId = sessionStorage.getItem('uid')!;
 
     this.dataSubscription = this.channelService.data$.subscribe(data => {
@@ -57,6 +58,8 @@ export class MessageComponent {
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
+  @ViewChild('messageContainer', { static: false }) messageContainer!: ElementRef;
+
 
   /*
   ngAfterViewChecked() {
@@ -72,6 +75,12 @@ export class MessageComponent {
    */
   ngOnInit() {
     this.dateToday = Date.now() as number;
+    
+  }
+
+    scrollToLastMessage() {
+      console.log("scroll wird aufgerufen");
+    
   }
 
   isNewDate(oldDate: number, newDate: number) {
