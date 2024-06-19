@@ -30,14 +30,13 @@ export class AddNewChannelComponent {
  * `AddNewUserToChannelComponent`.
  */
   openDialog() {
-    this.dialog.open(AddNewUserToChannelComponent, { panelClass: 'mod-dialog-window' });
+    this.dialog.open(AddNewUserToChannelComponent, { panelClass: ['box-radius', 'box-shadow'] });
   }
 
-  
 /**
  * The onSubmit function prepares new channel data, sets it in the channel service, and resets the
  * form.
- * @param {NgForm} createNewChannel - `createNewChannel` is a parameter of type `NgForm`. 
+ * @param {NgForm} createNewChannel - `createNewChannel` is a parameter of type `NgForm`.
  * The function `onSubmit` is called when a form is submitted, and it resets the form
  * afterwards.
  */
@@ -46,7 +45,6 @@ export class AddNewChannelComponent {
     this.channelService.newChannel = this.newChannel;
     createNewChannel.reset();
   }
-
 
 /**
  * The function `prepareNewChannelData` creates a new channel object with data from input fields and

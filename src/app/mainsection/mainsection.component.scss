@@ -13,6 +13,14 @@
     opacity: 0.5;
 }
 
+.margin-right {
+    margin-right: 26px;
+}
+
+.margin-left {
+    margin-left: 26px;
+}
+
 .overlay {
     display: none;
     position: absolute;
@@ -27,7 +35,6 @@
 
 .content {
     @include dFlex($jc: space-between);
-    gap: 25px;
     margin-top: 25px;
     height: 100%;
     overflow-x: hidden;
@@ -39,7 +46,7 @@
         height: 100%;
         background-color: $white;
         border-radius: 30px;
-        transition: width 75ms ease-in-out;
+        transition: margin 300ms ease-in-out;
     }
 
     app-sidebar {
@@ -103,8 +110,6 @@
 
 @media screen and (max-width: 960px) {
     .content {
-        gap: 0;
-
         app-sidebar {
             position: absolute;
             top: 50%;
