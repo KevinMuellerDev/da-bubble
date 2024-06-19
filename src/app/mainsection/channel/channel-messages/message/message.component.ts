@@ -217,7 +217,6 @@ export class MessageComponent {
   }
 
   addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
-    console.log(event.emoji.native, currentMessageIndex, messageId, userId);
     this.addEmoji(event, currentMessageIndex, messageId, userId, true)
   }
 
