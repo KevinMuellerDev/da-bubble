@@ -62,7 +62,7 @@ export class ChannelService {
         this.messages.unshift(doc.data())
         this.isSubscribed = true;
       });
-      console.log(this.messages);
+      console.table(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
       this.messagesLoaded = true;
     });
@@ -126,7 +126,7 @@ export class ChannelService {
   chooseChannelType(dm: boolean, data?: any) {
     /* this.resetMessageType(); */
     dm ? this.privateMsg = true : this.channelMsg = true;
-    console.log(data);
+    console.table(data);
 
     if (this.privateMsg) {
       this.privateMsgData = data;

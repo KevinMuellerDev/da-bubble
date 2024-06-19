@@ -30,6 +30,19 @@ export class UserService {
       this.router.navigate(['/']);
   }
 
+  /**
+   * Check if a user already exists in Firestore
+   * @param userId - The user ID to check
+   * @returns A boolean indicating whether the user exists
+   */
+  async checkIfUserExists(userId: string): Promise<boolean> {
+    console.log('Checking if user exists: ' + userId);
+    const userDoc = await getDoc(doc(this.firestore, "user", userId));
+    const userExists = userDoc.exists();
+    console.log('User exists: ' + userExists);
+    return userExists;
+  }
+
 
   /**
    * listens to changes to referenced collection and stores the data

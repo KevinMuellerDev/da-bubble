@@ -75,7 +75,7 @@ export class SidebarService {
           if (this.userDmIds.includes(userDm.id)) {
             const data: any = userDm.data();
             this.userDmData.push(data)
-            console.log(this.userDmData);
+            console.table(this.userDmData);
           }
         });
       }, 25);

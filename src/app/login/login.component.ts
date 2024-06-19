@@ -210,18 +210,38 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * - Authenticates with Firebase using Google provider.
    * - Stores UID, creates user profile, navigates on success.
    */
+  // async loginWithGoogle() {
+  //   this.showIntroAnimation = false;
+  //   sessionStorage.removeItem('hasSeenAnimation');
+  //   try {
+  //     const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
+  //     const user = result.user;
+  //     this.userService.prepareDataNewUserGoogle(user);
+  //     this.userService.createUserProfile();
+  //     sessionStorage.setItem("uid", user.uid);
+  //     this.router.navigate(['/mainsection/' + user.uid]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
   async loginWithGoogle() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
     try {
       const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
       const user = result.user;
-      this.userService.prepareDataNewUserGoogle(user)
-      this.userService.createUserProfile();
+      const userExists = await this.userService.checkIfUserExists(user.uid);
+      console.log("Called checkIfUserExists, userExists:", userExists);
+      if (!userExists) {
+        console.log("User does not exist, preparing data");
+        this.userService.prepareDataNewUserGoogle(user);
+        await this.userService.createUserProfile();
+      }
       sessionStorage.setItem("uid", user.uid);
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
-      console.error(error);
+      console.error("Error during loginWithGoogle:", error);
     }
   }
 

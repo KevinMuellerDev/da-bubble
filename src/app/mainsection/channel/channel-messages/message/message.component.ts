@@ -59,8 +59,8 @@ export class MessageComponent {
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
 
   ngAfterViewChecked() {
-    this.scrollBottom();
-    console.log("trigger warnung");
+    //this.scrollBottom();
+    //console.log("trigger warnung");
   }
 
   scrollBottom() {
@@ -217,7 +217,6 @@ export class MessageComponent {
   }
 
   addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
-    console.log(event.emoji.native, currentMessageIndex, messageId, userId);
     this.addEmoji(event, currentMessageIndex, messageId, userId, true)
   }
 
