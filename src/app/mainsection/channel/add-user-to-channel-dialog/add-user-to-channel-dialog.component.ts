@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
@@ -12,15 +12,15 @@ import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.compo
   styleUrl: './add-user-to-channel-dialog.component.scss'
 })
 export class AddUserToChannelDialogComponent {
+  @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
 
   constructor(public dialog: MatDialog) { }
 
-  openDialogAddUser(event: MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
+  openDialogAddUser() {
+    const rect = this.addUser.nativeElement.getBoundingClientRect();
     this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.bottom}px`, left: `${rect.left}px` }
+      position: { top: `${rect.top}px`, left: `${rect.right - 464}px` }
     });
   }
 }

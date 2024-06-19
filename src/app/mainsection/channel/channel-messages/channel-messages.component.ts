@@ -32,34 +32,34 @@ export class ChannelMessagesComponent {
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
   userService: UserService = inject(UserService);
+  @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
+  @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
+  @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
   constructor(public dialog: MatDialog) { }
 
-  openDialogAddUser(event: MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
+  openDialogAddUser() {
+    const rect = this.addUser.nativeElement.getBoundingClientRect();
     this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.bottom}px`, left: `${rect.left}px` }
+      position: { top: `${rect.bottom + 10}px`, left: `${rect.right - 514}px` }
     });
   }
 
-  openDialogAddUserToChannel(event: MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
+  openDialogAddUserToChannel() {
+    const rect = this.addUserToChannel.nativeElement.getBoundingClientRect();
     this.dialog.open(AddUserToChannelDialogComponent, {
       panelClass: ['add-user-to-channel', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.top}px`, left: `${rect.right}px` }
+      position: { top: `${rect.bottom + 10}px`, left: `${rect.right - 415}px` }
     });
   }
 
-openDialogEditChannel(event: MouseEvent) {
-  const target = event.currentTarget as HTMLElement;
-  const rect = target.getBoundingClientRect();
-  this.dialog.open(EditChannelDialogComponent, {
-    panelClass: ['box-radius-left-corner', 'box-shadow'],
-    position: { top: `${rect.bottom}px`, left: `${rect.left}px` }
-  });
-}
+  openDialogEditChannel() {
+    const rect = this.editChannel.nativeElement.getBoundingClientRect();
+    this.dialog.open(EditChannelDialogComponent, {
+      panelClass: ['box-radius-left-corner', 'box-shadow'],
+      position: { top: `${rect.bottom + 10}px`, left: `${rect.left}px` }
+    });
+  }
 
   async getOtherUserData(id?: string) {
     await this.userService.retrieveOtherUserProfile(id!);
