@@ -52,7 +52,7 @@ export class ChannelMessagesComponent {
   }
 
   async openDialogUserInfo() {
-    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile', 'box-shadow'] })
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] })
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
     dialogRef

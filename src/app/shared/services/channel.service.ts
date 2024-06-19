@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { ChannelData } from '../models/channels.class';
 import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject } from 'rxjs';
@@ -18,12 +18,14 @@ export class ChannelService {
   privateMsg?: boolean;
   newChannel?: ChannelInfo
   privateMsgData: any;
+  channelMsgData: any;
   currentMessagesId!: string;
   oppositeMessagesId!: string;
   messages: any[] = [];
   messagesTimestamp: any[] = [];
   messagesLoaded: boolean = false;
   privateMsgIds: string[] = [];
+  currentChannelUsers: any[] = [];
 
   constructor() {
     //turn on for test in messages:
@@ -62,9 +64,9 @@ export class ChannelService {
       });
       console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
+      this.messagesLoaded = true;
     });
 
-    setTimeout(() => { this.messagesLoaded = true; }, 200);
   }
 
 
@@ -92,10 +94,6 @@ export class ChannelService {
   }
 
 
-
-
-
-
   /**
    * The function creates a new channel in Firestore and adds the channel ID to the user's list of
    * channels.
@@ -105,10 +103,13 @@ export class ChannelService {
    */
   async createNewChannel(channelData: ChannelInfo) {
     await addDoc(collection(this.firestore, "Channels"), channelData)
-      .then((docRef) => {
+      .then(async (docRef) => {
         channelData.users.forEach(async user => {
           const channelId = { channelid: docRef.id }
           await addDoc(collection(this.firestore, 'user', user, 'userchannels'), channelId)
+        });
+        await updateDoc(doc(this.firestore, "Channels", docRef.id), {
+          collection: docRef.id,
         });
       });
   }
@@ -122,15 +123,30 @@ export class ChannelService {
    * `chooseChannelType` function. It is used to pass user data when the `dm` parameter is set to true,
    * indicating that a private message channel should be used.
    */
-  chooseChannelType(dm: boolean, user?: DocumentData) {
+  chooseChannelType(dm: boolean, data?: any) {
+    this.resetMessageType();
     dm ? this.privateMsg = true : this.channelMsg = true;
+    console.log(data);
+
     if (this.privateMsg) {
-      this.currentMessagesId = '';
-      this.oppositeMessagesId = '';
-      this.privateMsgData = user;
+      this.privateMsgData = data;
       this.messagesLoaded = false;
       this.getDmId();
+    } else if (this.channelMsg) {
+      this.channelMsgData = data;
+      this.messagesLoaded = false;
+      this.retrieveCurrentChannelUsers();
     }
+  }
+
+
+  resetMessageType() {
+    this.privateMsg = false;
+    this.channelMsg = false;
+    this.currentMessagesId = '';
+    this.oppositeMessagesId = '';
+    this.privateMsgData = [];
+    this.messages = [];
   }
 
 
@@ -191,10 +207,6 @@ export class ChannelService {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
-
-        await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
-          emoji: data.emoji,
-        });
       }
     });
 
@@ -206,6 +218,17 @@ export class ChannelService {
         await updateDoc(doc(this.firestore, "user", this.privateMsgData.id, 'directmessages', this.oppositeMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
         });
+      }
+    });
+  }
+
+  async retrieveCurrentChannelUsers() {
+    const docRef = collection(this.firestore, "user");
+    const docSnap = await getDocs(docRef);
+    this.currentChannelUsers = [];
+    docSnap.forEach((element: any) => {   
+      if (this.channelMsgData.users.includes(element.id)) {
+        this.currentChannelUsers.push(element.data())
       }
     });
   }

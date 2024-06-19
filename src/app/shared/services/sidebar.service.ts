@@ -1,15 +1,17 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, FieldValue, arrayRemove } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, query, getDoc, getDocs, setDoc, onSnapshot, updateDoc, where, FieldValue, arrayRemove, DocumentData } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { UserData } from '../models/userdata.class';
+import { ChannelService } from './channel.service';
 @Injectable({
   providedIn: 'root'
 })
 export class SidebarService {
   firestore: Firestore = inject(Firestore);
-  userService: UserService = inject(UserService)
-  channels: string[] = [];
-  channelUsers: string[] = [];
+  userService: UserService = inject(UserService);
+  channelService:ChannelService = inject(ChannelService);
+  channels: any[] = [];
+  channelUsers: any[] = [];
   userDmIds: string[] = [];
   userDmData: any[] = [];
 
@@ -26,8 +28,10 @@ export class SidebarService {
       this.channels = [];
       querySnapshot.forEach(channel => {
         if (this.userService.userChannels.includes(channel.id))
-          this.channels.push(channel.data()['title'])
+          this.channels.push(channel.data())
       });
+      console.log(this.channels);
+      
     });
     return unsubscribe
   }
@@ -57,7 +61,6 @@ export class SidebarService {
       this.userDmIds = [];
       querySnapshot.forEach((userDm) => {
         this.userDmIds.push(userDm.data()['dmUserId'])
-
       });
     });
 
@@ -94,9 +97,10 @@ export class SidebarService {
   async removeChannelUser() {
     const querySnapshot = await getDocs(query(this.refChannels()));
     this.channels = [],
+    this.channelService.currentChannelUsers = [];
       querySnapshot.forEach(channel => {
         if (this.userService.userChannels.includes(channel.id)) {
-          this.channels.push(channel.data()['title'])
+          this.channels.push(channel.data())
         }
       });
   }
@@ -116,6 +120,7 @@ export class SidebarService {
     const channel: any = docSnap.data();
     channel.users.forEach((element: any) => {
       this.channelUsers.push(element);
+      console.log(this.channelUsers);
     });
   }
 

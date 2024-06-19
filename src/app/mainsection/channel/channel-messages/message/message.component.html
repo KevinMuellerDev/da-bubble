@@ -8,10 +8,8 @@
                 <span>{{message.timestamp | date: 'longDate':'': 'de'}}</span>
             </div>
         </div>
-
         }
         <div [ngClass]="{ 'inverted-message': userId == message.id}" class="single-message-container">
-
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="addCheckEmoji($event,i,message.id,userId)"
                     [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
@@ -73,8 +71,7 @@
             </div>
         </div> -->
     </div>
-    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded == true &&
-    channelService.privateMsg) {
+    } @else if (channelService.messages.length == undefined && channelService.messagesLoaded == true && channelService.privateMsg) {
     <div class="wrapper-start-msg">
         <div class="user-info">
             <img [src]="channelService.privateMsgData['profilePicture']" alt="">

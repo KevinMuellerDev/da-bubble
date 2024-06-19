@@ -28,7 +28,9 @@ export class ChannelComponent {
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { 
+    this.channelService.messagesLoaded = false;
+  }
 
   async onSubmit(form: NgForm) {
    this.submitClick = true;

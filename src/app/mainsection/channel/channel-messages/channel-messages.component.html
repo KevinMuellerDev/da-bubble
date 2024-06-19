@@ -3,14 +3,14 @@
         @if (channelService.channelMsg) {
         <div (click)="openDialogEditChannel()" class="channel-head">
             <div class="channel-head-tag-icon"></div>
-            <span>Entwicklerteam </span>
+            <span>{{channelService.channelMsgData.title}} </span>
             <div class="channel-head-arrow-icon"></div>
         </div>
         <div class="channel-head-right">
             <div (click)="openDialogAddUserToChannel()" class="channel-user-icons">
-                <img src="/assets/img/profile/testchar1.svg">
-                <img src="/assets/img/profile/testchar1.svg">
-                <img src="/assets/img/profile/testchar1.svg">
+                @for (user of channelService.currentChannelUsers; track $index) {
+                    <img referrerpolicy="no-referrer" [src]="user.profilePicture">
+                }
                 <span>3</span>
             </div>
             <div (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
@@ -22,7 +22,7 @@
                 class="online-indicator"></div>
             <span>{{channelService.privateMsgData['name']}}</span>
         </div>
-        }@else if(channelService.messages.length == 0) {
+        }@else if(channelService.messages.length == 0 && !channelService.privateMsg) {
         <div class="head-newmsg">
             <span>Neue Nachricht</span>
             <div class="input-wrapper">

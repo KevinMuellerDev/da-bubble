@@ -30,9 +30,9 @@
     </div>
     <div class="channel-wrapper">
       @for (channel of sidebarService.channels; track $index) {
-      <div [@openClose]="menuStates['channel']" class="single-channel-container">
+      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel)" class="single-channel-container">
         <span class="channel-hash"><img src="assets/img/icons/tag.svg" /></span>
-        <span class="channel-name">{{channel}}</span>
+        <span class="channel-name">{{channel.title}}</span>
       </div>
       }
     </div>

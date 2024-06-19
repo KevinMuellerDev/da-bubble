@@ -183,7 +183,6 @@
 }
 
 .single-channel-container {
-  background-color: $bg-color;
   border-radius: 20px;
   padding: 4px 20px;
   margin-top: 25px;
@@ -202,6 +201,10 @@
     @include dFlex($jc: center);
     font-size: 18px;
     font-weight: 700;
+  }
+
+  &:hover{
+    background-color: $bg-color;
   }
 }
 
