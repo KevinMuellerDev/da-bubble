@@ -24,8 +24,8 @@ export class ThreadComponent {
   * This function opens the dialog and determines if the ShowProfile component is editable or not
   * @param profileEditable boolean - determine if ShowUser component is editable or not
   */
-  openDialogUserInfo() {
-    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: 'verify' })
+  async openDialogUserInfo() {
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
     dialogRef

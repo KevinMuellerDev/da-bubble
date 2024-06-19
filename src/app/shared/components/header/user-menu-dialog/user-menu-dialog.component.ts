@@ -5,6 +5,7 @@ import { ShowProfileComponent } from '../../show-profile/show-profile.component'
 import { UserService } from '../../../services/user.service';
 import { UserData } from '../../../models/userdata.class';
 import { getAuth } from '@angular/fire/auth';
+import { ChannelService } from '../../../services/channel.service';
 @Component({
   selector: 'app-user-menu-dialog',
   standalone: true,
@@ -14,11 +15,13 @@ import { getAuth } from '@angular/fire/auth';
 })
 export class UserMenuDialogComponent {
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private userService: UserService) { }
+  channelService:ChannelService = inject(ChannelService);
 
   async logout() {
     await this.userService.userLoggedOut();
     sessionStorage.removeItem('uid');
     getAuth().signOut();
+    this.channelService.stopListener();
     setTimeout(() => {
       this.userService.userInfo = new UserData();
     }, 200);
