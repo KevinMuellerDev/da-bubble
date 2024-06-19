@@ -15,7 +15,12 @@ export class AddUserToChannelDialogComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialogAddUser() {
-    this.dialog.open(AddUserDialogComponent, { panelClass: ['box-radius-right-corner', 'box-shadow'] });
+  openDialogAddUser(event: MouseEvent) {
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    this.dialog.open(AddUserDialogComponent, {
+      panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
+      position: { top: `${rect.bottom}px`, left: `${rect.left}px` }
+    });
   }
 }

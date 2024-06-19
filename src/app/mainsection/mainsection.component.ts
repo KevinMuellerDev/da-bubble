@@ -130,10 +130,8 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   hideSidenav() {
     this.sidebarElement.nativeElement.classList.remove('margin-right');
-    setTimeout(() => {
-      this.sidebarElement.nativeElement.classList.add('hide-show');
-      this.sidenavOpen = false;
-    }, 100);
+    this.sidebarElement.nativeElement.classList.add('hide-show');
+    this.sidenavOpen = false;
     this.overlayElement.nativeElement.style.display = 'none';
   }
 
@@ -142,10 +140,8 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   hideThread() {
     this.threadBarElement.nativeElement.classList.remove('margin-left');
-    setTimeout(() => {
-      this.threadBarElement.nativeElement.classList.add('hide-show');
-      this.threadOpen = false;
-    }, 100);
+    this.threadBarElement.nativeElement.classList.add('hide-show');
+    this.threadOpen = false;
     this.overlayElement.nativeElement.style.display = 'none';
   }
 
