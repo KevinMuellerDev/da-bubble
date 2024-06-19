@@ -28,7 +28,7 @@ export class ChannelComponent {
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog) { 
+  constructor(public dialog: MatDialog) {
     this.channelService.messagesLoaded = false;
   }
 
