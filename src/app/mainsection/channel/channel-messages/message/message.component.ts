@@ -10,7 +10,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../../shared/services/channel.service';
 import { Unsubscribe } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription,Observable } from 'rxjs';
 import { UserService } from '../../../../shared/services/user.service';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
@@ -35,7 +35,6 @@ export class MessageComponent {
   isEmojiPickerVisible: boolean = false;
   dateMap: string[] = [];
   editMessage: boolean[] = [];
-
   messages: any[] = [];
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,public ViewportScroller: ViewportScroller) {
@@ -56,31 +55,15 @@ export class MessageComponent {
   }
 
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
-  @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
-  @ViewChild('messageContainer', { static: false }) messageContainer!: ElementRef;
 
+  private mutationObserver!: MutationObserver;
+  private domChanges = new Subject<MutationRecord[]>();
+  public domChanges$: Observable<MutationRecord[]> = this.domChanges.asObservable();
+  private initialChildCount: number = 0;
 
-  /*
-  ngAfterViewChecked() {
-    this.scrollBottom();
-    console.log("trigger warnung");
-  }
-
-  scrollBottom() {
-    if (this.scroll && this.scroll.nativeElement) {
-      this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-    }
-  }
-   */
   ngOnInit() {
     this.dateToday = Date.now() as number;
-    
-  }
-
-    scrollToLastMessage() {
-      console.log("scroll wird aufgerufen");
-    
   }
 
   isNewDate(oldDate: number, newDate: number) {
@@ -94,6 +77,32 @@ export class MessageComponent {
 
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
+
+   this.initialChildCount = this.scroll.nativeElement.children.length;
+    this.mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach(mutation => {
+        const currentChildCount = this.scroll.nativeElement.children.length;
+        if (currentChildCount > this.initialChildCount) {
+          this.initialChildCount = currentChildCount; 
+          console.log(currentChildCount);
+           this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+          this.domChanges.next([mutation]);
+        }
+        else if(currentChildCount != this.initialChildCount){
+          console.log(currentChildCount, this.initialChildCount);
+          this.initialChildCount = this.scroll.nativeElement.children.length;        }
+      });
+    });
+
+    this.mutationObserver.observe(this.scroll.nativeElement, {
+      childList: true,
+      subtree: false,
+      characterData: false 
+    });
+
+    this.domChanges$.subscribe((mutations:any) => {
+      console.log('DOM changes detected:', mutations);
+    });
   }
 
   pushTimestamp(timestamp: string | null) {
@@ -306,6 +315,7 @@ export class MessageComponent {
 
   ngOnDestroy() {
     /* this.unsubMessageData(); */
+     this.mutationObserver.disconnect();
     this.channelService.messages = [];
     this.channelService.messagesLoaded = false;
     this.channelService.currentMessagesId = '';
