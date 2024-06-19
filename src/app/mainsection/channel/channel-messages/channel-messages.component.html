@@ -11,7 +11,7 @@
                 @for (user of channelService.currentChannelUsers; track $index) {
                     <img referrerpolicy="no-referrer" [src]="user.profilePicture">
                 }
-                <span>3</span>
+                <span>{{channelService.currentChannelUsers.length}}</span>
             </div>
             <div (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
         </div>

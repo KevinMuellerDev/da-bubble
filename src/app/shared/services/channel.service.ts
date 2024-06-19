@@ -124,7 +124,7 @@ export class ChannelService {
    * indicating that a private message channel should be used.
    */
   chooseChannelType(dm: boolean, data?: any) {
-    this.resetMessageType();
+    /* this.resetMessageType(); */
     dm ? this.privateMsg = true : this.channelMsg = true;
     console.log(data);
 
@@ -143,8 +143,6 @@ export class ChannelService {
   resetMessageType() {
     this.privateMsg = false;
     this.channelMsg = false;
-    this.currentMessagesId = '';
-    this.oppositeMessagesId = '';
     this.privateMsgData = [];
     this.messages = [];
   }
@@ -196,6 +194,10 @@ export class ChannelService {
     }
   }
 
+  async createChannelMessage(obj:any) {
+    await addDoc(this.refCreateChannelMsg(), obj);
+  }
+
 
   async updateDirectMessage(data: any) {
     await this.getDmId();
@@ -207,6 +209,10 @@ export class ChannelService {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
+
+        await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
+          emoji: data.emoji,
+        });
       }
     });
 
@@ -263,6 +269,10 @@ export class ChannelService {
 
   refQueryOpposite() {
     return query(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId));
+  }
+
+  refCreateChannelMsg(){
+    return collection(this.firestore, "Channels", this.channelMsgData.collection, "messages")
   }
 
 }
