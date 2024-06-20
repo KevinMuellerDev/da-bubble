@@ -160,8 +160,9 @@ export class MessageComponent {
      this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
-  editMessageBlur(index: number) {
-     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+  editMessageBlur(index: number,editMessageForm:NgForm) {
+    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+    editMessageForm.reset();
   }
 
   onSubmit(editMessageForm: NgForm, index: number) {
