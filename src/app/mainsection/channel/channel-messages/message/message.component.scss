@@ -276,6 +276,23 @@
     }
 }
 
+form {
+
+    >textarea {
+        min-width: 356px;
+        min-height: 88px;
+        height: fit-content;
+        color: white;
+        background: transparent;
+        border: none;
+        caret-color: white;
+        outline: none;
+        padding: 15px;
+        text-indent: 5px;
+        resize: none;
+    }
+}
+
 .selected-emoji {
     >span {
         cursor: pointer;

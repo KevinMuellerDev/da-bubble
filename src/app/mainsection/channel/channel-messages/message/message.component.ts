@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, HostListener, inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MainsectionComponent } from '../../../mainsection.component';
 import { AddUserToChannelDialogComponent } from '../../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
 import { AddUserDialogComponent } from '../../add-user-dialog/add-user-dialog.component';
@@ -20,7 +21,7 @@ registerLocaleData(localeDe);
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent ],
+  imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent,FormsModule ],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
@@ -34,8 +35,10 @@ export class MessageComponent {
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
   dateMap: string[] = [];
+  openEditMessageToggle: boolean[] = [];
   editMessage: boolean[] = [];
   messages: any[] = [];
+  newMessage: { message: string } = { message: '' };
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
     this.userId = sessionStorage.getItem('uid')!;
@@ -46,6 +49,7 @@ export class MessageComponent {
           this.showEmojiPickerArray = [];
           this.editMessage = [];
           this.showEmojiPickerArray = this.channelService.messages.map(() => false);
+          this.openEditMessageToggle = this.channelService.messages.map(() => false);
           this.editMessage = this.channelService.messages.map(() => false);
         }, 500);
       }
@@ -134,13 +138,28 @@ export class MessageComponent {
   }
 
   toggleEditMessage(index: number) {
-    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+    this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
   editMessageFunction(index: number) {
-    console.log("she fucking hates me, laaaaalaaaa", index);
+    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
     console.log(this.channelService.messages[index].message);
-    
+      setTimeout(() => {
+    const textareaId = 'editMessageTextarea-' + index;
+    const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
+    if (textareaElement) {
+      textareaElement.focus();
+    }
+  }, 0);
+  }
+
+  onSubmit(editMessageForm:NgForm,index: number) {
+      if (editMessageForm.valid) {
+    console.log(editMessageForm.value);
+   // this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
+        this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+        editMessageForm.reset();
+  }
   }
 
   /**
