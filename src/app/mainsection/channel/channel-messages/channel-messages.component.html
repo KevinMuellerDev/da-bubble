@@ -17,7 +17,7 @@
         </div>
         }@else if (channelService.privateMsg && channelService.messagesLoaded) {
         <div class="message" (click)="getOtherUserData(channelService.privateMsgData.id)">
-            <img [src]="channelService.privateMsgData['profilePicture']" alt="" />
+            <img referrerpolicy="no-referrer" [src]="channelService.privateMsgData['profilePicture']" alt="" />
             <div [ngClass]="sidebarService.getDmStatus(channelService.privateMsgData['isLoggedIn'])"
                 class="online-indicator"></div>
             <span>{{channelService.privateMsgData['name']}}</span>

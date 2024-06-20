@@ -42,9 +42,9 @@ export class MessageComponent {
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
     this.userId = sessionStorage.getItem('uid')!;
+    this.channelService.messagesLoaded=false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {
-        this.channelService.messagesLoaded = true;
         setTimeout(() => {
           this.showEmojiPickerArray = [];
           this.editMessage = [];

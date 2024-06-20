@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
@@ -9,6 +9,8 @@ import { UserService } from './user.service';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
+  
+
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
   isSubscribed: boolean = false;
@@ -64,8 +66,8 @@ export class ChannelService {
       });
       console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
-      this.messagesLoaded = true;
     });
+    setTimeout(() => {this.messagesLoaded = true;}, 200);
   }
 
   startListenerChannel(data: string) {
@@ -145,6 +147,8 @@ export class ChannelService {
    * indicating that a private message channel should be used.
    */
   chooseChannelType(dm: boolean, data?: any) {
+    console.log(this.messagesLoaded);
+    
     this.resetMessageType();
     dm ? this.privateMsg = true : this.channelMsg = true;
     console.log(data);
@@ -165,6 +169,7 @@ export class ChannelService {
 
 
   resetMessageType() {
+    this.messagesLoaded = false;
     this.privateMsg = false;
     this.channelMsg = false;
     this.currentMessagesId = '';
@@ -182,6 +187,8 @@ export class ChannelService {
     const querySnapshot = await getDocs(query(this.refDirectMessage()));
     querySnapshot.forEach(element => {
       console.log(element.data());
+      console.log(this.privateMsgData);
+      
       console.log(element.data()['dmUserID']);
       if (element.data()['dmUserId'] == this.privateMsgData.id) {
         this.currentMessagesId = element.id
@@ -290,6 +297,26 @@ export class ChannelService {
       description: description
     });
     this.refreshChannelData();
+  }
+
+/**
+ * This function updates direct messages between users if they do not already exist.
+ * @param {any} userInfo - The `updateUserDm` function you provided is an asynchronous function that
+ * updates direct messages between users in a Firestore database. It checks if a direct message entry
+ * already exists between the current user and the target user. If it doesn't exist, it adds entries
+ * for both users to establish a direct message
+ */
+  async updateUserDm(userInfo: any){
+    let alreadyExists = false;
+    const docSnap = await getDocs(collection(this.firestore, "user", this.userService.userInfo.id,"directmessages"));
+    docSnap.forEach(element => {
+      if (element.data()['dmUserId'] == userInfo.id) 
+        alreadyExists = true
+    });
+    if (!alreadyExists) {
+      await addDoc(collection(this.firestore,"user",userInfo.id,"directmessages"), {dmUserId: this.userService.currentUser});
+      await addDoc(collection(this.firestore,"user",this.userService.userInfo.id,"directmessages"), {dmUserId: userInfo.id});
+    }
   }
 
   async retrieveCurrentChannelUsers() {

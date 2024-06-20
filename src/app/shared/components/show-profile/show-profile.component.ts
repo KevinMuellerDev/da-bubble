@@ -4,6 +4,7 @@ import {
   MatDialog,
   MatDialogActions,
   MatDialogClose,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,6 +13,8 @@ import { VerifyComponent } from '../verify/verify.component';
 import { UserData } from '../../models/userdata.class';
 import { UserInfo } from '@angular/fire/auth';
 import { DocumentData } from '@angular/fire/firestore';
+import { ChannelService } from '../../services/channel.service';
+import { SidebarService } from '../../services/sidebar.service';
 
 
 @Component({
@@ -23,6 +26,9 @@ import { DocumentData } from '@angular/fire/firestore';
 })
 
 export class ShowProfileComponent {
+  userService: UserService = inject(UserService);
+  channelService: ChannelService = inject(ChannelService);
+  sidebarService: SidebarService = inject(SidebarService);
   updateUserForm: FormGroup;
   otherUser: boolean = false;
   profileEditable: boolean = false;
@@ -30,7 +36,7 @@ export class ShowProfileComponent {
   otherUserInfo!: any;
   otherUserId!: string;
 
-  constructor(public dialog: MatDialog, public userService: UserService, public authService: AuthService) {
+  constructor(public dialog: MatDialog, public authService: AuthService, private dialogRef: MatDialogRef<ShowProfileComponent>) {
     this.updateUserForm = new FormGroup({
       name: new FormControl(this.userService.userInfo.name),
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
@@ -81,8 +87,19 @@ export class ShowProfileComponent {
     }
   }
 
-  sendMessage() {
-    console.warn('message send');
+  async sendMessage() {
+    let alreadyPushed=false;
+    await this.channelService.updateUserDm(this.userService.otherUserInfo);
+    this.sidebarService.userDmData.forEach(element => {
+      if (element.id == this.userService.otherUserInfo.id) 
+        alreadyPushed = true;
+      
+    });
+
+    if (!alreadyPushed) 
+      this.sidebarService.userDmData.push(this.userService.otherUserInfo);
+    this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
+    this.dialogRef.close();
   }
 
   /**
