@@ -3,12 +3,15 @@ import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData,
 import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
+import { SidebarService } from './sidebar.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
+  
+
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
   isSubscribed: boolean = false;

@@ -14,6 +14,7 @@ import { UserData } from '../../models/userdata.class';
 import { UserInfo } from '@angular/fire/auth';
 import { DocumentData } from '@angular/fire/firestore';
 import { ChannelService } from '../../services/channel.service';
+import { SidebarService } from '../../services/sidebar.service';
 
 
 @Component({
@@ -25,8 +26,9 @@ import { ChannelService } from '../../services/channel.service';
 })
 
 export class ShowProfileComponent {
-  userService:UserService = inject(UserService);
-  channelService:ChannelService = inject(ChannelService);
+  userService: UserService = inject(UserService);
+  channelService: ChannelService = inject(ChannelService);
+  sidebarService: SidebarService = inject(SidebarService);
   updateUserForm: FormGroup;
   otherUser: boolean = false;
   profileEditable: boolean = false;
@@ -86,8 +88,16 @@ export class ShowProfileComponent {
   }
 
   async sendMessage() {
+    let alreadyPushed=false;
     await this.channelService.updateUserDm(this.userService.otherUserInfo);
-    this.channelService.chooseChannelType(true,this.userService.otherUserInfo);
+    this.sidebarService.userDmData.forEach(element => {
+      if (element.id == this.userService.otherUserInfo.id) 
+        alreadyPushed = true;
+    });
+
+    if (!alreadyPushed) 
+      this.sidebarService.userDmData.push(this.userService.otherUserInfo);
+    this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
     this.dialogRef.close();
   }
 
