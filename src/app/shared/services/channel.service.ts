@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
-import { SidebarService } from './sidebar.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -67,8 +66,8 @@ export class ChannelService {
       });
       console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
-      this.messagesLoaded = true;
     });
+    setTimeout(() => {this.messagesLoaded = true;}, 200);
   }
 
   startListenerChannel(data: string) {
@@ -148,6 +147,8 @@ export class ChannelService {
    * indicating that a private message channel should be used.
    */
   chooseChannelType(dm: boolean, data?: any) {
+    console.log(this.messagesLoaded);
+    
     this.resetMessageType();
     dm ? this.privateMsg = true : this.channelMsg = true;
     console.log(data);
@@ -168,6 +169,7 @@ export class ChannelService {
 
 
   resetMessageType() {
+    this.messagesLoaded = false;
     this.privateMsg = false;
     this.channelMsg = false;
     this.currentMessagesId = '';
@@ -316,8 +318,6 @@ export class ChannelService {
       await addDoc(collection(this.firestore,"user",this.userService.userInfo.id,"directmessages"), {dmUserId: userInfo.id});
     }
   }
-
-  //TODO: Update UserDm DAta
 
   async retrieveCurrentChannelUsers() {
     const docSnap = await getDocs(collection(this.firestore, "user"));

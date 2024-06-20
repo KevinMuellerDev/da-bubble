@@ -93,6 +93,7 @@ export class ShowProfileComponent {
     this.sidebarService.userDmData.forEach(element => {
       if (element.id == this.userService.otherUserInfo.id) 
         alreadyPushed = true;
+      
     });
 
     if (!alreadyPushed) 

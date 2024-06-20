@@ -59,7 +59,7 @@
     @for (dm of sidebarService.userDmData; track dm; let i = $index) {
       @if (dm.id != userService.userInfo.id) {
         <div class="message" (click)="channelService.chooseChannelType(true, dm)">
-          <img [src]="dm.profilePicture" alt="" />
+          <img referrerpolicy="no-referrer" [src]="dm.profilePicture" alt="" />
           <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
           <span>{{dm.name}}</span>
         </div>
