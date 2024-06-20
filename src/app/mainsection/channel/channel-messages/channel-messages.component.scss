@@ -47,7 +47,6 @@
 .channel-head {
     @include dFlex($jc: center);
     gap: 10px;
-    max-width: 278px;
     cursor: pointer;
     padding: 6px 10px;
 

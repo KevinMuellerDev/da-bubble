@@ -4,22 +4,16 @@
         <span>Mitglieder</span>
     </div>
     <div class="member-list-container">
-        <div class="single-member">
-            <img src="assets/img/profile/testchar1.svg">
-            <div class="online-indicator"></div>
-            <div class="member-name">
-                <span>Noah Braun</span>
-                <span>(Du)</span>
+         @for (user of channelService.currentChannelUsers; track $index) {
+            <div class="single-member" (click)="getOtherUserData(user)">
+                <img referrerpolicy="no-referrer" [src]="user.profilePicture">
+                <div [ngClass]="getDmStatus(user.isLoggedIn)" class="online-indicator"></div>
+                <div class="member-name">
+                    <span>{{user.name}}</span>
+                    <span *ngIf="userService.currentUser == user.id">(Du)</span>
+                </div>
             </div>
-        </div>
-        <div class="single-member">
-            <img src="assets/img/profile/testchar1.svg">
-            <div class="online-indicator"></div>
-            <div class="member-name">
-                <span>Noah Braun</span>
-                <span>(Du)</span>
-            </div>
-        </div>
+         }
         <div [mat-dialog-close]="true" (click)=" openDialogAddUser()" class="add-member-container">
             <div class="add-member-icon"></div>
             <span>Mitglieder hinzufügen</span>

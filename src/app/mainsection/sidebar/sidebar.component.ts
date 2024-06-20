@@ -86,6 +86,12 @@ export class SidebarComponent {
     return loggedIn;
   }
 
+  newMessage(){
+    this.channelService.privateMsg = false;
+    this.channelService.channelMsg = false;
+    this.channelService.messages = [];
+  }
+
   ngOnDestroy() {
     this.unsubChannels();
     this.unsubCurrentChannels();
