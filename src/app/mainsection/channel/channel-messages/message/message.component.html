@@ -19,7 +19,7 @@
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
                 <div (click)="toggleEditMessage(i)" class="edit-message-icon"></div>
                 <div [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
-                    *ngIf="editMessage[i]">
+                    *ngIf="openEditMessageToggle[i]">
                     <span (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
                 </div>
             </div>
@@ -38,7 +38,13 @@
                     </div>
                 </div>
                 <div class="message">
-                    <span>{{ message.message }}</span>
+                    <span *ngIf="!editMessage[i]">{{ message.message }}</span>
+                    <form #editMessageForm="ngForm" class="edit-message" *ngIf="editMessage[i]"
+                        (ngSubmit)="onSubmit(editMessageForm, i)">
+                        <textarea name="editMessageTextarea" [id]="'editMessageTextarea-' + i"
+                            [(ngModel)]="newMessage.message">
+                            </textarea>
+                    </form>
                     <div id="emojiPickerContainer">
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
