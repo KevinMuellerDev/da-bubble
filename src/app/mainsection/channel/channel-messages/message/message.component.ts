@@ -1,4 +1,4 @@
-import { CommonModule,ViewportScroller } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, HostListener, inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MainsectionComponent } from '../../../mainsection.component';
@@ -37,7 +37,7 @@ export class MessageComponent {
   editMessage: boolean[] = [];
   messages: any[] = [];
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,public ViewportScroller: ViewportScroller) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
     this.userId = sessionStorage.getItem('uid')!;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {
@@ -83,12 +83,10 @@ export class MessageComponent {
         const currentChildCount = this.scroll.nativeElement.children.length;
         if (currentChildCount > this.initialChildCount) {
           this.initialChildCount = currentChildCount; 
-          console.log(currentChildCount);
            this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
           this.domChanges.next([mutation]);
         }
         else if(currentChildCount != this.initialChildCount){
-          console.log(currentChildCount, this.initialChildCount);
           this.initialChildCount = this.scroll.nativeElement.children.length;        }
       });
     });
@@ -141,6 +139,8 @@ export class MessageComponent {
 
   editMessageFunction(index: number) {
     console.log("she fucking hates me, laaaaalaaaa", index);
+    console.log(this.channelService.messages[index].message);
+    
   }
 
   /**
