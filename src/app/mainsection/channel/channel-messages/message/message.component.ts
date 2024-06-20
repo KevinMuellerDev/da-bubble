@@ -317,6 +317,12 @@ export class MessageComponent {
     }
   }
 
+ /**
+  * The function `getOtherUserData` asynchronously retrieves other user data and opens a dialog with
+  * the user information.
+  * @param {string} [id] - The `id` parameter in the `getOtherUserData` function is a string that
+  * represents the user ID of the other user whose profile information you want to retrieve.
+  */
   async getOtherUserData(id?: string) {
     await this.userService.retrieveOtherUserProfile(id!);
     this.openDialogUserInfo();
@@ -335,6 +341,9 @@ export class MessageComponent {
       .subscribe();
   }
 
+/**
+ * The `showThreadBar` function calls the `showThread` method of the `mainsectionComponent`.
+ */
   showThreadBar() {
     this.mainsectionComponent.showThread();
   }
