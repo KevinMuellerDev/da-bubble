@@ -91,7 +91,7 @@ export class MessageComponent {
           this.domChanges.next([mutation]);
         }
         else if(currentChildCount != this.initialChildCount){
-          this.initialChildCount = this.scroll.nativeElement.children.length;        }
+          this.initialChildCount = this.scroll.nativeElement.children.length;}
       });
     });
 
