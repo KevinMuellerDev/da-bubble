@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-edit-channel-dialog',
@@ -27,7 +28,6 @@ export class EditChannelDialogComponent {
   async saveEditChannelStatus(channelName: NgForm) {
     this.editChannelName = false
     await this.channelService.updateChannelTitle(this.newChannelValues.name);
-    this.channelService.chooseChannelType(false, this.channelService.channelMsgData)
     console.log(this.newChannelValues.name);
     channelName.reset();
   }

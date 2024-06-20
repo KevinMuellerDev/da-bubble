@@ -6,8 +6,8 @@
         </div>
     </div>
     <div class="profile-picture">
-        <img *ngIf="otherUser==true" [src]="userService.otherUserInfo.profilePicture" alt="">
-        <img *ngIf="otherUser==false" [src]="userService.userInfo.profilePicture" alt="">
+        <img *ngIf="otherUser==true" referrerpolicy="no-referrer" [src]="userService.otherUserInfo.profilePicture" alt="">
+        <img *ngIf="otherUser==false" referrerpolicy="no-referrer" [src]="userService.userInfo.profilePicture" alt="">
     </div>
     @if (editMode == false) {
     <div class="profile-edit-container">

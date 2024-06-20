@@ -22,7 +22,7 @@
                 class="online-indicator"></div>
             <span>{{channelService.privateMsgData['name']}}</span>
         </div>
-        }@else if(channelService.messages.length == 0 && !channelService.privateMsg) {
+        }@else if(channelService.messages.length == 0 && !channelService.privateMsg && !channelService.channelMsg) {
         <div class="head-newmsg">
             <span>Neue Nachricht</span>
             <div class="input-wrapper">

@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
+import { ChannelService } from '../../../shared/services/channel.service';
+import { UserService } from '../../../shared/services/user.service';
+import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
 
 @Component({
   selector: 'app-add-user-to-channel-dialog',
@@ -13,8 +16,28 @@ import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.compo
 })
 export class AddUserToChannelDialogComponent {
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
-
+  channelService:ChannelService = inject(ChannelService);
+  userService:UserService = inject(UserService);
   constructor(public dialog: MatDialog) { }
+
+  getDmStatus(userIsLoggedIn: boolean) {
+    const loggedIn = userIsLoggedIn== true ? 'online-div' : 'offline-div';
+    return loggedIn;
+  }
+
+  async getOtherUserData(user:any) {
+    this.userService.otherUserInfo = user;
+    this.openDialogUserInfo();
+  }
+
+  async openDialogUserInfo() {
+    let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
+    dialogRef.componentInstance.otherUser = true;
+    dialogRef.componentInstance.profileEditable = false;
+    dialogRef
+      .afterClosed()
+      .subscribe();
+  }
 
   openDialogAddUser() {
     const rect = this.addUser.nativeElement.getBoundingClientRect();
