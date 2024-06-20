@@ -54,7 +54,7 @@
                     <div id="emojiPickerContainer">
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
-                            [ngClass]="{'emoji-mart-right': userId == message.id, 'emoji-mart-left': userId != message.id}"
+                            [ngClass]="{'emoji-mart-left': userId == message.id, 'emoji-mart-right': userId != message.id}"
                             (emojiClick)="addEmoji($event,i,message.id,userId)" *ngIf="showEmojiPickerArray[i]"
                             set="google"></emoji-mart>
                     </div>
