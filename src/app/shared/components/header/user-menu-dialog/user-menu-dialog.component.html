@@ -1,5 +1,15 @@
-
 <div class="menu-container">
-    <div (click)="openDialog()">Profil</div>
-    <div routerLink="" (click)="logout()">Log Out</div>
+    <div><button (click)="closeDialog()"></button></div>
+    <div>
+        <button (click)="openDialog()" (mouseover)="hoverProfile = true" (mouseleave)="hoverProfile = false"
+            [ngClass]="{'hovered': hoverProfile}">
+            <img src="">Profil
+        </button>
+    </div>
+    <div>
+        <button routerLink="" (click)="logout()" (mouseover)="hoverLogout = true" (mouseleave)="hoverLogout = false"
+            [ngClass]="{'hovered': hoverLogout}">
+            <img src="">Log Out
+        </button>
+    </div>
 </div>

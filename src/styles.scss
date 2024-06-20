@@ -1,4 +1,4 @@
-@import '@ctrl/ngx-emoji-mart/picker';
+@import "@ctrl/ngx-emoji-mart/picker";
 @import "./dialog.scss";
 
 .emoji-mart-scroll {
@@ -17,7 +17,6 @@
     width: 273px;
     cursor: pointer;
     box-shadow: -6px 4px 18px -6px rgba(0, 0, 0, 0.23);
-
 }
 
 .emoji-mart-left {
@@ -31,7 +30,6 @@
     box-shadow: 76px 4px 11px 0px rgba(0, 0, 0, 0.2);
 }
 
-
 $purple1: #444df2;
 $purple2: #797ef3;
 $purple3: #535af1;
@@ -42,8 +40,6 @@ $text-gray: #686868;
 $white: #ffffff;
 $black: #000000;
 $green: #92c83e;
-
-
 
 @mixin dFlex($jc: flex-start, $ai: center) {
     display: flex;

@@ -1,4 +1,5 @@
 import { Component, ViewChildren, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
 import { ShowProfileComponent } from '../../show-profile/show-profile.component';
@@ -6,16 +7,19 @@ import { UserService } from '../../../services/user.service';
 import { UserData } from '../../../models/userdata.class';
 import { getAuth } from '@angular/fire/auth';
 import { ChannelService } from '../../../services/channel.service';
+import { subscribeOn } from 'rxjs';
 @Component({
   selector: 'app-user-menu-dialog',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, RouterLink],
+  imports: [CommonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, RouterLink],
   templateUrl: './user-menu-dialog.component.html',
   styleUrl: './user-menu-dialog.component.scss'
 })
 export class UserMenuDialogComponent {
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private userService: UserService) { }
-  channelService:ChannelService = inject(ChannelService);
+  channelService: ChannelService = inject(ChannelService);
+  hoverProfile: boolean = false;
+  hoverLogout: boolean = false;
 
   async logout() {
     await this.userService.userLoggedOut();
@@ -38,5 +42,9 @@ export class UserMenuDialogComponent {
     dialogRef
       .afterClosed()
       .subscribe();
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

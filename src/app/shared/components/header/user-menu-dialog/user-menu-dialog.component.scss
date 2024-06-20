@@ -1,21 +1,77 @@
 @import "./../../../../../styles.scss";
 
-.menu-container {
-    padding: 30px;
-    gap: 15px;
+button {
+    outline: none;
+    cursor: pointer;
+    border: none;
     font: 600 24px "Nunito";
+    background-color: $white;
+    border: 1px solid transparent;
+}
 
-    div {
-        @include dFlex($jc: center);
-        width: 222px;
-        height: 53px;
-        cursor: pointer;
-        border-radius: 100px;
-        outline: none;
+.menu-container {
+    @include dFlex($jc: center, $ai: center);
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding-bottom: 30px;
 
-        &:hover {
-            color: $purple3;
+    div:nth-child(1) {
+        height: fit-content;
+        display: none;
+        button {
+            width: 62px;
+            height: 6px;
+            border-radius: 23px;
             background-color: $bg-color;
+            margin: 25px 0 15px 0;
+        }
+    }
+
+    div:nth-child(2) {
+        button {
+            &.hovered img {
+                content: url("/assets/img/header/account_circle_touched.png");
+            }
+
+            &:not(.hovered) img {
+                content: url("/assets/img/header/account_circle.png");
+            }
+        }
+    }
+
+    div:nth-child(3) button {
+        &.hovered img {
+            content: url("/assets/img/header/logout_touched.png");
+        }
+
+        &:not(.hovered) img {
+            content: url("/assets/img/header/logout.png");
+        }
+    }
+
+    div:nth-child(2),
+    div:nth-child(3) {
+        button {
+            @include dFlex($jc: center, $ai: center);
+            border-radius: 100px;
+            padding: 10px 70px;
+            transition:
+                background-color,
+                0.15s ease-in-out,
+                color,
+                0.15s ease-in-out;
+            img {
+                display: none;
+                width: 30px;
+                height: 30px;
+                margin-right: 18px;
+            }
+            &:hover,
+            &:active {
+                color: $purple3;
+                background-color: $bg-color;
+            }
         }
     }
 }
