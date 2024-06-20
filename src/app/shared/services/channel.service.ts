@@ -182,6 +182,8 @@ export class ChannelService {
     const querySnapshot = await getDocs(query(this.refDirectMessage()));
     querySnapshot.forEach(element => {
       console.log(element.data());
+      console.log(this.privateMsgData);
+      
       console.log(element.data()['dmUserID']);
       if (element.data()['dmUserId'] == this.privateMsgData.id) {
         this.currentMessagesId = element.id
@@ -291,6 +293,28 @@ export class ChannelService {
     });
     this.refreshChannelData();
   }
+
+/**
+ * This function updates direct messages between users if they do not already exist.
+ * @param {any} userInfo - The `updateUserDm` function you provided is an asynchronous function that
+ * updates direct messages between users in a Firestore database. It checks if a direct message entry
+ * already exists between the current user and the target user. If it doesn't exist, it adds entries
+ * for both users to establish a direct message
+ */
+  async updateUserDm(userInfo: any){
+    let alreadyExists = false;
+    const docSnap = await getDocs(collection(this.firestore, "user", this.userService.userInfo.id,"directmessages"));
+    docSnap.forEach(element => {
+      if (element.data()['dmUserId'] == userInfo.id) 
+        alreadyExists = true
+    });
+    if (!alreadyExists) {
+      await addDoc(collection(this.firestore,"user",userInfo.id,"directmessages"), {dmUserId: this.userService.currentUser});
+      await addDoc(collection(this.firestore,"user",this.userService.userInfo.id,"directmessages"), {dmUserId: userInfo.id});
+    }
+  }
+
+  //TODO: Update UserDm DAta
 
   async retrieveCurrentChannelUsers() {
     const docSnap = await getDocs(collection(this.firestore, "user"));
