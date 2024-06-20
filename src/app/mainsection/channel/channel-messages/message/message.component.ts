@@ -144,6 +144,7 @@ export class MessageComponent {
   editMessageFunction(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
     console.log(this.channelService.messages[index].message);
+    //der timeout gleicht verzögerung im DOM aus. Sonst gibt es abunzu focus probleme
       setTimeout(() => {
     const textareaId = 'editMessageTextarea-' + index;
     const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
@@ -153,7 +154,14 @@ export class MessageComponent {
   }, 0);
   }
 
-  onSubmit(editMessageForm:NgForm,index: number) {
+  editMessageAbort(index: number) {
+    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+  }
+
+  onSubmit(editMessageForm: NgForm, index: number) {
+    console.log(editMessageForm,"ausgeführt");
+    
       if (editMessageForm.valid) {
     console.log(editMessageForm.value);
    // this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;

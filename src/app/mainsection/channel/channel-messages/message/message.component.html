@@ -39,11 +39,17 @@
                 </div>
                 <div class="message">
                     <span *ngIf="!editMessage[i]">{{ message.message }}</span>
-                    <form #editMessageForm="ngForm" class="edit-message" *ngIf="editMessage[i]"
-                        (ngSubmit)="onSubmit(editMessageForm, i)">
+                    <form #editMessageForm="ngForm"
+                        [ngClass]="{ 'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
+                        *ngIf="editMessage[i]" (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea name="editMessageTextarea" [id]="'editMessageTextarea-' + i"
                             [(ngModel)]="newMessage.message">
                             </textarea>
+                        <div class="edit-Message-control">
+                            <button type="submit" class="edit-message-button">Speichern</button>
+                            <button type="button" (click)="editMessageAbort(i)"
+                                class="edit-message-button">Abbrechen</button>
+                        </div>
                     </form>
                     <div id="emojiPickerContainer">
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
