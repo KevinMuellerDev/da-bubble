@@ -17,9 +17,9 @@
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="addCheckEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
-                <div (click)="toggleEditMessage(i)" class="edit-message-icon"></div>
+                <div *ngIf="userId == message.id" (click)="toggleEditMessage(i)" class="edit-message-icon"></div>
                 <div [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
-                    *ngIf="openEditMessageToggle[i]">
+                    *ngIf="openEditMessageToggle[i]  && userId == message.id">
                     <span (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
                 </div>
             </div>
@@ -41,9 +41,9 @@
                     <span *ngIf="!editMessage[i]">{{ message.message }}</span>
                     <form #editMessageForm="ngForm"
                         [ngClass]="{ 'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
-                        *ngIf="editMessage[i]" (ngSubmit)="onSubmit(editMessageForm, i)">
+                        *ngIf="editMessage[i] && userId == message.id " (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea name="editMessageTextarea" [id]="'editMessageTextarea-' + i"
-                            [(ngModel)]="newMessage.message">
+                            [(ngModel)]="newMessage.message" (blur)="editMessageBlur(i,editMessageForm)">
                             </textarea>
                         <div class="edit-Message-control">
                             <button type="submit" class="edit-message-button">Speichern</button>
