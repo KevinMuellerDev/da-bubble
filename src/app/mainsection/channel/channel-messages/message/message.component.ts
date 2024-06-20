@@ -160,19 +160,28 @@ export class MessageComponent {
      this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
-  editMessageBlur(index: number,editMessageForm:NgForm) {
-    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-    editMessageForm.reset();
+  editMessageBlur(index: number,event:any,editMessageForm:NgForm) {
+    console.log("Blur ist da");
+    const relatedTarget = event.relatedTarget as HTMLElement;
+  // fokus soll nicht bei einem button klick ausgefürhrt werden
+    if (relatedTarget && (relatedTarget.tagName === 'BUTTON' || relatedTarget.closest('button'))) {
+    return;
+  } 
+      this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+      editMessageForm.reset();
+      console.log(this.openEditMessageToggle ,this.editMessage);
+  
+   
   }
 
   onSubmit(editMessageForm: NgForm, index: number) {
-    console.log(editMessageForm,"ausgeführt");
+    console.log(editMessageForm.value,"ausgeführt");
     
-      if (editMessageForm.valid) {
-    console.log(editMessageForm.value);
-   // this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
+    if (editMessageForm.valid) {
+        this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
+        //this.channelService.updateChannelMessage(this.channelService.messages[index]);
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-        this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+        //this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
   }
   }
