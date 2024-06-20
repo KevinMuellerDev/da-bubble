@@ -41,7 +41,7 @@
                     <span *ngIf="!editMessage[i]">{{ message.message }}</span>
                     <form #editMessageForm="ngForm"
                         [ngClass]="{ 'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
-                        *ngIf="editMessage[i]" (ngSubmit)="onSubmit(editMessageForm, i)">
+                        *ngIf="editMessage[i] && userId != message.id " (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea name="editMessageTextarea" [id]="'editMessageTextarea-' + i"
                             [(ngModel)]="newMessage.message" (blur)="editMessageBlur(i,editMessageForm)">
                             </textarea>
