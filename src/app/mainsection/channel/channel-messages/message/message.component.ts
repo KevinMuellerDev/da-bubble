@@ -39,7 +39,6 @@ export class MessageComponent {
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,public ViewportScroller: ViewportScroller) {
     this.userId = sessionStorage.getItem('uid')!;
-
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {
         this.channelService.messagesLoaded = true;

@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true"></div>
     <div class="headline">
-        <span># Entwicklerteam</span>
+        <span># {{channelService.channelMsgData.title}}</span>
     </div>
     <form #channelName="ngForm" class="channel-container"
         [ngClass]="{'channel-name-container-border': !editChannelName}">
@@ -14,7 +14,7 @@
         </div>
         <div class="editable-name-container">
             <div class="hash-icon" [ngClass]="{'absolute': editChannelName}"></div>
-            <span *ngIf="!editChannelName" class="channel-name-unedited">Entwicklerteam</span>
+            <span *ngIf="!editChannelName" class="channel-name-unedited">{{channelService.channelMsgData.title}}</span>
             <div *ngIf="editChannelName" class="new-channel-name">
                 <input [(ngModel)]="newChannelValues.name" name="channelName" type="text" placeholder="Dein Text Hier">
             </div>
@@ -30,12 +30,7 @@
                 class="channel-name-edit">Speichern</span>
         </div>
         <div class="description-container">
-            <span *ngIf="!editDescription" class="description-name-unedited">
-                Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit deinem Team
-                Meetings
-                abhalten,
-                Dokumente teilen und Entscheidungen treffen.
-            </span>
+            <span *ngIf="!editDescription" class="description-name-unedited">{{channelService.channelMsgData.description}}</span>
             <div *ngIf="editDescription" class="new-channel-name">
                 <input [(ngModel)]="newChannelValues.newDescription" name="channelDescription"
                     placeholder="Dein Text Hier" type="text">
@@ -44,7 +39,7 @@
             <div class="created-from-container">
                 <span> Erstellt von</span>
                 <div class="created-from">
-                    <span> Noah Braun</span>
+                    <span> {{channelService.channelMsgData.creator}}</span>
                 </div>
             </div>
         </div>

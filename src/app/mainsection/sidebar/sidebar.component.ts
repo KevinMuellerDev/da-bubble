@@ -31,13 +31,13 @@ export class SidebarComponent {
   userService: UserService = inject(UserService);
   sidebarService: SidebarService = inject(SidebarService);
   channelService: ChannelService = inject(ChannelService);
-  /* unsubChannels; */
+  unsubChannels;
   unsubCurrentChannels;
   unsubUserDmIds;
   unsubUserDmData;
 
   constructor(public dialog: MatDialog) {
-/*     this.unsubChannels = this.sidebarService.retrieveChannels(); */
+    this.unsubChannels = this.sidebarService.retrieveChannels();
     this.unsubCurrentChannels = this.sidebarService.retrieveCurrentChannels();
     this.unsubUserDmIds = this.sidebarService.retrieveCurrentDirectMsgs();
     this.unsubUserDmData = this.sidebarService.retrieveDmUserData();
@@ -87,7 +87,7 @@ export class SidebarComponent {
   }
 
   ngOnDestroy() {
-    /* this.unsubChannels(); */
+    this.unsubChannels();
     this.unsubCurrentChannels();
     this.unsubUserDmIds();
     this.unsubUserDmData();

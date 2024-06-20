@@ -39,7 +39,7 @@
             <div class="button-wrapper">
                 @for (user of userList; track $index) {
                 <div class="user-wrapper" (click)="pushToSelection(user)">
-                    <img [src]="user.img" alt="">
+                    <img [src]="user.img" referrerpolicy="no-referrer" alt="">
                     <span>{{user.user}}</span>
                 </div>
                 }

@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { DocumentData, Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
-import { ChannelData } from '../models/channels.class';
 import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject } from 'rxjs';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
-
+  userService: UserService = inject(UserService);
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
   isSubscribed: boolean = false;
@@ -130,6 +130,7 @@ export class ChannelService {
         });
         await updateDoc(doc(this.firestore, "Channels", docRef.id), {
           collection: docRef.id,
+          creator: this.userService.userInfo.name
         });
       });
   }
@@ -150,7 +151,7 @@ export class ChannelService {
 
     if (this.privateMsg) {
       console.log('im here');
-      
+
       this.privateMsgData = data;
       this.messagesLoaded = false;
       this.getDmId();
@@ -266,12 +267,10 @@ export class ChannelService {
 
   async updateChannelMessage(data: any) {
     const querySnapshot = await getDocs(this.refQueryChannelMsg());
-
     querySnapshot.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
-
         await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
           emoji: data.emoji,
         });
@@ -279,15 +278,32 @@ export class ChannelService {
     });
   }
 
+  async updateChannelTitle(title:string){
+    await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection), {
+      title: title
+    });
+    this.refreshChannelData();
+  }
+
+  async updateChannelDescription(description:string){
+    await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection), {
+      description: description
+    });
+    this.refreshChannelData();
+  }
+
   async retrieveCurrentChannelUsers() {
-    const docRef = collection(this.firestore, "user");
-    const docSnap = await getDocs(docRef);
+    const docSnap = await getDocs(collection(this.firestore, "user"));
     this.currentChannelUsers = [];
     docSnap.forEach((element: any) => {
-      if (this.channelMsgData.users.includes(element.id)) {
+      if (this.channelMsgData.users.includes(element.id))
         this.currentChannelUsers.push(element.data())
-      }
     });
+  }
+
+  async refreshChannelData(){
+    const docSnap = await getDoc(doc(this.firestore,"Channels",this.channelMsgData.collection));
+    this.channelMsgData = docSnap.data();
   }
 
 
@@ -332,7 +348,6 @@ export class ChannelService {
 
   refQueryChannelMsg() {
     return query(this.refChannelMessage())
-
   }
 
 }
