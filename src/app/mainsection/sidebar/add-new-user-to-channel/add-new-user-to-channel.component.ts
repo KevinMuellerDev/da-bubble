@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, inject, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { firebaseAppFactory } from '@angular/fire/app/app.module';
 import { SidebarService } from '../../../shared/services/sidebar.service';
@@ -19,11 +19,12 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AddNewUserToChannelComponent {
-  @ViewChild("specificUserInput") specificUserInput?: { nativeElement: { focus: () => void; }; };
+  @ViewChild("specificUserInput") specificUserInput?: { nativeElement: { focus: () => void; }; }
+  @ViewChild(MatMenuTrigger) trigger!:MatMenuTrigger;
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
   userService: UserService = inject(UserService);
-
+  menuOpened:boolean=false;
   specificUser: boolean;
   userList: any[] = [];
   selectedUser: any[] = [];
@@ -70,6 +71,9 @@ export class AddNewUserToChannelComponent {
     });
   }
 
+  getMenu(){
+    this.trigger.openMenu();
+  }
 
 /**
  * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList

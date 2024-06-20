@@ -24,8 +24,8 @@
                     <div class="deleteUser" (click)="removeUserFromSelection(user)"></div>
                 </div>
                 }
-                <input type="text" autocomplete="off" #specificUserInput name="specificUserInput"
-                    [matMenuTriggerFor]="menu" (input)="searchUser()" placeholder="Name eingeben"
+                <input type="text" autocomplete="off" autofocus #trigger name="specificUserInput"
+                    [matMenuTriggerFor]="menu" (input)="searchUser()" (click)="$event.stopPropagation()" (input)="getMenu()"  placeholder="Name eingeben"
                     [(ngModel)]="inputs.specificUser">
             </div>
         </div>
