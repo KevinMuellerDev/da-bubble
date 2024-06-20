@@ -166,6 +166,7 @@ export class MessageComponent {
     console.log(editMessageForm.value);
    // this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+        this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
   }
   }
