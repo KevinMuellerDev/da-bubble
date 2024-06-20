@@ -151,12 +151,17 @@ export class MessageComponent {
     if (textareaElement) {
       textareaElement.focus();
     }
-  }, 0);
+      }, 0);
+     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
   editMessageAbort(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
      this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+  }
+
+  editMessageBlur(index: number) {
+     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
   }
 
   onSubmit(editMessageForm: NgForm, index: number) {
