@@ -199,10 +199,9 @@ export class MessageComponent {
         //this.channelService.updateChannelMessage(this.channelService.messages[index]);
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
-  }
+    }
   }
 
-  
   /**
  * Checks if a given element or any of its parent elements have a specific class.
  * @param element - The element to check.

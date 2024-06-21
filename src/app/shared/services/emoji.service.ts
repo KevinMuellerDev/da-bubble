@@ -9,49 +9,51 @@ export class EmojiService {
   constructor(private channelService: ChannelService) { }
 
 
-  addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
+ addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     const emoji = event['emoji']['native'];
-    let foundEmoji = false;
-    let userMatched = messageId === userId;
-    let callFromSingleEmoji = calledFromFunction;
+    const userMatched = messageId === userId;
+    const callFromSingleEmoji = calledFromFunction;
 
-    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-        if (!this.channelService.messages[index].emoji[i].users) {
-          this.channelService.messages[index].emoji[i].users = [];
-        }
-        if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
-          console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
-          this.channelService.messages[index].emoji[i].count++;
-          this.channelService.messages[index].emoji[i].users.push(userId);
-        }
-        foundEmoji = true;
-        if (this.channelService.privateMsg) {
-          console.log('hier bin ich');
-          
-          this.channelService.updateDirectMessage(this.channelService.messages[index]);
-        } else{
-          this.channelService.updateChannelMessage(this.channelService.messages[index])
-        }
-        break;
-
-      }
-    }
-
+    const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched);
+    
     if (!foundEmoji) {
-      //wenn ich keinen emoji gefunden habe startet der count immer mit 0
-      const count = 0;
-      const users = userMatched ? [] : [userId];
-      console.log(count, userMatched, emoji, users);
-      this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
-      if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[index]);
-      } else{
-        this.channelService.updateChannelMessage(this.channelService.messages[index])
-      }
+        this.addNewEmoji(index, emoji, userMatched, userId);
     }
-  }
 
+    this.updateMessage(index);
+}
+
+checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean): boolean {
+    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
+        if (this.channelService.messages[index].emoji[i].emoji === emoji) {
+            if (!this.channelService.messages[index].emoji[i].users) {
+                this.channelService.messages[index].emoji[i].users = [];
+            }
+            if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
+                console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
+                this.channelService.messages[index].emoji[i].count++;
+                this.channelService.messages[index].emoji[i].users.push(userId);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string) {
+    const count = 0;
+    const users = userMatched ? [] : [userId];
+    console.log(count, userMatched, emoji, users);
+    this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
+}
+
+updateMessage(index: number) {
+    if (this.channelService.privateMsg) {
+        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+    } else {
+        this.channelService.updateChannelMessage(this.channelService.messages[index]);
+    }
+}
   updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
     let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
     let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
