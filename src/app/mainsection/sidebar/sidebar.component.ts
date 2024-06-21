@@ -59,8 +59,6 @@ export class SidebarComponent implements OnInit {
       this.mainsectionComponent.hideSidenav();
       this.mainsectionComponent.displayHeadlineMobile();
     }
-    this.mainsectionComponent.hideThread();
-    this.mainsectionComponent.closeSides();
   }
 
   /**

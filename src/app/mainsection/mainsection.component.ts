@@ -63,16 +63,12 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   checkInnerWidth(event: any) {
     setTimeout(() => {
       this.mediumScreen = window.innerWidth <= 1440 && window.innerWidth > 960;
-      console.log(`%cMedium screen: %c${this.mediumScreen}`, 'color: white;', `color: ${this.mediumScreen ? 'yellow' : 'white'};`);
       this.smallerMediumScreen = window.innerWidth <= 960 && window.innerWidth > 600;
-      console.log(`%cSmaller medium screen: %c${this.smallerMediumScreen}`, 'color: white;', `color: ${this.smallerMediumScreen ? 'yellow' : 'white'};`);
       this.largerSmallScreen = window.innerWidth <= 600 && window.innerWidth > 480;
-      console.log(`%cLarger small screen: %c${this.largerSmallScreen}`, 'color: white;', `color: ${this.largerSmallScreen ? 'yellow' : 'white'};`);
       this.smallScreen = window.innerWidth <= 480;
-      console.log(`%cSmall screen: %c${this.smallScreen}`, 'color: white;', `color: ${this.smallScreen ? 'yellow' : 'white'};`);
       this.updateOverlayDisplay();
       this.displayHeadlineMobile();
-    },250);
+    },100);
   }
 
   updateOverlayDisplay() {

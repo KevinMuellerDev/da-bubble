@@ -35,6 +35,7 @@ export class MessageComponent {
   userId!: string;
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
+  isEditMessageVisible: boolean = false;
   dateMap: string[] = [];
   openEditMessageToggle: boolean[] = [];
   editMessage: boolean[] = [];
@@ -61,6 +62,7 @@ export class MessageComponent {
 
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
+  @ViewChild('editMessageContainer', { static: false }) editMessageContainer!: ElementRef;
 
   private mutationObserver!: MutationObserver;
   private domChanges = new Subject<MutationRecord[]>();
@@ -161,16 +163,23 @@ toggleEmojiPicker(index: number) {
     this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
   }
 
+    toggleEditEvent(event: Event) {
+    event.stopPropagation();
+    this.isEditMessageVisible = !this.isEditMessageVisible;
+  }
+
+
   toggleEditMessage(index: number) {
     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
-editMessageFunction(index: number) {
-  this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+  editMessageFunction(index: number) {
+    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+     const textareaId = 'editMessageTextarea-' + index;
+    this.newMessage = { message: this.channelService.messages[index].message };
   console.log(this.channelService.messages[index].message);
   // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
   setTimeout(() => {
-    const textareaId = 'editMessageTextarea-' + index;
     const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
     if (textareaElement) {
       textareaElement.focus();
@@ -179,7 +188,7 @@ editMessageFunction(index: number) {
   this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
 }
 
-addEmojiToEditedMessage(event: any, index: number) {
+  addEmojiToEditedMessage(event: any, index: number) {
   const selectedEmoji = event['emoji']['native'];
   this.selectedEmojis.push(selectedEmoji);
   this.channelService.messages[index].message += selectedEmoji;
@@ -187,7 +196,7 @@ addEmojiToEditedMessage(event: any, index: number) {
 
   editMessageAbort(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+   //this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
   editMessageBlur(index: number,event:any,editMessageForm:NgForm) {
@@ -202,7 +211,7 @@ addEmojiToEditedMessage(event: any, index: number) {
 
   onSubmit(editMessageForm: NgForm, index: number) {
     console.log(editMessageForm.value,this.newMessage);
-    
+   
     if (editMessageForm.valid) {
         this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
         if (this.channelService.privateMsg) {
@@ -229,6 +238,7 @@ addEmojiToEditedMessage(event: any, index: number) {
       }
       element = element.parentElement;
     }
+    
     return false;
   }
 
@@ -238,10 +248,17 @@ addEmojiToEditedMessage(event: any, index: number) {
  */
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event) {
+    // TODO: funzt muss aber noch optimiert werden
+    if (!this.isEditMessageVisible || this.editMessageContainer) {
+        if (!this.isClickedElementOrChildWithClass(event.target, 'edit-message') && this.editMessageContainer) {
+          console.log("außerhalb von edit");
+          this.openEditMessageToggle = this.openEditMessageToggle.map(() => false);
+    }
+    }
     if (!this.isEmojiPickerVisible || !this.emojiPickerContainer) {
+      
       return;
     }
-
     if (!this.isClickedElementOrChildWithClass(event.target, 'emoji-mart') && this.emojiPickerContainer) {
       this.showEmojiPickerArray = this.channelService.messages.map(() => false);
       this.isEmojiPickerVisible = false;
