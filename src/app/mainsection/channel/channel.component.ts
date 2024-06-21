@@ -8,7 +8,6 @@ import { ChannelService } from '../../shared/services/channel.service';
 import { MessageData } from '../../shared/models/message.class';
 import { UserService } from '../../shared/services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { EmojiService } from '../../shared/services/emoji.service';
 
 @Component({
   selector: 'app-channel',
@@ -33,7 +32,7 @@ export class ChannelComponent {
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog,private emojiService: EmojiService) {
+  constructor(public dialog: MatDialog) {
     this.channelService.messagesLoaded = false;
   }
 
