@@ -23,7 +23,7 @@
     height: 1px;
     background-color: $light-purple;
 
-    >span {
+    > span {
         font-size: 18px;
         padding: 5px 15px;
         text-wrap: nowrap;
@@ -49,7 +49,6 @@
     border: 1px solid $light-purple;
     transition: all 75ms ease-in-out;
 }
-
 
 .single-message-container {
     position: relative;
@@ -90,7 +89,7 @@
     width: 70px;
     @include dFlex();
 
-    >img {
+    > img {
         border-radius: 50%;
         max-width: 70px;
     }
@@ -105,7 +104,7 @@
     @include dFlex();
     gap: 20px;
 
-    >span {
+    > span {
         cursor: pointer;
         font-size: 18px;
         font-weight: 700;
@@ -126,7 +125,7 @@
     background-color: $bg-color;
     border-radius: 0px 20px 20px 20px;
 
-    >span {
+    > span {
         padding: 15px;
     }
 }
@@ -182,7 +181,6 @@
     &:hover {
         .message {
             background-color: $purple2;
-
         }
     }
 }
@@ -223,7 +221,7 @@
     font-weight: 500;
     text-wrap: nowrap;
 
-    >span {
+    > span {
         cursor: pointer;
 
         &:hover {
@@ -251,7 +249,7 @@
     font-weight: 500;
     text-wrap: nowrap;
 
-    >span {
+    > span {
         cursor: pointer;
 
         &:hover {
@@ -283,7 +281,7 @@
 .edit-message {
     position: relative;
 
-    >textarea {
+    > textarea {
         min-width: 356px;
         min-height: 88px;
         height: fit-content;
@@ -301,7 +299,7 @@
 .edit-message-inverted {
     position: relative;
 
-    >textarea {
+    > textarea {
         min-width: 356px;
         min-height: 88px;
         height: fit-content;
@@ -320,8 +318,7 @@
     @include dFlex($jc: space-between);
     padding: 15px;
 
-
-    >button {
+    > button {
         font-size: 16px;
         cursor: pointer;
         background-color: $purple1;
@@ -337,7 +334,7 @@
 }
 
 .selected-emoji {
-    >span {
+    > span {
         cursor: pointer;
         background-color: white;
         border: 1px solid $light-purple;
@@ -356,7 +353,6 @@
     gap: 25px;
     flex-direction: column;
 
-
     .user-info {
         @include dFlex($ai: flex-end);
         gap: 25px;
@@ -370,7 +366,7 @@
         }
 
         span {
-            font: 700 24px 'Nunito';
+            font: 700 24px "Nunito";
         }
 
         &:hover {
@@ -379,7 +375,7 @@
     }
 
     .start-text {
-        font: 400 20px 'Nunito';
+        font: 400 20px "Nunito";
         color: $text-gray;
 
         .name-clickable {
@@ -391,6 +387,41 @@
             }
         }
     }
+}
 
+@media screen and (max-width: 600px) {
+    .divider-container {
+        padding: 20px 24px;
+    }
+    .single-message-container {
+        padding: 28px 24px;
+    }
+    .profile-picture {
+        width: 50px;
+        height: 50px;
+        img {
+            max-width: 50px;
+        }
+    }
+    .message-wrapper {
+        margin-top: 0;
+        margin-left: 16px;
+    }
+    .inverted-message {
+        .message-wrapper {
+            margin-right: 16px;
+        }
+    }
+}
 
+@media screen and (max-width: 480px) {
+    .divider-container {
+        padding: 20px 16px;
+        span {
+            font-size: 16px;
+        }
+    }
+    .single-message-container {
+        padding: 24px 16px;
+    }
 }

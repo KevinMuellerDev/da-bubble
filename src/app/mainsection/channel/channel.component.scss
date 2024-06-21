@@ -149,3 +149,21 @@
     bottom: 200px;
     left: 67px;
 }
+
+@media screen and (max-width: 600px) {
+    .channel-message-input {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+
+    .channel-message-icons {
+        bottom: 35px;
+        left: 24px;
+    }
+
+    .send-icon {
+        bottom: 35px;
+        left: calc(100% - 75px);
+    }
+}

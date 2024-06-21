@@ -203,7 +203,7 @@
     font-weight: 700;
   }
 
-  &:hover{
+  &:hover {
     background-color: $bg-color;
   }
 }
@@ -211,7 +211,7 @@
 .add-new-channel-container {
   @include dFlex();
   gap: 10px;
-  margin-top: 25px;
+  margin: 25px 0 0 12px;
   cursor: pointer;
 
   > span {
@@ -336,18 +336,34 @@
 }
 
 @media screen and (max-width: 960px) {
-  .sidebar-container {
-    padding: 20px 20px;
-  }
   .search-bar {
     @include dFlex($jc: space-between);
   }
 }
 
-@media screen and (max-width: 600px) {
-  .direct-message-container,
-  .messages-container,
-  .channel-container {
-    margin-left: 35px;
+@media screen and (max-width: 480px) {
+  .search-bar {
+    margin: 0 20px;
+  }
+
+  .sidebar-container {
+    padding: 32px 16px;
+  }
+  .channel-container,
+  .direct-message-container {
+    padding: 0;
+  }
+  .headline-left {
+    display: none;
+  }
+  .edit-icon {
+    position: absolute;
+    right: 16px;
+    bottom: 60px;
+    border-radius: 50%;
+    background-image: url("/assets/img/icons/edit_square_white.svg");
+    background-color: $purple1;
+    padding: 30px;
+    transform: translate(-50%, -50%);
   }
 }

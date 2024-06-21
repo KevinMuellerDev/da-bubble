@@ -73,6 +73,18 @@
         transform: translate(-50%, -50%);
         border-radius: 30px;
     }
+
+    .edit-channel .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-new-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+        position: absolute;
+        max-width: 90vw;
+        width: 90vw;
+        height: fit-content;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 30px;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -113,5 +125,13 @@
     .show-profile .mat-mdc-dialog-container .mdc-dialog__surface,
     .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface {
         width: 90vw;
+    }
+
+    .edit-channel .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-new-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+        max-width: 100vw;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
     }
 }

@@ -7,8 +7,7 @@
     flex-direction: column;
     gap: 20px;
     position: relative;
-    // min-width: 792px;
-    // max-width: 792px;
+    max-width: 792px;
 }
 
 .channel-close-icon {
@@ -180,5 +179,11 @@
         &:hover {
             background-color: $purple2;
         }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main-container {
+        padding: 40px 24px;
     }
 }

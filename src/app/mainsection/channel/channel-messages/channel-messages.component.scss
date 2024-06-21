@@ -6,10 +6,10 @@
 }
 
 .channel-head-wrapper {
-    border-radius: 30px 30px 0 0;
     min-height: 96px;
     @include dFlex($jc: space-between);
     width: 100%;
+    border-radius: 30px 30px 0 0;
     box-shadow: 0px 2px 10px 0px #00000014;
     padding: 25px 45px 20px 45px;
 }
@@ -25,7 +25,6 @@
 
     &:hover {
         background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
-
     }
 }
 
@@ -40,7 +39,6 @@
 
     &:hover {
         background-image: url("/assets/img/icons/tag_hover.svg");
-
     }
 }
 
@@ -48,9 +46,8 @@
     @include dFlex($jc: center);
     gap: 10px;
     cursor: pointer;
-    padding: 6px 10px;
 
-    >span {
+    > span {
         font-size: 24px;
         font-weight: 700;
         text-wrap: nowrap;
@@ -65,7 +62,7 @@
             background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
         }
 
-        >span {
+        > span {
             color: $purple1;
         }
 
@@ -75,7 +72,9 @@
 }
 
 .channel-head-right {
-    @include dFlex($jc: center);
+    @include dFlex($jc: flex-end);
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .channel-user-icons {
@@ -87,18 +86,18 @@
         background-color: $bg-color;
         border-radius: 30px;
 
-        >span {
+        > span {
             color: $purple1;
         }
     }
 
-    >span {
+    > span {
         margin-left: 10px;
         font-size: 20px;
         font-weight: 600;
     }
 
-    >img {
+    > img {
         width: 40px;
         border-radius: 50%;
         border: 1px solid white;
@@ -129,17 +128,16 @@
     @include dFlex($jc: center);
     gap: 15px;
 
-
-    >img {
+    > img {
         width: 50px;
         height: 50px;
         border-radius: 50% 50%;
     }
 
-    >span {
-        font: 700 24px 'Nunito';
+    > span {
+        font: 700 24px "Nunito";
 
-        &:hover{
+        &:hover {
             color: $purple1;
         }
     }
@@ -154,32 +152,55 @@
         border: 2px solid white;
     }
 }
-.head-newmsg{
+.head-newmsg {
     @include dFlex($ai: flex-start);
     flex-direction: column;
     gap: 20px;
     width: 100%;
 
-    span{
-        font: 700 24px 'Nunito';
+    span {
+        font: 700 24px "Nunito";
     }
 
-    .input-wrapper{
+    .input-wrapper {
         width: 100%;
         padding: 15px 20px;
         border-radius: 30px;
         border: 1px solid $light-purple;
 
-        input{
+        input {
             width: 100%;
             height: 25px;
-            font: 400 18px 'Nunito';
+            font: 400 18px "Nunito";
             color: $text-gray;
             outline: none;
             border: none;
             caret-color: black;
         }
     }
-
 }
 
+@media screen and (max-width: 768px) {
+    .channel-head-wrapper {
+        padding: 20px 24px;
+
+        .channel-head {
+            gap: 0;
+             span {
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .channel-head {
+        > span {
+            font-size: 20px;
+            text-wrap: wrap;
+        }
+    }
+    .channel-user-icons {
+        display: none;
+    }
+}

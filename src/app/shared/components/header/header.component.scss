@@ -91,6 +91,41 @@ header {
     }
 }
 
+.headline-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    span {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
+
+.arrow-back {
+    @include dFlex($jc: center);
+    height: 50px;
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.header-logo-mobile {
+    margin: 0 10px 0 4px;
+    height: 50px;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.d-none {
+    display: none !important;
+}
+
 @media screen and (max-width: 1260px) {
     .header-search {
         padding: 17.5px 10px 17.5px 28px !important;
