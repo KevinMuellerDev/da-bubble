@@ -76,9 +76,9 @@ export class MessageComponent {
     return oldDateAsString != newDateAsString;
   }
 
-
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
+
 
    this.initialChildCount = this.scroll.nativeElement.children.length;
     this.mutationObserver = new MutationObserver((mutations) => {
@@ -260,7 +260,7 @@ export class MessageComponent {
 
   ngOnDestroy() {
     /* this.unsubMessageData(); */
-     this.mutationObserver.disconnect();
+    this.mutationObserver.disconnect();
     this.channelService.messages = [];
     this.channelService.messagesLoaded = false;
     this.channelService.currentMessagesId = '';
