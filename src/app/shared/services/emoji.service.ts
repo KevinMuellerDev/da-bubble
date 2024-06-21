@@ -8,6 +8,7 @@ export class EmojiService {
 
   constructor(private channelService: ChannelService) { }
 
+  selectedEmojis: string[] = [];
 
  addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     const emoji = event['emoji']['native'];
@@ -111,6 +112,14 @@ updateMessage(index: number) {
   addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
     this.addEmoji(event, currentMessageIndex, messageId, userId, true)
   }
+
+  addEmojiToEditedMessage(event: any, index: number) {
+    console.log("test aus service");
+    
+  const selectedEmoji = event['emoji']['native'];
+  this.selectedEmojis.push(selectedEmoji);
+  this.channelService.messages[index].message += selectedEmoji;
+}
 
 
 }
