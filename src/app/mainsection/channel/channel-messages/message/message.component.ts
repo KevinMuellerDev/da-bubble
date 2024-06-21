@@ -189,7 +189,7 @@ export class MessageComponent {
     
     if (editMessageForm.valid) {
         this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
-        //this.channelService.updateChannelMessage(this.channelService.messages[index]);
+        this.channelService.updateDirectMessage(this.channelService.messages[index]);
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
     }

@@ -256,6 +256,7 @@ export class ChannelService {
 
         await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
+          message:data.message
         });
       }
     });
@@ -267,6 +268,7 @@ export class ChannelService {
 
         await updateDoc(doc(this.firestore, "user", this.privateMsgData.id, 'directmessages', this.oppositeMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
+          message: data.message,
         });
       }
     });
@@ -276,10 +278,19 @@ export class ChannelService {
     const querySnapshot = await getDocs(this.refQueryChannelMsg());
     querySnapshot.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
-        console.log('gefunden => ', dataset.data());
-        console.log('gefunden => ', data);
         await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
           emoji: data.emoji,
+        });
+      }
+    });
+  }
+
+  async updateChannelMessageText(data: any) {
+    const querySnapshot = await getDocs(this.refQueryChannelMsg());
+    querySnapshot.forEach(async (dataset) => {
+      if (data.timestamp == dataset.data()['timestamp']) {
+        await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
+          message: data.message,
         });
       }
     });
