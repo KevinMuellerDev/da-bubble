@@ -43,7 +43,8 @@
                         [ngClass]="{ 'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
                         *ngIf="editMessage[i] && userId == message.id " (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea name="editMessageTextarea" [id]="'editMessageTextarea-' + i"
-                            [(ngModel)]="newMessage.message" (focusout)="editMessageBlur(i,$event,editMessageForm)">
+                            [(ngModel)]="newMessage.message" (focusout)="editMessageBlur(i,$event,editMessageForm)"
+                            (keyup.enter)="onSubmit(editMessageForm,i)">
                             </textarea>
                         <div class="edit-Message-control">
                             <button type="submit" class="edit-message-button">Speichern</button>
