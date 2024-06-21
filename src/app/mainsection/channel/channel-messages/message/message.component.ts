@@ -188,7 +188,7 @@ toggleEmojiPicker(index: number) {
 
   editMessageAbort(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-    this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+   //this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
   editMessageBlur(index: number,event:any,editMessageForm:NgForm) {
