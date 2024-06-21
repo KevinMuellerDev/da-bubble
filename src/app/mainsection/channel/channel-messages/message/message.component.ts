@@ -70,8 +70,6 @@ export class MessageComponent {
   }
 
   isNewDate(oldDate: number, newDate: number) {
-    /* let oldDateAsString = this.convertToDate(oldDate);
-    let newDateAsString = this.convertToDate(newDate); */
     let oldDateAsString = new Date(oldDate).toLocaleDateString();
     let newDateAsString = new Date(newDate).toLocaleDateString();
     return oldDateAsString != newDateAsString;
@@ -109,11 +107,6 @@ export class MessageComponent {
   pushTimestamp(timestamp: string | null) {
     this.dateMap.push(timestamp as string);
     console.log(this.dateMap);
-  }
-  checkIfDateExists(timestamp: string | null) {
-    console.log(this.dateMap.includes(timestamp as string));
-
-    return this.dateMap.includes(timestamp as string)
   }
 
   /**
