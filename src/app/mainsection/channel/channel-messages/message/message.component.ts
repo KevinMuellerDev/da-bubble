@@ -15,6 +15,7 @@ import { Subject, Subscription,Observable } from 'rxjs';
 import { UserService } from '../../../../shared/services/user.service';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import { EmojiService } from '../../../../shared/services/emoji.service';
 
 registerLocaleData(localeDe);
 
@@ -40,7 +41,7 @@ export class MessageComponent {
   messages: any[] = [];
   newMessage: { message: string } = { message: '' };
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,private emojiService: EmojiService) {
     this.userId = sessionStorage.getItem('uid')!;
     this.channelService.messagesLoaded=false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
@@ -109,6 +110,26 @@ export class MessageComponent {
     console.log(this.dateMap);
   }
 
+    onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
+    this.emojiService.addEmoji(event, index, messageId, userId);
+    if (!calledFromFunction) {
+      this.toggleEmojiPicker(index);
+      this.isEmojiPickerVisible = false;
+    }
+  }
+
+  onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
+    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId);
+  }
+
+  onAddCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
+    this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId);
+  }
+
+  onAddRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
+    this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId);
+  }
+
   /**
  * Toggles the visibility of the emoji picker for the message at the specified index.
  * It sets the corresponding value in the `showEmojiPickerArray` to the opposite of its current value.
@@ -154,146 +175,27 @@ export class MessageComponent {
   }
 
   editMessageBlur(index: number,event:any,editMessageForm:NgForm) {
-    console.log("Blur ist da");
     const relatedTarget = event.relatedTarget as HTMLElement;
-  // fokus soll nicht bei einem button klick ausgefürhrt werden
+  // weitere funktionen sollen nicht bei einem button klick ausgefürhrt werden
     if (relatedTarget && (relatedTarget.tagName === 'BUTTON' || relatedTarget.closest('button'))) {
     return;
   } 
       this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
       editMessageForm.reset();
-      console.log(this.openEditMessageToggle ,this.editMessage);
-  
-   
   }
 
   onSubmit(editMessageForm: NgForm, index: number) {
-    console.log(editMessageForm.value,"ausgeführt");
+    console.log(editMessageForm.value,this.newMessage);
     
     if (editMessageForm.valid) {
         this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
         //this.channelService.updateChannelMessage(this.channelService.messages[index]);
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-        //this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
   }
   }
 
-  /**
-   * Adds an emoji to the message at the specified index.
-   * If the emoji already exists in the message's emojiCounts, increment its count.
-   * If the emoji does not exist, add it to the emojiCounts with a count of 0.
-   * @param event - The event object containing the emoji data.
-   * @param index - The index of the message to which the emoji should be added.
-   */
-  addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
-    const emoji = event['emoji']['native'];
-    let foundEmoji = false;
-    let userMatched = messageId === userId;
-    let callFromSingleEmoji = calledFromFunction;
-
-    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-        if (!this.channelService.messages[index].emoji[i].users) {
-          this.channelService.messages[index].emoji[i].users = [];
-        }
-        if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
-          console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
-          this.channelService.messages[index].emoji[i].count++;
-          this.channelService.messages[index].emoji[i].users.push(userId);
-        }
-        foundEmoji = true;
-        if (this.channelService.privateMsg) {
-          console.log('hier bin ich');
-          
-          this.channelService.updateDirectMessage(this.channelService.messages[index]);
-        } else{
-          this.channelService.updateChannelMessage(this.channelService.messages[index])
-        }
-        break;
-
-      }
-    }
-
-    if (!foundEmoji) {
-      //wenn ich keinen emoji gefunden habe startet der count immer mit 0
-      const count = 0//userMatched ? 0 : 1;
-      const users = userMatched ? [] : [userId];
-      console.log(count, userMatched, emoji, users);
-      this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
-      if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[index]);
-      } else{
-        this.channelService.updateChannelMessage(this.channelService.messages[index])
-      }
-    }
-    if (!callFromSingleEmoji) {
-      this.toggleEmojiPicker(index);
-      this.isEmojiPickerVisible = false;
-    }
-
-  }
-
-
-  updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-    let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
-    let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
-
-    //es muss nicht geprüft werden ob ein Emoji vorhanden ist. 
-    // Prüfen, ob die Nachricht von mir stammt oder ob ich bereits reagiert habe
-    if (messageId === userId || emojiUserIds.includes(userId)) {
-      // Wenn der count des emojis 0 und die Reaktion mit mir zusammenhängt, soll dieses entfernt werden
-      if (emojiCount === 0) {
-        this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
-      } else {
-        // Wenn count > 0, den count um 1 verringern
-        this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-        // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
-        const userIndex = emojiUserIds.indexOf(userId);
-        if (userIndex !== -1) {
-          emojiUserIds.splice(userIndex, 1);
-        }
-      }
-      if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-      } else{
-        this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
-      }
-    } else {
-      // Wenn die Nachricht nicht von mir stammt
-      if (emojiUserIds.includes(userId)) {
-        // Wenn count > 0, den count um 1 verringern
-        if (emojiCount > 0) {
-          this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-          // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
-          const userIndex = emojiUserIds.indexOf(userId);
-          if (userIndex !== -1) {
-            emojiUserIds.splice(userIndex, 1);
-          }
-        }
-      } else {
-        // Wenn es bereits ein emoji gibt, soll der countWert erhöht werden
-        this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
-        // Hinzufügen meiner Benutzer-ID zur Liste der Reaktionen
-        emojiUserIds.push(userId);
-      }
-      if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-      } else{
-        this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
-      }
-    }
-  }
-
-  addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
-    this.addEmoji(event, currentMessageIndex, messageId, userId, true)
-  }
-
-  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
-    this.addEmoji(event, currentMessageIndex, messageId, userId, true)
-  }
-
-
+  
   /**
  * Checks if a given element or any of its parent elements have a specific class.
  * @param element - The element to check.

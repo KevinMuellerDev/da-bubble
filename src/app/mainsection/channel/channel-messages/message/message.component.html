@@ -12,9 +12,9 @@
         <div id="singleMessage" #singleMessage [ngClass]="{ 'inverted-message': userId == message.id}"
             class="single-message-container">
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
-                <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="addCheckEmoji($event,i,message.id,userId)"
+                <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddCheckEmoji($event,i,message.id,userId)"
                     [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
-                <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="addCheckEmoji($event,i,message.id,userId)"
+                <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddRaisedHandsEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
                 <div *ngIf="userId == message.id" (click)="toggleEditMessage(i)" class="edit-message-icon"></div>
@@ -55,12 +55,12 @@
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false
                             [ngClass]="{'emoji-mart-left': userId == message.id, 'emoji-mart-right': userId != message.id}"
-                            (emojiClick)="addEmoji($event,i,message.id,userId)" *ngIf="showEmojiPickerArray[i]"
+                            (emojiClick)="onAddEmoji($event,i,message.id,userId)" *ngIf="showEmojiPickerArray[i]"
                             set="google"></emoji-mart>
                     </div>
                 </div>
                 <div class="selected-emoji">
-                    <span (click)="updateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
+                    <span (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
                         *ngFor="let emojiCount let e = index of message.emoji">
                         {{ emojiCount.emoji }}
                         <ng-container *ngIf="message.emoji[e].count >0">
