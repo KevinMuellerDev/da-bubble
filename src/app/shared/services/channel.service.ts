@@ -151,6 +151,8 @@ export class ChannelService {
     
     this.resetMessageType();
     dm ? this.privateMsg = true : this.channelMsg = true;
+    console.log(this.channelMsg);
+    
     console.log(data);
 
     if (this.privateMsg) {
@@ -244,11 +246,14 @@ export class ChannelService {
 
 
   async updateDirectMessage(data: any) {
+    console.log('ERROR HIER SOLL ICH NICHT REIN');
     await this.getDmId();
     await this.getOppositeDmId();
     const querySnapshotSelf = await getDocs(this.refQuerySelf());
     const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
 
+    console.log('ERROR HIER SOLL ICH NICHT REIN');
+    
     querySnapshotSelf.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
@@ -280,17 +285,7 @@ export class ChannelService {
       if (data.timestamp == dataset.data()['timestamp']) {
         await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
           emoji: data.emoji,
-        });
-      }
-    });
-  }
-
-  async updateChannelMessageText(data: any) {
-    const querySnapshot = await getDocs(this.refQueryChannelMsg());
-    querySnapshot.forEach(async (dataset) => {
-      if (data.timestamp == dataset.data()['timestamp']) {
-        await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, 'messages', dataset.id), {
-          message: data.message,
+          message: data.message
         });
       }
     });

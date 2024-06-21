@@ -205,7 +205,11 @@ addEmojiToEditedMessage(event: any, index: number) {
     
     if (editMessageForm.valid) {
         this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
-        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+        if (this.channelService.privateMsg) {
+          this.channelService.updateDirectMessage(this.channelService.messages[index]);
+        }else{
+          this.channelService.updateChannelMessage(this.channelService.messages[index]);
+        }
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
         this.selectedEmojis = [];

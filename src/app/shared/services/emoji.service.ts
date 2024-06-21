@@ -48,6 +48,8 @@ addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string) 
 }
 
 updateMessage(index: number) {
+  console.log(this.channelService.privateMsg);
+  
     if (this.channelService.privateMsg) {
         this.channelService.updateDirectMessage(this.channelService.messages[index]);
     } else {
