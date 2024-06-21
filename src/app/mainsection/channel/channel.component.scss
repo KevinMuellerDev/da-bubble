@@ -1,5 +1,9 @@
 @import "./../../../styles.scss";
 
+:host {
+    --emoji-mart-scroll-height: 90px;
+}
+
 .channel-container {
     position: relative;
     height: 100%;
@@ -138,4 +142,10 @@
     bottom: 5px;
     left: 35px;
     color: $error;
+}
+
+.emoji-container-default {
+    position: absolute;
+    bottom: 200px;
+    left: 67px;
 }

@@ -10,7 +10,7 @@
             <div class="channel-message-icons">
                 <div class="add-icon"></div>
                 <div class="icon-divider"></div>
-                <div class="emoji-icon"></div>
+                <div class="emoji-icon" (click)="toggleEmojiPickerEvent($event)"></div>
                 <div class="tag-icon"></div>
             </div>
             <div class="send-icon" (click)="onSubmit(form)"></div>
@@ -18,5 +18,10 @@
     </div>
     <div class="error-message" *ngIf="!form.valid && (form.touched || submitClick) && textareaBlur">Inhalt
         mit min. 1 Zeichen erforderlich !
+    </div>
+    <div id="emojiPickerContainer">
+        <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
+            [totalFrequentLines]="1" [enableSearch]=false [ngClass]="'emoji-container-default'"
+            (emojiClick)="addChannelMessageEmoji($event)" *ngIf="isEmojiPickerVisible" set="google"></emoji-mart>
     </div>
 </div>

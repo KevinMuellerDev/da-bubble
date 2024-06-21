@@ -40,6 +40,7 @@ export class MessageComponent {
   editMessage: boolean[] = [];
   messages: any[] = [];
   newMessage: { message: string } = { message: '' };
+  selectedEmojis: string[] = [];
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,private emojiService: EmojiService) {
     this.userId = sessionStorage.getItem('uid')!;
@@ -76,9 +77,9 @@ export class MessageComponent {
     return oldDateAsString != newDateAsString;
   }
 
-
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
+
 
    this.initialChildCount = this.scroll.nativeElement.children.length;
     this.mutationObserver = new MutationObserver((mutations) => {
@@ -136,9 +137,18 @@ export class MessageComponent {
  * All other values in the array are set to false, ensuring that only one emoji picker is visible at a time.
  * @param index - The index of the message for which the emoji picker should be toggled.
  */
-  toggleEmojiPicker(index: number) {
+toggleEmojiPicker(index: number) {
+  if (this.editMessage[index]) {
+    // Wenn die Nachricht bearbeitet wird, Emojis zur bearbeiteten Nachricht hinzufügen
+    this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
+    if (this.showEmojiPickerArray[index]) {
+      document.addEventListener('emoji-click', (event: any) => this.addEmojiToEditedMessage(event, index), { once: true });
+    }
+  } else {
+    // Standardverhalten
     this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
+}
 
   /**
 * Toggles the visibility of the emoji picker.
@@ -155,19 +165,25 @@ export class MessageComponent {
     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
-  editMessageFunction(index: number) {
-    this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-    console.log(this.channelService.messages[index].message);
-    //der timeout gleicht verzögerung im DOM aus. Sonst gibt es abunzu focus probleme
-      setTimeout(() => {
+editMessageFunction(index: number) {
+  this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+  console.log(this.channelService.messages[index].message);
+  // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
+  setTimeout(() => {
     const textareaId = 'editMessageTextarea-' + index;
     const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
     if (textareaElement) {
       textareaElement.focus();
     }
-      }, 0);
-     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
-  }
+  }, 0);
+  this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+}
+
+addEmojiToEditedMessage(event: any, index: number) {
+  const selectedEmoji = event['emoji']['native'];
+  this.selectedEmojis.push(selectedEmoji);
+  this.channelService.messages[index].message += selectedEmoji;
+}
 
   editMessageAbort(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
@@ -192,6 +208,7 @@ export class MessageComponent {
         this.channelService.updateDirectMessage(this.channelService.messages[index]);
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
+        this.selectedEmojis = [];
     }
   }
 
@@ -260,7 +277,7 @@ export class MessageComponent {
 
   ngOnDestroy() {
     /* this.unsubMessageData(); */
-     this.mutationObserver.disconnect();
+    this.mutationObserver.disconnect();
     this.channelService.messages = [];
     this.channelService.messagesLoaded = false;
     this.channelService.currentMessagesId = '';

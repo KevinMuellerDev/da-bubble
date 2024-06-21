@@ -1,9 +1,7 @@
 @import "@ctrl/ngx-emoji-mart/picker";
 @import "./dialog.scss";
 
-.emoji-mart-scroll {
-    height: 150px !important;
-}
+
 
 .emoji-mart-preview {
     display: none !important;
@@ -45,6 +43,10 @@ $green: #92c83e;
     display: flex;
     justify-content: $jc;
     align-items: $ai;
+}
+
+.emoji-mart-scroll {
+    height: var(--emoji-mart-scroll-height) !important;
 }
 
 .single-emoji {

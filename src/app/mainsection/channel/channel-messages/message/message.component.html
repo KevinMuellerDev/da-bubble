@@ -9,7 +9,7 @@
             </div>
         </div>
         }
-        <div id="singleMessage" #singleMessage [ngClass]="{ 'inverted-message': userId == message.id}"
+        <div [id]="'singleMessage-'+i" #singleMessage [ngClass]="{ 'inverted-message': userId == message.id}"
             class="single-message-container">
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddCheckEmoji($event,i,message.id,userId)"
@@ -43,7 +43,8 @@
                         [ngClass]="{ 'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
                         *ngIf="editMessage[i] && userId == message.id " (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea name="editMessageTextarea" [id]="'editMessageTextarea-' + i"
-                            [(ngModel)]="newMessage.message" (focusout)="editMessageBlur(i,$event,editMessageForm)">
+                            [(ngModel)]="newMessage.message" (focusout)="editMessageBlur(i,$event,editMessageForm)"
+                            (keyup.enter)="onSubmit(editMessageForm,i)">
                             </textarea>
                         <div class="edit-Message-control">
                             <button type="submit" class="edit-message-button">Speichern</button>
@@ -92,7 +93,8 @@
         </div>
         <div class="start-text">
             <span>Diese Unterhaltung findet nur zwischen <span
-                (click)="getOtherUserData(channelService.privateMsgData.id)" class="name-clickable">&#64;{{channelService.privateMsgData['name']}}</span> und dir statt.</span>
+                    (click)="getOtherUserData(channelService.privateMsgData.id)"
+                    class="name-clickable">&#64;{{channelService.privateMsgData['name']}}</span> und dir statt.</span>
         </div>
     </div>
     }
