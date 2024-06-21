@@ -17,8 +17,10 @@
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddRaisedHandsEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEmojiPickerEvent($event)" class="add-reaction-icon"></div>
-                <div *ngIf="userId == message.id" (click)="toggleEditMessage(i)" class="edit-message-icon"></div>
-                <div [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
+                <div *ngIf="userId == message.id" (click)="toggleEditMessage(i);toggleEditEvent($event)"
+                    class="edit-message-icon"></div>
+                <div #editMessageContainer id="editMessageContainer"
+                    [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
                     *ngIf="openEditMessageToggle[i]  && userId == message.id">
                     <span (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
                 </div>
@@ -85,7 +87,8 @@
             </div>
         </div> -->
     </div>
-    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true && channelService.privateMsg) {
+    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true &&
+    channelService.privateMsg) {
     <div class="wrapper-start-msg">
         <div class="user-info" (click)="getOtherUserData(channelService.privateMsgData.id)">
             <img [src]="channelService.privateMsgData['profilePicture']" alt="">
