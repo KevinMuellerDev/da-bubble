@@ -1,12 +1,21 @@
 <header>
-    <div class="header-logo">
-        <img src="/assets/img/header/Logo.svg" alt="">
+    <div #headlineMobile class="headline-mobile" (click)="goBack()">
+        <div class="arrow-back">
+            <img src="/assets/img/header/arrow_back.png" alt="arrow">
+        </div>
+        <div class="header-logo-mobile">
+            <img src="/assets/img/Workspace logo.svg" alt="logo" />
+        </div>
+        <span> Devspace </span>
+    </div>
+    <div #headlineDesktop class="header-logo">
+        <img src="/assets/img/header/Logo.svg" alt="logo">
     </div>
     <div class="header-search">
         <input type="text" placeholder="[channelName] durchsuchen">
         <img src="/assets/img/header/search-btn.svg">
     </div>
-    <div class="user-menu"  (click)="openDialog()">
+    <div class="user-menu" (click)="openDialog()">
         <span>{{userService.userInfo.name}}</span>
         <div class="profile-picture">
             <img [src]="userService.userInfo.profilePicture" referrerpolicy="no-referrer" alt="">

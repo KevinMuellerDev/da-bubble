@@ -1,7 +1,7 @@
 @import "./../../styles.scss";
 
 .main-landing {
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     padding: 24px;
@@ -126,7 +126,7 @@
             transform: translateY(-50%);
             max-width: 366px;
             width: 100%;
-            z-index: 2;
+            z-index: 1;
             box-shadow: -6px 0px 7px 0px #00000033;
         }
     }
@@ -143,5 +143,39 @@
 
     .toggle-navbar {
         top: 80%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    .toggle-navbar {
+        display: none;
+    }
+
+    .margin-right {
+        margin-right: 0 !important;
+    }
+
+    .margin-left {
+        margin-left: 0 !important;
+    }
+
+    .main-landing {
+        padding: 0;
+    }
+
+    app-header {
+        margin: 16px 16px;
+    }
+    .content {
+        margin: 0;
+        app-sidebar,
+        app-channel,
+        app-thread {
+            border-radius: 0;
+            overflow-y: scroll;
+        }
     }
 }

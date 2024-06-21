@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -9,17 +9,20 @@ import { UserService } from '../shared/services/user.service';
 @Component({
   selector: 'app-mainsection',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SidebarComponent, ChannelComponent, ThreadComponent],
+  imports: [CommonModule, HeaderComponent, SidebarComponent, ChannelComponent, ThreadComponent, HeaderComponent],
   templateUrl: './mainsection.component.html',
   styleUrl: './mainsection.component.scss'
 })
 
 export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
+  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
   rotateToggle: boolean = false;
   mediumScreen: boolean = false;
   smallerMediumScreen: boolean = false;
-  sidenavOpen: boolean = false;
+  largerSmallScreen: boolean = false;
+  smallScreen: boolean = false;
+  sidenavOpen: boolean = true;
   threadOpen: boolean = false;
   unsubProfile;
   unsubUserChannels;
@@ -29,6 +32,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   @ViewChild('threadBar', { read: ElementRef }) threadBarElement!: ElementRef;
   @ViewChild('channel', { read: ElementRef }) channelElement!: ElementRef;
   @ViewChild('overlay', { read: ElementRef }) overlayElement!: ElementRef;
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
   constructor() {
     this.unsubProfile = this.userService.retrieveUserProfile();
@@ -37,35 +41,39 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.userService.userLoggedIn();
   }
 
-  /**
-   * Initializes the component after the view has been fully initialized.
-   * Calls the `checkInnerWidth` method to check the inner width of the window and sets the `mediumScreen` boolean variable accordingly.
-   */
+
   ngOnInit(): void {
-    this.checkInnerWidth(window.innerWidth);
+    this.checkInnerWidth({});
   }
 
   ngAfterViewInit() {
+    this.displayHeadlineMobile();
     this.hideThread();
     this.sidebarElement.nativeElement.classList.add('margin-right');
-    if (window.innerWidth <= 960) {
+    if (this.smallerMediumScreen) {
       this.hideSidenav();
       this.hideThread();
       this.rotateToggle = true;
       this.toggleElement.nativeElement.classList.add('rotate-toggle');
     }
+    this.cdr.detectChanges();
   }
 
   @HostListener('window:resize', ['$event'])
   checkInnerWidth(event: any) {
-    this.mediumScreen = window.innerWidth <= 1440;
-    this.smallerMediumScreen = window.innerWidth <= 960;
-    this.updateOverlayDisplay();
+    setTimeout(() => {
+      this.mediumScreen = window.innerWidth <= 1440 && window.innerWidth > 960;
+      this.smallerMediumScreen = window.innerWidth <= 960 && window.innerWidth > 600;
+      this.largerSmallScreen = window.innerWidth <= 600 && window.innerWidth > 480;
+      this.smallScreen = window.innerWidth <= 480;
+      this.updateOverlayDisplay();
+      this.displayHeadlineMobile();
+    },100);
   }
 
   updateOverlayDisplay() {
     if (this.overlayElement && this.overlayElement.nativeElement) {
-      if (window.innerWidth <= 960 && this.sidenavOpen == true || window.innerWidth <= 960 && this.threadOpen == true) {
+      if (this.smallerMediumScreen && this.sidenavOpen == true || window.innerWidth <= 960 && this.threadOpen == true) {
         this.overlayElement.nativeElement.style.display = 'block';
       } else {
         this.overlayElement.nativeElement.style.display = 'none';
@@ -94,8 +102,8 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   showThread() {
     this.threadBarElement.nativeElement.classList.add('margin-left');
+    this.threadOpen = true;
     if (this.mediumScreen == true) {
-      this.threadOpen = true;
       this.threadBarElement.nativeElement.classList.remove('hide-show');
       this.hideSidenav();
       this.toggleElement.nativeElement.classList.add('rotate-toggle');
@@ -106,6 +114,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     if (this.smallerMediumScreen == true) {
       this.overlayElement.nativeElement.style.display = 'block';
     }
+    this.displayHeadlineMobile();
   }
 
   /**
@@ -113,16 +122,18 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    */
   showSidenav() {
     this.sidebarElement.nativeElement.classList.add('margin-right');
+    this.sidenavOpen = true;
     if (this.mediumScreen == true) {
-      this.sidenavOpen = true;
       this.sidebarElement.nativeElement.classList.remove('hide-show');
       this.hideThread();
     } else {
       this.sidebarElement.nativeElement.classList.remove('hide-show');
     }
     if (this.smallerMediumScreen == true) {
+      this.hideThread();
       this.overlayElement.nativeElement.style.display = 'block';
     }
+    this.displayHeadlineMobile();
   }
 
   /**
@@ -143,6 +154,17 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.threadBarElement.nativeElement.classList.add('hide-show');
     this.threadOpen = false;
     this.overlayElement.nativeElement.style.display = 'none';
+
+  }
+
+  displayHeadlineMobile() {
+    if (this.smallScreen && this.sidenavOpen == false) {
+      this.headerComponent.headlineMobile.nativeElement.style.display = 'flex';
+      this.headerComponent.headlineDesktop.nativeElement.style.display = 'none';
+    } else {
+      this.headerComponent.headlineMobile.nativeElement.style.display = 'none';
+      this.headerComponent.headlineDesktop.nativeElement.style.display = 'flex';
+    }
   }
 
   closeSides() {
@@ -154,6 +176,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
       this.hideThread();
     }
   }
+
 
   getToggleText(): string {
     return this.sidenavOpen ? 'schließen' : 'öffnen';

@@ -85,7 +85,7 @@
             </div>
         </div> -->
     </div>
-    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true ) {
+    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true && channelService.privateMsg) {
     <div class="wrapper-start-msg">
         <div class="user-info" (click)="getOtherUserData(channelService.privateMsgData.id)">
             <img [src]="channelService.privateMsgData['profilePicture']" alt="">

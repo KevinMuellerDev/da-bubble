@@ -2,7 +2,7 @@
   <div class="search-bar">
     <input type="text" placeholder="[channelName] durchsuchen">
     <img src="/assets/img/header/search-btn.svg">
-</div>
+  </div>
   <div class="headline-container">
     <div class="headline-left">
       <div class="header-logo">
@@ -10,13 +10,13 @@
       </div>
       <span> Devspace </span>
     </div>
-    <div class="edit-icon" (click)="newMessage()"></div>
+    <div class="edit-icon" (click)="newMessage()" (click)="goToChannel()"></div>
   </div>
   <div class="channel-container">
     <div class="channels">
       <div class="channel-left-side">
         <div (click)="toggleMenu('channel')" [ngClass]="{ 'rotate-180': menuStates['channel'] === 'closed' }"
-             class="arrow-down-icon">
+          class="arrow-down-icon">
         </div>
         <div class="channel-head">
           <div (click)="toggleMenu('channel')" class="channel-icon">
@@ -29,20 +29,20 @@
     </div>
     <div class="channel-wrapper">
       @for (channel of sidebarService.channels; track $index) {
-      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel)" class="single-channel-container">
+      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel)" (click)="goToChannel()" class="single-channel-container">
         <span class="channel-hash"><img src="assets/img/icons/tag.svg" /></span>
         <span class="channel-name">{{channel.title}}</span>
       </div>
       }
+      <div (click)="openDialog()" class="add-new-channel-container">
+        <div class="add-new-channel-icon"></div>
+        <span>Channel hinzufügen</span>
+      </div>
     </div>
-  </div>
-  <div (click)="openDialog()" class="add-new-channel-container">
-    <div class="add-new-channel-icon"></div>
-    <span>Channel hinzufügen</span>
   </div>
   <div class="direct-message-container">
     <div (click)="toggleMenu('message')" [ngClass]="{ 'rotate-180': menuStates['message'] === 'closed' }"
-         class="arrow-down-icon">
+      class="arrow-down-icon">
     </div>
     <div class="direct-message-head">
       <div (click)="toggleMenu('message')" class="message-icon">
@@ -51,19 +51,19 @@
     </div>
   </div>
   <div [@openClose]="menuStates['message']" class="messages-container">
-    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo)">
+    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo)" (click)="goToChannel()">
       <img [src]="userService.userInfo.profilePicture" alt="" />
       <div [ngClass]="getUserStatus()" class="online-indicator"></div>
       <span>{{userService.userInfo.name}} (Du)</span>
     </div>
     @for (dm of sidebarService.userDmData; track dm; let i = $index) {
-      @if (dm.id != userService.userInfo.id) {
-        <div class="message" (click)="channelService.chooseChannelType(true, dm)">
-          <img referrerpolicy="no-referrer" [src]="dm.profilePicture" alt="" />
-          <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
-          <span>{{dm.name}}</span>
-        </div>
-      }
+    @if (dm.id != userService.userInfo.id) {
+    <div class="message" (click)="channelService.chooseChannelType(true, dm)" (click)="goToChannel()">
+      <img referrerpolicy="no-referrer" [src]="dm.profilePicture" alt="" />
+      <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
+      <span>{{dm.name}}</span>
+    </div>
+    }
     }
   </div>
 </div>

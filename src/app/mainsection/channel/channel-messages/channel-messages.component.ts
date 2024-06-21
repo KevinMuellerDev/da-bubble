@@ -56,7 +56,7 @@ export class ChannelMessagesComponent {
   openDialogEditChannel() {
     const rect = this.editChannel.nativeElement.getBoundingClientRect();
     this.dialog.open(EditChannelDialogComponent, {
-      panelClass: ['box-radius-left-corner', 'box-shadow'],
+      panelClass: ['edit-channel', 'box-radius-left-corner', 'box-shadow'],
       position: { top: `${rect.bottom + 10}px`, left: `${rect.left}px` }
     });
   }

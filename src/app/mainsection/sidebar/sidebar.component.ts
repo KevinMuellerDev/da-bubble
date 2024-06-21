@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   trigger,
   state,
@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddNewChannelComponent } from './add-new-channel/add-new-channel.component';
 import { SidebarService } from '../../shared/services/sidebar.service';
 import { ChannelService } from '../../shared/services/channel.service';
+import { MainsectionComponent } from '../mainsection.component';
 import { Unsubscribe } from '@angular/fire/firestore';
 
 @Component({
@@ -27,7 +28,7 @@ import { Unsubscribe } from '@angular/fire/firestore';
 })
 
 
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   userService: UserService = inject(UserService);
   sidebarService: SidebarService = inject(SidebarService);
   channelService: ChannelService = inject(ChannelService);
@@ -36,18 +37,28 @@ export class SidebarComponent {
   unsubUserDmIds;
   unsubUserDmData;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent) {
     this.unsubChannels = this.sidebarService.retrieveChannels();
     this.unsubCurrentChannels = this.sidebarService.retrieveCurrentChannels();
     this.unsubUserDmIds = this.sidebarService.retrieveCurrentDirectMsgs();
     this.unsubUserDmData = this.sidebarService.retrieveDmUserData();
   }
 
+  ngOnInit() {
+  }
+
   /**
    * Opens the AddNewChannel dialog.
    */
   openDialog() {
-    this.dialog.open(AddNewChannelComponent, { panelClass: ['box-radius', 'box-shadow'] });
+    this.dialog.open(AddNewChannelComponent, { panelClass: ['add-new-channel', 'box-radius', 'box-shadow'] });
+  }
+
+  goToChannel() {
+    if (this.mainsectionComponent.smallScreen || this.mainsectionComponent.largerSmallScreen) {
+      this.mainsectionComponent.hideSidenav();
+      this.mainsectionComponent.displayHeadlineMobile();
+    }
   }
 
   /**
@@ -86,7 +97,7 @@ export class SidebarComponent {
     return loggedIn;
   }
 
-  newMessage(){
+  newMessage() {
     this.channelService.privateMsg = false;
     this.channelService.channelMsg = false;
     this.channelService.messages = [];
@@ -99,6 +110,6 @@ export class SidebarComponent {
     this.unsubUserDmData();
     this.sidebarService.userDmData = [];
     console.log(this.sidebarService.userDmData);
-    
+
   }
 }
