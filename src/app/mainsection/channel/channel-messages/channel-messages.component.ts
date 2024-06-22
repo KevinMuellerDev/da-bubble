@@ -1,7 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, HostListener } from '@angular/core';
 import { MainsectionComponent } from '../../mainsection.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef  } from '@angular/material/dialog';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
 import { EditChannelDialogComponent } from '../edit-channel-dialog/edit-channel-dialog.component';
 import { AddUserToChannelDialogComponent } from '../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
@@ -35,30 +35,40 @@ export class ChannelMessagesComponent {
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
   @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
+  private dialogRefs: MatDialogRef<any>[] = [];
   constructor(public dialog: MatDialog) { }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.updateDialogPositions();
+  }
 
   openDialogAddUser() {
     const rect = this.addUser.nativeElement.getBoundingClientRect();
-    this.dialog.open(AddUserDialogComponent, {
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.bottom + 10}px`, left: `${rect.right - 514}px` }
+      position: { top: `${rect.bottom}px`, left: `${rect.right - 514}px` }
     });
+    this.dialogRefs.push(dialogRef);
   }
+
 
   openDialogAddUserToChannel() {
     const rect = this.addUserToChannel.nativeElement.getBoundingClientRect();
-    this.dialog.open(AddUserToChannelDialogComponent, {
+    const dialogRef = this.dialog.open(AddUserToChannelDialogComponent, {
       panelClass: ['add-user-to-channel', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.bottom + 10}px`, left: `${rect.right - 415}px` }
+      position: { top: `${rect.bottom}px`, left: `${rect.right - 415}px` }
     });
+    this.dialogRefs.push(dialogRef);
   }
 
   openDialogEditChannel() {
     const rect = this.editChannel.nativeElement.getBoundingClientRect();
-    this.dialog.open(EditChannelDialogComponent, {
+    const dialogRef = this.dialog.open(EditChannelDialogComponent, {
       panelClass: ['edit-channel', 'box-radius-left-corner', 'box-shadow'],
-      position: { top: `${rect.bottom + 10}px`, left: `${rect.left}px` }
+      position: { top: `${rect.bottom}px`, left: `${rect.left - 20}px` }
     });
+    this.dialogRefs.push(dialogRef);
   }
 
   async getOtherUserData(id?: string) {
@@ -73,6 +83,22 @@ export class ChannelMessagesComponent {
     dialogRef
       .afterClosed()
       .subscribe();
+  }
+
+  updateDialogPositions() {
+    this.dialogRefs.forEach(dialogRef => {
+      const dialogComponentInstance = dialogRef.componentInstance;
+      if (dialogComponentInstance instanceof AddUserDialogComponent) {
+        const rect = this.addUser.nativeElement.getBoundingClientRect();
+        dialogRef.updatePosition({ top: `${rect.bottom}px`, left: `${rect.right - 514}px` });
+      } else if (dialogComponentInstance instanceof AddUserToChannelDialogComponent) {
+        const rect = this.addUserToChannel.nativeElement.getBoundingClientRect();
+        dialogRef.updatePosition({ top: `${rect.bottom}px`, left: `${rect.right - 415}px` });
+      } else if (dialogComponentInstance instanceof EditChannelDialogComponent) {
+        const rect = this.editChannel.nativeElement.getBoundingClientRect();
+        dialogRef.updatePosition({ top: `${rect.bottom}px`, left: `${rect.left - 20}px` });
+      }
+    });
   }
 
   ngOnDestroy(): void {

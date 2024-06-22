@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, HostListener } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
@@ -16,16 +16,16 @@ import { ShowProfileComponent } from '../../../shared/components/show-profile/sh
 })
 export class AddUserToChannelDialogComponent {
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
-  channelService:ChannelService = inject(ChannelService);
-  userService:UserService = inject(UserService);
+  channelService: ChannelService = inject(ChannelService);
+  userService: UserService = inject(UserService);
   constructor(public dialog: MatDialog) { }
 
   getDmStatus(userIsLoggedIn: boolean) {
-    const loggedIn = userIsLoggedIn== true ? 'online-div' : 'offline-div';
+    const loggedIn = userIsLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
 
-  async getOtherUserData(user:any) {
+  async getOtherUserData(user: any) {
     this.userService.otherUserInfo = user;
     this.openDialogUserInfo();
   }
@@ -47,3 +47,4 @@ export class AddUserToChannelDialogComponent {
     });
   }
 }
+

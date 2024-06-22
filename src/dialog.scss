@@ -1,3 +1,7 @@
+.cdk-global-overlay-wrapper {
+    padding: 24px;
+}
+
 .box-radius .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 30px;
 }
@@ -18,7 +22,7 @@
     position: absolute;
     width: 282px;
     height: 181px;
-    top: 126px;
+    top: 120px;
     right: 26px;
 }
 
@@ -27,7 +31,7 @@
     max-width: 500px;
     width: 100%;
     height: fit-content;
-    top: 126px;
+    top: 120px;
     right: 26px;
 }
 
@@ -46,6 +50,11 @@
 .add-user .mat-mdc-dialog-container .mdc-dialog__surface {
     width: fit-content;
     height: fit-content;
+}
+
+.add-new-channel .mat-mdc-dialog-container .mdc-dialog__surface,
+.edit-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+    max-width: 872px;
 }
 
 @media screen and (max-width: 960px) {

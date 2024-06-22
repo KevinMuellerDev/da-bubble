@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -16,7 +16,6 @@ import { UserService } from '../shared/services/user.service';
 
 export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
-  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
   rotateToggle: boolean = false;
   mediumScreen: boolean = false;
   smallerMediumScreen: boolean = false;
@@ -56,7 +55,6 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
       this.rotateToggle = true;
       this.toggleElement.nativeElement.classList.add('rotate-toggle');
     }
-    this.cdr.detectChanges();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -161,6 +159,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     if (this.smallScreen && this.sidenavOpen == false) {
       this.headerComponent.headlineMobile.nativeElement.style.display = 'flex';
       this.headerComponent.headlineDesktop.nativeElement.style.display = 'none';
+      this.rotateToggle = true;
     } else {
       this.headerComponent.headlineMobile.nativeElement.style.display = 'none';
       this.headerComponent.headlineDesktop.nativeElement.style.display = 'flex';
