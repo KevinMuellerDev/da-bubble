@@ -5,7 +5,7 @@ import { ThreadComponent } from './thread/thread.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { UserService } from '../shared/services/user.service';
-
+import { ResizeListenerService } from '../shared/services/resize-listener.service';
 @Component({
   selector: 'app-mainsection',
   standalone: true,
@@ -16,11 +16,8 @@ import { UserService } from '../shared/services/user.service';
 
 export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
+  resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   rotateToggle: boolean = false;
-  mediumScreen: boolean = false;
-  smallerMediumScreen: boolean = false;
-  largerSmallScreen: boolean = false;
-  smallScreen: boolean = false;
   sidenavOpen: boolean = true;
   threadOpen: boolean = false;
   unsubProfile;
@@ -34,6 +31,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
   constructor() {
+    this.resizeListenerService.registerResizeCallback(this.onResize.bind(this));
     this.unsubProfile = this.userService.retrieveUserProfile();
     this.unsubUserChannels = this.userService.retrieveUserChannels();
     this.unsubUserList = this.userService.retrieveAllUsers();
@@ -42,14 +40,20 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.checkInnerWidth({});
+    this.onResize();
+  }
+
+  onResize() {
+    setTimeout(() => {
+      this.updateOverlayDisplay();
+      this.displayHeadlineMobile();
+    },100);
   }
 
   ngAfterViewInit() {
-    this.displayHeadlineMobile();
     this.hideThread();
     this.sidebarElement.nativeElement.classList.add('margin-right');
-    if (this.smallerMediumScreen) {
+    if (this.resizeListenerService.mdScreen) {
       this.hideSidenav();
       this.hideThread();
       this.rotateToggle = true;
@@ -57,21 +61,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
-  checkInnerWidth(event: any) {
-    setTimeout(() => {
-      this.mediumScreen = window.innerWidth <= 1440 && window.innerWidth > 960;
-      this.smallerMediumScreen = window.innerWidth <= 960 && window.innerWidth > 600;
-      this.largerSmallScreen = window.innerWidth <= 600 && window.innerWidth > 480;
-      this.smallScreen = window.innerWidth <= 480;
-      this.updateOverlayDisplay();
-      this.displayHeadlineMobile();
-    },100);
-  }
-
   updateOverlayDisplay() {
     if (this.overlayElement && this.overlayElement.nativeElement) {
-      if (this.smallerMediumScreen && this.sidenavOpen == true || window.innerWidth <= 960 && this.threadOpen == true) {
+      if (this.resizeListenerService.mdScreen && this.sidenavOpen == true || this.resizeListenerService.mdScreen && this.threadOpen == true) {
         this.overlayElement.nativeElement.style.display = 'block';
       } else {
         this.overlayElement.nativeElement.style.display = 'none';
@@ -101,7 +93,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   showThread() {
     this.threadBarElement.nativeElement.classList.add('margin-left');
     this.threadOpen = true;
-    if (this.mediumScreen == true) {
+    if (this.resizeListenerService.xmdScreen == true) {
       this.threadBarElement.nativeElement.classList.remove('hide-show');
       this.hideSidenav();
       this.toggleElement.nativeElement.classList.add('rotate-toggle');
@@ -109,7 +101,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     } else {
       this.threadBarElement.nativeElement.classList.remove('hide-show');
     }
-    if (this.smallerMediumScreen == true) {
+    if (this.resizeListenerService.mdScreen == true) {
       this.overlayElement.nativeElement.style.display = 'block';
     }
     this.displayHeadlineMobile();
@@ -121,13 +113,13 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   showSidenav() {
     this.sidebarElement.nativeElement.classList.add('margin-right');
     this.sidenavOpen = true;
-    if (this.mediumScreen == true) {
+    if (this.resizeListenerService.xmdScreen == true) {
       this.sidebarElement.nativeElement.classList.remove('hide-show');
       this.hideThread();
     } else {
       this.sidebarElement.nativeElement.classList.remove('hide-show');
     }
-    if (this.smallerMediumScreen == true) {
+    if (this.resizeListenerService.mdScreen == true) {
       this.hideThread();
       this.overlayElement.nativeElement.style.display = 'block';
     }
@@ -156,9 +148,10 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   }
 
   displayHeadlineMobile() {
-    if (this.smallScreen && this.sidenavOpen == false) {
+    if (this.resizeListenerService.smScreen && this.sidenavOpen == false) {
       this.headerComponent.headlineMobile.nativeElement.style.display = 'flex';
       this.headerComponent.headlineDesktop.nativeElement.style.display = 'none';
+      this.toggleElement.nativeElement.classList.add('rotate-toggle');
       this.rotateToggle = true;
     } else {
       this.headerComponent.headlineMobile.nativeElement.style.display = 'none';
@@ -176,7 +169,6 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-
   getToggleText(): string {
     return this.sidenavOpen ? 'schließen' : 'öffnen';
   }
@@ -187,5 +179,6 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.unsubUserChannels();
     this.unsubUserList();
     this.userService.userLoggedOut();
+    this.resizeListenerService.unregisterResizeCallback(this.onResize.bind(this));
   }
 }

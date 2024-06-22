@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
@@ -43,7 +43,7 @@ export class AddUserToChannelDialogComponent {
     const rect = this.addUser.nativeElement.getBoundingClientRect();
     this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.top}px`, left: `${rect.right - 464}px` }
+      position: { top: `${rect.top -24}px`, left: `${rect.right - 478}px` }
     });
   }
 }
