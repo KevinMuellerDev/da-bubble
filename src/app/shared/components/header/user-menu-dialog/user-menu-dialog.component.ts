@@ -8,6 +8,8 @@ import { UserData } from '../../../models/userdata.class';
 import { getAuth } from '@angular/fire/auth';
 import { ChannelService } from '../../../services/channel.service';
 import { subscribeOn } from 'rxjs';
+import { AddUserDialogComponent } from '../../../../mainsection/channel/add-user-dialog/add-user-dialog.component';
+import { AddUserToChannelDialogComponent } from '../../../../mainsection/channel/add-user-to-channel-dialog/add-user-to-channel-dialog.component';
 @Component({
   selector: 'app-user-menu-dialog',
   standalone: true,
@@ -16,7 +18,7 @@ import { subscribeOn } from 'rxjs';
   styleUrl: './user-menu-dialog.component.scss'
 })
 export class UserMenuDialogComponent {
-  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private userService: UserService) { }
+  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private dialogRefAddUser: MatDialogRef<AddUserToChannelDialogComponent>,private userService: UserService) { }
   channelService: ChannelService = inject(ChannelService);
   hoverProfile: boolean = false;
   hoverLogout: boolean = false;
@@ -45,6 +47,6 @@ export class UserMenuDialogComponent {
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.dialog.closeAll();
   }
 }

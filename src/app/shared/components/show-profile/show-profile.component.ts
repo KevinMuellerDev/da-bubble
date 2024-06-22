@@ -88,18 +88,16 @@ export class ShowProfileComponent {
   }
 
   async sendMessage() {
-    let alreadyPushed=false;
+    let alreadyPushed = false;
     await this.channelService.updateUserDm(this.userService.otherUserInfo);
     this.sidebarService.userDmData.forEach(element => {
-      if (element.id == this.userService.otherUserInfo.id) 
+      if (element.id == this.userService.otherUserInfo.id)
         alreadyPushed = true;
-      
     });
-
-    if (!alreadyPushed) 
+    if (!alreadyPushed)
       this.sidebarService.userDmData.push(this.userService.otherUserInfo);
     this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
-    this.dialogRef.close();
+    this.closeDialog();
   }
 
   /**
@@ -118,5 +116,13 @@ export class ShowProfileComponent {
           return
         }
       })
+  }
+
+
+  /**
+   * The closeDialog function closes all open dialog windows.
+   */
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }
