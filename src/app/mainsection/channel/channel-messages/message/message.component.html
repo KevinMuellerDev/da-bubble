@@ -43,11 +43,10 @@
                     <span *ngIf="!editMessage[i]">{{ message.message }}</span>
                     <form #editMessageForm="ngForm"
                         [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
-                        *ngIf="editMessage[i] && userId == message.id " (ngSubmit)="onSubmit(editMessageForm, i)">
+                        *ngIf="editMessage[i] && userId == message.id" (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea class="text-area-editable" name="editMessageTextarea"
                             [id]="'editMessageTextarea-' + i" [(ngModel)]="newMessage.message"
-                            (focus)="toggleEvent($event)" (focusout)="editMessageBlur(i,$event,editMessageForm)"
-                            (keyup.enter)="onSubmit(editMessageForm,i)">
+                            (focus)="toggleEvent($event)" (keyup.enter)="onSubmit(editMessageForm,i)">
                             </textarea>
                         <div class="edit-Message-control">
                             <button type="submit" class="edit-message-button">Speichern</button>
