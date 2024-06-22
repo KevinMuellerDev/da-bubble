@@ -36,12 +36,14 @@ export class MessageComponent {
   showEmojiPickerArray: boolean[] = [];
   isEmojiPickerVisible: boolean = false;
   isEditMessageVisible: boolean = false;
+  isEditMessageTextareaVisible: boolean = false;
   dateMap: string[] = [];
   openEditMessageToggle: boolean[] = [];
   editMessage: boolean[] = [];
   messages: any[] = [];
   newMessage: { message: string } = { message: '' };
   selectedEmojis: string[] = [];
+  originalMessage!: string;
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,private emojiService: EmojiService) {
     this.userId = sessionStorage.getItem('uid')!;
@@ -63,6 +65,7 @@ export class MessageComponent {
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
   @ViewChild('editMessageContainer', { static: false }) editMessageContainer!: ElementRef;
+  @ViewChild('editMessageTextarea', { static: false }) editMessageTextarea!: ElementRef;
 
   private mutationObserver!: MutationObserver;
   private domChanges = new Subject<MutationRecord[]>();
@@ -158,14 +161,21 @@ toggleEmojiPicker(index: number) {
 * It then toggles the `isEmojiPickerVisible` property, which determines whether the emoji picker is visible or not.
 * @param event - The click event that triggered this function.
 */
-  toggleEmojiPickerEvent(event: Event) {
-    event.stopPropagation();
-    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
-  }
 
-    toggleEditEvent(event: Event) {
-    event.stopPropagation();
-    this.isEditMessageVisible = !this.isEditMessageVisible;
+  toggleEvent(event: any): void {
+    console.log(event.target.classList);
+    if (event.target.classList.contains('edit-message-icon')) {
+       event.stopPropagation();
+       this.isEditMessageVisible = !this.isEditMessageVisible; 
+    }
+    if (event.target.classList.contains('add-reaction-icon')) {
+       event.stopPropagation();
+       this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+    }
+    if (event.target.classList.contains('text-area-editable')) {
+       event.stopPropagation();
+      //this.isEditMessageTextareaVisible = !this.isEditMessageTextareaVisible;
+    }
   }
 
 
@@ -173,8 +183,14 @@ toggleEmojiPicker(index: number) {
     this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
+  updateMessageAfterEmojiSelection(index: number){
+     this.newMessage = { message: this.channelService.messages[index].message };
+  }
+
   editMessageFunction(index: number) {
+    this.originalMessage = this.channelService.messages[index].message;
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+    this.emojiService.messageEdit = true;
      const textareaId = 'editMessageTextarea-' + index;
     this.newMessage = { message: this.channelService.messages[index].message };
   console.log(this.channelService.messages[index].message);
@@ -196,6 +212,9 @@ toggleEmojiPicker(index: number) {
 
   editMessageAbort(index: number) {
     this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
+    this.emojiService.messageEdit = false;
+    this.newMessage = { message: this.originalMessage };
+    this.channelService.messages[index].message = this.originalMessage;
    //this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
@@ -204,9 +223,8 @@ toggleEmojiPicker(index: number) {
   // weitere funktionen sollen nicht bei einem button klick ausgefürhrt werden
     if (relatedTarget && (relatedTarget.tagName === 'BUTTON' || relatedTarget.closest('button'))) {
     return;
-  } 
-      this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
-      editMessageForm.reset();
+  }
+  this.isEditMessageTextareaVisible = !this.isEditMessageTextareaVisible;
   }
 
   onSubmit(editMessageForm: NgForm, index: number) {
@@ -221,7 +239,8 @@ toggleEmojiPicker(index: number) {
         }
         this.editMessage = this.editMessage.map((value, i) => i === index ? !value : false);
         editMessageForm.reset();
-        this.selectedEmojis = [];
+      this.selectedEmojis = [];
+      this.emojiService.messageEdit = false;
     }
   }
 
@@ -248,20 +267,23 @@ toggleEmojiPicker(index: number) {
  */
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event) {
+    
     // TODO: funzt muss aber noch optimiert werden
     if (!this.isEditMessageVisible || this.editMessageContainer) {
         if (!this.isClickedElementOrChildWithClass(event.target, 'edit-message') && this.editMessageContainer) {
-          console.log("außerhalb von edit");
           this.openEditMessageToggle = this.openEditMessageToggle.map(() => false);
-    }
-    }
-    if (!this.isEmojiPickerVisible || !this.emojiPickerContainer) {
-      
-      return;
+      }
     }
     if (!this.isClickedElementOrChildWithClass(event.target, 'emoji-mart') && this.emojiPickerContainer) {
       this.showEmojiPickerArray = this.channelService.messages.map(() => false);
       this.isEmojiPickerVisible = false;
+    }
+    if (!this.isClickedElementOrChildWithClass(event.target, 'text-area-editable') && this.isEditMessageTextareaVisible) {
+         // this.editMessage = this.editMessage.map(() => false);
+      // this.isEditMessageTextareaVisible = false;
+      console.log("klick außerhalb der textarea");
+      
+      
     }
   }
 
