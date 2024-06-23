@@ -15,10 +15,7 @@ export class OutsideclickDirective {
       return;
     }
 
-    // Check if the clicked element has the class 'edit-message-span'
     const isEditMessageSpanClicked = targetElement.classList.contains('edit-message-span');
-
-    // Check if the clicked element is contained within the directive's element or has the class 'edit-message-span'
     const clickedInside = this._elementRef.nativeElement.contains(targetElement);
 
     if (!clickedInside && !isEditMessageSpanClicked) {
