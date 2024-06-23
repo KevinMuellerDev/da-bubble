@@ -206,7 +206,8 @@ toggleEmojiPicker(index: number) {
     this.channelService.messages[index].message = this.originalMessage;
   }
 
-onKeyup(event: KeyboardEvent, editMessageForm:NgForm, index:number) {
+  onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
+  this.channelService.messages[index].message = this.newMessage.message;
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
     this.onSubmit(editMessageForm, index);
