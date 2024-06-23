@@ -21,7 +21,8 @@
     </div>
     <div id="emojiPickerContainer">
         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
-            [totalFrequentLines]="1" [enableSearch]=false [ngClass]="'emoji-container-default'"
-            (emojiClick)="addChannelMessageEmoji($event)" *ngIf="isEmojiPickerVisible" set="google"></emoji-mart>
+            [totalFrequentLines]="1" [enableSearch]=false [ngClass]="'emoji-container-default'" appOutsideclick
+            (outsideClick)="onOutsideClick()" (emojiClick)="addChannelMessageEmoji($event)" *ngIf="isEmojiPickerVisible"
+            set="google"></emoji-mart>
     </div>
 </div>
