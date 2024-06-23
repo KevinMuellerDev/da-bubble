@@ -133,7 +133,7 @@ export class MessageComponent {
       this.emojiAdded = true;
       setTimeout(() => {
       this.emojiAdded = false;
-      }, 1000);
+      }, 500);
     if (!calledFromFunction) {
       this.toggleEmojiPicker(index);
       this.isEmojiPickerVisible = false;
