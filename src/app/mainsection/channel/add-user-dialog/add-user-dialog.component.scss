@@ -128,3 +128,99 @@ form {
     left: 35px;
     color: $error;
 }
+
+.channel-close-icon {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    cursor: pointer;
+    @include dFlex($jc: center);
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/close.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/close_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+}
+
+.user-wrapper-chosen {
+    @include dFlex($ai: center);
+    gap: 15px;
+    height: 40px;
+    padding: 5px 10px;
+    border-radius: 40px;
+    background-color: $bg-color;
+    cursor: default;
+
+    img {
+        height: 34px;
+        width: 34px;
+        border-radius: 50% 50%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    span {
+        text-wrap: nowrap;
+    }
+
+    .deleteUser {
+        height: 30px;
+        width: 30px;
+        background-image: url(/assets/img/mainsection/close.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+
+        &:hover {
+            background-image: url(/assets/img/mainsection/close-hover.svg);
+        }
+    }
+}
+
+.user-wrapper {
+    @include dFlex($ai: center);
+    cursor: pointer;
+    gap: 15px;
+    padding: 5px 20px;
+    border-radius: 40px;
+    font-size: 18px;
+    width: fit-content;
+
+    img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50% 50%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    &:hover {
+        background-color: $bg-color;
+    }
+}
+
+
+.mat-mdc-menu-panel {
+    min-width: 335px !important;
+    padding: 0px 0px !important;
+    border-radius: 0px 20px 20px 20px !important;
+}
+
+.mat-mdc-menu-content {
+    padding: 0px 0px !important;
+
+    .button-wrapper {
+        padding: 20px 21px;
+    }
+}
+
+.mat-elevation-z8,
+.mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08) !important;
+}

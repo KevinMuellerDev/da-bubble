@@ -7,14 +7,39 @@
         <div class="hash-icon"></div>
         <span>Entwicklerteam</span>
     </div>
-    <form #addUser="ngForm" [ngClass]="{ 'focus-visible-invalid': !addUser.valid && addUser.touched}">
-        <input name="addUser" type="text" [(ngModel)]="addUser.name" placeholder="Name eingeben" required minlength="2">
+    <form #addUserInputs="ngForm" [ngClass]="{ 'focus-visible-invalid': !addUserInputs.valid && addUserInputs.touched}">
+        
+        @for (user of selectedUser; track $index) {
+        <div class="user-wrapper-chosen">
+            <img [src]="user.img" alt="">
+            <span>{{user.user}}</span>
+            <div class="deleteUser" (click)="removeUserFromSelection(user)"></div>
+        </div>
+        }
+        <input name="addUserInput" type="text" autocomplete="off" #trigger
+               [matMenuTriggerFor]="menu" (input)="searchUser()"
+               (click)="$event.stopPropagation()" (input)="getMenu()" placeholder="Name eingeben"
+               [(ngModel)]="addUser.name">
     </form>
-    <div class="error-message" *ngIf="!addUser.valid && addUser.touched ">
-        Min. 2 Zeichen erforderlich !
+    <div class="error-message" *ngIf="selectedUser.length === 0 && addUserInputs.touched ">
+        Min. 1 User erforderlich !
     </div>
     <div class="button-container">
-        <button [disabled]="!addUser.valid">
+        <button [disabled]="selectedUser.length===0" (click)="submitUser(addUserInputs)">
             Hinzfügen
         </button>
     </div>
+    <mat-menu #menu="matMenu" hasBackdrop="false">
+        @if (userList.length != 0) {
+        <div class="button-wrapper">
+            @for (user of userList; track $index) {
+            <div class="user-wrapper" (click)="pushToSelection(user)">
+                <img [src]="user.img" referrerpolicy="no-referrer" alt="">
+                <span>{{user.user}}</span>
+            </div>
+            }
+        </div>
+        }
+
+    </mat-menu>
+</div>

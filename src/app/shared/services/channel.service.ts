@@ -337,8 +337,8 @@ export class ChannelService {
   async refreshChannelData(){
     const docSnap = await getDoc(doc(this.firestore,"Channels",this.channelMsgData.collection));
     this.channelMsgData = docSnap.data();
+    this.retrieveCurrentChannelUsers();
   }
-
 
   /**
    * Firestore collection reference for Channels
