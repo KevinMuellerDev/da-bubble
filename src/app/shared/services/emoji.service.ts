@@ -127,6 +127,7 @@ updateMessage(index: number) {
 
   addEmojiToEditedMessage(index: number, emoji: any) {
     this.channelService.messages[index].message += emoji;
+    this.channelService.messages[index].edited = true;
 }
 
 

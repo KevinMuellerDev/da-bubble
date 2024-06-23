@@ -16,13 +16,14 @@
                     [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddRaisedHandsEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
-                <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
-                <div *ngIf="userId == message.id" (click)="toggleEditMessage(i);toggleEvent($event)"
+                <div (click)="toggleEmojiPicker(i);toggleEvent($event,i)" class="add-reaction-icon"></div>
+                <div *ngIf="userId == message.id" (click)="toggleOpenEditMessage(i);toggleEvent($event,i)"
                     class="edit-message-icon"></div>
-                <div #editMessageContainer id="editMessageContainer"
+                <div #editMessageContainer id="editMessageContainer" appOutsideclick
+                    (outsideClick)="onOutsideClick(i,$event)" [attr.data-index]="i"
                     [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
                     *ngIf="openEditMessageToggle[i]  && userId == message.id">
-                    <span (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
+                    <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
                 </div>
             </div>
 
@@ -41,12 +42,12 @@
                 </div>
                 <div class="message">
                     <span *ngIf="!editMessage[i]">{{ message.message }}</span>
-                    <form #editMessageForm="ngForm"
+                    <form #editMessageForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
                         [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
                         *ngIf="editMessage[i] && userId == message.id" (ngSubmit)="onSubmit(editMessageForm, i)">
-                        <textarea class="text-area-editable" name="editMessageTextarea"
+                        <textarea class="text-area-editable" name="editMessageTextarea" [attr.data-index]="i"
                             [id]="'editMessageTextarea-' + i" [(ngModel)]="newMessage.message"
-                            (focus)="toggleEvent($event)" (keyup.enter)="onSubmit(editMessageForm,i)">
+                            (focus)="toggleEvent($event,i)" (keyup.enter)="onSubmit(editMessageForm,i)">
                             </textarea>
                         <div class="edit-Message-control">
                             <button type="submit" class="edit-message-button">Speichern</button>
@@ -54,11 +55,11 @@
                                 class="edit-message-button">Abbrechen</button>
                         </div>
                     </form>
-                    <div id="emojiPickerContainer">
+                    <div id="emojiPickerContainer-{{i}}">
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
-                            [enableSearch]=false
+                            [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
                             [ngClass]="{'emoji-mart-left': userId == message.id, 'emoji-mart-right': userId != message.id}"
-                            (emojiClick)="onAddEmoji($event,i,message.id,userId);updateMessageAfterEmojiSelection(i);isEditMessageTextareaVisible=true"
+                            (emojiClick)="onAddEmoji($event,i,message.id,userId);updateMessageAfterEmojiSelection(i)"
                             *ngIf="showEmojiPickerArray[i]" set="google"></emoji-mart>
                     </div>
                 </div>
