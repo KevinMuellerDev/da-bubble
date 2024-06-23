@@ -30,8 +30,9 @@ export class SidebarService {
         if (this.userService.userChannels.includes(channel.id))
           this.channels.push(channel.data())
       });
-      console.log(this.channels);
-      
+      if (this.channelService.channelMsg) {
+        this.channelService.refreshChannelData();
+      }
     });
     return unsubscribe
   }
