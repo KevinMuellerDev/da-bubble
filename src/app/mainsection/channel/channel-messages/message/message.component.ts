@@ -122,7 +122,6 @@ export class MessageComponent {
   onOutsideClick(index: number, event: Event): void {
     this.showEmojiPickerArray[index] = false;
     this.openEditMessageToggle[index] = false;
-    console.log(index, event);
     if (!this.emojiAdded) {
       this.editMessage[index] = false;
       this.editMessageAbort(index)
@@ -191,7 +190,6 @@ toggleEmojiPicker(index: number) {
     this.editMessage[index] = !this.editMessage[index];
      const textareaId = 'editMessageTextarea-' + index;
     this.newMessage = { message: this.channelService.messages[index].message };
-  console.log(this.channelService.messages[index].message);
   // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
   setTimeout(() => {
     const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
