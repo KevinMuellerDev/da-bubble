@@ -16,16 +16,16 @@ import { ShowProfileComponent } from '../../../shared/components/show-profile/sh
 })
 export class AddUserToChannelDialogComponent {
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
-  channelService:ChannelService = inject(ChannelService);
-  userService:UserService = inject(UserService);
+  channelService: ChannelService = inject(ChannelService);
+  userService: UserService = inject(UserService);
   constructor(public dialog: MatDialog) { }
 
   getDmStatus(userIsLoggedIn: boolean) {
-    const loggedIn = userIsLoggedIn== true ? 'online-div' : 'offline-div';
+    const loggedIn = userIsLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
 
-  async getOtherUserData(user:any) {
+  async getOtherUserData(user: any) {
     this.userService.otherUserInfo = user;
     this.openDialogUserInfo();
   }
@@ -43,7 +43,8 @@ export class AddUserToChannelDialogComponent {
     const rect = this.addUser.nativeElement.getBoundingClientRect();
     this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.top}px`, left: `${rect.right - 464}px` }
+      position: { top: `${rect.top -24}px`, left: `${rect.right - 478}px` }
     });
   }
 }
+

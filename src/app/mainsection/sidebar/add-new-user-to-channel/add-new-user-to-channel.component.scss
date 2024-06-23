@@ -1,16 +1,15 @@
 @import "./../../../../styles.scss";
 
-
 .main-container {
+    position: relative;
     padding: 40px;
     @include dFlex($ai: flex-start);
     flex-direction: column;
     gap: 20px;
-    min-width: 710px;
 }
 
 .headline {
-    >span {
+    > span {
         font-size: 24px;
         font-weight: 700;
     }
@@ -23,15 +22,13 @@ form {
     flex-direction: column;
     gap: 20px;
 
-    >label {
+    > label {
         font-size: 18px;
 
-        >span {
+        > span {
             color: $purple3;
-
         }
     }
-
 }
 
 .button-container {
@@ -40,7 +37,7 @@ form {
 }
 
 .button-container {
-    >button {
+    > button {
         font-size: 18px;
         cursor: pointer;
         background-color: $purple1;
@@ -84,30 +81,30 @@ form {
             font-size: 18px;
         }
 
-        .user-wrapper{
+        .user-wrapper {
             height: 40px;
             padding: 5px 10px;
             background-color: $bg-color;
             cursor: default;
 
-            img{
+            img {
                 height: 34px;
                 width: 34px;
             }
 
-            span{
+            span {
                 text-wrap: nowrap;
             }
 
-            .deleteUser{
+            .deleteUser {
                 height: 30px;
                 width: 30px;
                 background-image: url(/assets/img/mainsection/close.svg);
                 background-position: center;
                 background-repeat: no-repeat;
                 cursor: pointer;
-                
-                &:hover{
+
+                &:hover {
                     background-image: url(/assets/img/mainsection/close-hover.svg);
                 }
             }
@@ -149,15 +146,15 @@ form {
 }
 
 .user-wrapper {
-    @include dFlex($ai:center);
+    @include dFlex($ai: center);
     cursor: pointer;
     gap: 15px;
     padding: 5px 20px;
     border-radius: 40px;
     font-size: 18px;
     width: fit-content;
-    
-    img{
+
+    img {
         height: 50px;
         width: 50px;
         border-radius: 50% 50%;
@@ -165,13 +162,13 @@ form {
         object-position: center;
     }
 
-    &:hover{
+    &:hover {
         background-color: $bg-color;
     }
 }
 
 .mat-mdc-menu-panel {
-    min-width: 335px!important;
+    min-width: 335px !important;
     padding: 0px 0px !important;
     border-radius: 0px 20px 20px 20px !important;
 }

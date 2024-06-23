@@ -9,19 +9,29 @@ export class EmojiService {
   constructor(private channelService: ChannelService) { }
 
   selectedEmojis: string[] = [];
+  messageEdit: boolean = false;
+  
+  toggleEditMode() {
+    this.messageEdit =!this.messageEdit;
+  }
 
- addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
+  addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     const emoji = event['emoji']['native'];
     const userMatched = messageId === userId;
     const callFromSingleEmoji = calledFromFunction;
-
     const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched);
     
+    if (this.messageEdit) {
+      this.addEmojiToEditedMessage( index,emoji);
+      return
+    }
+    
     if (!foundEmoji) {
-        this.addNewEmoji(index, emoji, userMatched, userId);
+       this.addNewEmoji(index, emoji, userMatched, userId);
+       this.updateMessage(index);
     }
 
-    this.updateMessage(index);
+   
 }
 
 checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean): boolean {
@@ -115,12 +125,8 @@ updateMessage(index: number) {
     this.addEmoji(event, currentMessageIndex, messageId, userId, true)
   }
 
-  addEmojiToEditedMessage(event: any, index: number) {
-    console.log("test aus service");
-    
-  const selectedEmoji = event['emoji']['native'];
-  this.selectedEmojis.push(selectedEmoji);
-  this.channelService.messages[index].message += selectedEmoji;
+  addEmojiToEditedMessage(index: number, emoji: any) {
+    this.channelService.messages[index].message += emoji;
 }
 
 

@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddNewChannelComponent } from './add-new-channel/add-new-channel.component';
 import { SidebarService } from '../../shared/services/sidebar.service';
 import { ChannelService } from '../../shared/services/channel.service';
+import { ResizeListenerService } from '../../shared/services/resize-listener.service';
 import { MainsectionComponent } from '../mainsection.component';
 import { Unsubscribe } from '@angular/fire/firestore';
 
@@ -27,11 +28,11 @@ import { Unsubscribe } from '@angular/fire/firestore';
   styleUrl: './sidebar.component.scss',
 })
 
-
 export class SidebarComponent implements OnInit {
   userService: UserService = inject(UserService);
   sidebarService: SidebarService = inject(SidebarService);
   channelService: ChannelService = inject(ChannelService);
+  resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   unsubChannels;
   unsubCurrentChannels;
   unsubUserDmIds;
@@ -55,7 +56,7 @@ export class SidebarComponent implements OnInit {
   }
 
   goToChannel() {
-    if (this.mainsectionComponent.smallScreen || this.mainsectionComponent.largerSmallScreen) {
+    if (this.resizeListenerService.smScreen || this.resizeListenerService.xsmScreen) {
       this.mainsectionComponent.hideSidenav();
       this.mainsectionComponent.displayHeadlineMobile();
     }
@@ -110,6 +111,5 @@ export class SidebarComponent implements OnInit {
     this.unsubUserDmData();
     this.sidebarService.userDmData = [];
     console.log(this.sidebarService.userDmData);
-
   }
 }
