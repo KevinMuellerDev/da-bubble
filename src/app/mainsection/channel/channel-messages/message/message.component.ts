@@ -206,11 +206,16 @@ toggleEmojiPicker(index: number) {
     this.channelService.messages[index].message = this.originalMessage;
   }
 
+onKeyup(event: KeyboardEvent, editMessageForm:NgForm, index:number) {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    this.onSubmit(editMessageForm, index);
+  }
+}
+
   onSubmit(editMessageForm: NgForm, index: number) {
-    console.log(editMessageForm.value,this.newMessage);
-   
     if (editMessageForm.valid) {
-        this.channelService.messages[index].message = editMessageForm.value.editMessageTextarea;
+      this.channelService.messages[index].message = this.newMessage.message;
         if (this.channelService.privateMsg) {
           this.channelService.updateDirectMessage(this.channelService.messages[index]);
         }else{
@@ -220,8 +225,8 @@ toggleEmojiPicker(index: number) {
         editMessageForm.reset();
       this.emojiService.messageEdit = false;
     }
+   
   }
-
  
  /**
   * The function `getOtherUserData` asynchronously retrieves other user data and opens a dialog with

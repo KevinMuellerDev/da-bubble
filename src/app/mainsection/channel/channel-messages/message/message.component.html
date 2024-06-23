@@ -47,7 +47,7 @@
                         *ngIf="editMessage[i] && userId == message.id" (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea class="text-area-editable" name="editMessageTextarea" [attr.data-index]="i"
                             [id]="'editMessageTextarea-' + i" [(ngModel)]="newMessage.message"
-                            (focus)="toggleEvent($event,i)" (keyup.enter)="onSubmit(editMessageForm,i)">
+                            (focus)="toggleEvent($event,i)" (keyup)="onKeyup($event, editMessageForm, i)">
                             </textarea>
                         <div class="edit-Message-control">
                             <button type="submit" class="edit-message-button">Speichern</button>
