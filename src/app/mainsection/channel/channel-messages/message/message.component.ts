@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, HostListener, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MainsectionComponent } from '../../../mainsection.component';
@@ -11,7 +11,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../../shared/services/channel.service';
 import { Unsubscribe } from '@angular/fire/firestore';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserService } from '../../../../shared/services/user.service';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
@@ -21,8 +21,6 @@ import { ThreadService } from '../../../../shared/services/thread.service';
 import { MutationObserverService } from '../../../../shared/services/mutation.observer.service';
 
 registerLocaleData(localeDe);
-
-
 
 @Component({
   selector: 'app-message',
