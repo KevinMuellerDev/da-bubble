@@ -74,19 +74,15 @@
                 </div>
                 <div *ngIf="channelService.channelMsg" class="message-reply-wrapper">
                     <div class="message-replies">
-                        <span (click)="showThreadBar()">{{ message.repliesCount }} Antworten</span>
+                        <span *ngIf="message.repliesCount > 1" (click)="showThreadBar(message)">{{ message.repliesCount }} Antworten</span>
+                        <span *ngIf="message.repliesCount <= 1" (click)="showThreadBar(message)">{{ message.repliesCount }} Antwort</span>
                     </div>
                     <div class="reply-timestamp">
-                        <span>Letzte Antwort {{ message.lastReplyTimeStamp }}</span>
+                        <span *ngIf="message.repliesCount >= 1">Letzte Antwort {{ message.lastReply | date:'shortTime':'':'de' }}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <!--         <div *ngIf="!isLast" class="divider-container">
-            <div class="divider">
-                <span>Heute</span>
-            </div>
-        </div> -->
     </div>
     } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true &&
     channelService.privateMsg) {
