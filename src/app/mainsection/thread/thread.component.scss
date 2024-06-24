@@ -53,7 +53,8 @@
 }
 
 .single-message-container {
-  padding: 20px 32px 10px 40px;
+  position: relative;
+  padding: 35px 0 35px 45px;
   width: 100%;
   @include dFlex($ai: flex-start);
 
@@ -62,6 +63,66 @@
 
     .message {
       background-color: white;
+    }
+
+    .reply-timestamp {
+      color: black;
+    }
+
+    .interaction-container {
+      transform: translateX(0);
+      transition: all 75ms ease-in-out;
+      visibility: visible;
+    }
+  }
+}
+
+.interaction-container {
+  @include dFlex($jc: center);
+  visibility: hidden;
+  transform: translateX(100%);
+  position: absolute;
+  right: 43.06px;
+  top: 0;
+  height: 46px;
+  background-color: white;
+  padding: 3px 15px 3px 20px;
+  border-radius: 25px 25px 0px 25px;
+  border: 1px solid $light-purple;
+  transition: all 75ms ease-in-out;
+}
+
+.interaction-container-inverted {
+  left: 43.06px;
+  right: 0;
+}
+
+.inverted-message {
+  flex-direction: row-reverse;
+  padding-right: 45px;
+
+  .interaction-container {
+    transform: translateX(-100%);
+  }
+
+  .message-info {
+    flex-direction: row-reverse;
+  }
+
+  .message-wrapper {
+    align-items: flex-end;
+    margin-right: 30px;
+  }
+
+  .message {
+    border-radius: 20px 0 20px 20px;
+    background-color: $purple2;
+    color: white;
+  }
+
+  &:hover {
+    .message {
+      background-color: $purple2;
     }
   }
 }
@@ -113,6 +174,7 @@
   @include dFlex();
   background-color: $bg-color;
   border-radius: 0px 20px 20px 20px;
+  white-space: pre-line;
 
   >span {
     padding: 15px;
