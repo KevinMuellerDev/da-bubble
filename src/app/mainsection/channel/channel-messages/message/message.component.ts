@@ -153,6 +153,7 @@ export class MessageComponent {
     }
   }
 
+
   updateMessageAfterEmojiSelection(index: number) {
     this.newMessage = { message: this.channelService.messages[index].message };
   }
@@ -230,10 +231,12 @@ export class MessageComponent {
   /**
    * The `showThreadBar` function calls the `showThread` method of the `mainsectionComponent`.
    */
-  showThreadBar(message?:object) {
+  showThreadBar(index:number,message?: object) {
     this.threadService.originMessage = message;
     this.mainsectionComponent.showThread();
-    this.threadService.isActive=true;
+    this.threadService.isActive = true;
+    console.log(this.threadService.originMessage);
+    
   }
 
   ngOnDestroy() {

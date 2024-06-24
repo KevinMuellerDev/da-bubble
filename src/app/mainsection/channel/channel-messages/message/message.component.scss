@@ -279,6 +279,22 @@
     }
 }
 
+.comment-message-icon {
+    @include dFlex($jc: center);
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/assets/img/icons/comment.svg");
+
+    &:hover {
+        background-image: url("/assets/img/icons/comment_hover.svg");
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
+}
+
 .edit-message {
     position: relative;
 

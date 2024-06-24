@@ -11,12 +11,14 @@
         }
         <div [id]="'singleMessage-'+i" #singleMessage [ngClass]="{ 'inverted-message': userId == message.id}"
             class="single-message-container">
+
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddCheckEmoji($event,i,message.id,userId)"
                     [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddRaisedHandsEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEvent($event,i)" class="add-reaction-icon"></div>
+                <div (click)="showThreadBar(i,message)" class="comment-message-icon"></div>
                 <div *ngIf="userId == message.id" (click)="toggleOpenEditMessage(i);toggleEvent($event,i)"
                     class="edit-message-icon"></div>
                 <div #editMessageContainer id="editMessageContainer" appOutsideclick
@@ -25,6 +27,7 @@
                     *ngIf="emojiService.openEditMessageToggle[i]  && userId == message.id">
                     <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
                 </div>
+
             </div>
 
 
@@ -44,7 +47,8 @@
                     <span *ngIf="!emojiService.editMessage[i]">{{ message.message }}</span>
                     <form #editMessageForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
                         [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
-                        *ngIf="emojiService.editMessage[i] && userId == message.id" (ngSubmit)="onSubmit(editMessageForm, i)">
+                        *ngIf="emojiService.editMessage[i] && userId == message.id"
+                        (ngSubmit)="onSubmit(editMessageForm, i)">
                         <textarea class="text-area-editable" name="editMessageTextarea" [attr.data-index]="i"
                             [id]="'editMessageTextarea-' + i" [(ngModel)]="newMessage.message"
                             (focus)="toggleEvent($event,i)" (keyup)="onKeyup($event, editMessageForm, i)">
@@ -74,11 +78,14 @@
                 </div>
                 <div *ngIf="channelService.channelMsg" class="message-reply-wrapper">
                     <div class="message-replies">
-                        <span *ngIf="message.repliesCount > 1" (click)="showThreadBar(message)">{{ message.repliesCount }} Antworten</span>
-                        <span *ngIf="message.repliesCount <= 1" (click)="showThreadBar(message)">{{ message.repliesCount }} Antwort</span>
+                        <span *ngIf="message.repliesCount > 1" (click)="showThreadBar(message)">{{ message.repliesCount
+                            }} Antworten</span>
+                        <span *ngIf="message.repliesCount <= 1" (click)="showThreadBar(message)">{{ message.repliesCount
+                            }} Antwort</span>
                     </div>
                     <div class="reply-timestamp">
-                        <span *ngIf="message.repliesCount >= 1">Letzte Antwort {{ message.lastReply | date:'shortTime':'':'de' }}</span>
+                        <span *ngIf="message.repliesCount >= 1">Letzte Antwort {{ message.lastReply |
+                            date:'shortTime':'':'de' }}</span>
                     </div>
                 </div>
             </div>
