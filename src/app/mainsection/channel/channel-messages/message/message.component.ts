@@ -11,12 +11,13 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../../shared/services/channel.service';
 import { Unsubscribe } from '@angular/fire/firestore';
-import { Subject, Subscription,Observable } from 'rxjs';
+import { Subject, Subscription, Observable } from 'rxjs';
 import { UserService } from '../../../../shared/services/user.service';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { EmojiService } from '../../../../shared/services/emoji.service';
 import { OutsideclickDirective } from '../../../../outsideclick.directive';
+import { ThreadService } from '../../../../shared/services/thread.service';
 
 registerLocaleData(localeDe);
 
@@ -25,41 +26,37 @@ registerLocaleData(localeDe);
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent,FormsModule,OutsideclickDirective ],
+  imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent, FormsModule, OutsideclickDirective],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
-  
+
 })
-  
+
 export class MessageComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
+  threadService:ThreadService = inject(ThreadService);
   private dataSubscription!: Subscription;
   unsubMessageData!: Unsubscribe;
   dateToday!: number;
   userId!: string;
-  showEmojiPickerArray: boolean[] = [];
+
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
   dateMap: string[] = [];
-  openEditMessageToggle: boolean[] = [];
-  editMessage: boolean[] = [];
+
   messages: any[] = [];
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
   emojiAdded: boolean = false;
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef,private emojiService: EmojiService) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService) {
     this.userId = sessionStorage.getItem('uid')!;
-    this.channelService.messagesLoaded=false;
+    this.channelService.messagesLoaded = false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {
         setTimeout(() => {
-          this.showEmojiPickerArray = [];
-          this.editMessage = [];
-          this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-          this.openEditMessageToggle = this.channelService.messages.map(() => false);
-          this.editMessage = this.channelService.messages.map(() => false);
+          emojiService.initMaps();
         }, 500);
       }
     });
@@ -89,28 +86,30 @@ export class MessageComponent {
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
 
-   this.initialChildCount = this.scroll.nativeElement.children.length;
+    this.initialChildCount = this.scroll.nativeElement.children.length;
     this.mutationObserver = new MutationObserver((mutations) => {
       mutations.forEach(mutation => {
         const currentChildCount = this.scroll.nativeElement.children.length;
         if (currentChildCount > this.initialChildCount) {
-          this.initialChildCount = currentChildCount; 
-           this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+          this.initialChildCount = currentChildCount;
+          this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
           this.domChanges.next([mutation]);
         }
-        else if(currentChildCount != this.initialChildCount){
-          this.initialChildCount = this.scroll.nativeElement.children.length;}
+        else if (currentChildCount != this.initialChildCount) {
+          this.initialChildCount = this.scroll.nativeElement.children.length;
+        }
       });
     });
 
     this.mutationObserver.observe(this.scroll.nativeElement, {
       childList: true,
       subtree: false,
-      characterData: false 
+      characterData: false
     });
 
-    this.domChanges$.subscribe((mutations:any) => {
+    this.domChanges$.subscribe((mutations: any) => {
       console.log('DOM changes detected:', mutations);
+      this.emojiService.initMaps();
     });
   }
 
@@ -120,20 +119,20 @@ export class MessageComponent {
   }
 
   onOutsideClick(index: number, event: Event): void {
-    this.showEmojiPickerArray[index] = false;
-    this.openEditMessageToggle[index] = false;
+    this.emojiService.showEmojiPickerArray[index] = false;
+    this.emojiService.openEditMessageToggle[index] = false;
     if (!this.emojiAdded) {
-      this.editMessage[index] = false;
+      this.emojiService.editMessage[index] = false;
       this.editMessageAbort(index)
     }
-}
+  }
 
-    onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
-      this.emojiService.addEmoji(event, index, messageId, userId);
-      this.emojiAdded = true;
-      setTimeout(() => {
+  onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
+    this.emojiService.addEmoji(event, index, messageId, userId);
+    this.emojiAdded = true;
+    setTimeout(() => {
       this.emojiAdded = false;
-      }, 500);
+    }, 500);
     if (!calledFromFunction) {
       this.toggleEmojiPicker(index);
       this.isEmojiPickerVisible = false;
@@ -158,12 +157,12 @@ export class MessageComponent {
  * All other values in the array are set to false, ensuring that only one emoji picker is visible at a time.
  * @param index - The index of the message for which the emoji picker should be toggled.
  */
-toggleEmojiPicker(index: number) {
-    this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
+  toggleEmojiPicker(index: number) {
+    this.emojiService.showEmojiPickerArray = this.emojiService.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
-  
+
   toggleOpenEditMessage(index: number) {
-    this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+    this.emojiService.openEditMessageToggle = this.emojiService.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
   /**
@@ -175,11 +174,11 @@ toggleEmojiPicker(index: number) {
 
   toggleEvent(event: any, index: number): void {
     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
-      event.stopPropagation(); 
+      event.stopPropagation();
     }
   }
 
-  updateMessageAfterEmojiSelection(index: number){
+  updateMessageAfterEmojiSelection(index: number) {
     this.newMessage = { message: this.channelService.messages[index].message };
   }
 
@@ -187,54 +186,54 @@ toggleEmojiPicker(index: number) {
     this.originalMessage = this.channelService.messages[index].message;
     this.emojiService.messageEdit = true;
     this.isEditMessageTextareaVisible = true;
-    this.editMessage[index] = !this.editMessage[index];
-     const textareaId = 'editMessageTextarea-' + index;
+    this.emojiService.editMessage[index] = !this.emojiService.editMessage[index];
+    const textareaId = 'editMessageTextarea-' + index;
     this.newMessage = { message: this.channelService.messages[index].message };
-  // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
-  setTimeout(() => {
-    const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
-    if (textareaElement) {
-      textareaElement.focus();
-    }
-  }, 0);
-    this.openEditMessageToggle[index] = !this.openEditMessageToggle[index];
-}
+    // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
+    setTimeout(() => {
+      const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
+      if (textareaElement) {
+        textareaElement.focus();
+      }
+    }, 0);
+    this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
+  }
   editMessageAbort(index: number) {
-    this.editMessage[index] = false;
+    this.emojiService.editMessage[index] = false;
     this.emojiService.messageEdit = false;
     this.newMessage = { message: this.originalMessage };
     this.channelService.messages[index].message = this.originalMessage;
   }
 
   onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
-  this.channelService.messages[index].message = this.newMessage.message;
-  if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault();
-    this.onSubmit(editMessageForm, index);
+    this.channelService.messages[index].message = this.newMessage.message;
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      this.onSubmit(editMessageForm, index);
+    }
   }
-}
 
   onSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
       this.channelService.messages[index].message = this.newMessage.message;
-        if (this.channelService.privateMsg) {
-          this.channelService.updateDirectMessage(this.channelService.messages[index]);
-        }else{
-          this.channelService.updateChannelMessage(this.channelService.messages[index]);
+      if (this.channelService.privateMsg) {
+        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      } else {
+        this.channelService.updateChannelMessage(this.channelService.messages[index]);
       }
-      this.editMessage[index] = false;
-        editMessageForm.reset();
+      this.emojiService.editMessage[index] = false;
+      editMessageForm.reset();
       this.emojiService.messageEdit = false;
     }
-   
+
   }
- 
- /**
-  * The function `getOtherUserData` asynchronously retrieves other user data and opens a dialog with
-  * the user information.
-  * @param {string} [id] - The `id` parameter in the `getOtherUserData` function is a string that
-  * represents the user ID of the other user whose profile information you want to retrieve.
-  */
+
+  /**
+   * The function `getOtherUserData` asynchronously retrieves other user data and opens a dialog with
+   * the user information.
+   * @param {string} [id] - The `id` parameter in the `getOtherUserData` function is a string that
+   * represents the user ID of the other user whose profile information you want to retrieve.
+   */
   async getOtherUserData(id?: string) {
     await this.userService.retrieveOtherUserProfile(id!);
     this.openDialogUserInfo();
@@ -253,11 +252,13 @@ toggleEmojiPicker(index: number) {
       .subscribe();
   }
 
-/**
- * The `showThreadBar` function calls the `showThread` method of the `mainsectionComponent`.
- */
-  showThreadBar() {
+  /**
+   * The `showThreadBar` function calls the `showThread` method of the `mainsectionComponent`.
+   */
+  showThreadBar(message?:object) {
+    this.threadService.originMessage = message;
     this.mainsectionComponent.showThread();
+    this.threadService.isActive=true;
   }
 
   ngOnDestroy() {

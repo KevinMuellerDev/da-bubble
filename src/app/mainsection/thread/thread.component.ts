@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MainsectionComponent } from '../mainsection.component';
 import { ShowProfileComponent } from '../../shared/components/show-profile/show-profile.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ChannelService } from '../../shared/services/channel.service';
+import { ThreadService } from '../../shared/services/thread.service';
 
 
 @Component({
@@ -13,11 +15,14 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './thread.component.scss'
 })
 export class ThreadComponent {
+  channelService:ChannelService= inject(ChannelService);
+  threadService:ThreadService = inject(ThreadService);
 
   constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent) { }
 
   closeThread() {
     this.mainsectionComponent.hideThread();
+    this.threadService.isActive = false;
   }
 
   /**
