@@ -9,11 +9,11 @@
         <div class="channel-head-right">
             <div #addUserToChannel (click)="openDialogAddUserToChannel()" class="channel-user-icons">
                 @for (user of channelService.currentChannelUsers; track $index) {
-                    <img referrerpolicy="no-referrer" [src]="user.profilePicture">
+                <img referrerpolicy="no-referrer" [src]="user.profilePicture">
                 }
                 <span>{{channelService.currentChannelUsers.length}}</span>
             </div>
-            <div #addUser (click)=" openDialogAddUser()" class="add-user-channel-icon"></div>
+            <div #addUser (click)="openDialogAddUserDependentBrowserSize()" class="add-user-channel-icon"></div>
         </div>
         }@else if (channelService.privateMsg && channelService.messagesLoaded) {
         <div class="message" (click)="getOtherUserData(channelService.privateMsgData.id)">

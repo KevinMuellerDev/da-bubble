@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, Injectable } from '@angular/core';
 import { MainsectionComponent } from '../../mainsection.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
@@ -10,7 +10,12 @@ import { MessageComponent } from './message/message.component';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { SidebarService } from '../../../shared/services/sidebar.service';
 import { UserService } from '../../../shared/services/user.service';
+import { StateService } from '../../../shared/services/state-service.service';
 import { ResizeListenerService } from '../../../shared/services/resize-listener.service';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-channel-messages',
@@ -34,12 +39,28 @@ export class ChannelMessagesComponent {
   sidebarService: SidebarService = inject(SidebarService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   userService: UserService = inject(UserService);
+  stateService: StateService = inject(StateService);
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
   @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
-  private dialogRefs: MatDialogRef<any>[] = [];
+  public dialogRefs: MatDialogRef<any>[] = [];
+
   constructor(public dialog: MatDialog) {
     this.resizeListenerService.registerResizeCallback(this.updateDialogPositions.bind(this));
+  }
+
+  /**
+   * Opens dialog to add user.
+   * position is set to the bottom right corner of the addUser element.
+   * Depends on screen size for mobile or desktop
+   */
+  openDialogAddUserDependentBrowserSize() {
+    if (this.resizeListenerService.xsmScreen || this.resizeListenerService.smScreen) {
+      this.dialogRefs = [];
+      this.openDialogAddUserToChannel();
+    } else {
+      this.openDialogAddUser();
+    }
   }
 
   /**
@@ -53,6 +74,9 @@ export class ChannelMessagesComponent {
       position: { top: `${rect.bottom}px`, left: `${rect.right - 538}px` }
     });
     this.dialogRefs.push(dialogRef);
+    dialogRef.afterClosed().subscribe(() => {
+      this.dialogRefs = [];
+    });
   }
 
   /**
@@ -66,6 +90,12 @@ export class ChannelMessagesComponent {
       position: { top: `${rect.bottom}px`, left: `${rect.right - 438}px` }
     });
     this.dialogRefs.push(dialogRef);
+    // may only be closed if AddUserDialogComponent is closed
+    // set size of dialog 0px width and height if
+    // AddUserDialogComponent is over AddUserToChannelDialogComponent opened
+    dialogRef.afterClosed().subscribe(() => {
+      this.dialogRefs = [];
+    });
   }
 
   /**
@@ -73,12 +103,21 @@ export class ChannelMessagesComponent {
    * position is set to the bottom left corner of the editChannel element.
    */
   openDialogEditChannel() {
+    if (this.resizeListenerService.smScreen) {
+      this.stateService.setEditChannelDialogOpen(true);
+    } else {
+      this.stateService.setEditChannelDialogOpen(false);
+    }
     const rect = this.editChannel.nativeElement.getBoundingClientRect();
     const dialogRef = this.dialog.open(EditChannelDialogComponent, {
       panelClass: ['edit-channel', 'box-radius-left-corner', 'box-shadow'],
       position: { top: `${rect.bottom}px`, left: `${rect.left - 20}px` }
     });
     this.dialogRefs.push(dialogRef);
+    dialogRef.afterClosed().subscribe(() => {
+      this.dialogRefs = [];
+      this.stateService.setEditChannelDialogOpen(false);
+    });
   }
 
   async getOtherUserData(id?: string) {
@@ -119,9 +158,12 @@ export class ChannelMessagesComponent {
     });
   }
 
+  /**
+   * Called once, before the instance is destroyed.
+   * Add 'implements OnDestroy' to the class.
+   * removes the resize listener
+   */
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     this.channelService.privateMsgData = undefined;
     this.channelService.privateMsg = false;
     this.channelService.channelMsg = false;

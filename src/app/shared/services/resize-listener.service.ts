@@ -7,12 +7,12 @@ import { Injectable, NgZone } from '@angular/core';
 export class ResizeListenerService {
   /** Resize callbacks to call on resize event */
   private resizeCallbacks: (() => void)[] = [];
-  /** Screen sizes width in px */
-  /** <= 1440px - 960px */
+  /** Screen-sizes variables for width in px */
+  /** <= 1440px - 959px */
   xmdScreen: boolean = false;
-  /** <= 960px - 600px */
+  /** <= 960px - 599px */
   mdScreen: boolean = false;
-  /** <= 600px - 480px */
+  /** <= 600px - 479px */
   xsmScreen: boolean = false;
   /** <= 480px */
   smScreen: boolean = false;
@@ -41,10 +41,10 @@ export class ResizeListenerService {
    */
   private updateScreenSize() {
     const width = window.innerWidth;
-    this.xmdScreen = width <= 1440 && width > 960;  // medium screen
-    this.mdScreen = width <= 960 && width > 600;    // smaller medium screen
-    this.xsmScreen = width <= 600 && width > 480;   // larger small screen
-    this.smScreen = width <= 480;                   // small screen
+    this.xmdScreen = width <= 1440 && width > 960;
+    this.mdScreen = width <= 960 && width > 600;
+    this.xsmScreen = width <= 600 && width > 480;
+    this.smScreen = width <= 480;
   }
 
   /**

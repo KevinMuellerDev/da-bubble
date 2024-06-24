@@ -210,3 +210,17 @@ input.ng-invalid {
         background-color: $purple1;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .profile-container {
+        gap: 28px;
+        padding: 40px 24px;
+
+        .profile-picture {
+            img {
+                width: 178px;
+                height: 178px;
+            }
+        }
+    }
+}

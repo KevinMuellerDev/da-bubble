@@ -1,5 +1,10 @@
 .cdk-global-overlay-wrapper {
     padding: 24px;
+    // justify-content: center !important;
+
+    .cdk-overlay-pane {
+        max-width: 90vw;
+    }
 }
 
 .box-radius .mat-mdc-dialog-container .mdc-dialog__surface {
@@ -48,7 +53,7 @@
 }
 
 .add-user .mat-mdc-dialog-container .mdc-dialog__surface {
-    width: fit-content;
+    width: 514px;
     height: fit-content;
 }
 
@@ -81,6 +86,25 @@
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 30px;
+    }
+
+    .add-user .mat-mdc-dialog-container .mdc-dialog__surface {
+        position: absolute;
+        max-width: 90vw;
+        width: 90vw;
+        height: fit-content;
+        top: 198px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+
+    .add-user-to-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+        position: absolute;
+        width: 80vw;
+        height: fit-content;
+        top: 198px;
+        left: 50%;
+        transform: translate(-50%, 0%);
     }
 
     .edit-channel .mat-mdc-dialog-container .mdc-dialog__surface,
@@ -131,8 +155,22 @@
         }
     }
 
+    .add-user .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-user-to-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+        max-width: 100vw;
+        width: 100vw;
+        height: fit-content;
+        top: unset;
+        bottom: 0;
+        right: 0;
+        border-radius: 30px 30px 0 0;
+        box-shadow: 6px 0px 10px 0px #00000033;
+    }
+
     .show-profile .mat-mdc-dialog-container .mdc-dialog__surface,
-    .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface {
+    .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-user-to-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+        max-width: 90vw;
         width: 90vw;
     }
 
@@ -142,5 +180,14 @@
         width: 100vw;
         height: 100vh;
         border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .show-profile .mat-mdc-dialog-container .mdc-dialog__surface,
+    .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-user-to-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+        max-width: 95vw;
+        width: 95vw ;
     }
 }

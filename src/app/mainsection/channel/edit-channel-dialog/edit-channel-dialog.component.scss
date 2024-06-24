@@ -179,14 +179,24 @@
     }
 }
 
+.addUserToChannel-container {
+    width: 100%;
+    display: none;
+    border: 1px solid $light-purple;
+    border-radius: 20px;
+}
+
 @media screen and (max-width: 600px) {
     .main-container {
         padding: 40px 24px;
+        .channel-close-icon {
+            right: 20px;
+        }
     }
 }
 
 @media screen and (max-width: 480px) {
-    .channel-close-icon {
-        right: 20px;
+    .addUserToChannel-container {
+        display: block;
     }
 }
