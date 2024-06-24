@@ -13,6 +13,7 @@ export class EmojiService {
   openEditMessageToggle: boolean[] = [];
   editMessage: boolean[] = [];
   showEmojiPickerArray: boolean[] = [];
+  showEmojiPickerArrayThread: boolean[] = [];
   
   toggleEditMode() {
     this.messageEdit =!this.messageEdit;
@@ -22,6 +23,7 @@ export class EmojiService {
     this.showEmojiPickerArray = [];
     this.editMessage = [];
     this.showEmojiPickerArray = this.channelService.messages.map(() => false);
+    this.showEmojiPickerArrayThread = this.channelService.messages.map(() => false);
     this.openEditMessageToggle = this.channelService.messages.map(() => false);
     this.editMessage = this.channelService.messages.map(() => false);
   }

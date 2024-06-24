@@ -58,7 +58,7 @@ export class ThreadComponent {
   }
 
    onOutsideClick(index: number, event: Event): void {
-    this.emojiService.showEmojiPickerArray[index] = false;
+    this.emojiService.showEmojiPickerArrayThread[index] = false;
     this.emojiService.openEditMessageToggle[index] = false;
     if (!this.emojiAdded) {
       this.emojiService.editMessage[index] = false;
@@ -66,8 +66,13 @@ export class ThreadComponent {
     }
   }
 
-  toggleEmojiPicker() {
-     // this.emojiService.showEmojiPickerArray = this.emojiService.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
+  emojiclick() {
+    console.log("emojiclick");
+    
+  }
+
+  toggleEmojiPicker(index: number): void {
+     this.emojiService.showEmojiPickerArrayThread = this.emojiService.showEmojiPickerArrayThread.map((value, i) => i === index ? !value : false);
   }
 
   toggleEvent(event: any) {

@@ -28,6 +28,29 @@
     box-shadow: 76px 4px 11px 0px rgba(0, 0, 0, 0.2);
 }
 
+.emoji-mart-left-thread {
+    width: 273px;
+    position: absolute;
+    bottom: -38px;
+    right: 0;
+    left: 11px;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: 76px 4px 11px 0px rgba(0, 0, 0, 0.2);
+}
+
+.emoji-mart-right-thread {
+    position: absolute;
+    bottom: 17px;
+    right: 83px;
+    z-index: 999;
+    width: 273px;
+    cursor: pointer;
+    box-shadow: -6px 4px 18px -6px rgba(0, 0, 0, 0.23);
+}
+
+
+
 $purple1: #444df2;
 $purple2: #797ef3;
 $purple3: #535af1;
