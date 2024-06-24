@@ -40,28 +40,23 @@ export class MessageComponent {
   unsubMessageData!: Unsubscribe;
   dateToday!: number;
   userId!: string;
-  showEmojiPickerArray: boolean[] = [];
+
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
   dateMap: string[] = [];
-  openEditMessageToggle: boolean[] = [];
-  editMessage: boolean[] = [];
+
   messages: any[] = [];
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
   emojiAdded: boolean = false;
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, private emojiService: EmojiService) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService) {
     this.userId = sessionStorage.getItem('uid')!;
     this.channelService.messagesLoaded = false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {
         setTimeout(() => {
-          this.showEmojiPickerArray = [];
-          this.editMessage = [];
-          this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-          this.openEditMessageToggle = this.channelService.messages.map(() => false);
-          this.editMessage = this.channelService.messages.map(() => false);
+          emojiService.initMaps();
         }, 500);
       }
     });
@@ -114,6 +109,7 @@ export class MessageComponent {
 
     this.domChanges$.subscribe((mutations: any) => {
       console.log('DOM changes detected:', mutations);
+      this.emojiService.initMaps();
     });
   }
 
@@ -123,10 +119,10 @@ export class MessageComponent {
   }
 
   onOutsideClick(index: number, event: Event): void {
-    this.showEmojiPickerArray[index] = false;
-    this.openEditMessageToggle[index] = false;
+    this.emojiService.showEmojiPickerArray[index] = false;
+    this.emojiService.openEditMessageToggle[index] = false;
     if (!this.emojiAdded) {
-      this.editMessage[index] = false;
+      this.emojiService.editMessage[index] = false;
       this.editMessageAbort(index)
     }
   }
@@ -162,11 +158,11 @@ export class MessageComponent {
  * @param index - The index of the message for which the emoji picker should be toggled.
  */
   toggleEmojiPicker(index: number) {
-    this.showEmojiPickerArray = this.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
+    this.emojiService.showEmojiPickerArray = this.emojiService.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
   }
 
   toggleOpenEditMessage(index: number) {
-    this.openEditMessageToggle = this.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+    this.emojiService.openEditMessageToggle = this.emojiService.openEditMessageToggle.map((value, i) => i === index ? !value : false);
   }
 
   /**
@@ -190,7 +186,7 @@ export class MessageComponent {
     this.originalMessage = this.channelService.messages[index].message;
     this.emojiService.messageEdit = true;
     this.isEditMessageTextareaVisible = true;
-    this.editMessage[index] = !this.editMessage[index];
+    this.emojiService.editMessage[index] = !this.emojiService.editMessage[index];
     const textareaId = 'editMessageTextarea-' + index;
     this.newMessage = { message: this.channelService.messages[index].message };
     // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
@@ -200,10 +196,10 @@ export class MessageComponent {
         textareaElement.focus();
       }
     }, 0);
-    this.openEditMessageToggle[index] = !this.openEditMessageToggle[index];
+    this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
   editMessageAbort(index: number) {
-    this.editMessage[index] = false;
+    this.emojiService.editMessage[index] = false;
     this.emojiService.messageEdit = false;
     this.newMessage = { message: this.originalMessage };
     this.channelService.messages[index].message = this.originalMessage;
@@ -225,7 +221,7 @@ export class MessageComponent {
       } else {
         this.channelService.updateChannelMessage(this.channelService.messages[index]);
       }
-      this.editMessage[index] = false;
+      this.emojiService.editMessage[index] = false;
       editMessageForm.reset();
       this.emojiService.messageEdit = false;
     }
