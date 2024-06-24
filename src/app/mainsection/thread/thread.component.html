@@ -12,7 +12,14 @@
   </div>
 </div>
 @if (threadService.isActive) {
+
 <div #scrollContainer class="thread-conversation-container">
+  <div class="interaction-container">
+    <div (click)="toggleEmojiPicker();toggleEvent($event)" class="add-reaction-icon"></div>
+    <div #editMessageContainer id="editMessageContainer">
+      <span class="edit-message-span" (click)="editMessageFunction()">Nachricht bearbeiten</span>
+    </div>
+  </div>
   <div class="single-message-container">
     <div class="profile-picture">
       <img [src]="threadService.originMessage.profilePicture" />
@@ -35,6 +42,41 @@
     <span>2 Antworten</span>
     <div class="divider"></div>
   </div>
+  <div *ngFor="let message of  threadService.testResponse ; let i = index; let isEven = even; let isLast = last"
+    class="thread-conversation-container">
+    <div class="interaction-container">
+      <div (click)="toggleEmojiPicker();toggleEvent($event)" class="add-reaction-icon"></div>
+      <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+        [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
+        *ngIf="emojiService.openEditMessageToggle[i]  && userId == message.id">
+        <span class="edit-message-span" (click)="editMessageFunction()">Nachricht bearbeiten</span>
+      </div>
+    </div>
+    <div class="single-message-container">
+      <div class="profile-picture">
+        <!-- <img [src]="threadService.originMessage.profilePicture" /> -->
+        <img [src]="message.profilePicture" />
+      </div>
+      <div class="message-wrapper">
+        <div class="message-head">
+          <div class="message-info">
+            <!-- <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span> -->
+            <span> {{message.name}}</span>
+            <div class="message-timestamp">
+              <!-- <span>{{threadService.originMessage.timestamp | date:'shortTime':'':'de'}}</span> -->
+              <span>{{message.timestamp | date:'shortTime':'':'de'}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="message">
+          <!-- <span> {{threadService.originMessage.message}}</span> -->
+          <span> {{message.message}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 }
 

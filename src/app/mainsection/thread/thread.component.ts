@@ -15,7 +15,6 @@ import { OutsideclickDirective } from '../../outsideclick.directive';
 import { UserService } from '../../shared/services/user.service';
 
 
-
 @Component({
   selector: 'app-thread',
   standalone: true,
@@ -23,9 +22,8 @@ import { UserService } from '../../shared/services/user.service';
   templateUrl: './thread.component.html',
   styleUrl: './thread.component.scss'
 })
-  
 
-  
+
 export class ThreadComponent {
   channelService:ChannelService= inject(ChannelService);
   threadService: ThreadService = inject(ThreadService);
@@ -59,6 +57,28 @@ export class ThreadComponent {
       }
   }
 
+   onOutsideClick(index: number, event: Event): void {
+    this.emojiService.showEmojiPickerArray[index] = false;
+    this.emojiService.openEditMessageToggle[index] = false;
+    if (!this.emojiAdded) {
+      this.emojiService.editMessage[index] = false;
+      //this.editMessageAbort(index)
+    }
+  }
+
+  toggleEmojiPicker() {
+     // this.emojiService.showEmojiPickerArray = this.emojiService.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
+  }
+
+  toggleEvent(event: any) {
+     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
+      event.stopPropagation();
+    }
+  }
+
+  editMessageFunction() {
+    
+  }
 
   closeThread() {
     this.mainsectionComponent.hideThread();

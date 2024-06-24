@@ -17,7 +17,7 @@
   @include dFlex();
   gap: 5px;
 
-  > span {
+  >span {
     font-size: 24px;
     font-weight: 700;
   }
@@ -78,7 +78,7 @@
   margin-top: 10px;
   @include dFlex();
 
-  > img {
+  >img {
     border-radius: 50%;
     max-width: 70px;
   }
@@ -93,7 +93,7 @@
   @include dFlex();
   gap: 20px;
 
-  > span {
+  >span {
     cursor: pointer;
     font-size: 18px;
     font-weight: 700;
@@ -114,7 +114,7 @@
   background-color: $bg-color;
   border-radius: 0px 20px 20px 20px;
 
-  > span {
+  >span {
     padding: 15px;
   }
 }
@@ -127,7 +127,7 @@
   width: 100%;
   text-wrap: nowrap;
 
-  > span {
+  >span {
     color: $light-purple;
     font-size: 18px;
   }
@@ -139,9 +139,25 @@
   width: 100%;
 }
 
+.add-reaction-icon {
+  @include dFlex($jc: center);
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/assets/img/icons/add_reaction.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/add_reaction_hover.svg");
+    background-color: $bg-color;
+    border-radius: 50%;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .thread-head-left-side {
-    > span {
+    >span {
       font-size: 22px;
     }
   }
