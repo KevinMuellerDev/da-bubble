@@ -1,41 +1,41 @@
 @if (channelService.channelMsg) {
-  <div class="thread-container">
-    <div class="thread-head">
-      <div class="thread-head-left-side">
-        <span>Thread</span>
-        <div class="channel-name">
-          <span>#</span>
-          <div>{{channelService.channelMsgData.title}}</div>
+<div class="thread-container">
+  <div class="thread-head">
+    <div class="thread-head-left-side">
+      <span>Thread</span>
+      <div class="channel-name">
+        <span>#</span>
+        <div>{{channelService.channelMsgData.title}}</div>
+      </div>
+    </div>
+    <div (click)="closeThread()" class="close-icon "></div>
+  </div>
+</div>
+@if (threadService.isActive) {
+<div #scrollContainer class="thread-conversation-container">
+  <div class="single-message-container">
+    <div class="profile-picture">
+      <img [src]="threadService.originMessage.profilePicture" />
+    </div>
+    <div class="message-wrapper">
+      <div class="message-head">
+        <div class="message-info">
+          <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span>
+          <div class="message-timestamp">
+            <span>{{threadService.originMessage.timestamp | date:'shortTime':'':'de'}}</span>
+          </div>
         </div>
       </div>
-      <div (click)="closeThread()" class="close-icon "></div>
+      <div class="message">
+        <span> {{threadService.originMessage.message}}</span>
+      </div>
     </div>
   </div>
-  @if (threadService.isActive) {
-    <div class="thread-conversation-container">
-      <div class="single-message-container">
-        <div class="profile-picture">
-          <img [src]="threadService.originMessage.profilePicture" />
-        </div>
-        <div class="message-wrapper">
-          <div class="message-head">
-            <div class="message-info">
-              <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span>
-              <div class="message-timestamp">
-                <span>{{threadService.originMessage.timestamp | date:'shortTime':'':'de'}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <span> {{threadService.originMessage.message}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="divider-container">
-        <span>2 Antworten</span>
-        <div class="divider"></div>
-      </div>
-    </div>
-  }
+  <div class="divider-container">
+    <span>2 Antworten</span>
+    <div class="divider"></div>
+  </div>
+</div>
+}
 
 }
