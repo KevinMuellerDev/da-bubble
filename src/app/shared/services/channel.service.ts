@@ -241,7 +241,14 @@ export class ChannelService {
   }
 
   async createChannelMessage(obj: any) {
-    await addDoc(this.refCreateChannelMsg(), obj);
+    await addDoc(this.refCreateChannelMsg(), obj)
+    .then(async (docRef)=>{
+      console.log(docRef.id);
+      
+      await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection,"messages",docRef.id), {
+        msgId: docRef.id
+      });
+    });
   }
 
 
