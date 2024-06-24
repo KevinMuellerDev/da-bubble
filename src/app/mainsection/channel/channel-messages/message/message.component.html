@@ -18,7 +18,7 @@
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddRaisedHandsEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEvent($event,i)" class="add-reaction-icon"></div>
-                <div (click)="showThreadBar(i,message)" class="comment-message-icon"></div>
+                <div (click)="showThreadBar(message)" class="comment-message-icon"></div>
                 <div *ngIf="userId == message.id" (click)="toggleOpenEditMessage(i);toggleEvent($event,i)"
                     class="edit-message-icon"></div>
                 <div #editMessageContainer id="editMessageContainer" appOutsideclick
