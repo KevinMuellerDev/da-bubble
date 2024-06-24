@@ -5,7 +5,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
+import { StateService } from '../../../shared/services/state-service.service';
+import { ChangeDetectorRef } from '@angular/core';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
+
 
 @Component({
   selector: 'app-add-user-to-channel-dialog',
@@ -16,9 +19,22 @@ import { ShowProfileComponent } from '../../../shared/components/show-profile/sh
 })
 export class AddUserToChannelDialogComponent {
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
+  @ViewChild('icon', { read: ElementRef }) icon!: ElementRef;
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
-  constructor(public dialog: MatDialog) { }
+  stateService: StateService = inject(StateService);
+  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
+  initialReferenceElementPosition!: { top: number; left: number };
+  editChannelDialogOpen: boolean = this.stateService.getEditChannelDialogOpen();
+  constructor(public dialog: MatDialog) {
+  }
+
+  ngAfterViewInit(): void {
+    this.editChannelDialogOpen = this.stateService.editChannelDialogOpen;
+    console.log('editChannelDialogOpen', this.editChannelDialogOpen);
+    this.changeDetector.detectChanges();
+  }
+
 
   getDmStatus(userIsLoggedIn: boolean) {
     const loggedIn = userIsLoggedIn == true ? 'online-div' : 'offline-div';
@@ -40,11 +56,18 @@ export class AddUserToChannelDialogComponent {
   }
 
   openDialogAddUser() {
-    const rect = this.addUser.nativeElement.getBoundingClientRect();
-    this.dialog.open(AddUserDialogComponent, {
+    const referenceElement = this.addUser.nativeElement;
+    this.initialReferenceElementPosition = {
+      top: referenceElement.getBoundingClientRect().top,
+      left: referenceElement.getBoundingClientRect().right
+    };
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${rect.top -24}px`, left: `${rect.right - 478}px` }
+      position: { top: `${this.initialReferenceElementPosition.top - 24}px`, left: `${this.initialReferenceElementPosition.left - 478}px` }
     });
+
+    // if this close, close add-user-to-channel-dialog
+
   }
 }
 

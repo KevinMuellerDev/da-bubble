@@ -1,4 +1,5 @@
 <div class="main-container">
+    <div><button mat-dialog-close [mat-dialog-close]="true"></button></div>
     <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true"></div>
     <div class="headline">
         <span>Leute hinzufügen</span>
@@ -8,7 +9,6 @@
         <span>Entwicklerteam</span>
     </div>
     <form #addUserInputs="ngForm" [ngClass]="{ 'focus-visible-invalid': !addUserInputs.valid && addUserInputs.touched}">
-        
         @for (user of selectedUser; track $index) {
         <div class="user-wrapper-chosen">
             <img [src]="user.img" alt="">
@@ -40,6 +40,5 @@
             }
         </div>
         }
-
     </mat-menu>
 </div>

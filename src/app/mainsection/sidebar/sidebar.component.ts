@@ -58,6 +58,7 @@ export class SidebarComponent implements OnInit {
   goToChannel() {
     if (this.resizeListenerService.smScreen || this.resizeListenerService.xsmScreen) {
       this.mainsectionComponent.hideSidenav();
+      this.mainsectionComponent.hideThread();
       this.mainsectionComponent.displayHeadlineMobile();
     }
   }

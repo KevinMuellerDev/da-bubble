@@ -1,5 +1,5 @@
 <div #addUser class="main-container">
-    <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true"></div>
+    <div #icon class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true" *ngIf="!editChannelDialogOpen"></div>
     <div class="headline">
         <span>Mitglieder</span>
     </div>
@@ -14,7 +14,7 @@
                 </div>
             </div>
          }
-        <div [mat-dialog-close]="true" (click)=" openDialogAddUser()" class="add-member-container">
+        <div [mat-dialog-close]="true" (click)="openDialogAddUser()" class="add-member-container">
             <div class="add-member-icon"></div>
             <span>Mitglieder hinzufügen</span>
         </div>

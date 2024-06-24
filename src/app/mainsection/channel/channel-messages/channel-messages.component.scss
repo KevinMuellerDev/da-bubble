@@ -186,7 +186,7 @@
 
         .channel-head {
             gap: 0;
-             span {
+            span {
                 font-size: 22px;
             }
         }
@@ -201,6 +201,14 @@
         }
     }
     .channel-user-icons {
-        display: none;
+        width: 0;
+        padding: 0;
+        img,
+        span {
+            display: none;
+        }
+    }
+    .add-user-channel-icon {
+        margin: 0;
     }
 }

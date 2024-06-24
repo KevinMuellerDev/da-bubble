@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { UserService } from '../shared/services/user.service';
 import { ResizeListenerService } from '../shared/services/resize-listener.service';
+
 @Component({
   selector: 'app-mainsection',
   standalone: true,
@@ -17,6 +18,7 @@ import { ResizeListenerService } from '../shared/services/resize-listener.servic
 export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
+  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   rotateToggle: boolean = false;
   sidenavOpen: boolean = true;
   threadOpen: boolean = false;
@@ -38,7 +40,6 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.userService.userLoggedIn();
   }
 
-
   ngOnInit(): void {
     this.onResize();
   }
@@ -59,6 +60,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
       this.rotateToggle = true;
       this.toggleElement.nativeElement.classList.add('rotate-toggle');
     }
+    this.changeDetector.detectChanges();
   }
 
   updateOverlayDisplay() {
@@ -144,7 +146,6 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.threadBarElement.nativeElement.classList.add('hide-show');
     this.threadOpen = false;
     this.overlayElement.nativeElement.style.display = 'none';
-
   }
 
   displayHeadlineMobile() {

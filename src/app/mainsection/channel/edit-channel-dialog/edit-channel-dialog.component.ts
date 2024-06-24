@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddUserToChannelDialogComponent } from '../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-edit-channel-dialog',
   standalone: true,
-  imports: [MatDialogModule, CommonModule, FormsModule],
+  imports: [MatDialogModule, CommonModule, FormsModule, AddUserToChannelDialogComponent],
   templateUrl: './edit-channel-dialog.component.html',
   styleUrl: './edit-channel-dialog.component.scss'
 })
