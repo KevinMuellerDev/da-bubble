@@ -231,7 +231,7 @@ export class MessageComponent {
   /**
    * The `showThreadBar` function calls the `showThread` method of the `mainsectionComponent`.
    */
-  showThreadBar(index:number,message?: object) {
+  showThreadBar(message?: object) {
     this.threadService.originMessage = message;
     this.mainsectionComponent.showThread();
     this.threadService.isActive = true;

@@ -31,7 +31,7 @@ export class ThreadService {
     message: "yoa läuft aller",
     name: "Hans Werner Olm",
     profilePicture: "/assets/img/profile/testchar1.svg",
-    timestamp: 1234567890,
+    timestamp: 23234567890,
   }
   ];
   
