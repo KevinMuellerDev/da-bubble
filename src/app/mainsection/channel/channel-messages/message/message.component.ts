@@ -18,6 +18,7 @@ import localeDe from '@angular/common/locales/de';
 import { EmojiService } from '../../../../shared/services/emoji.service';
 import { OutsideclickDirective } from '../../../../outsideclick.directive';
 import { ThreadService } from '../../../../shared/services/thread.service';
+import { MutationObserverService } from '../../../../shared/services/mutation.observer.service';
 
 registerLocaleData(localeDe);
 
@@ -40,6 +41,7 @@ export class MessageComponent {
   unsubMessageData!: Unsubscribe;
   dateToday!: number;
   userId!: string;
+   private domChangesSubscription!: Subscription;
 
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
@@ -50,7 +52,7 @@ export class MessageComponent {
   originalMessage!: string;
   emojiAdded: boolean = false;
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
     this.userId = sessionStorage.getItem('uid')!;
     this.channelService.messagesLoaded = false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
@@ -68,13 +70,12 @@ export class MessageComponent {
   @ViewChild('editMessageContainer', { static: false }) editMessageContainer!: ElementRef;
   @ViewChild('editMessageTextarea', { static: false }) editMessageTextarea!: ElementRef;
 
-  private mutationObserver!: MutationObserver;
-  private domChanges = new Subject<MutationRecord[]>();
-  public domChanges$: Observable<MutationRecord[]> = this.domChanges.asObservable();
-  private initialChildCount: number = 0;
-
   ngOnInit() {
     this.dateToday = Date.now() as number;
+    this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
+      console.log('DOM changes detected:', mutations);
+    });
+
   }
 
   isNewDate(oldDate: number, newDate: number) {
@@ -85,32 +86,8 @@ export class MessageComponent {
 
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
+     this.MutationObserverService.observe(this.scroll);
 
-    this.initialChildCount = this.scroll.nativeElement.children.length;
-    this.mutationObserver = new MutationObserver((mutations) => {
-      mutations.forEach(mutation => {
-        const currentChildCount = this.scroll.nativeElement.children.length;
-        if (currentChildCount > this.initialChildCount) {
-          this.initialChildCount = currentChildCount;
-          this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-          this.domChanges.next([mutation]);
-        }
-        else if (currentChildCount != this.initialChildCount) {
-          this.initialChildCount = this.scroll.nativeElement.children.length;
-        }
-      });
-    });
-
-    this.mutationObserver.observe(this.scroll.nativeElement, {
-      childList: true,
-      subtree: false,
-      characterData: false
-    });
-
-    this.domChanges$.subscribe((mutations: any) => {
-      console.log('DOM changes detected:', mutations);
-      this.emojiService.initMaps();
-    });
   }
 
   pushTimestamp(timestamp: string | null) {
@@ -263,7 +240,7 @@ export class MessageComponent {
 
   ngOnDestroy() {
     /* this.unsubMessageData(); */
-    this.mutationObserver.disconnect();
+    
     this.channelService.messages = [];
     this.channelService.messagesLoaded = false;
     this.channelService.currentMessagesId = '';
@@ -271,6 +248,10 @@ export class MessageComponent {
       this.dataSubscription.unsubscribe();
     }
     console.log('true?');
-
+    if (this.domChangesSubscription) {
+      this.domChangesSubscription.unsubscribe();
+    }
+    this.MutationObserverService.disconnect();
   }
-}
+  }
+
