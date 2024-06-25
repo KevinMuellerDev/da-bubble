@@ -6,22 +6,23 @@
     flex-direction: column;
     gap: 20px;
     position: relative;
+}
 
-    div:nth-child(1) {
-        width: 100%;
-        height: fit-content;
-        display: none;
-        button {
-            border: none;
-            width: 62px;
-            height: 6px;
-            border-radius: 23px;
-            background-color: $bg-color;
-            cursor: pointer;
-            &:focus,
-            &:active {
-                outline: none;
-            }
+.channel-close-icon-mobile {
+    @include dFlex($jc: center, $ai: center);
+    width: 100%;
+    height: fit-content;
+    // display: none;
+    button {
+        border: none;
+        width: 62px;
+        height: 6px;
+        border-radius: 23px;
+        background-color: $bg-color;
+        cursor: pointer;
+        &:focus,
+        &:active {
+            outline: none;
         }
     }
 }
@@ -240,13 +241,14 @@ form {
 @media screen and (max-width: 480px) {
     .main-container {
         padding: 30px 24px 100px 24px;
-
-        div:nth-child(1) {
-            @include dFlex($jc: center, $ai: center);
-        }
     }
 
     .channel-close-icon {
+        top: 54px;
         right: 24px;
+    }
+
+    .channel-close-icon-mobile {
+        display: flex;
     }
 }
