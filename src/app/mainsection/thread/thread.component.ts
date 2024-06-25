@@ -101,6 +101,19 @@ export class ThreadComponent {
     this.emojiService.showEmojiPickerArrayThread = this.emojiService.showEmojiPickerArrayThread.map((value, i) => i === index ? !value : false);
   }
 
+  onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
+    // TODO es muss nun unterschieden werden welcher MEssage service geprüft und geupdatet werden soll
+   /*this.emojiService.addEmoji(event, index, messageId, userId);
+    this.emojiAdded = true;
+    setTimeout(() => {
+      this.emojiAdded = false;
+    }, 500);
+    if (!calledFromFunction) {
+      this.toggleEmojiPicker(index);
+      this.isEmojiPickerVisible = false;
+    }*/
+  }
+
   toggleEvent(event: any): void {
     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
       event.stopPropagation();
@@ -108,12 +121,12 @@ export class ThreadComponent {
   }
 
   editMessageFunction(index: number): void {
- this.originalMessage = this.channelService.messages[index].message;
+ this.originalMessage = this.threadService.messages[index].message;
     this.emojiService.messageEdit = true;
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessageThread[index] = !this.emojiService.editMessageThread[index];
     const textareaId = 'editThreadMessageTextarea-' + index;
-    //this.newMessage = { message: this.channelService.messages[index].message };
+    this.newMessage = { message: this.threadService.messages[index].message };
     // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
     setTimeout(() => {
       const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
@@ -143,7 +156,7 @@ export class ThreadComponent {
 
   editMessageSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
-      this.channelService.messages[index].message = this.newMessage.message;
+      this.threadService.messages[index].message = this.newMessage.message;
      // if (this.channelService.privateMsg) {
      //   this.channelService.updateDirectMessage(this.channelService.messages[index]);
       } else {
@@ -154,10 +167,15 @@ export class ThreadComponent {
       this.emojiService.threadMessageEdit = false;
   }
 
-editMessageAbort(index:number){}
+  editMessageAbort(index: number) {
+    this.emojiService.editMessageThread[index] = false;
+    this.emojiService.threadMessageEdit = false;
+    this.newMessage = { message: this.originalMessage };
+    this.threadService.messages[index].message = this.originalMessage;
+}
 
     onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
-    this.channelService.messages[index].message = this.newMessage.message;
+    this.threadService.messages[index].message = this.newMessage.message;
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       this.editMessageSubmit(editMessageForm, index);

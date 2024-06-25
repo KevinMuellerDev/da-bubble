@@ -45,7 +45,7 @@
           <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
           <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
             [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
-            *ngIf="emojiService.openEditMessageToggle[i]  && message.id == userId">
+            *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
             <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
           </div>
           <div *ngIf="message.id == userId" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
@@ -63,7 +63,8 @@
           <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
             [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
             [ngClass]="{'emoji-mart-left-thread': message.id == userId,  'emoji-mart-right-thread': message.id != userId }"
-            (emojiClick)="emojiclick()" *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
+            (emojiClick)="onAddEmoji($event,i,message.id,userId)" *ngIf="emojiService.showEmojiPickerArrayThread[i]"
+            set="google"></emoji-mart>
         </div>
 
         <div class="profile-picture">
@@ -79,7 +80,7 @@
             </div>
           </div>
           <div class="message">
-            <span *ngIf="!emojiService.editMessageThread[i]">{{ message.message }}> </span>
+            <span *ngIf="!emojiService.editMessageThread[i]">{{ message.message }} </span>
             <form #editMessageThreadForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
               [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
               *ngIf="emojiService.editMessageThread[i] && userId == message.id"

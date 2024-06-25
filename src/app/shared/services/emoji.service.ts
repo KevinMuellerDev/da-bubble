@@ -40,7 +40,7 @@ export class EmojiService {
     const callFromSingleEmoji = calledFromFunction;
     const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched);
 
-    if (this.messageEdit) {
+    if (this.messageEdit || this.threadMessageEdit ) {
       this.addEmojiToEditedMessage(index, emoji);
       return
     }
