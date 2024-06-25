@@ -122,7 +122,7 @@ export class ThreadComponent {
 
   editMessageFunction(index: number): void {
  this.originalMessage = this.threadService.messages[index].message;
-    this.emojiService.messageEdit = true;
+    this.emojiService.threadMessageEdit = true;
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessageThread[index] = !this.emojiService.editMessageThread[index];
     const textareaId = 'editThreadMessageTextarea-' + index;
