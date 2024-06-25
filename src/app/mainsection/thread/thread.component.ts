@@ -18,16 +18,17 @@ import { UserService } from '../../shared/services/user.service';
 @Component({
   selector: 'app-thread',
   standalone: true,
-  imports: [CommonModule, MainsectionComponent,EmojiComponent,PickerComponent,FormsModule,OutsideclickDirective],
+  imports: [CommonModule, MainsectionComponent, EmojiComponent, PickerComponent, FormsModule, OutsideclickDirective],
   templateUrl: './thread.component.html',
   styleUrl: './thread.component.scss'
 })
 
 
 export class ThreadComponent {
-  channelService:ChannelService= inject(ChannelService);
+  channelService: ChannelService = inject(ChannelService);
   threadService: ThreadService = inject(ThreadService);
   userService: UserService = inject(UserService);
+  private dataSubscription!: Subscription;
   private domChangesSubscription!: Subscription;
   userId!: string;
   messages: any[] = [];
@@ -37,27 +38,34 @@ export class ThreadComponent {
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
 
-  constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) { 
+  constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
     this.userId = sessionStorage.getItem('uid')!;
-     setTimeout(() => {
+    this.dataSubscription = this.threadService.data$.subscribe(data => {
+      if (data) {
+        console.log(data);
+        setTimeout(() => {
           emojiService.initMaps();
         }, 500);
+      }
+    });
   }
 
+
+
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
-   ngOnInit() {
-     this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
+  ngOnInit() {
+    this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
       console.log('DOM changes detected:', mutations);
     });
   }
-  
+
   ngAfterViewInit() {
     if (this.scrollContainer) {
-          this.MutationObserverService.observe(this.scrollContainer);
-      }
+      this.MutationObserverService.observe(this.scrollContainer);
+    }
   }
 
-   onOutsideClick(index: number, event: Event): void {
+  onOutsideClick(index: number, event: Event): void {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
     this.emojiService.openEditMessageToggle[index] = false;
     if (!this.emojiAdded) {
@@ -68,24 +76,25 @@ export class ThreadComponent {
 
   emojiclick() {
     console.log("emojiclick");
-    
+
   }
 
   toggleEmojiPicker(index: number): void {
-     this.emojiService.showEmojiPickerArrayThread = this.emojiService.showEmojiPickerArrayThread.map((value, i) => i === index ? !value : false);
+    this.emojiService.showEmojiPickerArrayThread = this.emojiService.showEmojiPickerArrayThread.map((value, i) => i === index ? !value : false);
   }
 
   toggleEvent(event: any) {
-     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
+    if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
       event.stopPropagation();
     }
   }
 
   editMessageFunction() {
-    
+
   }
 
   closeThread() {
+    this.threadService.stopListener();
     this.mainsectionComponent.hideThread();
     this.threadService.isActive = false;
   }

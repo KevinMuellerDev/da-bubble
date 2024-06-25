@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -234,6 +234,7 @@ export class MessageComponent {
     this.threadService.originMessage = message;
     this.mainsectionComponent.showThread();
     this.threadService.isActive = true;
+    this.threadService.changeData('');
     console.log(this.threadService.originMessage);
     
   }
