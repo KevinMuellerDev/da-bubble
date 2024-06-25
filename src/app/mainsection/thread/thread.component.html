@@ -40,12 +40,21 @@
 
     <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == 'ich'}">
 
-      <div class="interaction-container ">
+      <div [ngClass]="{'interaction-container-inverted' : message.id == 'ich'}" class="interaction-container ">
         <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
         <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
-          [ngClass]="{'edit-message-left': userId == message.id, 'edit-message-right': userId != message.id}"
-          *ngIf="emojiService.openEditMessageToggle[i]  && userId == message.id">
-          <span class="edit-message-span" (click)="editMessageFunction()">Nachricht bearbeiten</span>
+          [ngClass]="{'edit-message-left': message.id == 'ich', 'edit-message-right': userId != message.id}"
+          *ngIf="emojiService.openEditMessageToggle[i]  && message.id == 'ich'">
+          <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
+        </div>
+        <div *ngIf="message.id == 'ich'" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
+          class="edit-message-icon">
+        </div>
+        <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+          [attr.data-index]="i"
+          [ngClass]="{'edit-message-left': message.id == 'ich', 'edit-message-right': userId != message.id}"
+          *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == 'ich'">
+          <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
         </div>
       </div>
 
