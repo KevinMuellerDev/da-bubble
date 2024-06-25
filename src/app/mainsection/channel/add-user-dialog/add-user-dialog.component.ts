@@ -15,6 +15,7 @@ import { ChannelService } from '../../../shared/services/channel.service';
   styleUrl: './add-user-dialog.component.scss',
   encapsulation: ViewEncapsulation.None
 })
+
 export class AddUserDialogComponent {
   @ViewChild(MatMenuTrigger) trigger!:MatMenuTrigger;
   userService: UserService = inject(UserService);
@@ -64,10 +65,10 @@ export class AddUserDialogComponent {
   }
 
   /**
- * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList
- * array, and resets the specificUser input field.
- * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
- */
+  * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList
+  * array, and resets the specificUser input field.
+  * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
+  */
   pushToSelection(user:object){
     this.selectedUser.push(user);
     this.userList=[];

@@ -38,7 +38,7 @@
   <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last"
     class="thread-conversation-container">
 
-    <div class="single-message-container" [ngClass]="{ 'inverted-message': isEven == false}">
+    <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
 
       <div class="interaction-container ">
         <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
