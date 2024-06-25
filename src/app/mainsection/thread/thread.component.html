@@ -35,61 +35,64 @@
     <span>2 Antworten</span>
     <div class="divider"></div>
   </div>
-  <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last"
-    class="thread-conversation-container">
 
-    <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
+  <div class="message-container">
+    <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last">
 
-      <div [ngClass]="{'interaction-container-inverted' : message.id == 'ich'}" class="interaction-container ">
-        <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
-        <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
-          [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
-          *ngIf="emojiService.openEditMessageToggle[i]  && message.id == 'ich'">
-          <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
-        </div>
-        <div *ngIf="message.id == userId" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
-          class="edit-message-icon">
-        </div>
-        <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
-          [attr.data-index]="i"
-          [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
-          *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
-          <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
-        </div>
-      </div>
+      <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
 
-      <div id="emojiPickerContainer-thread-{{i}}">
-        <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
-          [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
-          [ngClass]="{'emoji-mart-left-thread': message.id == userId,  'emoji-mart-right-thread': message.id != userId }"
-          (emojiClick)="emojiclick()" *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
-      </div>
-
-      <div class="profile-picture">
-        <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
-      </div>
-      <div class="message-wrapper">
-        <div class="message-head">
-          <div class="message-info">
-            <span (click)="openDialogUserInfo()"> {{message.name}}</span>
-            <div class="message-timestamp">
-              <span>{{message.timestamp | date:'shortTime':'':'de'}}</span>
-            </div>
+        <div [ngClass]="{'interaction-container-inverted' : message.id == 'ich'}" class="interaction-container ">
+          <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
+          <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+            [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
+            *ngIf="emojiService.openEditMessageToggle[i]  && message.id == 'ich'">
+            <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
+          </div>
+          <div *ngIf="message.id == userId" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
+            class="edit-message-icon">
+          </div>
+          <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+            [attr.data-index]="i"
+            [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
+            *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
+            <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
           </div>
         </div>
-        <div class="message">
-          <span> {{message.message}}</span>
+
+        <div id="emojiPickerContainer-thread-{{i}}">
+          <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
+            [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
+            [ngClass]="{'emoji-mart-left-thread': message.id == userId,  'emoji-mart-right-thread': message.id != userId }"
+            (emojiClick)="emojiclick()" *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
+        </div>
+
+        <div class="profile-picture">
+          <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
+        </div>
+        <div class="message-wrapper">
+          <div class="message-head">
+            <div class="message-info">
+              <span (click)="openDialogUserInfo()"> {{message.name}}</span>
+              <div class="message-timestamp">
+                <span>{{message.timestamp | date:'shortTime':'':'de'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="message">
+            <span> {{message.message}}</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
       <textarea class="thread-message-input form-control" name="message" #ThreadMessageContent id="threadMessageContent"
         [(ngModel)]="messageThread.content" placeholder="Antworten" minlength="2" required
         [ngClass]="{ 'focus-visible-thread-invalid': !formThread.valid  && (formThread.touched || submitClick) && textareaBlur }"
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
-                      </textarea>
+                          </textarea>
       <div class="thread-message-icons">
         <div class="add-icon"></div>
         <div class="icon-divider"></div>
@@ -100,6 +103,7 @@
     </form>
   </div>
 </div>
+
 }
 
 }

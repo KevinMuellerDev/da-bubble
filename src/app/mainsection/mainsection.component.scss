@@ -60,6 +60,7 @@
 
     app-thread {
         width: 100%;
+        overflow-y: hidden;
         max-width: 485px;
     }
 }
@@ -134,6 +135,7 @@
 
 @media screen and (max-width: 600px) {
     .content {
+
         app-thread,
         app-sidebar {
             max-width: 100%;
@@ -150,6 +152,7 @@
     ::-webkit-scrollbar {
         display: none;
     }
+
     .toggle-navbar {
         display: none;
     }
@@ -169,8 +172,10 @@
     app-header {
         margin: 16px 16px;
     }
+
     .content {
         margin: 0;
+
         app-sidebar,
         app-channel,
         app-thread {
