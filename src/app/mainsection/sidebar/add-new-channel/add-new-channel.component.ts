@@ -30,7 +30,7 @@ export class AddNewChannelComponent {
  * `AddNewUserToChannelComponent`.
  */
   openDialog() {
-    this.dialog.open(AddNewUserToChannelComponent, { panelClass: ['box-radius', 'box-shadow'] });
+    this.dialog.open(AddNewUserToChannelComponent, { panelClass: ['add-user', 'box-radius', 'box-shadow'] });
   }
 
 /**

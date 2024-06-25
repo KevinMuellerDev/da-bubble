@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ViewEncapsulation, inject, viewChild } from '@angular/core';
+import { Component, ViewChild, inject, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
@@ -16,15 +16,14 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
   imports: [MatDialogModule, MatMenuModule, MatButtonModule, FormsModule, CommonModule],
   templateUrl: './add-new-user-to-channel.component.html',
   styleUrl: './add-new-user-to-channel.component.scss',
-  encapsulation: ViewEncapsulation.None
 })
 export class AddNewUserToChannelComponent {
   @ViewChild("specificUserInput") specificUserInput?: { nativeElement: { focus: () => void; }; }
-  @ViewChild(MatMenuTrigger) trigger!:MatMenuTrigger;
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
   userService: UserService = inject(UserService);
-  menuOpened:boolean=false;
+  menuOpened: boolean = false;
   specificUser: boolean;
   userList: any[] = [];
   selectedUser: any[] = [];
@@ -36,11 +35,10 @@ export class AddNewUserToChannelComponent {
     this.specificUser = false;
   }
 
-
-/**
- * The onSubmit function checks if a specific user is selected and adds them to a new channel,
- * otherwise it retrieves users from an existing channel.
- */
+  /**
+   * The onSubmit function checks if a specific user is selected and adds them to a new channel,
+   * otherwise it retrieves users from an existing channel.
+   */
   onSubmit() {
     const creatorId = sessionStorage.getItem('uid')
     this.channelService.newChannel?.users.push(creatorId as string)
@@ -55,11 +53,10 @@ export class AddNewUserToChannelComponent {
     }
   }
 
-
-/**
- * The `searchUser` function filters a list of users based on a specific user input and populates a new
- * list with matching users' information.
- */
+  /**
+   * The `searchUser` function filters a list of users based on a specific user input and populates a new
+   * list with matching users' information.
+   */
   searchUser() {
     this.userList = [];
     this.userService.allUsers.forEach(element => {
@@ -71,43 +68,40 @@ export class AddNewUserToChannelComponent {
     });
   }
 
-  getMenu(){
+  getMenu() {
     this.trigger.openMenu();
   }
 
-/**
- * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList
- * array, and resets the specificUser input field.
- * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
- */
-  pushToSelection(user:object){
+  /**
+   * The function `pushToSelection` adds a user object to the selectedUser array, clears the userList
+   * array, and resets the specificUser input field.
+   * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
+   */
+  pushToSelection(user: object) {
     this.selectedUser.push(user);
-    this.userList=[];
-    this.inputs.specificUser =''
+    this.userList = [];
+    this.inputs.specificUser = ''
   }
 
-
-/**
- * The function `removeUserFromSelection` removes a specified user from the `selectedUser` array.
- * @param {any} user - The `user` parameter in the `removeUserFromSelection` function is of type `any`,
- * which means it can accept any data type as its value.
- */
-  removeUserFromSelection(user:any){
+  /**
+   * The function `removeUserFromSelection` removes a specified user from the `selectedUser` array.
+   * @param {any} user - The `user` parameter in the `removeUserFromSelection` function is of type `any`,
+   * which means it can accept any data type as its value.
+   */
+  removeUserFromSelection(user: any) {
     const contains = this.selectedUser.indexOf(user);
-    this.selectedUser.splice(contains,1);
+    this.selectedUser.splice(contains, 1);
   }
 
-
-/**
- * The function `focusOnUserInput` focuses on a specific user input element if it exists.
- */
+  /**
+   * The function `focusOnUserInput` focuses on a specific user input element if it exists.
+   */
   focusOnUserInput() {
     this.specificUserInput?.nativeElement.focus();
   }
 
-
   async getUsersFromChannel() {
-    this.userList=[];
+    this.userList = [];
     await this.sidebarService.getUsersFromChannel();
     this.sidebarService.channelUsers.forEach(user => {
       this.channelService.newChannel?.users.push(user);

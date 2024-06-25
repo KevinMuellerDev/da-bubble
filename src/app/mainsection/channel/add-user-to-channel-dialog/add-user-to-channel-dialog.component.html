@@ -1,5 +1,5 @@
 <div #addUser class="main-container">
-    <div #icon class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true" ></div>
+    <div #icon class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true" *ngIf="!editChannelDialogOpen"></div>
     <div class="headline">
         <span>Mitglieder</span>
     </div>

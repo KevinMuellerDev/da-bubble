@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UserService } from '../../../shared/services/user.service';
@@ -13,7 +13,6 @@ import { ChannelService } from '../../../shared/services/channel.service';
   imports: [MatDialogModule, MatMenuModule,CommonModule, FormsModule],
   templateUrl: './add-user-dialog.component.html',
   styleUrl: './add-user-dialog.component.scss',
-  encapsulation: ViewEncapsulation.None
 })
 
 export class AddUserDialogComponent {
