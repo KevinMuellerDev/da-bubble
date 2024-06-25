@@ -41,7 +41,7 @@ export class ThreadComponent {
   submitClick: boolean = false;
   textareaBlur: boolean = false;
   isEmojiPickerVisibleThreadMessageInput: boolean = false;
-  showEmojiPicker:boolean = false;
+  showEmojiPickerTextarea:boolean = false;
   selectedEmojis: string[] = [];
     messageThread = {
     content: ''
@@ -60,7 +60,7 @@ export class ThreadComponent {
   }
 
 
-
+  @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef; 
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   ngOnInit() {
     this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
@@ -74,13 +74,18 @@ export class ThreadComponent {
     }
   }
 
-  onOutsideClick(index: number, event: Event): void {
+  onOutsideClick(index: number,event:Event): void {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
     this.emojiService.openEditMessageToggleThread[index] = false;
     if (!this.emojiAdded) {
       this.emojiService.editMessage[index] = false;
       //this.editMessageAbort(index)
     }
+  }
+
+  onOutsideClickTextarea() {
+     this.showEmojiPickerTextarea = !this.showEmojiPickerTextarea;
+      this.isEmojiPickerVisibleThreadMessageInput = false;
   }
 
   emojiclick() {
@@ -96,20 +101,80 @@ export class ThreadComponent {
     this.emojiService.showEmojiPickerArrayThread = this.emojiService.showEmojiPickerArrayThread.map((value, i) => i === index ? !value : false);
   }
 
-  toggleEvent(event: any) {
+  toggleEvent(event: any): void {
     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
       event.stopPropagation();
     }
   }
 
   editMessageFunction(index: number): void {
-
+ this.originalMessage = this.channelService.messages[index].message;
+    this.emojiService.messageEdit = true;
+    this.isEditMessageTextareaVisible = true;
+    this.emojiService.editMessageThread[index] = !this.emojiService.editMessageThread[index];
+    const textareaId = 'editThreadMessageTextarea-' + index;
+    //this.newMessage = { message: this.channelService.messages[index].message };
+    // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
+    setTimeout(() => {
+      const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
+      if (textareaElement) {
+        textareaElement.focus();
+      }
+    }, 0);
+    this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index];
   }
 
-  onSubmit(threadForm:NgForm):void {
-    console.log(threadForm);
-    
+
+  onSubmit(formThread: NgForm): void {
+     this.submitClick = true;
+    this.textareaBlur = true;
+   
+    if (!formThread.valid) {
+      console.log(formThread)
+      formThread.reset();
+    } else if (formThread.valid) {
+      console.log(this.messageThread.content)
+      this.threadMessageContent.nativeElement.focus()
+      this.submitClick = false;
+      this.selectedEmojis = [];
+       formThread.reset();
+    }
   }
+
+  editMessageSubmit(editMessageForm: NgForm, index: number) {
+    if (editMessageForm.valid) {
+      this.channelService.messages[index].message = this.newMessage.message;
+     // if (this.channelService.privateMsg) {
+     //   this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      } else {
+       // this.channelService.updateChannelMessage(this.channelService.messages[index]);
+      }
+      this.emojiService.editMessageThread[index] = false;
+      editMessageForm.reset();
+      this.emojiService.threadMessageEdit = false;
+  }
+
+editMessageAbort(index:number){}
+
+    onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
+    this.channelService.messages[index].message = this.newMessage.message;
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      this.editMessageSubmit(editMessageForm, index);
+    }
+  }
+
+    toggleEmojiPickerEventTextarea(event: Event) {
+    event.stopPropagation();
+    this.isEmojiPickerVisibleThreadMessageInput = !this.isEmojiPickerVisibleThreadMessageInput;
+  }
+
+    addThreadMessageEmoji(event: any) {
+    const selectedEmoji = event['emoji']['native'];
+    this.selectedEmojis.push(selectedEmoji);
+      this.messageThread.content += selectedEmoji;
+       this.onOutsideClickTextarea()
+}
 
   closeThread() {
     this.threadService.stopListener();

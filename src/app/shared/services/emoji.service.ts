@@ -10,9 +10,11 @@ export class EmojiService {
 
   selectedEmojis: string[] = [];
   messageEdit: boolean = false;
+  threadMessageEdit: boolean = false;
   openEditMessageToggle: boolean[] = [];
   openEditMessageToggleThread: boolean[] = [];
   editMessage: boolean[] = [];
+  editMessageThread: boolean[] = [];
   showEmojiPickerArray: boolean[] = [];
   showEmojiPickerArrayThread: boolean[] = [];
 
@@ -23,11 +25,13 @@ export class EmojiService {
   initMaps() {
     this.showEmojiPickerArray = [];
     this.editMessage = [];
+    this.editMessageThread = [];
     this.showEmojiPickerArray = this.channelService.messages.map(() => false);
     this.showEmojiPickerArrayThread = this.channelService.messages.map(() => false);
     this.openEditMessageToggle = this.channelService.messages.map(() => false);
     this.openEditMessageToggleThread = this.channelService.messages.map(() => false);
     this.editMessage = this.channelService.messages.map(() => false);
+     this.editMessageThread = this.channelService.messages.map(() => false);
   }
 
   addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {

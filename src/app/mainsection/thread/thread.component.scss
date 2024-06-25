@@ -11,7 +11,7 @@
 .message-container {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(100% - 475px);
+  height: calc(100% - 502px);
   width: 100%;
 }
 
@@ -156,7 +156,7 @@
 .edit-message-left {
   @include dFlex($jc: center);
   position: absolute;
-  left: 164px;
+  left: 77px;
   top: 46px;
   width: 269px;
   background-color: white;
@@ -263,6 +263,60 @@
   }
 }
 
+.edit-Message-control {
+  @include dFlex($jc: space-between);
+  padding: 15px;
+
+  >button {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: $purple1;
+    color: white;
+    border-radius: 25px;
+    padding: 6px 12.5px;
+    border: none;
+
+    &:hover {
+      background-color: $purple3;
+    }
+  }
+}
+
+.edit-message {
+  position: relative;
+
+  >textarea {
+    min-width: 156px;
+    min-height: 88px;
+    height: fit-content;
+    color: white;
+    background: transparent;
+    border: none;
+    caret-color: white;
+    outline: none;
+    padding: 15px;
+    resize: none;
+  }
+}
+
+.edit-message-inverted {
+  position: relative;
+
+  >textarea {
+    min-width: 156px;
+    min-height: 88px;
+    height: fit-content;
+    color: black;
+    background: transparent;
+    border: none;
+    caret-color: black;
+    outline: none;
+    padding: 15px;
+    text-indent: 5px;
+    resize: none;
+  }
+}
+
 .divider-container {
   padding: 8px 30px 8px 32px;
 
@@ -347,7 +401,7 @@
 
 .thread-message-icons {
   position: absolute;
-  bottom: 60px;
+  bottom: 164px;
   left: 55px;
   gap: 5px;
   @include dFlex();
@@ -392,6 +446,25 @@
   }
 }
 
+.emoji-icon {
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/emoji_icon.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/emoji_hover.svg");
+    background-color: $bg-color;
+    border-radius: 50%;
+  }
+
+  &:active {
+    background-image: url("/assets/img/icons/emoji_bold.svg");
+  }
+}
+
 .send-icon {
   height: 40px;
   width: 40px;
@@ -400,7 +473,7 @@
   cursor: pointer;
   background-image: url("/assets/img/icons/send.svg");
   position: absolute;
-  bottom: 60px;
+  bottom: 164px;
   left: calc(100% - 85px);
 
   &:hover {
@@ -417,7 +490,7 @@
 
 .emoji-container-default {
   position: absolute;
-  bottom: 200px;
+  bottom: 292px;
   left: 67px;
 }
 

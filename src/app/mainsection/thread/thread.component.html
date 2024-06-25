@@ -12,7 +12,7 @@
   </div>
 </div>
 @if (threadService.isActive) {
-<div #scrollContainer class="thread-conversation-container">
+<div class="thread-conversation-container">
   <div class="single-message-container">
     <div class="profile-picture">
       <img [src]="threadService.originMessage.profilePicture" />
@@ -36,16 +36,16 @@
     <div class="divider"></div>
   </div>
 
-  <div class="message-container">
+  <div #scrollContainer class="message-container">
     <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last">
 
       <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
 
-        <div [ngClass]="{'interaction-container-inverted' : message.id == 'ich'}" class="interaction-container ">
+        <div [ngClass]="{'interaction-container-inverted' : message.id == userId}" class="interaction-container ">
           <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
           <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
             [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
-            *ngIf="emojiService.openEditMessageToggle[i]  && message.id == 'ich'">
+            *ngIf="emojiService.openEditMessageToggle[i]  && message.id == userId">
             <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
           </div>
           <div *ngIf="message.id == userId" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
@@ -79,7 +79,20 @@
             </div>
           </div>
           <div class="message">
-            <span> {{message.message}}</span>
+            <span *ngIf="!emojiService.editMessageThread[i]">{{ message.message }}> </span>
+            <form #editMessageThreadForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+              [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
+              *ngIf="emojiService.editMessageThread[i] && userId == message.id"
+              (ngSubmit)="editMessageSubmit(editMessageThreadForm, i)">
+              <textarea class="text-area-editable" name="editThreadMessageTextarea" [attr.data-index]="i"
+                [id]="'editThreadMessageTextarea-' + i" [(ngModel)]="newMessage.message" (focus)="toggleEvent($event)"
+                (keyup)="onKeyup($event, editMessageThreadForm, i)">
+                                            </textarea>
+              <div class="edit-Message-control">
+                <button type="submit" class="edit-message-button">Speichern</button>
+                <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -88,19 +101,28 @@
 
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
-      <textarea class="thread-message-input form-control" name="message" #ThreadMessageContent id="threadMessageContent"
-        [(ngModel)]="messageThread.content" placeholder="Antworten" minlength="2" required
+      <textarea class="thread-message-input form-control" name="message" #threadMessageContent id="threadMessageContent"
+        [(ngModel)]="messageThread.content" placeholder="Antworten..."
         [ngClass]="{ 'focus-visible-thread-invalid': !formThread.valid  && (formThread.touched || submitClick) && textareaBlur }"
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
                           </textarea>
       <div class="thread-message-icons">
         <div class="add-icon"></div>
         <div class="icon-divider"></div>
-        <div class="emoji-icon" (click)="toggleEvent($event)"></div>
+        <div class="emoji-icon" (click)="toggleEmojiPickerEventTextarea($event)"></div>
         <div class="tag-icon"></div>
       </div>
       <div class="send-icon" (click)="onSubmit(formThread)"></div>
     </form>
+  </div>
+  <div class="error-message" *ngIf="!formThread.valid && (formThread.touched || submitClick) && textareaBlur">Inhalt
+    mit min. 1 Zeichen erforderlich !
+  </div>
+  <div id="emojiPickerContainerThreadMessage">
+    <emoji-mart [darkMode]=false #emojiPickerContainerThreadMessage [emojiTooltip]=true [showSingleCategory]=true
+      [totalFrequentLines]="1" [enableSearch]=false [ngClass]="'emoji-container-default'" appOutsideclick
+      (outsideClick)="onOutsideClickTextarea()" (emojiClick)="addThreadMessageEmoji($event)"
+      *ngIf="isEmojiPickerVisibleThreadMessageInput" set="google"></emoji-mart>
   </div>
 </div>
 
