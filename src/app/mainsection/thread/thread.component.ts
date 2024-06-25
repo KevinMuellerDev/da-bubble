@@ -77,6 +77,7 @@ export class ThreadComponent {
   onOutsideClick(index: number,event:Event): void {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
     this.emojiService.openEditMessageToggleThread[index] = false;
+    this.emojiService.editMessageThread[index] = false;
     if (!this.emojiAdded) {
       this.emojiService.editMessage[index] = false;
       //this.editMessageAbort(index)
@@ -85,7 +86,7 @@ export class ThreadComponent {
 
   onOutsideClickTextarea() {
      this.showEmojiPickerTextarea = !this.showEmojiPickerTextarea;
-      this.isEmojiPickerVisibleThreadMessageInput = false;
+     this.isEmojiPickerVisibleThreadMessageInput = false;
   }
 
   emojiclick() {
