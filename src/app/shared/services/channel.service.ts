@@ -258,7 +258,6 @@ export class ChannelService {
     await this.getOppositeDmId();
     const querySnapshotSelf = await getDocs(this.refQuerySelf());
     const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
-
     console.log('ERROR HIER SOLL ICH NICHT REIN');
     
     querySnapshotSelf.forEach(async (dataset) => {

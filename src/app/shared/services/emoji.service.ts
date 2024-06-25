@@ -15,12 +15,12 @@ export class EmojiService {
   editMessage: boolean[] = [];
   showEmojiPickerArray: boolean[] = [];
   showEmojiPickerArrayThread: boolean[] = [];
-  
+
   toggleEditMode() {
-    this.messageEdit =!this.messageEdit;
+    this.messageEdit = !this.messageEdit;
   }
 
-  initMaps(){
+  initMaps() {
     this.showEmojiPickerArray = [];
     this.editMessage = [];
     this.showEmojiPickerArray = this.channelService.messages.map(() => false);
@@ -35,53 +35,53 @@ export class EmojiService {
     const userMatched = messageId === userId;
     const callFromSingleEmoji = calledFromFunction;
     const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched);
-    
+
     if (this.messageEdit) {
-      this.addEmojiToEditedMessage( index,emoji);
+      this.addEmojiToEditedMessage(index, emoji);
       return
     }
-    
+
     if (!foundEmoji) {
-       this.addNewEmoji(index, emoji, userMatched, userId);
-       this.updateMessage(index);
+      this.addNewEmoji(index, emoji, userMatched, userId);
+      this.updateMessage(index);
     }
 
-   
-}
 
-checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean): boolean {
+  }
+
+  checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean): boolean {
     for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-        if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-            if (!this.channelService.messages[index].emoji[i].users) {
-                this.channelService.messages[index].emoji[i].users = [];
-            }
-            if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
-                console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
-                this.channelService.messages[index].emoji[i].count++;
-                this.channelService.messages[index].emoji[i].users.push(userId);
-            }
-            return true;
+      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
+        if (!this.channelService.messages[index].emoji[i].users) {
+          this.channelService.messages[index].emoji[i].users = [];
         }
+        if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
+          console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
+          this.channelService.messages[index].emoji[i].count++;
+          this.channelService.messages[index].emoji[i].users.push(userId);
+        }
+        return true;
+      }
     }
     return false;
-}
+  }
 
-addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string) {
+  addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string) {
     const count = 0;
     const users = userMatched ? [] : [userId];
     console.log(count, userMatched, emoji, users);
     this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
-}
+  }
 
-updateMessage(index: number) {
-  console.log(this.channelService.privateMsg);
-  
+  updateMessage(index: number) {
+    console.log(this.channelService.privateMsg);
+
     if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      this.channelService.updateDirectMessage(this.channelService.messages[index]);
     } else {
-        this.channelService.updateChannelMessage(this.channelService.messages[index]);
+      this.channelService.updateChannelMessage(this.channelService.messages[index]);
     }
-}
+  }
   updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
     let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
     let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
@@ -103,7 +103,7 @@ updateMessage(index: number) {
       }
       if (this.channelService.privateMsg) {
         this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-      } else{
+      } else {
         this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
       }
     } else {
@@ -126,7 +126,7 @@ updateMessage(index: number) {
       }
       if (this.channelService.privateMsg) {
         this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-      } else{
+      } else {
         this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
       }
     }
@@ -143,7 +143,7 @@ updateMessage(index: number) {
   addEmojiToEditedMessage(index: number, emoji: any) {
     this.channelService.messages[index].message += emoji;
     this.channelService.messages[index].edited = true;
-}
+  }
 
 
 }

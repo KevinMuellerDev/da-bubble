@@ -35,10 +35,10 @@
     <span>2 Antworten</span>
     <div class="divider"></div>
   </div>
-  <div *ngFor="let message of  threadService.testResponse ; let i = index; let isEven = even; let isLast = last"
+  <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last"
     class="thread-conversation-container">
 
-    <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == 'ich'}">
+    <div class="single-message-container" [ngClass]="{ 'inverted-message': isEven == false}">
 
       <div [ngClass]="{'interaction-container-inverted' : message.id == 'ich'}" class="interaction-container ">
         <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
@@ -66,22 +66,18 @@
       </div>
 
       <div class="profile-picture">
-        <!-- <img [src]="threadService.originMessage.profilePicture" /> -->
-        <img [src]="message.profilePicture" />
+        <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
       </div>
       <div class="message-wrapper">
         <div class="message-head">
           <div class="message-info">
-            <!-- <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span> -->
-            <span> {{message.name}}</span>
+            <span (click)="openDialogUserInfo()"> {{message.name}}</span>
             <div class="message-timestamp">
-              <!-- <span>{{threadService.originMessage.timestamp | date:'shortTime':'':'de'}}</span> -->
               <span>{{message.timestamp | date:'shortTime':'':'de'}}</span>
             </div>
           </div>
         </div>
         <div class="message">
-          <!-- <span> {{threadService.originMessage.message}}</span> -->
           <span> {{message.message}}</span>
         </div>
       </div>

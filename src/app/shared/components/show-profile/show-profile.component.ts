@@ -123,6 +123,9 @@ export class ShowProfileComponent {
    * The closeDialog function closes all open dialog windows.
    */
   closeDialog() {
-    this.dialog.closeAll();
+    if (this.otherUser) {
+      this.dialog.closeAll();
+    }
+    this.otherUser ? this.dialog.closeAll : this.dialogRef.close()
   }
 }
