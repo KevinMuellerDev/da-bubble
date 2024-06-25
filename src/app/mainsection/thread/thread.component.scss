@@ -47,8 +47,9 @@
 
 .thread-conversation-container {
   width: 100%;
+  height: 100%;
   @include dFlex();
-
+  position: relative;
   flex-direction: column;
 }
 
@@ -287,6 +288,128 @@
     background-color: $bg-color;
     border-radius: 50%;
   }
+}
+
+.thread-message-input {
+  @include dFlex();
+  height: 145px;
+  position: absolute;
+  bottom: 40px;
+  left: 35px;
+  right: 35px;
+  border: 1px solid $light-purple;
+  border-radius: 30px;
+  resize: none;
+  padding: 20px 0 0 20px;
+  font-size: 18px;
+  caret-color: black;
+
+  &:focus-visible {
+    outline: 1px solid $purple3;
+  }
+
+  &:hover {
+    border: 1px solid $purple2;
+  }
+
+  &::placeholder {
+    font-size: 18px;
+  }
+}
+
+.focus-visible-thread-invalid {
+  &:focus-visible {
+    outline: 1px solid $error;
+  }
+
+  &:hover {
+    outline: 1px solid $error;
+    border: 1px solid $error;
+  }
+
+  border: 1px solid $error;
+}
+
+.icon-divider {
+  width: 1px;
+  background-color: $light-purple;
+  height: 40px;
+}
+
+.thread-message-icons {
+  position: absolute;
+  bottom: 60px;
+  left: 55px;
+  gap: 5px;
+  @include dFlex();
+}
+
+.add-icon {
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/add_light.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/add_hover.svg");
+    background-color: $bg-color;
+    border-radius: 50%;
+  }
+
+  &:active {
+    background-image: url("/assets/img/icons/add_bold.svg");
+  }
+
+}
+
+.tag-icon {
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/at_light.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/at_hover.svg");
+    background-color: $bg-color;
+    border-radius: 50%;
+  }
+
+  &:active {
+    background-image: url("/assets/img/icons/at_bold.svg");
+  }
+}
+
+.send-icon {
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-image: url("/assets/img/icons/send.svg");
+  position: absolute;
+  bottom: 60px;
+  left: calc(100% - 85px);
+
+  &:hover {
+    background-image: url("/assets/img/icons/send_hover.svg");
+  }
+}
+
+.error-message {
+  position: absolute;
+  bottom: 5px;
+  left: 35px;
+  color: $error;
+}
+
+.emoji-container-default {
+  position: absolute;
+  bottom: 200px;
+  left: 67px;
 }
 
 @media screen and (max-width: 1024px) {

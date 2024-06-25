@@ -38,6 +38,15 @@ export class ThreadComponent {
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
 
+  submitClick: boolean = false;
+  textareaBlur: boolean = false;
+  isEmojiPickerVisibleThreadMessageInput: boolean = false;
+  showEmojiPicker:boolean = false;
+  selectedEmojis: string[] = [];
+    messageThread = {
+    content: ''
+  }
+
   constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
     this.userId = sessionStorage.getItem('uid')!;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
@@ -95,6 +104,11 @@ export class ThreadComponent {
 
   editMessageFunction(index: number): void {
 
+  }
+
+  onSubmit(threadForm:NgForm):void {
+    console.log(threadForm);
+    
   }
 
   closeThread() {
