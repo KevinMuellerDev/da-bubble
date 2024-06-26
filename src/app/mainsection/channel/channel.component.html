@@ -8,7 +8,9 @@
                 (keyup.enter)="onSubmit(form)" (blur)=" textareaBlur=false">
                 </textarea>
             <div class="channel-message-icons">
-                <div class="add-icon"></div>
+                <div class="add-icon" (click)="triggerFileInput()"></div>
+                <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
+
                 <div class="icon-divider"></div>
                 <div class="emoji-icon" (click)="toggleEmojiPickerEvent($event)"></div>
                 <div class="tag-icon"></div>

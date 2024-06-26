@@ -9,6 +9,7 @@ import { MessageData } from '../../shared/models/message.class';
 import { UserService } from '../../shared/services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { OutsideclickDirective } from '../../outsideclick.directive';
+import { StorageService } from '../../shared/services/storage.service';
 
 
 @Component({
@@ -34,11 +35,12 @@ export class ChannelComponent {
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,private storageService: StorageService) {
     this.channelService.messagesLoaded = false;
   }
 
-    @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
+  @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   async onSubmit(form: NgForm) {
     this.submitClick = true;
@@ -109,7 +111,18 @@ export class ChannelComponent {
     const selectedEmoji = event['emoji']['native'];
     this.selectedEmojis.push(selectedEmoji);
     this.message.content += selectedEmoji;
+  }
+  
+    triggerFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.storageService.onFileSelected(input);
+   // this.storageService.uploadFile(sessionStorage.getItem("uid"));
+  }
 }
+ 
 
 
-}
