@@ -43,10 +43,12 @@ export class ChannelMessagesComponent {
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
   @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
+  activeChannelHead = '';
   public dialogRefs: MatDialogRef<any>[] = [];
 
   constructor(public dialog: MatDialog) {
     this.resizeListenerService.registerResizeCallback(this.updateDialogPositions.bind(this));
+    this.dialogRefs = [];
   }
 
   /**
@@ -103,6 +105,7 @@ export class ChannelMessagesComponent {
    * position is set to the bottom left corner of the editChannel element.
    */
   openDialogEditChannel() {
+    this.activeChannelHead = '';
     if (this.resizeListenerService.smScreen) {
       this.stateService.setEditChannelDialogOpen(true);
     } else {
@@ -114,8 +117,10 @@ export class ChannelMessagesComponent {
       position: { top: `${rect.bottom}px`, left: `${rect.left - 20}px` }
     });
     this.dialogRefs.push(dialogRef);
+    this.activeChannelHead = 'edit-channel';
     dialogRef.afterClosed().subscribe(() => {
       this.dialogRefs = [];
+      this.activeChannelHead = '';
       this.stateService.setEditChannelDialogOpen(false);
     });
   }

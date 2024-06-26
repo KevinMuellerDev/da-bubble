@@ -48,7 +48,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.updateOverlayDisplay();
       this.displayHeadlineMobile();
-    },100);
+    }, 100);
   }
 
   ngAfterViewInit() {
@@ -168,6 +168,13 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     } else {
       this.hideThread();
     }
+  }
+
+  hanldeCloseMobile() {
+    this.closeSides();
+    this.hideSidenav();
+    this.hideThread();
+    this.displayHeadlineMobile();
   }
 
   getToggleText(): string {

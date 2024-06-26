@@ -1,7 +1,7 @@
 <div class="channel-container">
     <div class="channel-head-wrapper">
         @if (channelService.channelMsg) {
-        <div #editChannel (click)="openDialogEditChannel()" class="channel-head">
+        <div #editChannel (click)="openDialogEditChannel()" class="channel-head" [ngClass]="{'active-channel-head' : activeChannelHead.includes('edit-channel')}">
             <div class="channel-head-tag-icon"></div>
             <span>{{channelService.channelMsgData.title}} </span>
             <div class="channel-head-arrow-icon"></div>

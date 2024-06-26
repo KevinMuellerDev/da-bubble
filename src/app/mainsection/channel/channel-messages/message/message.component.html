@@ -1,5 +1,5 @@
 <div #scroll id="messageContainer" ref={messageContainer} class="channel-conversation-container">
-    @if (channelService.messages.length != 0 && channelService.messagesLoaded==true || channelService.channelMsg) {
+    @if (channelService.messages.length != 0 && channelService.messagesLoaded==true ) {
 
     <div *ngFor="let message of channelService.messages; let i = index; let isEven = even; let isLast = last">
         @if (i == 0 || (i != 0 && isNewDate(channelService.messages[i-1].timestamp, message.timestamp))) {
@@ -84,7 +84,13 @@
                             }} Antwort</span>
                     </div>
                     <div class="reply-timestamp">
-                        <span *ngIf="message.repliesCount >= 1">Letzte Antwort {{ message.lastReply |
+                        <span
+                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de')">Letzte
+                            Antwort {{ message.lastReply |
+                            date:'shortDate':'':'de' }}</span>
+                        <span
+                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') === (message.timestamp | date:'shortDate':'':'de')">Letzte
+                            Antwort {{ message.lastReply |
                             date:'shortTime':'':'de' }}</span>
                     </div>
                 </div>
@@ -104,6 +110,16 @@
                     class="name-clickable">&#64;{{channelService.privateMsgData['name']}}</span> und dir statt.</span>
         </div>
     </div>
+    } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true && channelService.channelMsg) {
+        <div class="wrapper-start-msg">
+            <div class="channel-info">
+                <span># {{channelService.channelMsgData['title']}}</span>
+            </div>
+            <div class="start-text">
+                <span *ngIf="channelService.channelMsgData['creator'] === userService.userInfo.name">Du hast diesen Channel heute erstellt. Das ist der Anfang des Channels <span class="color-purple"># {{channelService.channelMsgData['title']}}.</span> </span>
+                <span *ngIf="channelService.channelMsgData['creator'] !== userService.userInfo.name">{{channelService.channelMsgData.creator}} hat diesen Channel heute erstellt. Das ist der Anfang des Channels <span class="color-purple"># {{channelService.channelMsgData['title']}}.</span> </span>
+            </div>
+        </div>
     }
 
 

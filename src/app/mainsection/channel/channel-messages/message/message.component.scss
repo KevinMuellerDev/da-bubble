@@ -405,6 +405,18 @@
     }
 }
 
+.color-purple {
+    color: $purple3;
+}
+
+.channel-info {
+
+    span {
+        font: 700 24px "Nunito";
+    }
+
+}
+
 @media screen and (max-width: 600px) {
     .divider-container {
         padding: 20px 24px;
