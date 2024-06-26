@@ -17,8 +17,6 @@ export class MutationObserverService {
 
   constructor() { }
 public observe(element: ElementRef,isThread: boolean = false): void {
-    console.log('ElementRef received:', element);
-    
     if (!element || !element.nativeElement) {
       return;
   }
@@ -28,18 +26,26 @@ public observe(element: ElementRef,isThread: boolean = false): void {
     this.scrolledOnce = true
   }
 
-    
     this.initialChildCount = element.nativeElement.children.length;
     this.mutationObserver = new MutationObserver((mutations) => {
       mutations.forEach(mutation => {
         const currentChildCount = element.nativeElement.children.length;
-        console.log('Current child count:', currentChildCount);
-        if (currentChildCount > this.initialChildCount) {
+
+         if (currentChildCount > this.initialChildCount && isThread && this.scrolledOnce) {
           this.initialChildCount = currentChildCount;
           element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
           this.domChanges.next([mutation]);
-          console.log('Child count increased, scrolled to bottom');
-        } else if (currentChildCount != this.initialChildCount) {
+          console.log('Threadmode !! Child count increased, scrolled to bottom');
+        }
+       
+        if (currentChildCount > this.initialChildCount && !isThread && !this.scrolledOnce) {
+          this.initialChildCount = currentChildCount;
+          element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
+          this.domChanges.next([mutation]);
+          console.log('Normalmode !! Child count increased, scrolled to bottom');
+        }
+        
+        else if (currentChildCount != this.initialChildCount) {
           this.initialChildCount = element.nativeElement.children.length;
           console.log('Child count changed but not increased, updated initial count');
         }

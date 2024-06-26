@@ -22,8 +22,12 @@
         <div class="message-info">
           <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span>
           <div class="message-timestamp">
-            <span *ngIf="(dateToday | date:'shortDate':'':'de') !== (threadService.originMessage.timestamp | date:'shortDate':'':'de') ">{{threadService.originMessage.timestamp | date:'short':'':'de'}}</span>
-            <span *ngIf="(dateToday | date:'shortDate':'':'de') == (threadService.originMessage.timestamp | date:'shortTime':'':'de') ">{{threadService.originMessage.timestamp | date:'short':'':'de'}}</span>
+            <span
+              *ngIf="(dateToday | date:'shortDate':'':'de') !== (threadService.originMessage.timestamp | date:'shortDate':'':'de') ">{{threadService.originMessage.timestamp
+              | date:'short':'':'de'}}</span>
+            <span
+              *ngIf="(dateToday | date:'shortDate':'':'de') == (threadService.originMessage.timestamp | date:'shortTime':'':'de') ">{{threadService.originMessage.timestamp
+              | date:'short':'':'de'}}</span>
           </div>
         </div>
       </div>
@@ -64,8 +68,8 @@
           <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
             [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
             [ngClass]="{'emoji-mart-left-thread': message.id == userId,  'emoji-mart-right-thread': message.id != userId }"
-            (emojiClick)="onAddEmoji($event,i,message.id,userId)" *ngIf="emojiService.showEmojiPickerArrayThread[i]"
-            set="google"></emoji-mart>
+            (emojiClick)="onAddEmoji($event,i,message.id,userId);updateMessageAfterEmojiSelection(i)"
+            *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
         </div>
 
         <div class="profile-picture">
@@ -76,8 +80,12 @@
             <div class="message-info">
               <span (click)="openDialogUserInfo()"> {{message.name}}</span>
               <div class="message-timestamp">
-                <span *ngIf="(dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp | date:'short':'':'de'}}</span>
-                <span *ngIf="(dateToday | date:'shortDate':'':'de') == (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp | date:'shortTime':'':'de'}}</span>
+                <span
+                  *ngIf="(dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp
+                  | date:'short':'':'de'}}</span>
+                <span
+                  *ngIf="(dateToday | date:'shortDate':'':'de') == (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp
+                  | date:'shortTime':'':'de'}}</span>
               </div>
             </div>
           </div>

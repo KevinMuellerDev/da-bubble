@@ -205,6 +205,10 @@ export class ThreadComponent {
     }
   }
 
+    updateMessageAfterEmojiSelection(index: number) {
+    this.newMessage = { message: this.threadService.messages[index].message };
+  }
+
     toggleEmojiPickerEventTextarea(event: Event) {
     event.stopPropagation();
     this.isEmojiPickerVisibleThreadMessageInput = !this.isEmojiPickerVisibleThreadMessageInput;
