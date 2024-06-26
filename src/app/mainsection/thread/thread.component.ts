@@ -57,7 +57,7 @@ export class ThreadComponent {
       if (data) {
         console.log(data);
         setTimeout(() => {
-          emojiService.initMaps();
+          emojiService.initMaps('thread');
         }, 500);
       }
     });
@@ -66,12 +66,6 @@ export class ThreadComponent {
 
   @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef; 
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
-  ngOnInit() {
-        this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
-      console.log('DOM changes detected:', mutations);
-    });
-    
-  }
 
     ngAfterViewChecked() {
        if (this.threadService.startMutationObserver && this.scrollContainer) {
@@ -109,8 +103,8 @@ export class ThreadComponent {
   }
 
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
-    // TODO es muss nun unterschieden werden welcher MEssage service geprüft und geupdatet werden soll
-   /*this.emojiService.addEmoji(event, index, messageId, userId);
+    // Es gibt nun einen zusatzparameter / thread oder channel
+   this.emojiService.addEmoji(event, index, messageId, userId,'thread');
     this.emojiAdded = true;
     setTimeout(() => {
       this.emojiAdded = false;
@@ -118,7 +112,7 @@ export class ThreadComponent {
     if (!calledFromFunction) {
       this.toggleEmojiPicker(index);
       this.isEmojiPickerVisible = false;
-    }*/
+    }
   }
 
   toggleEvent(event: any): void {

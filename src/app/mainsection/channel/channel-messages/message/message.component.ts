@@ -57,7 +57,7 @@ export class MessageComponent {
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {
         setTimeout(() => {
-          emojiService.initMaps();
+          emojiService.initMaps('channel');
         }, 500);
       }
     });
@@ -102,7 +102,7 @@ export class MessageComponent {
   }
 
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
-    this.emojiService.addEmoji(event, index, messageId, userId);
+    this.emojiService.addEmoji(event, index, messageId, userId,'channel');
     this.emojiAdded = true;
     setTimeout(() => {
       this.emojiAdded = false;
@@ -114,15 +114,15 @@ export class MessageComponent {
   }
 
   onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId);
+    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId,'channel');
   }
 
   onAddCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
-    this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId);
+    this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId,'channel');
   }
 
   onAddRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
-    this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId);
+    this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId,'channel');
   }
 
   /**

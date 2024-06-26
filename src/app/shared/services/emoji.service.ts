@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ChannelService } from '../../shared/services/channel.service';
+import { ThreadService } from '../../shared/services/thread.service';  // Make sure this service is correctly imported
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmojiService {
 
-  constructor(private channelService: ChannelService) { }
+  constructor(private channelService: ChannelService, private threadService: ThreadService) { }
 
   selectedEmojis: string[] = [];
   messageEdit: boolean = false;
@@ -22,47 +23,44 @@ export class EmojiService {
     this.messageEdit = !this.messageEdit;
   }
 
-  initMaps() {
-    this.showEmojiPickerArray = [];
-    this.editMessage = [];
-    this.editMessageThread = [];
-    this.showEmojiPickerArray = this.channelService.messages.map(() => false);
-    this.showEmojiPickerArrayThread = this.channelService.messages.map(() => false);
-    this.openEditMessageToggle = this.channelService.messages.map(() => false);
-    this.openEditMessageToggleThread = this.channelService.messages.map(() => false);
-    this.editMessage = this.channelService.messages.map(() => false);
-     this.editMessageThread = this.channelService.messages.map(() => false);
+  initMaps(source: 'channel' | 'thread') {
+    const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
+    this.showEmojiPickerArray = messages.map(() => false);
+    this.showEmojiPickerArrayThread = messages.map(() => false);
+    this.openEditMessageToggle = messages.map(() => false);
+    this.openEditMessageToggleThread = messages.map(() => false);
+    this.editMessage = messages.map(() => false);
+    this.editMessageThread = messages.map(() => false);
   }
 
-  addEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
+  addEmoji(event: any, index: number, messageId: string, userId: string, source: 'channel' | 'thread', calledFromFunction: boolean = false) {
     const emoji = event['emoji']['native'];
     const userMatched = messageId === userId;
-    const callFromSingleEmoji = calledFromFunction;
-    const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched);
+    const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
 
-    if (this.messageEdit || this.threadMessageEdit ) {
-      this.addEmojiToEditedMessage(index, emoji);
-      return
+    const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched, source);
+
+    if (this.messageEdit || this.threadMessageEdit) {
+      this.addEmojiToEditedMessage(index, emoji, source);
+      return;
     }
 
     if (!foundEmoji) {
-      this.addNewEmoji(index, emoji, userMatched, userId);
-      this.updateMessage(index);
+      this.addNewEmoji(index, emoji, userMatched, userId, source);
+      this.updateMessage(index, source);
     }
-
-
   }
 
-  checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean): boolean {
-    for (let i = 0; i < this.channelService.messages[index].emoji.length; i++) {
-      if (this.channelService.messages[index].emoji[i].emoji === emoji) {
-        if (!this.channelService.messages[index].emoji[i].users) {
-          this.channelService.messages[index].emoji[i].users = [];
+  checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean, source: 'channel' | 'thread'): boolean {
+    const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
+    for (let i = 0; i < messages[index].emoji.length; i++) {
+      if (messages[index].emoji[i].emoji === emoji) {
+        if (!messages[index].emoji[i].users) {
+          messages[index].emoji[i].users = [];
         }
-        if (!userMatched && !this.channelService.messages[index].emoji[i].users.includes(userId)) {
-          console.log("keine Nachricht von mir, es gibt einen emoji und ich habe noch nicht reagiert");
-          this.channelService.messages[index].emoji[i].count++;
-          this.channelService.messages[index].emoji[i].users.push(userId);
+        if (!userMatched && !messages[index].emoji[i].users.includes(userId)) {
+          messages[index].emoji[i].count++;
+          messages[index].emoji[i].users.push(userId);
         }
         return true;
       }
@@ -70,84 +68,69 @@ export class EmojiService {
     return false;
   }
 
-  addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string) {
+  addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string, source: 'channel' | 'thread') {
+    const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
     const count = 0;
     const users = userMatched ? [] : [userId];
-    console.log(count, userMatched, emoji, users);
-    this.channelService.messages[index].emoji.push({ emoji: emoji, count: count, users: users });
+    messages[index].emoji.push({ emoji: emoji, count: count, users: users });
   }
 
-  updateMessage(index: number) {
-    console.log(this.channelService.privateMsg);
-
-    if (this.channelService.privateMsg) {
-      this.channelService.updateDirectMessage(this.channelService.messages[index]);
+  updateMessage(index: number, source: 'channel' | 'thread') {
+    if (source === 'channel') {
+      if (this.channelService.privateMsg) {
+        this.channelService.updateDirectMessage(this.channelService.messages[index]);
+      } else {
+        this.channelService.updateChannelMessage(this.channelService.messages[index]);
+      }
     } else {
-      this.channelService.updateChannelMessage(this.channelService.messages[index]);
+      //this.threadService.updateThreadMessage(this.threadService.messages[index]);
     }
   }
-  updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-    let emojiUserIds = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].users;
-    let emojiCount = this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count;
 
-    //es muss nicht geprüft werden ob ein Emoji vorhanden ist. 
-    // Prüfen, ob die Nachricht von mir stammt oder ob ich bereits reagiert habe
+  updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string, source: 'channel' | 'thread') {
+    const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
+    let emojiUserIds = messages[currentMessageIndex].emoji[currentEmojiIndex].users;
+    let emojiCount = messages[currentMessageIndex].emoji[currentEmojiIndex].count;
+
     if (messageId === userId || emojiUserIds.includes(userId)) {
-      // Wenn der count des emojis 0 und die Reaktion mit mir zusammenhängt, soll dieses entfernt werden
       if (emojiCount === 0) {
-        this.channelService.messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+        messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
       } else {
-        // Wenn count > 0, den count um 1 verringern
-        this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-        // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
+        messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
         const userIndex = emojiUserIds.indexOf(userId);
         if (userIndex !== -1) {
           emojiUserIds.splice(userIndex, 1);
         }
       }
-      if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-      } else {
-        this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
-      }
     } else {
-      // Wenn die Nachricht nicht von mir stammt
       if (emojiUserIds.includes(userId)) {
-        // Wenn count > 0, den count um 1 verringern
         if (emojiCount > 0) {
-          this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-          // Entfernen meiner Benutzer-ID aus der Liste der Reaktionen
+          messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
           const userIndex = emojiUserIds.indexOf(userId);
           if (userIndex !== -1) {
             emojiUserIds.splice(userIndex, 1);
           }
         }
       } else {
-        // Wenn es bereits ein emoji gibt, soll der countWert erhöht werden
-        this.channelService.messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
-        // Hinzufügen meiner Benutzer-ID zur Liste der Reaktionen
+        messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
         emojiUserIds.push(userId);
       }
-      if (this.channelService.privateMsg) {
-        this.channelService.updateDirectMessage(this.channelService.messages[currentMessageIndex]);
-      } else {
-        this.channelService.updateChannelMessage(this.channelService.messages[currentMessageIndex])
-      }
     }
+
+    this.updateMessage(currentMessageIndex, source);
   }
 
-  addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
-    this.addEmoji(event, currentMessageIndex, messageId, userId, true)
+  addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string, source: 'channel' | 'thread'): void {
+    this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
   }
 
-  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string): void {
-    this.addEmoji(event, currentMessageIndex, messageId, userId, true)
+  addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string, source: 'channel' | 'thread'): void {
+    this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
   }
 
-  addEmojiToEditedMessage(index: number, emoji: any) {
-    this.channelService.messages[index].message += emoji;
-    this.channelService.messages[index].edited = true;
+  addEmojiToEditedMessage(index: number, emoji: any, source: 'channel' | 'thread') {
+    const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
+    messages[index].message += emoji;
+    messages[index].edited = true;
   }
-
-
 }
