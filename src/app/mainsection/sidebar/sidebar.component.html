@@ -29,8 +29,7 @@
     </div>
     <div class="channel-wrapper">
       @for (channel of sidebarService.channels; track $index) {
-      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel)"
-        (click)="goToChannel()" [ngClass]="{'channel-active': activeChannelTitle === channel.title}"
+      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel); goToChannel()" [ngClass]="{'channel-active': activeChannelTitle === channel.title}"
         class="single-channel-container">
         <span class="channel-hash"></span>
         <span class="channel-name">{{channel.title}}</span>
@@ -53,7 +52,7 @@
     </div>
   </div>
   <div [@openClose]="menuStates['message']" class="messages-container">
-    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo)" (click)="goToPrivateMessage()"
+    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo); goToPrivateMessage()"
       [ngClass]="{'private-message-active' : activePrivateChannel === userService.userInfo.name}">
       <img [src]="userService.userInfo.profilePicture" alt="" />
       <div [ngClass]="getUserStatus()" class="online-indicator"></div>
@@ -61,7 +60,7 @@
     </div>
     @for (dm of sidebarService.userDmData; track dm; let i = $index) {
     @if (dm.id != userService.userInfo.id) {
-    <div class="message" (click)="channelService.chooseChannelType(true, dm)" (click)="goToDirektMessage(dm.name)"
+    <div class="message" (click)="channelService.chooseChannelType(true, dm); goToDirektMessage(dm.name)"
       [ngClass]="{'private-message-active' : activeDirectChannel === dm.name}">
       <img referrerpolicy="no-referrer" [src]="dm.profilePicture" alt="" />
       <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
