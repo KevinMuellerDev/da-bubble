@@ -11,10 +11,6 @@ export class MutationObserverService {
   public domChanges$: Observable<MutationRecord[]> = this.domChanges.asObservable();
   private initialChildCount: number = 0;
 
- 
-
-
-
   constructor() { }
 public observe(element: ElementRef,isThread: boolean = false): void {
     if (!element || !element.nativeElement) {
