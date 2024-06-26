@@ -33,6 +33,9 @@ export class SidebarComponent implements OnInit {
   sidebarService: SidebarService = inject(SidebarService);
   channelService: ChannelService = inject(ChannelService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
+  activeChannelTitle: string = '';
+  activePrivateChannel: string = '';
+  activeDirectChannel: string = '';
   unsubChannels;
   unsubCurrentChannels;
   unsubUserDmIds;
@@ -46,6 +49,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.clearactiveStyle();
   }
 
   /**
@@ -56,10 +60,26 @@ export class SidebarComponent implements OnInit {
   }
 
   goToChannel() {
+    this.clearactiveStyle();
+    this.checkMobileSmallScreen();
+    this.activeChannelTitle = this.channelService.channelMsgData.title;
+  }
+
+  goToPrivateMessage() {
+    this.clearactiveStyle();
+    this.checkMobileSmallScreen();
+    this.activePrivateChannel = this.userService.userInfo.name;
+  }
+
+  goToDirektMessage(dm: string) {
+    this.clearactiveStyle();
+    this.checkMobileSmallScreen();
+    this.activeDirectChannel = dm;
+  }
+
+  checkMobileSmallScreen() {
     if (this.resizeListenerService.smScreen || this.resizeListenerService.xsmScreen) {
-      this.mainsectionComponent.hideSidenav();
-      this.mainsectionComponent.hideThread();
-      this.mainsectionComponent.displayHeadlineMobile();
+      this.mainsectionComponent.hanldeCloseMobile();
     }
   }
 
@@ -103,6 +123,16 @@ export class SidebarComponent implements OnInit {
     this.channelService.privateMsg = false;
     this.channelService.channelMsg = false;
     this.channelService.messages = [];
+    this.clearactiveStyle();
+    if (this.resizeListenerService.smScreen || this.resizeListenerService.xsmScreen) {
+      this.mainsectionComponent.hanldeCloseMobile();
+    }
+  }
+
+  clearactiveStyle() {
+    this.activeChannelTitle = '';
+    this.activePrivateChannel = '';
+    this.activeDirectChannel = '';
   }
 
   ngOnDestroy() {
