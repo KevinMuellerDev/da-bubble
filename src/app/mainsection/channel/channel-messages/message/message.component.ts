@@ -20,6 +20,7 @@ import { OutsideclickDirective } from '../../../../outsideclick.directive';
 import { ThreadService } from '../../../../shared/services/thread.service';
 import { MutationObserverService } from '../../../../shared/services/mutation.observer.service';
 
+
 registerLocaleData(localeDe);
 
 @Component({
@@ -62,7 +63,6 @@ export class MessageComponent {
     });
 
   }
-
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
   @ViewChild('editMessageContainer', { static: false }) editMessageContainer!: ElementRef;
@@ -84,7 +84,7 @@ export class MessageComponent {
 
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
-     this.MutationObserverService.observe(this.scroll);
+    this.MutationObserverService.observe(this.scroll,false);
 
   }
 
@@ -234,6 +234,7 @@ export class MessageComponent {
     this.threadService.originMessage = message;
     this.mainsectionComponent.showThread();
     this.threadService.isActive = true;
+    this.threadService.startMutationObserver = true;
     this.threadService.changeData('');
     console.log(this.threadService.originMessage);
     

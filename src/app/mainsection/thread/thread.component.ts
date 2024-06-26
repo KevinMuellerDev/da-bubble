@@ -15,6 +15,7 @@ import { OutsideclickDirective } from '../../outsideclick.directive';
 import { UserService } from '../../shared/services/user.service';
 
 
+
 @Component({
   selector: 'app-thread',
   standalone: true,
@@ -63,16 +64,19 @@ export class ThreadComponent {
   @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef; 
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   ngOnInit() {
-    this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
+        this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
       console.log('DOM changes detected:', mutations);
     });
+    
   }
 
-  ngAfterViewInit() {
-    if (this.scrollContainer) {
-      this.MutationObserverService.observe(this.scrollContainer);
+    ngAfterViewChecked() {
+       if (this.threadService.startMutationObserver && this.scrollContainer) {
+      console.log(this.scrollContainer);
+      this.MutationObserverService.observe(this.scrollContainer,true);
     }
   }
+
 
   onOutsideClick(index: number,event:Event): void {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
@@ -80,7 +84,6 @@ export class ThreadComponent {
     this.emojiService.editMessageThread[index] = false;
     if (!this.emojiAdded) {
       this.emojiService.editMessage[index] = false;
-      //this.editMessageAbort(index)
     }
   }
 

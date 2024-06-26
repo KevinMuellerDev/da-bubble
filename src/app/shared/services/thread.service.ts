@@ -17,7 +17,7 @@ export class ThreadService {
   unsub!: Unsubscribe;
   messages: any[] = [];
   messagesTimestamp: any[] = [];
-  
+  startMutationObserver: boolean = false;
   
   constructor() { }
 

@@ -36,7 +36,7 @@
     <div class="divider"></div>
   </div>
 
-  <div #scrollContainer class="message-container">
+  <div #scrollContainer id="scrollContainer" ref="{scrollContainer}" class="message-container">
     <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last">
 
       <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
