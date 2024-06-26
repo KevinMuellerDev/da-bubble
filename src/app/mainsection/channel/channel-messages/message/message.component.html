@@ -112,11 +112,12 @@
     </div>
     } @else if (channelService.messages.length == 0 && channelService.messagesLoaded === true && channelService.channelMsg) {
         <div class="wrapper-start-msg">
-            <div class="user-info">
+            <div class="channel-info">
                 <span># {{channelService.channelMsgData['title']}}</span>
             </div>
             <div class="start-text">
-                <span>Du hast diesen Channel heute erstellt. Das ist der Anfang des Channels <span class="color-purple"># {{channelService.channelMsgData['title']}}</span> </span>
+                <span *ngIf="channelService.channelMsgData['creator'] === userService.userInfo.name">Du hast diesen Channel heute erstellt. Das ist der Anfang des Channels <span class="color-purple"># {{channelService.channelMsgData['title']}}.</span> </span>
+                <span *ngIf="channelService.channelMsgData['creator'] !== userService.userInfo.name">{{channelService.channelMsgData.creator}} hat diesen Channel heute erstellt. Das ist der Anfang des Channels <span class="color-purple"># {{channelService.channelMsgData['title']}}.</span> </span>
             </div>
         </div>
     }
