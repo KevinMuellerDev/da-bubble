@@ -84,7 +84,13 @@
                             }} Antwort</span>
                     </div>
                     <div class="reply-timestamp">
-                        <span *ngIf="message.repliesCount >= 1">Letzte Antwort {{ message.lastReply |
+                        <span
+                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de')">Letzte
+                            Antwort {{ message.lastReply |
+                            date:'short':'':'de' }}</span>
+                        <span
+                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') === (message.timestamp | date:'shortDate':'':'de')">Letzte
+                            Antwort {{ message.lastReply |
                             date:'shortTime':'':'de' }}</span>
                     </div>
                 </div>
