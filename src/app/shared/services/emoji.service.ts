@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ChannelService } from '../../shared/services/channel.service';
-import { ThreadService } from '../../shared/services/thread.service';  // Make sure this service is correctly imported
+import { ThreadService } from '../../shared/services/thread.service';  
 
 @Injectable({
   providedIn: 'root'
