@@ -41,6 +41,8 @@ export class ThreadComponent {
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
 
+   private hasScrolled: boolean = false;
+
   submitClick: boolean = false;
   textareaBlur: boolean = false;
   isEmojiPickerVisibleThreadMessageInput: boolean = false;
@@ -68,9 +70,10 @@ export class ThreadComponent {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
     ngAfterViewChecked() {
-       if (this.threadService.startMutationObserver && this.scrollContainer) {
+       if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
       console.log(this.scrollContainer);
-      this.MutationObserverService.observe(this.scrollContainer,true);
+         this.MutationObserverService.observe(this.scrollContainer, true);
+          this.hasScrolled = true;
     }
   }
 

@@ -10,7 +10,7 @@ export class MutationObserverService {
   private domChanges = new Subject<MutationRecord[]>();
   public domChanges$: Observable<MutationRecord[]> = this.domChanges.asObservable();
   private initialChildCount: number = 0;
-  private scrolledOnce:boolean = false;
+
  
 
 
@@ -23,26 +23,19 @@ public observe(element: ElementRef,isThread: boolean = false): void {
   
   if (isThread) {
     element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
-    this.scrolledOnce = true
+    console.log("ich scrolle einmal weil ich ein thread bin");
   }
-
+   
     this.initialChildCount = element.nativeElement.children.length;
     this.mutationObserver = new MutationObserver((mutations) => {
       mutations.forEach(mutation => {
         const currentChildCount = element.nativeElement.children.length;
 
-         if (currentChildCount > this.initialChildCount && isThread && this.scrolledOnce) {
+        if (currentChildCount > this.initialChildCount) {
           this.initialChildCount = currentChildCount;
           element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
           this.domChanges.next([mutation]);
-          console.log('Threadmode !! Child count increased, scrolled to bottom');
-        }
-       
-        if (currentChildCount > this.initialChildCount && !isThread && !this.scrolledOnce) {
-          this.initialChildCount = currentChildCount;
-          element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
-          this.domChanges.next([mutation]);
-          console.log('Normalmode !! Child count increased, scrolled to bottom');
+          console.log('ich scrolle korrekt weil ich cool bin');
         }
         
         else if (currentChildCount != this.initialChildCount) {
