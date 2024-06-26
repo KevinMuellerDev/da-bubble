@@ -22,7 +22,8 @@
         <div class="message-info">
           <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span>
           <div class="message-timestamp">
-            <span>{{threadService.originMessage.timestamp | date:'shortTime':'':'de'}}</span>
+            <span *ngIf="(dateToday | date:'shortDate':'':'de') !== (threadService.originMessage.timestamp | date:'shortDate':'':'de') ">{{threadService.originMessage.timestamp | date:'short':'':'de'}}</span>
+            <span *ngIf="(dateToday | date:'shortDate':'':'de') == (threadService.originMessage.timestamp | date:'shortTime':'':'de') ">{{threadService.originMessage.timestamp | date:'short':'':'de'}}</span>
           </div>
         </div>
       </div>
@@ -32,7 +33,7 @@
     </div>
   </div>
   <div class="divider-container">
-    <span>2 Antworten</span>
+    <span>{{threadService.messages.length}} Antworten</span>
     <div class="divider"></div>
   </div>
 
@@ -75,7 +76,8 @@
             <div class="message-info">
               <span (click)="openDialogUserInfo()"> {{message.name}}</span>
               <div class="message-timestamp">
-                <span>{{message.timestamp | date:'shortTime':'':'de'}}</span>
+                <span *ngIf="(dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp | date:'short':'':'de'}}</span>
+                <span *ngIf="(dateToday | date:'shortDate':'':'de') == (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp | date:'shortTime':'':'de'}}</span>
               </div>
             </div>
           </div>

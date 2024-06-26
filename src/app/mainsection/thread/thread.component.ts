@@ -13,6 +13,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, NgForm } from '@angular/forms';
 import { OutsideclickDirective } from '../../outsideclick.directive';
 import { UserService } from '../../shared/services/user.service';
+import { MessageData } from '../../shared/models/message.class';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ThreadComponent {
   private domChangesSubscription!: Subscription;
   userId!: string;
   messages: any[] = [];
+  dateToday!:number;
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
   emojiAdded: boolean = false;
@@ -49,6 +51,7 @@ export class ThreadComponent {
 
   constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
     this.userId = sessionStorage.getItem('uid')!;
+    this.dateToday = Date.now() as number;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
       if (data) {
         console.log(data);
@@ -147,6 +150,7 @@ export class ThreadComponent {
       console.log(formThread)
       formThread.reset();
     } else if (formThread.valid) {
+      this.arrangeThreadData();
       console.log(this.messageThread.content)
       this.threadMessageContent.nativeElement.focus()
       this.submitClick = false;
@@ -154,6 +158,21 @@ export class ThreadComponent {
        formThread.reset();
     }
   }
+
+      /**
+   * The function `arrangeDirectData` creates a new `MessageData` object, populates it with data from
+   * user input and session storage, and then sends it to the `channelService` to create a direct
+   * message.
+   */
+      arrangeThreadData() {
+        let dummy = new MessageData();
+        dummy.id = sessionStorage.getItem('uid')!;
+        dummy.name = this.userService.userInfo.name;
+        dummy.profilePicture = this.userService.userInfo.profilePicture;
+        dummy.message = this.messageThread.content;
+        dummy.emoji = [];
+        this.threadService.createThreadMessage(dummy.toJson());
+      }
 
   editMessageSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
