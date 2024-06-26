@@ -71,6 +71,23 @@
     }
 }
 
+.active-channel-head {
+    .channel-head-tag-icon {
+        background-image: url("/assets/img/icons/tag_hover.svg");
+    }
+
+    .channel-head-arrow-icon {
+        background-image: url("/assets/img/icons/channel_arrow_down_hover.svg");
+    }
+
+    > span {
+        color: $purple1;
+    }
+
+    background-color: $bg-color;
+    border-radius: 30px;
+}
+
 .channel-head-right {
     @include dFlex($jc: flex-end);
     gap: 10px;

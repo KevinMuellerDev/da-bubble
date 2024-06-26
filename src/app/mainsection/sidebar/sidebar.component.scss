@@ -195,6 +195,11 @@
     width: 24px;
     font-weight: bold;
     @include dFlex($jc: center);
+    background-image: url("/assets/img/icons/tag.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 24px;
+    width: 24px;
   }
 
   .channel-name {
@@ -205,6 +210,20 @@
 
   &:hover {
     background-color: $bg-color;
+    color: $purple3;
+
+    .channel-hash {
+      background-image: url("/assets/img/icons/tag_hover.svg");
+    }
+  }
+}
+
+.channel-active {
+  background-color: $bg-color;
+  color: $purple3;
+
+  .channel-hash {
+    background-image: url("/assets/img/icons/tag_hover.svg");
   }
 }
 
@@ -322,6 +341,15 @@
     > span {
       color: $purple1;
     }
+  }
+}
+
+.private-message-active {
+  background-color: $bg-color;
+  border-radius: 30px;
+
+  > span {
+    color: $purple1;
   }
 }
 

@@ -10,7 +10,7 @@
       </div>
       <span> Devspace </span>
     </div>
-    <div class="edit-icon" (click)="newMessage()" (click)="goToChannel()"></div>
+    <div class="edit-icon" (click)="newMessage()"></div>
   </div>
   <div class="channel-container">
     <div class="channels">
@@ -29,8 +29,10 @@
     </div>
     <div class="channel-wrapper">
       @for (channel of sidebarService.channels; track $index) {
-      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel)" (click)="goToChannel()" class="single-channel-container">
-        <span class="channel-hash"><img src="assets/img/icons/tag.svg" /></span>
+      <div [@openClose]="menuStates['channel']" (click)="channelService.chooseChannelType(false, channel)"
+        (click)="goToChannel()" [ngClass]="{'channel-active': activeChannelTitle === channel.title}"
+        class="single-channel-container">
+        <span class="channel-hash"></span>
         <span class="channel-name">{{channel.title}}</span>
       </div>
       }
@@ -51,14 +53,16 @@
     </div>
   </div>
   <div [@openClose]="menuStates['message']" class="messages-container">
-    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo)" (click)="goToChannel()">
+    <div class="message" (click)="channelService.chooseChannelType(true, userService.userInfo)" (click)="goToPrivateMessage()"
+      [ngClass]="{'private-message-active' : activePrivateChannel === userService.userInfo.name}">
       <img [src]="userService.userInfo.profilePicture" alt="" />
       <div [ngClass]="getUserStatus()" class="online-indicator"></div>
       <span>{{userService.userInfo.name}} (Du)</span>
     </div>
     @for (dm of sidebarService.userDmData; track dm; let i = $index) {
     @if (dm.id != userService.userInfo.id) {
-    <div class="message" (click)="channelService.chooseChannelType(true, dm)" (click)="goToChannel()">
+    <div class="message" (click)="channelService.chooseChannelType(true, dm)" (click)="goToDirektMessage(dm.name)"
+      [ngClass]="{'private-message-active' : activeDirectChannel === dm.name}">
       <img referrerpolicy="no-referrer" [src]="dm.profilePicture" alt="" />
       <div [ngClass]="getDmStatus(i)" class="online-indicator"></div>
       <span>{{dm.name}}</span>
