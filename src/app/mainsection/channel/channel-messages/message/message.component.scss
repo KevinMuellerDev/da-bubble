@@ -405,6 +405,10 @@
     }
 }
 
+.color-purple{
+    color: $purple3;
+}
+
 @media screen and (max-width: 600px) {
     .divider-container {
         padding: 20px 24px;
