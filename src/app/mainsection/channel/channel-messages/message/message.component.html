@@ -85,11 +85,11 @@
                     </div>
                     <div class="reply-timestamp">
                         <span
-                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de')">Letzte
+                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') !== (message.lastReply | date:'shortDate':'':'de')">Letzte
                             Antwort {{ message.lastReply |
                             date:'shortDate':'':'de' }}</span>
                         <span
-                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') === (message.timestamp | date:'shortDate':'':'de')">Letzte
+                            *ngIf="message.repliesCount >= 1 && (dateToday | date:'shortDate':'':'de') === (message.lastReply | date:'shortDate':'':'de')">Letzte
                             Antwort {{ message.lastReply |
                             date:'shortTime':'':'de' }}</span>
                     </div>
