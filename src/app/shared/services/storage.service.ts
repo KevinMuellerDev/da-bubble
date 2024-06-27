@@ -52,6 +52,8 @@ export class StorageService {
     let dataType = input.files?.item(0)?.type
     dataType = dataType?.split('/').pop();
     console.log('your file size is', input.files?.item(0)?.size!, 'bytes');
+    console.log(input.files);
+    
 
     return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif')
   }
