@@ -48,6 +48,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.updateOverlayDisplay();
       this.displayHeadlineMobile();
+      this.sidesStatus();
     }, 100);
   }
 
@@ -61,6 +62,14 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
       this.toggleElement.nativeElement.classList.add('rotate-toggle');
     }
     this.changeDetector.detectChanges();
+  }
+
+  sidesStatus() {
+    if (!this.resizeListenerService.lgScreen && this.sidenavOpen == true && this.threadOpen == true) {
+      this.hideSidenav();
+      this.toggleElement.nativeElement.classList.add('rotate-toggle');
+      this.rotateToggle = true;
+    }
   }
 
   updateOverlayDisplay() {

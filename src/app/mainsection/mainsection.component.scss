@@ -108,6 +108,14 @@
     width: 0 !important;
 }
 
+@media screen and (max-width: 1600px) {
+    .content {
+        app-thread {
+            max-width: 366px;
+        }
+    }
+}
+
 @media screen and (max-width: 960px) {
     .content {
         app-sidebar {
@@ -134,7 +142,6 @@
 
 @media screen and (max-width: 600px) {
     .content {
-
         app-thread,
         app-sidebar {
             max-width: 100%;
