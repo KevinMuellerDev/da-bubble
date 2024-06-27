@@ -1,5 +1,9 @@
 @import "./../../../styles.scss";
 
+:host {
+  --emoji-mart-scroll-height: 150px;
+}
+
 .thread-container {
   @include dFlex();
   padding: 32px 30px;
