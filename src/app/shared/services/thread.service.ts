@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { ChannelService } from './channel.service';
 import { UserService } from './user.service';
@@ -86,6 +86,19 @@ startMutationObserver: boolean = false;
     this.stopListener();
     this.startListenerChannel();
   }
+
+  async updateChannelMessage(data: any) {
+    const querySnapshot = await getDocs(query(this.refThreadMessages()));
+    querySnapshot.forEach(async (dataset) => {
+      if (data.timestamp == dataset.data()['timestamp']) {
+        await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages',this.originMessage.msgId, 'thread', dataset.id), {
+          emoji: data.emoji,
+          message: data.message
+        });
+      }
+    });
+  }
+
 
   refThreadMessages() {
     return collection(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread')

@@ -177,10 +177,7 @@ export class ThreadComponent {
   editMessageSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
       this.threadService.messages[index].message = this.newMessage.message;
-     // if (this.channelService.privateMsg) {
-     //   this.channelService.updateDirectMessage(this.channelService.messages[index]);
-      } else {
-       // this.channelService.updateChannelMessage(this.channelService.messages[index]);
+      this.threadService.updateChannelMessage(this.threadService.messages[index]);
       }
       this.emojiService.editMessageThread[index] = false;
       editMessageForm.reset();
