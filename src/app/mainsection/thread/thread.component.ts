@@ -69,7 +69,7 @@ export class ThreadComponent {
   @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef; 
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
-    ngAfterViewChecked() {
+  ngAfterViewChecked() {
        if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
       console.log(this.scrollContainer);
          this.MutationObserverService.observe(this.scrollContainer, true);
@@ -97,8 +97,8 @@ export class ThreadComponent {
 
   }
 
-    toggleOpenEditMessage(index: number) {
-    this.emojiService.openEditMessageToggleThread = this.emojiService.openEditMessageToggleThread.map((value, i) => i === index ? !value : false);
+  toggleOpenEditMessage(index: number):void {      
+    this.emojiService.openEditMessageToggleThread[index] = ! this.emojiService.openEditMessageToggleThread[index]
   }
 
   toggleEmojiPicker(index: number): void {
@@ -138,6 +138,7 @@ export class ThreadComponent {
         textareaElement.focus();
       }
     }, 0);
+    this.emojiService.initMaps('thread')
     this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index];
   }
 
@@ -155,7 +156,9 @@ export class ThreadComponent {
       this.threadMessageContent.nativeElement.focus()
       this.submitClick = false;
       this.selectedEmojis = [];
-       formThread.reset();
+      formThread.reset();
+       this.emojiService.initMaps('thread')
+      console.log(this.emojiService.threadMessageEdit, this.emojiService.editMessageThread,this.emojiService.openEditMessageToggleThread);
     }
   }
 
@@ -181,7 +184,10 @@ export class ThreadComponent {
       }
       this.emojiService.editMessageThread[index] = false;
       editMessageForm.reset();
-      this.emojiService.threadMessageEdit = false;
+    this.emojiService.threadMessageEdit = false;
+    this.emojiService.openEditMessageToggleThread[index] = false;
+    console.log(this.emojiService.threadMessageEdit, this.emojiService.editMessageThread,this.emojiService.openEditMessageToggleThread);
+    
   }
 
   editMessageAbort(index: number) {
