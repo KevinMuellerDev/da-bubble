@@ -132,11 +132,11 @@ export class MessageComponent {
  * @param index - The index of the message for which the emoji picker should be toggled.
  */
   toggleEmojiPicker(index: number) {
-    this.emojiService.showEmojiPickerArray = this.emojiService.showEmojiPickerArray.map((value, i) => i === index ? !value : false);
+    this.emojiService.showEmojiPickerArray[index] = !this.emojiService.showEmojiPickerArray[index];
   }
 
   toggleOpenEditMessage(index: number) {
-    this.emojiService.openEditMessageToggle = this.emojiService.openEditMessageToggle.map((value, i) => i === index ? !value : false);
+    this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
 
   /**
