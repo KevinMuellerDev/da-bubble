@@ -126,13 +126,16 @@ export class ChannelService {
   async createNewChannel(channelData: ChannelInfo) {
     await addDoc(collection(this.firestore, "Channels"), channelData)
       .then(async (docRef) => {
+        console.log("DIES SIND DIE UEBERGEBENEN DATEN",channelData);
+        
         channelData.users.forEach(async user => {
           const channelId = { channelid: docRef.id }
           await addDoc(collection(this.firestore, 'user', user, 'userchannels'), channelId)
         });
         await updateDoc(doc(this.firestore, "Channels", docRef.id), {
           collection: docRef.id,
-          creator: this.userService.userInfo.name
+          creator: this.userService.userInfo.name,
+          users: channelData.users
         });
       });
   }
