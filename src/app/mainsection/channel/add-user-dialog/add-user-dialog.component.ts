@@ -44,7 +44,6 @@ export class AddUserDialogComponent {
       const checkUid = (obj: { id: any; }) => obj.id === element['id'];
       if (contains && this.addUser.name != '' && !this.channelService.currentChannelUsers.some(checkUid)) {
         this.userList.push({ user: name, uid: element['id'], img: element['profilePicture'] });
-        console.log(this.userList);
       }
     });
   }

@@ -62,7 +62,8 @@ export class AddNewUserToChannelComponent {
     this.userService.allUsers.forEach(element => {
       const name: string = element['name'];
       const contains: boolean = name.toLocaleLowerCase().indexOf(this.inputs.specificUser.toLocaleLowerCase()) != -1;
-      if (contains && this.inputs.specificUser != '') {
+      const checkUid = (obj: { uid: any; }) => obj.uid === element['id'];
+      if (contains && this.inputs.specificUser != '' && !this.selectedUser.some(checkUid)) {
         this.userList.push({ user: name, uid: element['id'], img: element['profilePicture'] });
       }
     });
@@ -77,8 +78,10 @@ export class AddNewUserToChannelComponent {
    * array, and resets the specificUser input field.
    * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
    */
-  pushToSelection(user: object) {
-    this.selectedUser.push(user);
+  pushToSelection(user: any) {
+    const checkUid = (obj: { uid: any; }) => obj.uid === user.uid;
+    if (!this.selectedUser.some(checkUid)) 
+      this.selectedUser.push(user);
     this.userList = [];
     this.inputs.specificUser = ''
   }
