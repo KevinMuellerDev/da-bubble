@@ -41,10 +41,10 @@ export class AddUserDialogComponent {
     this.userService.allUsers.forEach(element => {
       const name: string = element['name'];
       const contains: boolean = name.toLocaleLowerCase().indexOf(this.addUser.name.toLocaleLowerCase()) != -1;
-      if (contains && this.addUser.name != '') {
+      const checkUid = (obj: { id: any; }) => obj.id === element['id'];
+      if (contains && this.addUser.name != '' && !this.channelService.currentChannelUsers.some(checkUid)) {
         this.userList.push({ user: name, uid: element['id'], img: element['profilePicture'] });
         console.log(this.userList);
-        
       }
     });
   }
@@ -68,8 +68,10 @@ export class AddUserDialogComponent {
   * array, and resets the specificUser input field.
   * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
   */
-  pushToSelection(user:object){
-    this.selectedUser.push(user);
+  pushToSelection(user:any){
+    const checkUid = (obj: { uid: any; }) => obj.uid === user.uid;
+    if (!this.selectedUser.some(checkUid)) 
+      this.selectedUser.push(user);
     this.userList=[];
     this.addUser.name =''
   }

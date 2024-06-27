@@ -34,21 +34,21 @@ export class ThreadComponent {
   private domChangesSubscription!: Subscription;
   userId!: string;
   messages: any[] = [];
-  dateToday!:number;
+  dateToday!: number;
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
   emojiAdded: boolean = false;
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
 
-   private hasScrolled: boolean = false;
+  private hasScrolled: boolean = false;
 
   submitClick: boolean = false;
   textareaBlur: boolean = false;
   isEmojiPickerVisibleThreadMessageInput: boolean = false;
-  showEmojiPickerTextarea:boolean = false;
+  showEmojiPickerTextarea: boolean = false;
   selectedEmojis: string[] = [];
-    messageThread = {
+  messageThread = {
     content: ''
   }
 
@@ -66,19 +66,19 @@ export class ThreadComponent {
   }
 
 
-  @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef; 
+  @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
-    ngAfterViewChecked() {
-       if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
+  ngAfterViewChecked() {
+    if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
       console.log(this.scrollContainer);
-         this.MutationObserverService.observe(this.scrollContainer, true);
-          this.hasScrolled = true;
+      this.MutationObserverService.observe(this.scrollContainer, true);
+      this.hasScrolled = true;
     }
   }
 
 
-  onOutsideClick(index: number,event:Event): void {
+  onOutsideClick(index: number, event: Event): void {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
     this.emojiService.openEditMessageToggleThread[index] = false;
     this.emojiService.editMessageThread[index] = false;
@@ -88,8 +88,8 @@ export class ThreadComponent {
   }
 
   onOutsideClickTextarea() {
-     this.showEmojiPickerTextarea = !this.showEmojiPickerTextarea;
-     this.isEmojiPickerVisibleThreadMessageInput = false;
+    this.showEmojiPickerTextarea = !this.showEmojiPickerTextarea;
+    this.isEmojiPickerVisibleThreadMessageInput = false;
   }
 
   emojiclick() {
@@ -97,7 +97,7 @@ export class ThreadComponent {
 
   }
 
-    toggleOpenEditMessage(index: number) {
+  toggleOpenEditMessage(index: number) {
     this.emojiService.openEditMessageToggleThread = this.emojiService.openEditMessageToggleThread.map((value, i) => i === index ? !value : false);
   }
 
@@ -107,7 +107,7 @@ export class ThreadComponent {
 
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     // Es gibt nun einen zusatzparameter / thread oder channel
-   this.emojiService.addEmoji(event, index, messageId, userId,'thread');
+    this.emojiService.addEmoji(event, index, messageId, userId, 'thread');
     this.emojiAdded = true;
     setTimeout(() => {
       this.emojiAdded = false;
@@ -125,7 +125,7 @@ export class ThreadComponent {
   }
 
   editMessageFunction(index: number): void {
- this.originalMessage = this.threadService.messages[index].message;
+    this.originalMessage = this.threadService.messages[index].message;
     this.emojiService.threadMessageEdit = true;
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessageThread[index] = !this.emojiService.editMessageThread[index];
@@ -143,9 +143,9 @@ export class ThreadComponent {
 
 
   onSubmit(formThread: NgForm): void {
-     this.submitClick = true;
+    this.submitClick = true;
     this.textareaBlur = true;
-   
+
     if (!formThread.valid) {
       console.log(formThread)
       formThread.reset();
@@ -155,33 +155,33 @@ export class ThreadComponent {
       this.threadMessageContent.nativeElement.focus()
       this.submitClick = false;
       this.selectedEmojis = [];
-       formThread.reset();
+      formThread.reset();
     }
   }
 
-      /**
-   * The function `arrangeDirectData` creates a new `MessageData` object, populates it with data from
-   * user input and session storage, and then sends it to the `channelService` to create a direct
-   * message.
-   */
-      arrangeThreadData() {
-        let dummy = new MessageData();
-        dummy.id = sessionStorage.getItem('uid')!;
-        dummy.name = this.userService.userInfo.name;
-        dummy.profilePicture = this.userService.userInfo.profilePicture;
-        dummy.message = this.messageThread.content;
-        dummy.emoji = [];
-        this.threadService.createThreadMessage(dummy.toJson());
-      }
+  /**
+* The function `arrangeDirectData` creates a new `MessageData` object, populates it with data from
+* user input and session storage, and then sends it to the `channelService` to create a direct
+* message.
+*/
+  arrangeThreadData() {
+    let dummy = new MessageData();
+    dummy.id = sessionStorage.getItem('uid')!;
+    dummy.name = this.userService.userInfo.name;
+    dummy.profilePicture = this.userService.userInfo.profilePicture;
+    dummy.message = this.messageThread.content;
+    dummy.emoji = [];
+    this.threadService.createThreadMessage(dummy.toJson());
+  }
 
   editMessageSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
       this.threadService.messages[index].message = this.newMessage.message;
       this.threadService.updateChannelMessage(this.threadService.messages[index]);
-      }
-      this.emojiService.editMessageThread[index] = false;
-      editMessageForm.reset();
-      this.emojiService.threadMessageEdit = false;
+    }
+    this.emojiService.editMessageThread[index] = false;
+    editMessageForm.reset();
+    this.emojiService.threadMessageEdit = false;
   }
 
   editMessageAbort(index: number) {
@@ -189,9 +189,9 @@ export class ThreadComponent {
     this.emojiService.threadMessageEdit = false;
     this.newMessage = { message: this.originalMessage };
     this.threadService.messages[index].message = this.originalMessage;
-}
+  }
 
-    onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
+  onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
     this.threadService.messages[index].message = this.newMessage.message;
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -199,21 +199,21 @@ export class ThreadComponent {
     }
   }
 
-    updateMessageAfterEmojiSelection(index: number) {
+  updateMessageAfterEmojiSelection(index: number) {
     this.newMessage = { message: this.threadService.messages[index].message };
   }
 
-    toggleEmojiPickerEventTextarea(event: Event) {
+  toggleEmojiPickerEventTextarea(event: Event) {
     event.stopPropagation();
     this.isEmojiPickerVisibleThreadMessageInput = !this.isEmojiPickerVisibleThreadMessageInput;
   }
 
-    addThreadMessageEmoji(event: any) {
+  addThreadMessageEmoji(event: any) {
     const selectedEmoji = event['emoji']['native'];
     this.selectedEmojis.push(selectedEmoji);
-      this.messageThread.content += selectedEmoji;
-       this.onOutsideClickTextarea()
-}
+    this.messageThread.content += selectedEmoji;
+    this.onOutsideClickTextarea()
+  }
 
   closeThread() {
     this.threadService.stopListener();

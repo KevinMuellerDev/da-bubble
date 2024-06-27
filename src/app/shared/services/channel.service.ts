@@ -337,6 +337,8 @@ export class ChannelService {
     docSnap.forEach((element: any) => {
       if (this.channelMsgData.users.includes(element.id))
         this.currentChannelUsers.push(element.data())
+      console.log(this.currentChannelUsers);
+      
     });
   }
 
