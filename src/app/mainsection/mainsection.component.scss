@@ -60,6 +60,7 @@
     app-thread {
         width: 100%;
         overflow-y: hidden;
+        position: relative;
         max-width: 485px;
     }
 }
@@ -106,6 +107,14 @@
 .hide-show {
     visibility: hidden;
     width: 0 !important;
+}
+
+@media screen and (max-width: 1600px) {
+    .content {
+        app-thread {
+            max-width: 366px;
+        }
+    }
 }
 
 @media screen and (max-width: 960px) {

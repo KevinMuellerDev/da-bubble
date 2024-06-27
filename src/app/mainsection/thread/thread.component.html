@@ -12,7 +12,7 @@
   </div>
 </div>
 @if (threadService.isActive) {
-<div class="thread-conversation-container">
+<div class="thread-conversation-container" #scrollContainer id="scrollContainer" ref="{scrollContainer}">
   <div class="single-message-container">
     <div class="profile-picture">
       <img [src]="threadService.originMessage.profilePicture" />
@@ -40,76 +40,74 @@
     <span>{{threadService.messages.length}} Antworten</span>
     <div class="divider"></div>
   </div>
+  <div class="message-complete"
+    *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last">
 
-  <div #scrollContainer id="scrollContainer" ref="{scrollContainer}" class="message-container">
-    <div *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last">
+    <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
 
-      <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
-
-        <div [ngClass]="{'interaction-container-inverted' : message.id == userId}" class="interaction-container ">
-          <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
-          <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
-            [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
-            *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
-            <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
-          </div>
-          <div *ngIf="message.id == userId" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
-            class="edit-message-icon">
-          </div>
-          <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
-            [attr.data-index]="i"
-            [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
-            *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
-            <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
-          </div>
+      <div [ngClass]="{'interaction-container-inverted' : message.id == userId}" class="interaction-container ">
+        <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
+        <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+          [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
+          *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
+          <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
         </div>
-
-        <div id="emojiPickerContainer-thread-{{i}}">
-          <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
-            [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
-            [ngClass]="{'emoji-mart-left-thread': message.id == userId,  'emoji-mart-right-thread': message.id != userId }"
-            (emojiClick)="onAddEmoji($event,i,message.id,userId);updateMessageAfterEmojiSelection(i)"
-            *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
+        <div *ngIf="message.id == userId" (click)="toggleOpenEditMessage(i);toggleEvent($event)"
+          class="edit-message-icon">
         </div>
-
-        <div class="profile-picture">
-          <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
+        <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+          [attr.data-index]="i"
+          [ngClass]="{'edit-message-left': message.id == userId, 'edit-message-right': userId != message.id}"
+          *ngIf="emojiService.openEditMessageToggleThread[i]  && message.id == userId">
+          <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
         </div>
-        <div class="message-wrapper">
-          <div class="message-head">
-            <div class="message-info">
-              <span (click)="openDialogUserInfo()"> {{message.name}}</span>
-              <div class="message-timestamp">
-                <span
-                  *ngIf="(dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp
-                  | date:'short':'':'de'}}</span>
-                <span
-                  *ngIf="(dateToday | date:'shortDate':'':'de') == (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp
-                  | date:'shortTime':'':'de'}}</span>
-              </div>
+      </div>
+
+      <div id="emojiPickerContainer-thread-{{i}}">
+        <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
+          [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
+          [ngClass]="{'emoji-mart-left-thread': message.id == userId,  'emoji-mart-right-thread': message.id != userId }"
+          (emojiClick)="onAddEmoji($event,i,message.id,userId);updateMessageAfterEmojiSelection(i)"
+          *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
+      </div>
+
+      <div class="profile-picture">
+        <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
+      </div>
+      <div class="message-wrapper">
+        <div class="message-head">
+          <div class="message-info">
+            <span (click)="openDialogUserInfo()"> {{message.name}}</span>
+            <div class="message-timestamp">
+              <span
+                *ngIf="(dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp
+                | date:'short':'':'de'}}</span>
+              <span
+                *ngIf="(dateToday | date:'shortDate':'':'de') == (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp
+                | date:'shortTime':'':'de'}}</span>
             </div>
           </div>
-          <div class="message">
-            <span *ngIf="!emojiService.editMessageThread[i]">{{ message.message }} </span>
-            <form #editMessageThreadForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
-              [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
-              *ngIf="emojiService.editMessageThread[i] && userId == message.id"
-              (ngSubmit)="editMessageSubmit(editMessageThreadForm, i)">
-              <textarea class="text-area-editable" name="editThreadMessageTextarea" [attr.data-index]="i"
-                [id]="'editThreadMessageTextarea-' + i" [(ngModel)]="newMessage.message" (focus)="toggleEvent($event)"
-                (keyup)="onKeyup($event, editMessageThreadForm, i)">
+        </div>
+        <div class="message">
+          <span *ngIf="!emojiService.editMessageThread[i]">{{ message.message }} </span>
+          <form #editMessageThreadForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+            [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
+            *ngIf="emojiService.editMessageThread[i] && userId == message.id"
+            (ngSubmit)="editMessageSubmit(editMessageThreadForm, i)">
+            <textarea class="text-area-editable" name="editThreadMessageTextarea" [attr.data-index]="i"
+              [id]="'editThreadMessageTextarea-' + i" [(ngModel)]="newMessage.message" (focus)="toggleEvent($event)"
+              (keyup)="onKeyup($event, editMessageThreadForm, i)">
                                             </textarea>
-              <div class="edit-Message-control">
-                <button type="submit" class="edit-message-button">Speichern</button>
-                <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
-              </div>
-            </form>
-          </div>
+            <div class="edit-Message-control">
+              <button type="submit" class="edit-message-button">Speichern</button>
+              <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
       <textarea class="thread-message-input form-control" name="message" #threadMessageContent id="threadMessageContent"
@@ -136,6 +134,7 @@
       *ngIf="isEmojiPickerVisibleThreadMessageInput" set="google"></emoji-mart>
   </div>
 </div>
+
 
 }
 

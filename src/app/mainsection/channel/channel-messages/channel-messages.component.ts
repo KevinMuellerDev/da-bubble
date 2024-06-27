@@ -92,9 +92,6 @@ export class ChannelMessagesComponent {
       position: { top: `${rect.bottom}px`, left: `${rect.right - 438}px` }
     });
     this.dialogRefs.push(dialogRef);
-    // may only be closed if AddUserDialogComponent is closed
-    // set size of dialog 0px width and height if
-    // AddUserDialogComponent is over AddUserToChannelDialogComponent opened
     dialogRef.afterClosed().subscribe(() => {
       this.dialogRefs = [];
     });

@@ -8,6 +8,8 @@ export class ResizeListenerService {
   /** Resize callbacks to call on resize event */
   private resizeCallbacks: (() => void)[] = [];
   /** Screen-sizes variables for width in px */
+  /** > 1440px */
+  lgScreen: boolean = false;
   /** <= 1440px - 959px */
   xmdScreen: boolean = false;
   /** <= 960px - 599px */
@@ -41,6 +43,7 @@ export class ResizeListenerService {
    */
   private updateScreenSize() {
     const width = window.innerWidth;
+    this.lgScreen = width > 1440;
     this.xmdScreen = width <= 1440 && width > 960;
     this.mdScreen = width <= 960 && width > 600;
     this.xsmScreen = width <= 600 && width > 480;

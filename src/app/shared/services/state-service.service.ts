@@ -1,24 +1,3 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class StateService {
-//   public editChannelDialogOpen: boolean = false;
-
-//   setEditChannelDialogOpen(state: boolean) {
-//     this.editChannelDialogOpen = state;
-//     console.log(this.editChannelDialogOpen);
-    
-//   }
-
-//   getEditChannelDialogOpen(): boolean {
-//     return this.editChannelDialogOpen;
-//   }
-//   constructor() { }
-
-// }
-
 import { Injectable, inject } from '@angular/core';
 import { EditChannelDialogComponent } from '../../mainsection/channel/edit-channel-dialog/edit-channel-dialog.component';
 import { MatDialogRef } from '@angular/material/dialog';

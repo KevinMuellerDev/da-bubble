@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
+import { ResizeListenerService } from '../../../shared/services/resize-listener.service';
 import { StateService } from '../../../shared/services/state-service.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
+import { ChannelMessagesComponent } from '../channel-messages/channel-messages.component';
 
 
 @Component({
@@ -23,15 +25,19 @@ export class AddUserToChannelDialogComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
   stateService: StateService = inject(StateService);
+  resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   initialReferenceElementPosition!: { top: number; left: number };
+  channelMessagesComponent: ChannelMessagesComponent = inject(ChannelMessagesComponent);
   editChannelDialogOpen: boolean = this.stateService.getEditChannelDialogOpen();
+  public dialogRefs: MatDialogRef<any>[] = [];
   constructor(public dialog: MatDialog) {
+    this.resizeListenerService.registerResizeCallback(this.updateDialogPosition.bind(this));
+    this.dialogRefs = [];
   }
 
   ngAfterViewInit(): void {
     this.editChannelDialogOpen = this.stateService.editChannelDialogOpen;
-    console.log('editChannelDialogOpen', this.editChannelDialogOpen);
     this.changeDetector.detectChanges();
   }
 
@@ -55,19 +61,31 @@ export class AddUserToChannelDialogComponent {
       .subscribe();
   }
 
-  openDialogAddUser() {
+  refContainerPosition() {
     const referenceElement = this.addUser.nativeElement;
     this.initialReferenceElementPosition = {
       top: referenceElement.getBoundingClientRect().top,
       left: referenceElement.getBoundingClientRect().right
     };
+  }
+
+  openDialogAddUser() {
+    this.refContainerPosition();
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
       panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${this.initialReferenceElementPosition.top - 24}px`, left: `${this.initialReferenceElementPosition.left - 478}px` }
+      position: { top: `${this.initialReferenceElementPosition.top - 24}px`, left: `${this.initialReferenceElementPosition.left - 478}px` },
     });
+    this.dialogRefs.push(dialogRef);
+    dialogRef.afterClosed().subscribe(() => {
+      this.dialogRefs = [];
+    });
+  }
 
-    // if this close, close add-user-to-channel-dialog
+  updateDialogPosition() {
+  }
 
+  ngOnDestroy(): void {
+    this.resizeListenerService.unregisterResizeCallback(this.updateDialogPosition.bind(this));
   }
 }
 
