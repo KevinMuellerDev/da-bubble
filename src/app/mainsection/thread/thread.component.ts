@@ -138,7 +138,6 @@ export class ThreadComponent {
         textareaElement.focus();
       }
     }, 0);
-    this.emojiService.initMaps('thread')
     this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index];
   }
 
