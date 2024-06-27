@@ -90,7 +90,8 @@
         </div>
         <div class="message">
           <span *ngIf="!emojiService.editMessageThread[i]">{{ message.message }} </span>
-          <form #editMessageThreadForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
+          <form class="edit-message-form-container" #editMessageThreadForm="ngForm" appOutsideclick
+            (outsideClick)="onOutsideClick(i,$event)"
             [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
             *ngIf="emojiService.editMessageThread[i] && userId == message.id"
             (ngSubmit)="editMessageSubmit(editMessageThreadForm, i)">
