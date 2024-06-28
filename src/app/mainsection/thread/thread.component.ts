@@ -84,12 +84,11 @@ export class ThreadComponent {
     if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
       return
     }
-     if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
-          this.emojiService.editMessageThread[index] = false;
+    if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
+      this.emojiService.editMessageThread[index] = false;
     }
-     this.emojiService.editMessageThread[index] = false;
     this.emojiService.showEmojiPickerArrayThread[index] = false;
-     this.editMessageAbort(index);
+    this.emojiService.editMessageThread[index] = false;
   }
 
   onOutsideClickTextarea() {
