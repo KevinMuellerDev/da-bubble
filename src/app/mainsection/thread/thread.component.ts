@@ -79,15 +79,15 @@ export class ThreadComponent {
 
 
   onOutsideClick(index: number, event: Event): void {
-    const target = event.target as HTMLElement;
-    console.log(target.tagName,this.isEditMessageTextareaVisible,this.emojiAdded);
     this.emojiService.openEditMessageToggleThread[index] = false;
+    const target = event.target as HTMLElement;
     if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
       return
     }
      if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
-      this.emojiService.editMessageThread[index] = false;
+       this.emojiService.editMessageThread[index] = false;
     }
+     this.emojiService.editMessageThread[index] = false;
       this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
 
