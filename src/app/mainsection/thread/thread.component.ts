@@ -85,10 +85,11 @@ export class ThreadComponent {
       return
     }
      if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
-       this.emojiService.editMessageThread[index] = false;
+          this.emojiService.editMessageThread[index] = false;
+          this.newMessage = { message: this.originalMessage };
     }
      this.emojiService.editMessageThread[index] = false;
-      this.emojiService.showEmojiPickerArrayThread[index] = false;
+     this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
 
   onOutsideClickTextarea() {
