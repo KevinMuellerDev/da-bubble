@@ -79,12 +79,16 @@ export class ThreadComponent {
 
 
   onOutsideClick(index: number, event: Event): void {
-    this.emojiService.showEmojiPickerArrayThread[index] = false;
+    const target = event.target as HTMLElement;
+    console.log(target.tagName,this.isEditMessageTextareaVisible,this.emojiAdded);
     this.emojiService.openEditMessageToggleThread[index] = false;
-  
-    if (!this.emojiAdded) {
+    if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
+      return
+    }
+     if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
       this.emojiService.editMessageThread[index] = false;
     }
+      this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
 
   onOutsideClickTextarea() {
@@ -107,6 +111,7 @@ export class ThreadComponent {
     setTimeout(() => {
       this.emojiAdded = false;
     }, 500);
+    this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
 
   toggleEvent(event: any): void {
@@ -115,12 +120,13 @@ export class ThreadComponent {
     }
   }
 
-  editMessageFunction(index: number): void {
+  editMessageFunction(index: number,event:any): void {
     this.originalMessage = this.threadService.messages[index].message;
     this.emojiService.threadMessageEdit = true;
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessageThread[index] = !this.emojiService.editMessageThread[index];
     const textareaId = 'editThreadMessageTextarea-' + index;
+    this.toggleEvent(event);
     this.newMessage = { message: this.threadService.messages[index].message };
     // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
     setTimeout(() => {
@@ -174,12 +180,14 @@ export class ThreadComponent {
       this.emojiService.editMessageThread[index] = false;
       editMessageForm.reset();
     this.emojiService.threadMessageEdit = false;
+    this.isEditMessageTextareaVisible = false;
     this.emojiService.openEditMessageToggleThread[index] = false;
   }
 
   editMessageAbort(index: number) {
     this.emojiService.editMessageThread[index] = false;
     this.emojiService.threadMessageEdit = false;
+    this.isEditMessageTextareaVisible = false;
     this.newMessage = { message: this.originalMessage };
     this.threadService.messages[index].message = this.originalMessage;
   }
