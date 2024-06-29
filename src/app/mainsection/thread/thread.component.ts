@@ -79,6 +79,7 @@ export class ThreadComponent {
 
 
   onOutsideClick(index: number, event: Event): void {
+    console.log(event); 
     this.emojiService.openEditMessageToggleThread[index] = false;
     const target = event.target as HTMLElement;
     if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
@@ -86,9 +87,14 @@ export class ThreadComponent {
     }
     if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
       this.emojiService.editMessageThread[index] = false;
+       this.editMessageAbort(index);
+    }
+    if (this.isEditMessageTextareaVisible && !this.emojiService.showEmojiPickerArrayThread[index]) {
+      this.emojiService.editMessageThread[index] = false;
+       this.editMessageAbort(index);
     }
     this.emojiService.showEmojiPickerArrayThread[index] = false;
-    this.emojiService.editMessageThread[index] = false;
+   
   }
 
   onOutsideClickTextarea() {
@@ -115,12 +121,17 @@ export class ThreadComponent {
   }
 
   toggleEvent(event: any): void {
-    if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
+    if (event.target.classList.contains('edit-message-icon') ||
+      event.target.classList.contains('add-reaction-icon') ||
+      event.target.classList.contains('text-area-editable') ||
+      event.target.classList.contains('emoji-mart-anchor-bar')
+    )
+    {
       event.stopPropagation();
     }
   }
 
-  editMessageFunction(index: number,event:any): void {
+  editMessageFunction(index: number, event: any): void {
     this.originalMessage = this.threadService.messages[index].message;
     this.emojiService.threadMessageEdit = true;
     this.isEditMessageTextareaVisible = true;
@@ -185,6 +196,7 @@ export class ThreadComponent {
   }
 
   editMessageAbort(index: number) {
+    this.selectedEmojis = [];
     this.emojiService.editMessageThread[index] = false;
     this.emojiService.threadMessageEdit = false;
     this.isEditMessageTextareaVisible = false;
