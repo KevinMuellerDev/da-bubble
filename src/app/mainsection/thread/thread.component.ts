@@ -79,7 +79,6 @@ export class ThreadComponent {
 
 
   onOutsideClick(index: number, event: Event): void {
-    console.log(event); 
     this.emojiService.openEditMessageToggleThread[index] = false;
     const target = event.target as HTMLElement;
     if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
@@ -94,7 +93,6 @@ export class ThreadComponent {
        this.editMessageAbort(index);
     }
     this.emojiService.showEmojiPickerArrayThread[index] = false;
-   
   }
 
   onOutsideClickTextarea() {
