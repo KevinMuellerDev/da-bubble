@@ -94,11 +94,20 @@ export class MessageComponent {
   }
 
   onOutsideClick(index: number, event: Event): void {
-    this.emojiService.showEmojiPickerArray[index] = false;
     this.emojiService.openEditMessageToggle[index] = false;
-    if (!this.emojiAdded) {
-      this.emojiService.editMessage[index] = false;
+       const target = event.target as HTMLElement;
+    if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
+      return
     }
+     if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
+      this.emojiService.editMessage[index] = false;
+       this.editMessageAbort(index);
+    }
+    if (this.isEditMessageTextareaVisible && !this.emojiService.showEmojiPickerArray[index]) {
+      this.emojiService.editMessage[index] = false;
+       this.editMessageAbort(index);
+    }
+     this.emojiService.showEmojiPickerArray[index] = false;
   }
 
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
@@ -176,6 +185,7 @@ export class MessageComponent {
   editMessageAbort(index: number) {
     this.emojiService.editMessage[index] = false;
     this.emojiService.messageEdit = false;
+    this.isEditMessageTextareaVisible = false;
     this.newMessage = { message: this.originalMessage };
     this.channelService.messages[index].message = this.originalMessage;
   }
