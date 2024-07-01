@@ -126,6 +126,46 @@ header {
     display: none !important;
 }
 
+.search-wrapper{
+    width: 100%;
+    max-width: 989px;
+    margin: 0 20px;
+}
+
+.button-wrapper{
+    @include dFlex($ai:flex-start);
+    flex-direction: column;
+    gap: 10px;
+
+    .span-head{
+        font: 500 18px 'Nunito';
+    }
+}
+
+.user-wrapper {
+    @include dFlex();
+    gap: 8px;
+    height: 40px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $bg-color;
+
+    }
+
+    img {
+        height: 34px;
+        width: 34px;
+        border-radius: 50%;
+    }
+
+    span {
+        text-wrap: nowrap;
+    }
+}
+
 @media screen and (max-width: 1260px) {
     .header-search {
         padding: 17.5px 10px 17.5px 28px !important;

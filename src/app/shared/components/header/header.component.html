@@ -11,9 +11,30 @@
     <div #headlineDesktop class="header-logo">
         <img src="/assets/img/header/Logo.svg" alt="logo">
     </div>
-    <div class="header-search">
-        <input type="text" placeholder="[channelName] durchsuchen">
-        <img src="/assets/img/header/search-btn.svg">
+    <div class="search-wrapper">
+        <div class="header-search">
+            <input [matMenuTriggerFor]="menu" autocomplete="off" type="text" placeholder="Devspace durchsuchen">
+            <img src="/assets/img/header/search-btn.svg">
+        </div>
+        <mat-menu #menu="matMenu" hasBackdrop="true">
+            
+            <div class="button-wrapper">
+                <span class="span-head">Users:</span>
+                @for (user of userService.allUsers; track $index) {
+                <div class="user-wrapper">
+                    <img [src]="user['profilePicture']" referrerpolicy="no-referrer" alt="">
+                    <span>{{user['name']}}</span>
+                </div>
+                }
+                <span class="span-head">Channels:</span>
+                @for (channel of sidebarService.channels; track $index) {
+                    <div class="user-wrapper">
+                        <span>#{{channel['title']}}</span>
+                    </div>
+                    }
+            </div>
+            
+        </mat-menu>
     </div>
     <div class="user-menu" (click)="openDialog()">
         <span>{{userService.userInfo.name}}</span>

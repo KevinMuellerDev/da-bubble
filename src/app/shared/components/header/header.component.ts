@@ -7,20 +7,25 @@ import {
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { UserMenuDialogComponent } from './user-menu-dialog/user-menu-dialog.component';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MainsectionComponent } from '../../../mainsection/mainsection.component';
+import { SidebarComponent } from '../../../mainsection/sidebar/sidebar.component';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,MatMenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements AfterViewInit, OnInit {
   userService: UserService = inject(UserService);
+  sidebarService:SidebarService = inject(SidebarService)
+  userList:any[]=[];
   @ViewChild('headlineMobile', { static: true, read: ElementRef }) headlineMobile!: ElementRef;
   @ViewChild('headlineDesktop', { static: true, read: ElementRef }) headlineDesktop!: ElementRef;
 
