@@ -24,7 +24,7 @@ import { SidebarService } from '../../services/sidebar.service';
 })
 export class HeaderComponent implements AfterViewInit, OnInit {
   userService: UserService = inject(UserService);
-  sidebarService:SidebarService = inject(SidebarService)
+  sidebarService:SidebarService = inject(SidebarService);
   userList:any[]=[];
   @ViewChild('headlineMobile', { static: true, read: ElementRef }) headlineMobile!: ElementRef;
   @ViewChild('headlineDesktop', { static: true, read: ElementRef }) headlineDesktop!: ElementRef;
