@@ -86,7 +86,6 @@ export class ThreadComponent {
     }
     if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
       this.emojiService.editMessageThread[index] = false;
-       this.editMessageAbort(index);
     }
     if (this.isEditMessageTextareaVisible && !this.emojiService.showEmojiPickerArrayThread[index]) {
       this.emojiService.editMessageThread[index] = false;
