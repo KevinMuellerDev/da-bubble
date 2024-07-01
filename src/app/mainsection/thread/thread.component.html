@@ -20,7 +20,7 @@
     <div class="message-wrapper">
       <div class="message-head">
         <div class="message-info">
-          <span (click)="openDialogUserInfo()"> {{threadService.originMessage.name}}</span>
+          <span (click)="openDialogUserInfo(threadService.originMessage)"> {{threadService.originMessage.name}}</span>
           <div class="message-timestamp">
             <span
               *ngIf="(dateToday | date:'shortDate':'':'de') !== (threadService.originMessage.timestamp | date:'shortDate':'':'de') ">{{threadService.originMessage.timestamp
@@ -78,7 +78,7 @@
       <div class="message-wrapper">
         <div class="message-head">
           <div class="message-info">
-            <span (click)="openDialogUserInfo()"> {{message.name}}</span>
+            <span (click)="openDialogUserInfo(message)"> {{message.name}}</span>
             <div class="message-timestamp">
               <span
                 *ngIf="(dateToday | date:'shortDate':'':'de') !== (message.timestamp | date:'shortDate':'':'de') ">{{message.timestamp

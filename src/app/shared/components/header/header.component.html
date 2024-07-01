@@ -17,7 +17,7 @@
             <img src="/assets/img/header/search-btn.svg">
         </div>
         <mat-menu #menu="matMenu" hasBackdrop="true">
-            
+
             <div class="button-wrapper">
                 <span class="span-head">Users:</span>
                 @for (user of userService.allUsers; track $index) {
@@ -28,12 +28,12 @@
                 }
                 <span class="span-head">Channels:</span>
                 @for (channel of sidebarService.channels; track $index) {
-                    <div class="user-wrapper">
-                        <span>#{{channel['title']}}</span>
-                    </div>
-                    }
+                <div class="user-wrapper">
+                    <span># {{channel['title']}}</span>
+                </div>
+                }
             </div>
-            
+
         </mat-menu>
     </div>
     <div class="user-menu" (click)="openDialog()">

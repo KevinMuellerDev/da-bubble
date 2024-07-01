@@ -5,6 +5,7 @@ export class MessageData {
     profilePicture: string;
     message: string;
     timestamp: number;
+    email:string;
     emoji: [];
 
     constructor(obj?: any) {
@@ -13,6 +14,7 @@ export class MessageData {
         this.profilePicture = obj ? obj.profilePicture : "";
         this.message = obj ? obj.message : "";
         this.timestamp = Date.now();
+        this.email = obj? obj.email : ""
         this.emoji = obj ? obj.emoji : [];
         this.msgId = obj ? obj.msgId : "";
     }
@@ -24,6 +26,7 @@ export class MessageData {
             profilePicture: this.profilePicture,
             message: this.message,
             timestamp: this.timestamp,
+            email:this.email,
             emoji: this.emoji,
             msgId: this.msgId
         };
