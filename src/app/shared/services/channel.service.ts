@@ -173,6 +173,9 @@ export class ChannelService {
   }
 
 
+/**
+ * The function `resetMessageType` resets various message-related properties to their default values.
+ */
   resetMessageType() {
     this.messagesLoaded = false;
     this.privateMsg = false;
@@ -204,6 +207,10 @@ export class ChannelService {
   }
 
 
+/**
+ * The `getChannelId` function asynchronously retrieves the ID of a channel message and then calls
+ * another function to update the data based on that ID.
+ */
   async getChannelId() {
     const querySnapshot = await getDocs(query(this.refChannelMessage()));
     querySnapshot.forEach(element => {
@@ -243,6 +250,13 @@ export class ChannelService {
     }
   }
 
+/**
+ * The `createChannelMessage` function asynchronously adds a document to a Firestore collection and
+ * updates another document with the generated ID.
+ * @param {any} obj - The `obj` parameter in the `createChannelMessage` function is an object that
+ * contains the data to be added to a Firestore document. This object will be passed to the `addDoc`
+ * function to create a new document in the Firestore database.
+ */
   async createChannelMessage(obj: any) {
     await addDoc(this.refCreateChannelMsg(), obj)
     .then(async (docRef)=>{
@@ -307,6 +321,12 @@ export class ChannelService {
     this.refreshChannelData();
   }
 
+/**
+ * The function `updateChannelDescription` updates the description of a channel in a Firestore database
+ * and then refreshes the channel data.
+ * @param {string} description - a string that represents the new description that will be set for a channel 
+ * in the Firestore database.
+ */
   async updateChannelDescription(description:string){
     await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection), {
       description: description

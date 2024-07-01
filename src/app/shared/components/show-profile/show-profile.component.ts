@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Injectable, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatDialog,
@@ -10,12 +10,10 @@ import { UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { VerifyComponent } from '../verify/verify.component';
-import { UserData } from '../../models/userdata.class';
-import { UserInfo } from '@angular/fire/auth';
-import { DocumentData } from '@angular/fire/firestore';
 import { ChannelService } from '../../services/channel.service';
 import { SidebarService } from '../../services/sidebar.service';
-
+import { ThreadService } from '../../services/thread.service';
+import { MainsectionComponent } from '../../../mainsection/mainsection.component';
 
 @Component({
   selector: 'app-show-profile',
@@ -26,6 +24,7 @@ import { SidebarService } from '../../services/sidebar.service';
 })
 
 export class ShowProfileComponent {
+  threadService: ThreadService = inject(ThreadService);
   userService: UserService = inject(UserService);
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
@@ -97,6 +96,10 @@ export class ShowProfileComponent {
     if (!alreadyPushed)
       this.sidebarService.userDmData.push(this.userService.otherUserInfo);
     this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
+
+/*     this.threadService.stopListener();
+    this.mainSectionComponent.hideThread(); 
+    this.threadService.isActive = false; */
     this.closeDialog();
   }
 
@@ -123,9 +126,7 @@ export class ShowProfileComponent {
    * The closeDialog function closes all open dialog windows.
    */
   closeDialog() {
-    if (this.otherUser) {
-      this.dialog.closeAll();
-    }
-    this.otherUser ? this.dialog.closeAll : this.dialogRef.close()
+
+    this.otherUser ? this.dialog.closeAll() : this.dialogRef.close()
   }
 }

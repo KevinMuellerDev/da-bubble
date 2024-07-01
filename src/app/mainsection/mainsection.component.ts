@@ -10,7 +10,7 @@ import { ResizeListenerService } from '../shared/services/resize-listener.servic
 @Component({
   selector: 'app-mainsection',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SidebarComponent, ChannelComponent, ThreadComponent, HeaderComponent],
+  imports: [CommonModule, HeaderComponent,SidebarComponent, ChannelComponent, ThreadComponent, HeaderComponent],
   templateUrl: './mainsection.component.html',
   styleUrl: './mainsection.component.scss'
 })
