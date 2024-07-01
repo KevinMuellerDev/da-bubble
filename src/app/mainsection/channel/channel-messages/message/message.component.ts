@@ -101,7 +101,6 @@ export class MessageComponent {
     }
      if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
       this.emojiService.editMessage[index] = false;
-       this.editMessageAbort(index);
     }
     if (this.isEditMessageTextareaVisible && !this.emojiService.showEmojiPickerArray[index]) {
       this.emojiService.editMessage[index] = false;
