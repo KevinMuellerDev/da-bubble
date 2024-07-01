@@ -267,6 +267,18 @@
   }
 }
 
+.selected-emoji {
+  >span {
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid $light-purple;
+    height: 34px;
+    min-width: 64px;
+    border-radius: 20px;
+    padding: 5px 10px;
+  }
+}
+
 .edit-Message-control {
   @include dFlex($jc: space-between);
   padding: 15px;

@@ -105,9 +105,21 @@
               <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
             </div>
           </form>
+
+        </div>
+        <div class="selected-emoji">
+          <span (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
+            *ngFor="let emojiCount let e = index of message.emoji">
+            {{ emojiCount.emoji }}
+            <ng-container *ngIf="message.emoji[e].count >0">
+              {{ message.emoji[e].count }}
+            </ng-container>
+          </span>
         </div>
       </div>
+
     </div>
+
 
   </div>
   <div class="form-group">

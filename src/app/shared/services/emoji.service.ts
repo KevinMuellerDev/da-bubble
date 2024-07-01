@@ -83,7 +83,7 @@ export class EmojiService {
         this.channelService.updateChannelMessage(this.channelService.messages[index]);
       }
     } else {
-      //this.threadService.updateThreadMessage(this.threadService.messages[index]);
+      this.threadService.updateChannelMessage(this.threadService.messages[index]);
     }
   }
 

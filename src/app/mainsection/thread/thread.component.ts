@@ -118,6 +118,11 @@ export class ThreadComponent {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
 
+    onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
+    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId,'thread');
+  }
+
+
   toggleEvent(event: any): void {
     if (event.target.classList.contains('edit-message-icon') ||
       event.target.classList.contains('add-reaction-icon') ||
