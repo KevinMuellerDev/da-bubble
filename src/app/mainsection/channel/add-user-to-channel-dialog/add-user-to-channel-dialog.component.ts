@@ -5,11 +5,8 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
-import { ResizeListenerService } from '../../../shared/services/resize-listener.service';
 import { StateService } from '../../../shared/services/state-service.service';
-import { ChangeDetectorRef } from '@angular/core';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
-import { ChannelMessagesComponent } from '../channel-messages/channel-messages.component';
 
 
 @Component({
@@ -25,22 +22,11 @@ export class AddUserToChannelDialogComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
   stateService: StateService = inject(StateService);
-  resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
-  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   initialReferenceElementPosition!: { top: number; left: number };
-  channelMessagesComponent: ChannelMessagesComponent = inject(ChannelMessagesComponent);
-  editChannelDialogOpen: boolean = this.stateService.getEditChannelDialogOpen();
+  stateEditChannelDialogOpenMobile: boolean = this.stateService.getEditChannelDialogOpenMobile();
   public dialogRefs: MatDialogRef<any>[] = [];
   constructor(public dialog: MatDialog) {
-    this.resizeListenerService.registerResizeCallback(this.updateDialogPosition.bind(this));
-    this.dialogRefs = [];
   }
-
-  ngAfterViewInit(): void {
-    this.editChannelDialogOpen = this.stateService.editChannelDialogOpen;
-    this.changeDetector.detectChanges();
-  }
-
 
   getDmStatus(userIsLoggedIn: boolean) {
     const loggedIn = userIsLoggedIn == true ? 'online-div' : 'offline-div';
@@ -81,11 +67,7 @@ export class AddUserToChannelDialogComponent {
     });
   }
 
-  updateDialogPosition() {
-  }
-
   ngOnDestroy(): void {
-    this.resizeListenerService.unregisterResizeCallback(this.updateDialogPosition.bind(this));
   }
 }
 

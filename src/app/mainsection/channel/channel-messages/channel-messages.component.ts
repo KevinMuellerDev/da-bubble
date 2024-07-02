@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject, Injectable } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, OnInit } from '@angular/core';
 import { MainsectionComponent } from '../../mainsection.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
@@ -12,10 +12,6 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 import { UserService } from '../../../shared/services/user.service';
 import { StateService } from '../../../shared/services/state-service.service';
 import { ResizeListenerService } from '../../../shared/services/resize-listener.service';
-
-@Injectable({
-  providedIn: 'root'
-})
 
 @Component({
   selector: 'app-channel-messages',
@@ -34,7 +30,7 @@ import { ResizeListenerService } from '../../../shared/services/resize-listener.
   styleUrl: './channel-messages.component.scss'
 })
 
-export class ChannelMessagesComponent {
+export class ChannelMessagesComponent implements OnInit {
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
@@ -49,6 +45,10 @@ export class ChannelMessagesComponent {
   constructor(public dialog: MatDialog) {
     this.resizeListenerService.registerResizeCallback(this.updateDialogPositions.bind(this));
     this.dialogRefs = [];
+  }
+
+  ngOnInit(): void {
+      this.stateService.setEditChannelDialogOpenMobile(true);
   }
 
   /**
@@ -86,6 +86,7 @@ export class ChannelMessagesComponent {
    * position is set to the bottom right corner of the addUserToChannel element.
    */
   openDialogAddUserToChannel() {
+    this.stateService.setEditChannelDialogOpenMobile(false);
     const rect = this.addUserToChannel.nativeElement.getBoundingClientRect();
     const dialogRef = this.dialog.open(AddUserToChannelDialogComponent, {
       panelClass: ['add-user-to-channel', 'box-radius-right-corner', 'box-shadow'],
@@ -93,6 +94,7 @@ export class ChannelMessagesComponent {
     });
     this.dialogRefs.push(dialogRef);
     dialogRef.afterClosed().subscribe(() => {
+      this.stateService.setEditChannelDialogOpenMobile(true);
       this.dialogRefs = [];
     });
   }
@@ -103,11 +105,6 @@ export class ChannelMessagesComponent {
    */
   openDialogEditChannel() {
     this.activeChannelHead = '';
-    if (this.resizeListenerService.smScreen) {
-      this.stateService.setEditChannelDialogOpen(true);
-    } else {
-      this.stateService.setEditChannelDialogOpen(false);
-    }
     const rect = this.editChannel.nativeElement.getBoundingClientRect();
     const dialogRef = this.dialog.open(EditChannelDialogComponent, {
       panelClass: ['edit-channel', 'box-radius-left-corner', 'box-shadow'],
@@ -118,7 +115,6 @@ export class ChannelMessagesComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.dialogRefs = [];
       this.activeChannelHead = '';
-      this.stateService.setEditChannelDialogOpen(false);
     });
   }
 
