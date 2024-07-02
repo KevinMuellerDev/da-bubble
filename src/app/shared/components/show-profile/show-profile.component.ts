@@ -1,4 +1,4 @@
-import { Component, Injectable, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatDialog,
@@ -13,7 +13,6 @@ import { VerifyComponent } from '../verify/verify.component';
 import { ChannelService } from '../../services/channel.service';
 import { SidebarService } from '../../services/sidebar.service';
 import { ThreadService } from '../../services/thread.service';
-import { MainsectionComponent } from '../../../mainsection/mainsection.component';
 
 @Component({
   selector: 'app-show-profile',
@@ -96,10 +95,9 @@ export class ShowProfileComponent {
     if (!alreadyPushed)
       this.sidebarService.userDmData.push(this.userService.otherUserInfo);
     this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
-
-/*     this.threadService.stopListener();
-    this.mainSectionComponent.hideThread(); 
-    this.threadService.isActive = false; */
+    this.threadService.stopListener();
+    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.isActive = false;
     this.closeDialog();
   }
 
