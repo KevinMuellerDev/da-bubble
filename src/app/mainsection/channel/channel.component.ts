@@ -10,12 +10,13 @@ import { UserService } from '../../shared/services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { OutsideclickDirective } from '../../outsideclick.directive';
 import { StorageService } from '../../shared/services/storage.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
   selector: 'app-channel',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChannelMessagesComponent, MainsectionComponent,PickerComponent,OutsideclickDirective],
+  imports: [CommonModule, FormsModule, ChannelMessagesComponent, MainsectionComponent, PickerComponent, OutsideclickDirective],
   templateUrl: './channel.component.html',
   styleUrl: './channel.component.scss'
 })
@@ -30,12 +31,12 @@ export class ChannelComponent {
   submitClick: boolean = false;
   textareaBlur: boolean = false;
   isEmojiPickerVisible: boolean = false;
-  showEmojiPicker:boolean = false;
+  showEmojiPicker: boolean = false;
   selectedEmojis: string[] = [];
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog,public storageService: StorageService) {
+  constructor(public dialog: MatDialog, public storageService: StorageService,private sanitizer: DomSanitizer) {
     this.channelService.messagesLoaded = false;
   }
 
@@ -74,11 +75,11 @@ export class ChannelComponent {
     this.chooseMsgType(dummy)
   }
 
-/**
- * The function `chooseMsgType` determines whether to create a direct message or a channel message
- * based on the type of message data provided.
- * @param {MessageData} dummy - The `dummy` parameter is an object of type `MessageData`.
- */
+  /**
+   * The function `chooseMsgType` determines whether to create a direct message or a channel message
+   * based on the type of message data provided.
+   * @param {MessageData} dummy - The `dummy` parameter is an object of type `MessageData`.
+   */
   chooseMsgType(dummy: MessageData) {
     if (this.channelService.privateMsg) {
       const dmData = dummy.toJson();
@@ -89,20 +90,20 @@ export class ChannelComponent {
     }
   }
 
-    onOutsideClick(): void {
-      this.showEmojiPicker = !this.showEmojiPicker;
-      this.isEmojiPickerVisible = false;
-}
+  onOutsideClick(): void {
+    this.showEmojiPicker = !this.showEmojiPicker;
+    this.isEmojiPickerVisible = false;
+  }
 
-/**
- * Toggles the visibility of the emoji picker.
- * @param event - The event that triggered the emoji picker toggle.
- * @remarks This method is called when the user clicks on the emoji picker icon.
- *          It stops the event propagation to prevent it from bubbling up to parent elements.
- *          It then toggles the `isEmojiPickerVisible` property, which controls the visibility of the emoji picker.
- * @returns {void}
- */
-    toggleEmojiPickerEvent(event: Event) {
+  /**
+   * Toggles the visibility of the emoji picker.
+   * @param event - The event that triggered the emoji picker toggle.
+   * @remarks This method is called when the user clicks on the emoji picker icon.
+   *          It stops the event propagation to prevent it from bubbling up to parent elements.
+   *          It then toggles the `isEmojiPickerVisible` property, which controls the visibility of the emoji picker.
+   * @returns {void}
+   */
+  toggleEmojiPickerEvent(event: Event) {
     event.stopPropagation();
     this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
   }
@@ -113,14 +114,37 @@ export class ChannelComponent {
     this.message.content += selectedEmoji;
   }
   
-    triggerFileInput() {
+  triggerFileInput() {
     this.fileInput.nativeElement.click();
   }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     this.storageService.onFileSelectedTextarea(input);
-   // this.storageService.uploadFile(sessionStorage.getItem("uid"));
+    // this.storageService.uploadFile(sessionStorage.getItem("uid"));
+  }
+
+  // pdf muss als sicher eingestuft werden und anschlißened in eiegnem HTML / mit neuem 
+  // Tab geöffnet werden.
+ openPdf(pdfUrl: SafeResourceUrl | null) {
+    if (pdfUrl) {
+      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 
+      if (pdfBlobUrl) {
+        const newWindow = window.open("", "_blank");
+        if (newWindow) {
+          newWindow.document.write(`
+            <html>
+              <head>
+                <title>PDF Preview</title>
+              </head>
+              <body style="margin: 0;">
+                <embed src="${pdfBlobUrl}" type="application/pdf" width="100%" height="100%" />
+              </body>
+            </html>
+          `);
+        }
+      }
+    }
   }
 }
  

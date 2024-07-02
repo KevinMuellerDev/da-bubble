@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { UserService } from './user.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
   private readonly storage: Storage = inject(Storage);
+  sanitizer: DomSanitizer = inject(DomSanitizer);
   userService: UserService = inject(UserService);
   selectedAvatar!: string;
   files!: FileList;
@@ -14,7 +16,8 @@ export class StorageService {
   fileName!: string | undefined;
   fileNameTextarea!: string | undefined;
   fileUrl!: any;
-  fileUrlTextarea!: string | ArrayBuffer | null;
+  fileUrlTextarea!: SafeResourceUrl | string | ArrayBuffer | null;
+  pdfUrl!: SafeResourceUrl | null;
 
   constructor() { }
 
@@ -43,16 +46,31 @@ export class StorageService {
 
 // only for elements from Textarea
 onFileSelectedTextarea(input: HTMLInputElement) {
-  if (input.files?.item(0)?.size! > 1048576) {
-    this.fileNameTextarea = "This file exceeds the size of 1024kb !";
+  const file = input.files?.item(0);
+  if (!file || !this.isValid(input)) {
     return;
   }
-  if (!input.files || (input.files && !this.isValid(input))) {
+  if (file.size > 1048576) {
+    this.fileNameTextarea = "This file exceeds the size of 1024kb!";
     return;
   }
-  this.filesTextarea = input.files;
-  this.fileNameTextarea = this.filesTextarea.item(0)?.name;
+  if (input.files) {
+    this.filesTextarea = input.files;
+  }
+  this.fileNameTextarea = file.name;
+  if (this.isPdf(file)) {
+    this.handlePdfFile(file);
+  } else {
+    this.handleImageFile(file);
+  }
+}
 
+private handlePdfFile(file: File) {
+  this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+  this.fileUrlTextarea = 'assets/img/pdfDefault.jpg';
+}
+
+private handleImageFile(file: File) {
   const reader = new FileReader();
   reader.onload = (e) => {
     const result = e.target?.result;
@@ -60,12 +78,19 @@ onFileSelectedTextarea(input: HTMLInputElement) {
       this.fileUrlTextarea = result;
     }
   };
-  reader.readAsDataURL(this.filesTextarea.item(0)!);
+  reader.readAsDataURL(file);
 }
-  
-isImage(files: FileList) {
-  const fileType = files?.item(0)?.type.split('/')[0];
-  return fileType === 'image';
+
+  isImage(file: File | null | undefined): boolean {
+    if (!file) return false;
+    const fileType = file.type.split('/')[0];
+    return fileType === 'image';
+  }
+
+  isPdf(file: File | null | undefined): boolean {
+    if (!file) return false;
+    const fileType = file.type;
+    return fileType === 'application/pdf';
   }
   
   abortUpload() {
@@ -91,7 +116,7 @@ isImage(files: FileList) {
     console.log(input.files);
     
 
-    return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif')
+    return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif' || dataType === 'pdf')
   }
 
   
