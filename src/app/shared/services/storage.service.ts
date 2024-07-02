@@ -44,7 +44,7 @@ export class StorageService {
     this.fileUrl = this.files.item(0);
   }
 
-// only for elements from Textarea
+// only for elements from Textarea upload size not changed yet
 onFileSelectedTextarea(input: HTMLInputElement) {
   const file = input.files?.item(0);
   if (!file || !this.isValid(input)) {
@@ -98,7 +98,7 @@ private handleImageFile(file: File) {
   this.fileNameTextarea = undefined;
   this.fileUrlTextarea = null;
   }
-
+// textarea upload function end
 
 /**
  * The function `isValid` checks if the file uploaded through an HTML input element is a valid image
