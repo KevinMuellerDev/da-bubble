@@ -14,18 +14,20 @@ import { CommonModule } from '@angular/common';
 import { MainsectionComponent } from '../../../mainsection/mainsection.component';
 import { SidebarComponent } from '../../../mainsection/sidebar/sidebar.component';
 import { SidebarService } from '../../services/sidebar.service';
+import { ChannelService } from '../../services/channel.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,MatMenuModule],
+  imports: [CommonModule, MatMenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements AfterViewInit, OnInit {
   userService: UserService = inject(UserService);
-  sidebarService:SidebarService = inject(SidebarService);
-  userList:any[]=[];
+  sidebarService: SidebarService = inject(SidebarService);
+  channelService: ChannelService = inject(ChannelService);
+  userList: any[] = [];
   @ViewChild('headlineMobile', { static: true, read: ElementRef }) headlineMobile!: ElementRef;
   @ViewChild('headlineDesktop', { static: true, read: ElementRef }) headlineDesktop!: ElementRef;
 
@@ -57,9 +59,24 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     return loggedIn
   }
 
+/**
+ * The `goBack` function shows the side navigation, displays the headline on desktop, and hides the
+ * headline on mobile.
+ */
   goBack() {
     this.mainsectionComponent.showSidenav();
     this.headlineDesktop.nativeElement.style.display = 'block';
     this.headlineMobile.nativeElement.style.display = 'none';
+  }
+
+/**
+ * The scrollToMessage function scrolls the message container to a specific message based on its index.
+ * @param {number} index - The `index` parameter represents the index of the message you 
+ * want to scroll to in the message container.
+ */
+  scrollToMessage(index: number) {
+    const msgElement = document.getElementById('singleMessage-'+index);
+    const topPos = msgElement!.offsetTop;
+    document.getElementById('messageContainer')!.scrollTop = topPos;
   }
 }
