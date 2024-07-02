@@ -143,10 +143,9 @@ header {
 }
 
 .user-wrapper {
-    @include dFlex();
+    @include dFlex($ai:flex-start);
     flex-direction: column;
     gap: 8px;
-    height: 40px;
     border-radius: 20px;
     padding: 5px 10px;
     cursor: pointer;

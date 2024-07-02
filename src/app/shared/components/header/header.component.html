@@ -35,7 +35,7 @@
                 @for (message of channelService.messages; track message.name; let i = $index) {
                     <div class="user-wrapper" (click)="scrollToMessage(i)">
                         <span>{{message.name}}:</span>
-                        <span>{{message.message}}</span>
+                        <span>Nachricht: {{(message.message).substring(0,30)}}...</span>
                     </div>
                 }
 

@@ -59,6 +59,10 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     return loggedIn
   }
 
+/**
+ * The `goBack` function shows the side navigation, displays the headline on desktop, and hides the
+ * headline on mobile.
+ */
   goBack() {
     this.mainsectionComponent.showSidenav();
     this.headlineDesktop.nativeElement.style.display = 'block';
