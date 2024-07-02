@@ -70,7 +70,7 @@ export class EmojiService {
 
   addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string, source: 'channel' | 'thread') {
     const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
-    const count = 0;
+    const count = 1;
     const users = userMatched ? [] : [userId];
     messages[index].emoji.push({ emoji: emoji, count: count, users: users });
   }
