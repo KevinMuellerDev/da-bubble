@@ -13,14 +13,14 @@
     </div>
     <div class="search-wrapper">
         <div class="header-search">
-            <input [matMenuTriggerFor]="menu" autocomplete="off" type="text" placeholder="Devspace durchsuchen">
+            <input [matMenuTriggerFor]="menu" autocomplete="off" type="text" placeholder="Channel durchsuchen">
             <img src="/assets/img/header/search-btn.svg">
         </div>
         <mat-menu #menu="matMenu" hasBackdrop="true">
 
             <div class="button-wrapper">
-                <span class="span-head">Users:</span>
-                @for (user of userService.allUsers; track $index) {
+                <span class="span-head">Nachrichten:</span>
+<!--                 @for (user of userService.allUsers; track $index) {
                 <div class="user-wrapper">
                     <img [src]="user['profilePicture']" referrerpolicy="no-referrer" alt="">
                     <span>{{user['name']}}</span>
@@ -31,7 +31,14 @@
                 <div class="user-wrapper">
                     <span># {{channel['title']}}</span>
                 </div>
+                } -->
+                @for (message of channelService.messages; track message.name; let i = $index) {
+                    <div class="user-wrapper" (click)="scrollToMessage(i)">
+                        <span>{{message.name}}:</span>
+                        <span>{{message.message}}</span>
+                    </div>
                 }
+
             </div>
 
         </mat-menu>

@@ -144,6 +144,7 @@ header {
 
 .user-wrapper {
     @include dFlex();
+    flex-direction: column;
     gap: 8px;
     height: 40px;
     border-radius: 20px;
@@ -152,7 +153,6 @@ header {
 
     &:hover{
         background-color: $bg-color;
-
     }
 
     img {

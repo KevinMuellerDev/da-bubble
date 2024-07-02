@@ -14,18 +14,20 @@ import { CommonModule } from '@angular/common';
 import { MainsectionComponent } from '../../../mainsection/mainsection.component';
 import { SidebarComponent } from '../../../mainsection/sidebar/sidebar.component';
 import { SidebarService } from '../../services/sidebar.service';
+import { ChannelService } from '../../services/channel.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,MatMenuModule],
+  imports: [CommonModule, MatMenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements AfterViewInit, OnInit {
   userService: UserService = inject(UserService);
-  sidebarService:SidebarService = inject(SidebarService);
-  userList:any[]=[];
+  sidebarService: SidebarService = inject(SidebarService);
+  channelService: ChannelService = inject(ChannelService);
+  userList: any[] = [];
   @ViewChild('headlineMobile', { static: true, read: ElementRef }) headlineMobile!: ElementRef;
   @ViewChild('headlineDesktop', { static: true, read: ElementRef }) headlineDesktop!: ElementRef;
 
@@ -61,5 +63,11 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     this.mainsectionComponent.showSidenav();
     this.headlineDesktop.nativeElement.style.display = 'block';
     this.headlineMobile.nativeElement.style.display = 'none';
+  }
+
+  scrollToMessage(index: number) {
+    const msgElement = document.getElementById('singleMessage-'+index);
+    const topPos = msgElement!.offsetTop;
+    document.getElementById('messageContainer')!.scrollTop = topPos;
   }
 }
