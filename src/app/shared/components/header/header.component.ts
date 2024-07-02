@@ -65,6 +65,11 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     this.headlineMobile.nativeElement.style.display = 'none';
   }
 
+/**
+ * The scrollToMessage function scrolls the message container to a specific message based on its index.
+ * @param {number} index - The `index` parameter represents the index of the message you 
+ * want to scroll to in the message container.
+ */
   scrollToMessage(index: number) {
     const msgElement = document.getElementById('singleMessage-'+index);
     const topPos = msgElement!.offsetTop;
