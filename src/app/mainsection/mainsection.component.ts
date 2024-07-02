@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { UserService } from '../shared/services/user.service';
 import { ResizeListenerService } from '../shared/services/resize-listener.service';
+import { Subscription } from 'rxjs';
+import { ThreadService } from '../shared/services/thread.service';
 
 @Component({
   selector: 'app-mainsection',
@@ -18,6 +20,8 @@ import { ResizeListenerService } from '../shared/services/resize-listener.servic
 export class MainsectionComponent implements AfterViewInit, OnDestroy {
   userService: UserService = inject(UserService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
+  threadService: ThreadService = inject(ThreadService);
+  private hideThreadSubscription: Subscription = new Subscription;
   private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   rotateToggle: boolean = false;
   sidenavOpen: boolean = true;
@@ -41,6 +45,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.hideThreadSubscription = this.threadService.hideThread$.subscribe(() => {
+      this.hideThread();
+    })
     this.onResize();
   }
 
@@ -196,6 +203,7 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.unsubUserChannels();
     this.unsubUserList();
     this.userService.userLoggedOut();
+    this.hideThreadSubscription.unsubscribe();
     this.resizeListenerService.unregisterResizeCallback(this.onResize.bind(this));
   }
 }

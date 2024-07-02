@@ -30,6 +30,7 @@ export class ThreadComponent {
   channelService: ChannelService = inject(ChannelService);
   threadService: ThreadService = inject(ThreadService);
   userService: UserService = inject(UserService);
+  mainsectionComponent: MainsectionComponent = inject(MainsectionComponent);
   private dataSubscription!: Subscription;
   private domChangesSubscription!: Subscription;
   userId!: string;
@@ -52,7 +53,7 @@ export class ThreadComponent {
     content: ''
   }
 
-  constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
+  constructor(public dialog: MatDialog, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
     this.userId = sessionStorage.getItem('uid')!;
     this.dateToday = Date.now() as number;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
@@ -70,7 +71,7 @@ export class ThreadComponent {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
   ngAfterViewChecked() {
-       if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
+    if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
       console.log(this.scrollContainer);
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
@@ -89,7 +90,7 @@ export class ThreadComponent {
     }
     if (this.isEditMessageTextareaVisible && !this.emojiService.showEmojiPickerArrayThread[index]) {
       this.emojiService.editMessageThread[index] = false;
-       this.editMessageAbort(index);
+      this.editMessageAbort(index);
     }
     this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
@@ -99,8 +100,8 @@ export class ThreadComponent {
     this.isEmojiPickerVisibleThreadMessageInput = false;
   }
 
-  toggleOpenEditMessage(index: number):void {      
-    this.emojiService.openEditMessageToggleThread[index] = ! this.emojiService.openEditMessageToggleThread[index]
+  toggleOpenEditMessage(index: number): void {
+    this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index]
   }
 
   toggleEmojiPicker(index: number): void {
@@ -117,8 +118,8 @@ export class ThreadComponent {
     this.emojiService.showEmojiPickerArrayThread[index] = false;
   }
 
-    onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId,'thread');
+  onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
+    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'thread');
   }
 
 
@@ -127,8 +128,7 @@ export class ThreadComponent {
       event.target.classList.contains('add-reaction-icon') ||
       event.target.classList.contains('text-area-editable') ||
       event.target.classList.contains('emoji-mart-anchor-bar')
-    )
-    {
+    ) {
       event.stopPropagation();
     }
   }
@@ -166,7 +166,7 @@ export class ThreadComponent {
       this.submitClick = false;
       this.selectedEmojis = [];
       formThread.reset();
-       this.emojiService.initMaps('thread')
+      this.emojiService.initMaps('thread')
     }
   }
 
@@ -190,9 +190,9 @@ export class ThreadComponent {
     if (editMessageForm.valid) {
       this.threadService.messages[index].message = this.newMessage.message;
       this.threadService.updateChannelMessage(this.threadService.messages[index]);
-      }
-      this.emojiService.editMessageThread[index] = false;
-      editMessageForm.reset();
+    }
+    this.emojiService.editMessageThread[index] = false;
+    editMessageForm.reset();
     this.emojiService.threadMessageEdit = false;
     this.isEditMessageTextareaVisible = false;
     this.emojiService.openEditMessageToggleThread[index] = false;
@@ -241,10 +241,10 @@ export class ThreadComponent {
   * This function opens the dialog and determines if the ShowProfile component is editable or not
   * @param profileEditable boolean - determine if ShowUser component is editable or not
   */
-  async openDialogUserInfo(user:any) {
+  async openDialogUserInfo(user: any) {
     this.userService.otherUserInfo = user;
     console.log(user);
-    
+
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;
