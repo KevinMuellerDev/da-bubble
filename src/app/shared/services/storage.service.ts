@@ -10,8 +10,11 @@ export class StorageService {
   userService: UserService = inject(UserService);
   selectedAvatar!: string;
   files!: FileList;
+  filesTextarea!: FileList;
   fileName!: string | undefined;
+  fileNameTextarea!: string | undefined;
   fileUrl!: any;
+  fileUrlTextarea!: string | ArrayBuffer | null;
 
   constructor() { }
 
@@ -36,6 +39,39 @@ export class StorageService {
     this.files = input.files;
     this.fileName = this.files.item(0)?.name;
     this.fileUrl = this.files.item(0);
+  }
+
+// only for elements from Textarea
+onFileSelectedTextarea(input: HTMLInputElement) {
+  if (input.files?.item(0)?.size! > 1048576) {
+    this.fileNameTextarea = "This file exceeds the size of 1024kb !";
+    return;
+  }
+  if (!input.files || (input.files && !this.isValid(input))) {
+    return;
+  }
+  this.filesTextarea = input.files;
+  this.fileNameTextarea = this.filesTextarea.item(0)?.name;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const result = e.target?.result;
+    if (result !== undefined) {
+      this.fileUrlTextarea = result;
+    }
+  };
+  reader.readAsDataURL(this.filesTextarea.item(0)!);
+}
+  
+isImage(files: FileList) {
+  const fileType = files?.item(0)?.type.split('/')[0];
+  return fileType === 'image';
+  }
+  
+  abortUpload() {
+  this.filesTextarea = null!;
+  this.fileNameTextarea = undefined;
+  this.fileUrlTextarea = null;
   }
 
 

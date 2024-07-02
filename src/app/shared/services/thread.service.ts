@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, Unsubscribe, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ChannelService } from './channel.service';
 import { UserService } from './user.service';
 
@@ -9,17 +9,19 @@ import { UserService } from './user.service';
 })
 export class ThreadService {
   channelService: ChannelService = inject(ChannelService);
-  userService:UserService = inject(UserService);
+  userService: UserService = inject(UserService);
   firestore: Firestore = inject(Firestore);
   originMessage!: any;
   isActive: boolean = false;
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
+  private hideThreadSubject = new Subject<void>();
+  hideThread$ = this.hideThreadSubject.asObservable();
   isSubscribed: boolean = false;
   unsub!: Unsubscribe;
   messages: any[] = [];
   messagesTimestamp: any[] = [];
-startMutationObserver: boolean = false;
+  startMutationObserver: boolean = false;
 
   constructor() { }
 
@@ -50,17 +52,15 @@ startMutationObserver: boolean = false;
     });
   }
 
-
-
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
-    .then(async (docRef)=>{
-      await updateDoc(this.refUpdateThread(), {
-        repliesCount: this.messages.length,
-        lastReply: obj.timestamp
-      });
+      .then(async (docRef) => {
+        await updateDoc(this.refUpdateThread(), {
+          repliesCount: this.messages.length,
+          lastReply: obj.timestamp
+        });
 
-    });
+      });
   }
 
   /**
@@ -73,7 +73,6 @@ startMutationObserver: boolean = false;
       console.log("Listener Unsubscribed");
     }
   }
-
 
   /**
    * The `restartListener` function stops the current listener and then starts a new listener with the
@@ -91,7 +90,7 @@ startMutationObserver: boolean = false;
     const querySnapshot = await getDocs(query(this.refThreadMessages()));
     querySnapshot.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
-        await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages',this.originMessage.msgId, 'thread', dataset.id), {
+        await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread', dataset.id), {
           emoji: data.emoji,
           message: data.message
         });
@@ -99,12 +98,18 @@ startMutationObserver: boolean = false;
     });
   }
 
-
   refThreadMessages() {
     return collection(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread')
   }
 
-  refUpdateThread(){
-    return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection,"messages",this.originMessage.msgId)
+  refUpdateThread() {
+    return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, "messages", this.originMessage.msgId)
+  }
+
+  /**
+   * Triggers the hiding of the thread by emitting a value through the hideThreadSubject.
+   */
+  triggerHideThread() {
+    this.hideThreadSubject.next();
   }
 }

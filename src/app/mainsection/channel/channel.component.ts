@@ -35,7 +35,7 @@ export class ChannelComponent {
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog,private storageService: StorageService) {
+  constructor(public dialog: MatDialog,public storageService: StorageService) {
     this.channelService.messagesLoaded = false;
   }
 
@@ -119,7 +119,7 @@ export class ChannelComponent {
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.storageService.onFileSelected(input);
+    this.storageService.onFileSelectedTextarea(input);
    // this.storageService.uploadFile(sessionStorage.getItem("uid"));
   }
 }

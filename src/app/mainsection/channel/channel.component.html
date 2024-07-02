@@ -1,5 +1,11 @@
 <div class="channel-container">
     <app-channel-messages></app-channel-messages>
+    <div *ngIf="storageService.fileUrlTextarea" class="file-preview">
+        <div class="close-icon" (click)="storageService.abortUpload()"></div>
+        <img *ngIf="storageService.isImage(storageService.filesTextarea)" [src]="storageService.fileUrlTextarea"
+            alt="File Preview">
+        <p *ngIf="!storageService.isImage(storageService.filesTextarea)">{{ storageService.fileNameTextarea }}</p>
+    </div>
     <div class="channel-message-wrapper form-group">
         <form #form="ngForm" name="form" (ngSubmit)="onSubmit(form)">
             <textarea class="channel-message-input form-control" name="message" #messageContent id="messageContent"
