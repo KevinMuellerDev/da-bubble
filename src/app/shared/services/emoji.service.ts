@@ -70,6 +70,7 @@ export class EmojiService {
 
   addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string, source: 'channel' | 'thread') {
     const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
+    //Zählwert auf 1 gesetzt
     const count = 1;
     const users = userMatched ? [] : [userId];
     messages[index].emoji.push({ emoji: emoji, count: count, users: users });
@@ -91,9 +92,9 @@ export class EmojiService {
     const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
     let emojiUserIds = messages[currentMessageIndex].emoji[currentEmojiIndex].users;
     let emojiCount = messages[currentMessageIndex].emoji[currentEmojiIndex].count;
-
+    // Zählwertewerte von 0 auf 1 geändert
     if (messageId === userId || emojiUserIds.includes(userId)) {
-      if (emojiCount === 0) {
+      if (emojiCount === 1) {
         messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
       } else {
         messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
@@ -104,7 +105,7 @@ export class EmojiService {
       }
     } else {
       if (emojiUserIds.includes(userId)) {
-        if (emojiCount > 0) {
+        if (emojiCount > 1) {
           messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
           const userIndex = emojiUserIds.indexOf(userId);
           if (userIndex !== -1) {
