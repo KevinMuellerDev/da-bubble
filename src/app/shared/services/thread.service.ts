@@ -52,8 +52,6 @@ export class ThreadService {
     });
   }
 
-
-
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
       .then(async (docRef) => {
@@ -100,7 +98,6 @@ export class ThreadService {
     });
   }
 
-
   refThreadMessages() {
     return collection(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread')
   }
@@ -109,6 +106,9 @@ export class ThreadService {
     return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, "messages", this.originMessage.msgId)
   }
 
+  /**
+   * Triggers the hiding of the thread by emitting a value through the hideThreadSubject.
+   */
   triggerHideThread() {
     this.hideThreadSubject.next();
   }

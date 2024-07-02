@@ -12,7 +12,7 @@ import { ThreadService } from '../shared/services/thread.service';
 @Component({
   selector: 'app-mainsection',
   standalone: true,
-  imports: [CommonModule, HeaderComponent,SidebarComponent, ChannelComponent, ThreadComponent, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, SidebarComponent, ChannelComponent, ThreadComponent, HeaderComponent],
   templateUrl: './mainsection.component.html',
   styleUrl: './mainsection.component.scss'
 })
@@ -51,6 +51,10 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.onResize();
   }
 
+  /**
+   * Executes a resize operation after a delay of 100 milliseconds.
+   * Calls the `updateOverlayDisplay`, `displayHeadlineMobile`, and `sidesStatus` methods.
+   */
   onResize() {
     setTimeout(() => {
       this.updateOverlayDisplay();
@@ -59,6 +63,11 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     }, 100);
   }
 
+  /**
+   * Initializes the component after the view has been initialized.
+   * Adds the 'margin-right' class to the sidebar element to make it appear on the right side.
+   * Checks the current screen size and the states of the sidenav and thread, and hides the sidenav and rotates the toggle element if necessary.
+   */
   ngAfterViewInit() {
     this.hideThread();
     this.sidebarElement.nativeElement.classList.add('margin-right');
@@ -71,6 +80,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.changeDetector.detectChanges();
   }
 
+  /**
+   * Checks the current screen size and the states of the sidenav and thread, and hides the sidenav and rotates the toggle element if necessary.
+   */
   sidesStatus() {
     if (!this.resizeListenerService.lgScreen && this.sidenavOpen == true && this.threadOpen == true) {
       this.hideSidenav();
@@ -79,6 +91,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Updates the display of the overlay element based on the current screen size and sidenav/thread states.
+   */
   updateOverlayDisplay() {
     if (this.overlayElement && this.overlayElement.nativeElement) {
       if (this.resizeListenerService.mdScreen && this.sidenavOpen == true || this.resizeListenerService.mdScreen && this.threadOpen == true) {
@@ -164,6 +179,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.overlayElement.nativeElement.style.display = 'none';
   }
 
+  /**
+   * Toggles the display of the mobile headline and desktop headline based on screen size and sidenav state.
+   */
   displayHeadlineMobile() {
     if (this.resizeListenerService.smScreen && this.sidenavOpen == false) {
       this.headerComponent.headlineMobile.nativeElement.style.display = 'flex';
@@ -176,6 +194,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Toggles between hiding the side navigation menu and showing the thread based on the state of 'rotateToggle'.
+   */
   closeSides() {
     if (this.rotateToggle == false) {
       this.hideSidenav();
@@ -186,6 +207,9 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * A function that handles the closing of the mobile view by executing various actions.
+   */
   hanldeCloseMobile() {
     this.closeSides();
     this.hideSidenav();
@@ -193,10 +217,17 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.displayHeadlineMobile();
   }
 
+  /**
+   * A function that returns the text 'schließen' if 'sidenavOpen' is true, otherwise returns 'öffnen'.
+   * @return {string} The text 'schließen' or 'öffnen'
+   */
   getToggleText(): string {
     return this.sidenavOpen ? 'schließen' : 'öffnen';
   }
 
+  /**
+   * Executes cleanup actions when the component is destroyed.
+   */
   ngOnDestroy() {
     console.log('hallo');
     this.unsubProfile();
