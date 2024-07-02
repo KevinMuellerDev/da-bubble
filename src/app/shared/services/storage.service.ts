@@ -67,6 +67,7 @@ onFileSelectedTextarea(input: HTMLInputElement) {
 
 private handlePdfFile(file: File) {
   this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+  // Platzhalterbild pdf wird erst nach einem klick auf das Bild geöffnet
   this.fileUrlTextarea = 'assets/img/pdfDefault.jpg';
 }
 
@@ -114,8 +115,6 @@ private handleImageFile(file: File) {
     dataType = dataType?.split('/').pop();
     console.log('your file size is', input.files?.item(0)?.size!, 'bytes');
     console.log(input.files);
-    
-
     return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif' || dataType === 'pdf')
   }
 
