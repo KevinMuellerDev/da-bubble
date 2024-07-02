@@ -66,7 +66,13 @@ onFileSelectedTextarea(input: HTMLInputElement) {
 isImage(files: FileList) {
   const fileType = files?.item(0)?.type.split('/')[0];
   return fileType === 'image';
-}
+  }
+  
+  abortUpload() {
+  this.filesTextarea = null!;
+  this.fileNameTextarea = undefined;
+  this.fileUrlTextarea = null;
+  }
 
 
 /**
