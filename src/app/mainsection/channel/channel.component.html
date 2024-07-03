@@ -4,10 +4,9 @@
         <img *ngIf="storageService.isImage(storageService.filesTextarea?.item(0))"
             [src]="storageService.fileUrlTextarea" alt="File Preview">
         <img *ngIf="storageService.isPdf(storageService.filesTextarea?.item(0))" [src]="storageService.fileUrlTextarea"
-            alt="PDF Preview" (click)="openPdf(storageService.pdfUrl)" />
+            alt="PDF Preview" style="cursor: pointer;" (click)="openPdf(storageService.pdfUrl)" />
 
-        <p
-            *ngIf="!storageService.isImage(storageService.filesTextarea?.item(0)) && !storageService.isPdf(storageService.filesTextarea?.item(0))">
+        <p *ngIf="storageService.isPdf(storageService.filesTextarea?.item(0))">
             {{ storageService.fileNameTextarea }}</p>
         <div class="close-icon" (click)="storageService.abortUpload()"></div>
     </div>
