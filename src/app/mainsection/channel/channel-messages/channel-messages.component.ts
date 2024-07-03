@@ -41,7 +41,7 @@ export class ChannelMessagesComponent implements OnInit {
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
   userService: UserService = inject(UserService);
-  threadService:ThreadService = inject(ThreadService);
+  threadService: ThreadService = inject(ThreadService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   stateService: StateService = inject(StateService);
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
@@ -132,6 +132,12 @@ export class ChannelMessagesComponent implements OnInit {
     });
   }
 
+  /**
+   * The function `getOtherUserData` asynchronously retrieves other user data and opens a dialog with the
+   * user information.
+   * @param {string} [id] - The `id` parameter in the `getOtherUserData` function is a string that
+   * represents the user ID of the other user whose profile you want to retrieve.
+   */
   async getOtherUserData(id?: string) {
     await this.userService.retrieveOtherUserProfile(id!);
     this.openDialogUserInfo();
@@ -170,10 +176,16 @@ export class ChannelMessagesComponent implements OnInit {
     });
   }
 
+  /**
+   * The `getMenu` function opens the menu by calling the `openMenu` method on the `trigger` object.
+   */
   getMenu() {
     this.trigger.openMenu();
   }
 
+  /**
+   * The `searchUser` function filters a list of users based on a search query provided by the user.
+   */
   searchUser() {
     this.userList = [];
     this.userService.allUsers.forEach(element => {
@@ -186,6 +198,10 @@ export class ChannelMessagesComponent implements OnInit {
     });
   }
 
+  /**
+   * The `searchChannel` function filters channels based on a search query and populates the
+   * `channelList` array with matching channels.
+   */
   searchChannel() {
     this.channelList = [];
     this.sidebarService.channels.forEach(element => {
@@ -197,7 +213,13 @@ export class ChannelMessagesComponent implements OnInit {
     });
   }
 
-  async sendMessage(user:any) {
+  /**
+   * The `sendMessage` function asynchronously updates user direct messages, checks if the
+   * user is already in the sidebar, adds the user if not, chooses the channel type, stops the listener,
+   * triggers hiding the thread, and sets the thread as inactive.
+   * @param {any} user - The `user` parameter represents an object that contains information about a user. 
+   */
+  async sendMessage(user: any) {
     let alreadyPushed = false;
     await this.channelService.updateUserDm(user);
     this.sidebarService.userDmData.forEach(element => {

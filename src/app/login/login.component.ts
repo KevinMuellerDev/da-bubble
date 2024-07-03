@@ -131,6 +131,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.emailInput.nativeElement.focus();
   }
 
+/**
+ * The `onInput` function sets the `firstFocus` property to false.
+ */
   onInput() {
     this.firstFocus = false;
   }
@@ -210,20 +213,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * - Authenticates with Firebase using Google provider.
    * - Stores UID, creates user profile, navigates on success.
    */
-  // async loginWithGoogle() {
-  //   this.showIntroAnimation = false;
-  //   sessionStorage.removeItem('hasSeenAnimation');
-  //   try {
-  //     const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
-  //     const user = result.user;
-  //     this.userService.prepareDataNewUserGoogle(user);
-  //     this.userService.createUserProfile();
-  //     sessionStorage.setItem("uid", user.uid);
-  //     this.router.navigate(['/mainsection/' + user.uid]);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   async loginWithGoogle() {
     this.showIntroAnimation = false;

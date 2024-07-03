@@ -83,15 +83,22 @@ export class HeaderComponent implements AfterViewInit, OnInit {
   scrollToMessage(index: number) {
     const msgElement = document.getElementById('singleMessage-' + index);
     const topPos = msgElement!.offsetTop;
-    document.getElementById('messageContainer')!.scrollTo({top: topPos, behavior: 'smooth'});
+    document.getElementById('messageContainer')!.scrollTo({ top: topPos, behavior: 'smooth' });
     this.searchMsg.msg = '';
     this.messageList = [];
   }
 
+  /**
+   * The `getMenu` function opens the menu by triggering the `openMenu` method.
+   */
   getMenu() {
     this.trigger.openMenu();
   }
 
+  /**
+   * The `searchMessage` function filters messages based on a search term and populates a list with
+   * matching messages.
+   */
   searchMessage() {
     this.messageList = [];
     this.channelService.messages.forEach((element, i) => {
