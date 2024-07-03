@@ -16,15 +16,19 @@
                 [(ngModel)]="inputs.channelName"
                 [ngClass]="{ 'focus-visible-invalid': createNewChannel.invalid && createNewChannel.touched }">
         </div>
-        <div class="error-message" *ngIf="!createNewChannel.valid && createNewChannel.touched ">Inhalt erforderlich !
+        <div class="error-message" *ngIf="!createNewChannel.valid && createNewChannel.touched ">
+            Inhalt erforderlich !
+        </div>
+        <div class="error-message" *ngIf="channelNameExists === true">
+            <p>Dieser Channelname ist zu kurz oder existiert schon, bitte wähle einen anderen !</p>
         </div>
         <div class="channel-description">
             <span> Beschreibung <span class="optional-notice">(optional)</span></span>
             <input type="text" name="channelDescription" placeholder="Dein Text hier" [(ngModel)]="inputs.description">
         </div>
         <div class="button-container">
-            <button [disabled]="!createNewChannel.valid" [mat-dialog-close]="true"
-                (click)="onSubmit(createNewChannel); openDialog()">
+            <button [disabled]="!createNewChannel.valid"
+                (click)="onSubmit(createNewChannel)">
                 Erstellen
             </button>
         </div>

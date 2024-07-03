@@ -12,13 +12,19 @@
             <span *ngIf="editChannelName" (click)="saveEditChannelStatus(channelName)"
                 class="channel-name-edit">Speichern</span>
         </div>
-        <div class="editable-name-container">
-            <div class="hash-icon" [ngClass]="{'absolute': editChannelName}"></div>
-            <span *ngIf="!editChannelName" class="channel-name-unedited">{{channelService.channelMsgData.title}}</span>
-            <div *ngIf="editChannelName" class="new-channel-name">
-                <input [(ngModel)]="newChannelValues.name" name="channelName" type="text" placeholder="Dein Text Hier">
+        <div class="head-editable">
+            <div class="editable-name-container">
+                <div class="hash-icon" [ngClass]="{'absolute': editChannelName}"></div>
+                <span *ngIf="!editChannelName" class="channel-name-unedited">{{channelService.channelMsgData.title}}</span>
+                <div *ngIf="editChannelName" class="new-channel-name">
+                    <input [(ngModel)]="newChannelValues.name" name="channelName" type="text" placeholder="Dein Text Hier">
+                </div>
+            </div>
+            <div class="invalid-input" *ngIf="channelNameExists === true">
+                <p>Dieser Channelname ist zu kurz oder existiert schon, bitte wähle einen anderen !</p>
             </div>
         </div>
+
     </form>
     <form #channelDescription="ngForm" class="channel-container"
         [ngClass]="{'description-container-border': !editDescription}">
