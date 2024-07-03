@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, inject,HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MainsectionComponent } from '../mainsection.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,6 +11,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { OutsideclickDirective } from '../../outsideclick.directive';
 import { StorageService } from '../../shared/services/storage.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -42,7 +43,18 @@ export class ChannelComponent {
 
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  private dataSubscription!: Subscription;
+  ngOnInit() {
+    this.dataSubscription = this.channelService.channelChanged$.subscribe(() => {
+      this.setFocusOnTextarea();
+    });
+  }
 
+    setFocusOnTextarea() {
+    setTimeout(() => {
+      this.messageContent.nativeElement.focus();
+    }, 0);
+  }
   async onSubmit(form: NgForm) {
     this.submitClick = true;
     this.textareaBlur = true;
