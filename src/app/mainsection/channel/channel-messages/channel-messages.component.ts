@@ -12,6 +12,11 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 import { UserService } from '../../../shared/services/user.service';
 import { StateService } from '../../../shared/services/state-service.service';
 import { ResizeListenerService } from '../../../shared/services/resize-listener.service';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { FormsModule } from '@angular/forms';
+import { User } from '@angular/fire/auth';
+import { ThreadService } from '../../../shared/services/thread.service';
+
 
 @Component({
   selector: 'app-channel-messages',
@@ -24,7 +29,9 @@ import { ResizeListenerService } from '../../../shared/services/resize-listener.
     AddUserDialogComponent,
     MessageComponent,
     NgOptimizedImage,
-    MainsectionComponent
+    MainsectionComponent,
+    MatMenuModule,
+    FormsModule
   ],
   templateUrl: './channel-messages.component.html',
   styleUrl: './channel-messages.component.scss'
@@ -33,14 +40,21 @@ import { ResizeListenerService } from '../../../shared/services/resize-listener.
 export class ChannelMessagesComponent implements OnInit {
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
-  resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   userService: UserService = inject(UserService);
+  threadService:ThreadService = inject(ThreadService);
+  resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   stateService: StateService = inject(StateService);
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
   @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   activeChannelHead = '';
+  searchReceiver = {
+    receiver: ''
+  }
   public dialogRefs: MatDialogRef<any>[] = [];
+  userList: any[] = [];
+  channelList: any[] = [];
 
   constructor(public dialog: MatDialog) {
     this.resizeListenerService.registerResizeCallback(this.updateDialogPositions.bind(this));
@@ -48,7 +62,7 @@ export class ChannelMessagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.stateService.setEditChannelDialogOpenMobile(true);
+    this.stateService.setEditChannelDialogOpenMobile(true);
   }
 
   /**
@@ -154,6 +168,52 @@ export class ChannelMessagesComponent implements OnInit {
         dialogRef.updatePosition({ top: `${rect.bottom}px`, left: `${rect.left - 20}px` });
       }
     });
+  }
+
+  getMenu() {
+    this.trigger.openMenu();
+  }
+
+  searchUser() {
+    this.userList = [];
+    this.userService.allUsers.forEach(element => {
+      const name: string = element['name'];
+
+      const contains: boolean = name.toLocaleLowerCase().indexOf(this.searchReceiver.receiver.toLocaleLowerCase().substring(1)) != -1;
+      if (contains && this.searchReceiver.receiver != '') {
+        this.userList.push(element);
+      }
+    });
+  }
+
+  searchChannel() {
+    this.channelList = [];
+    this.sidebarService.channels.forEach(element => {
+      const title: string = element['title'];
+      const contains: boolean = title.toLocaleLowerCase().indexOf(this.searchReceiver.receiver.toLocaleLowerCase().substring(1)) != -1;
+      if (contains && this.searchReceiver.receiver != '') {
+        this.channelList.push({ title: title, collection: element['collection'] });
+      }
+    });
+  }
+
+  async sendMessage(user:any) {
+    let alreadyPushed = false;
+    await this.channelService.updateUserDm(user);
+    this.sidebarService.userDmData.forEach(element => {
+      if (element.id == user.id)
+        alreadyPushed = true;
+    });
+    if (!alreadyPushed)
+      this.sidebarService.userDmData.push(user);
+    this.channelService.chooseChannelType(true, user);
+    this.threadService.stopListener();
+    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.isActive = false;
+  }
+
+  resetInput() {
+    this.searchReceiver.receiver = '';
   }
 
   /**

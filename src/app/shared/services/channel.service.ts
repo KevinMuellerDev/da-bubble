@@ -151,7 +151,7 @@ export class ChannelService {
    * `chooseChannelType` function. It is used to pass user data when the `dm` parameter is set to true,
    * indicating that a private message channel should be used.
    */
-  chooseChannelType(dm: boolean, data?: any) {
+ async chooseChannelType(dm: boolean, data?: any) {
     console.log(this.messagesLoaded);
     
     this.resetMessageType();
@@ -165,7 +165,8 @@ export class ChannelService {
 
       this.privateMsgData = data;
       this.messagesLoaded = false;
-      this.getDmId();
+      await this.getDmId();
+      this.changeData(this.currentMessagesId);
     } else if (this.channelMsg) {
       this.channelMsgData = data;
       this.messagesLoaded = false;
@@ -203,7 +204,6 @@ export class ChannelService {
       if (element.data()['dmUserId'] == this.privateMsgData.id) {
         this.currentMessagesId = element.id
         console.log(this.currentMessagesId);
-        this.changeData(this.currentMessagesId)
       }
     });
   }
@@ -279,6 +279,7 @@ export class ChannelService {
     const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
     console.log('ERROR HIER SOLL ICH NICHT REIN');
     
+    
     querySnapshotSelf.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
@@ -290,7 +291,7 @@ export class ChannelService {
         });
       }
     });
-
+    
     querySnapshotOpposite.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
@@ -302,7 +303,11 @@ export class ChannelService {
         });
       }
     });
+    this.stopListener();
+
   }
+
+
 
   async updateChannelMessage(data: any) {
     const querySnapshot = await getDocs(this.refQueryChannelMsg());

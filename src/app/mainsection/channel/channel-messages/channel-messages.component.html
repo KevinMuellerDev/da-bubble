@@ -1,7 +1,8 @@
 <div class="channel-container">
     <div class="channel-head-wrapper">
         @if (channelService.channelMsg) {
-        <div #editChannel (click)="openDialogEditChannel()" class="channel-head" [ngClass]="{'active-channel-head' : activeChannelHead.includes('edit-channel')}">
+        <div #editChannel (click)="openDialogEditChannel()" class="channel-head"
+             [ngClass]="{'active-channel-head' : activeChannelHead.includes('edit-channel')}">
             <div class="channel-head-tag-icon"></div>
             <span>{{channelService.channelMsgData.title}} </span>
             <div class="channel-head-arrow-icon"></div>
@@ -19,15 +20,41 @@
         <div class="message" (click)="getOtherUserData(channelService.privateMsgData.id)">
             <img referrerpolicy="no-referrer" [src]="channelService.privateMsgData['profilePicture']" alt="" />
             <div [ngClass]="sidebarService.getDmStatus(channelService.privateMsgData['isLoggedIn'])"
-                class="online-indicator"></div>
+                 class="online-indicator"></div>
             <span>{{channelService.privateMsgData['name']}}</span>
         </div>
         }@else if(channelService.messages.length == 0 && !channelService.privateMsg && !channelService.channelMsg) {
         <div class="head-newmsg">
             <span>Neue Nachricht</span>
             <div class="input-wrapper">
-                <input type="text" placeholder="An: #channel, oder @jemand oder E-Mail Adresse" class="selectReceiver">
+                <input name="searchReceiver" [matMenuTriggerFor]="menu" #trigger type="text"
+                       [(ngModel)]="searchReceiver.receiver"
+                       (click)="$event.stopPropagation()" (input)="searchUser();searchChannel()" (input)="getMenu()"
+                       placeholder="An: #channel, oder @jemand oder E-Mail Adresse"
+                       class="selectReceiver">
             </div>
+            <mat-menu #menu="matMenu" hasBackdrop="true">
+                @if (searchReceiver.receiver.charAt(0) == '@') {
+                <div class="button-wrapper">
+                    <span class="span-head">User:</span>
+                    @for (user of userList; track user['name']; let i = $index) {
+                    <div class="user-wrapper" (click)="resetInput();sendMessage(user)">
+                        <img [src]="user.profilePicture" alt="">
+                        <span>{{user.name}}</span>
+                    </div>
+                    }
+                </div>
+                }@else if (searchReceiver.receiver.charAt(0) == '#') {
+                <div class="button-wrapper">
+                    <span class="span-head">Channels:</span>
+                    @for (channel of channelList; track channel.title; let i = $index) {
+                    <div class="user-wrapper" (click)="resetInput();channelService.chooseChannelType(false, channel)">
+                        <span class="bold-span"># {{channel.title}}</span>
+                    </div>
+                    }
+                </div>
+                }
+            </mat-menu>
         </div>
         }
     </div>
