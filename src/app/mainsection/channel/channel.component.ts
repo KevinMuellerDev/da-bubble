@@ -43,9 +43,9 @@ export class ChannelComponent {
 
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  private dataSubscription!: Subscription;
+  private changeChannelSubscription!: Subscription;
   ngOnInit() {
-    this.dataSubscription = this.channelService.channelChanged$.subscribe(() => {
+    this.changeChannelSubscription = this.channelService.channelChanged$.subscribe(() => {
       this.setFocusOnTextarea();
     });
   }
@@ -158,6 +158,13 @@ export class ChannelComponent {
       }
     }
   }
+
+  ngOnDestroy() {
+    if (this.changeChannelSubscription) {
+      this.changeChannelSubscription.unsubscribe();
+    }
+  }
+
 }
  
 
