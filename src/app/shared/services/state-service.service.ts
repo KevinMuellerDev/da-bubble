@@ -1,12 +1,16 @@
 import { Injectable, inject } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ResizeListenerService } from '../../shared/services/resize-listener.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
-  editChannelDialogOpenMobile: boolean = false;
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
+  private showAddUserSubject = new Subject<void>();
+  openDialogAddUser$ = this.showAddUserSubject.asObservable();
+  editChannelDialogOpenMobile: boolean = false;
+
 
   constructor() {
     this.resizeListenerService.registerResizeCallback(this.getEditChannelDialogOpenMobile.bind(this));
@@ -18,6 +22,10 @@ export class StateService {
 
   getEditChannelDialogOpenMobile(): boolean {
     return this.editChannelDialogOpenMobile;
+  }
+
+  triggerAddUser(): void {
+    this.showAddUserSubject.next();
   }
 
   ngOnDestroy(): void {

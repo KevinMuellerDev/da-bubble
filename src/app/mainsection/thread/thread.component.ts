@@ -15,8 +15,6 @@ import { OutsideclickDirective } from '../../outsideclick.directive';
 import { UserService } from '../../shared/services/user.service';
 import { MessageData } from '../../shared/models/message.class';
 
-
-
 @Component({
   selector: 'app-thread',
   standalone: true,
@@ -24,7 +22,6 @@ import { MessageData } from '../../shared/models/message.class';
   templateUrl: './thread.component.html',
   styleUrl: './thread.component.scss'
 })
-
 
 export class ThreadComponent {
   channelService: ChannelService = inject(ChannelService);
@@ -65,7 +62,6 @@ export class ThreadComponent {
       }
     });
   }
-
 
   @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
@@ -122,7 +118,6 @@ export class ThreadComponent {
     this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'thread');
   }
 
-
   toggleEvent(event: any): void {
     if (event.target.classList.contains('edit-message-icon') ||
       event.target.classList.contains('add-reaction-icon') ||
@@ -151,7 +146,6 @@ export class ThreadComponent {
     this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index];
   }
 
-
   onSubmit(formThread: NgForm): void {
     this.submitClick = true;
     this.textareaBlur = true;
@@ -171,10 +165,10 @@ export class ThreadComponent {
   }
 
   /**
-* The function `arrangeDirectData` creates a new `MessageData` object, populates it with data from
-* user input and session storage, and then sends it to the `channelService` to create a direct
-* message.
-*/
+  * The function `arrangeDirectData` creates a new `MessageData` object, populates it with data from
+  * user input and session storage, and then sends it to the `channelService` to create a direct
+  * message.
+  */
   arrangeThreadData() {
     let dummy = new MessageData();
     dummy.id = sessionStorage.getItem('uid')!;
@@ -244,7 +238,6 @@ export class ThreadComponent {
   async openDialogUserInfo(user: any) {
     this.userService.otherUserInfo = user;
     console.log(user);
-
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;

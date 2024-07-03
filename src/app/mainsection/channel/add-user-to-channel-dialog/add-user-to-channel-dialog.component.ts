@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
 import { StateService } from '../../../shared/services/state-service.service';
@@ -24,7 +23,6 @@ export class AddUserToChannelDialogComponent {
   stateService: StateService = inject(StateService);
   initialReferenceElementPosition!: { top: number; left: number };
   stateEditChannelDialogOpenMobile: boolean = this.stateService.getEditChannelDialogOpenMobile();
-  public dialogRefs: MatDialogRef<any>[] = [];
   constructor(public dialog: MatDialog) {
   }
 
@@ -55,19 +53,11 @@ export class AddUserToChannelDialogComponent {
     };
   }
 
+  /**
+   * Opens dialog for adding user to channel over stateService
+   */
   openDialogAddUser() {
-    this.refContainerPosition();
-    const dialogRef = this.dialog.open(AddUserDialogComponent, {
-      panelClass: ['add-user', 'box-radius-right-corner', 'box-shadow'],
-      position: { top: `${this.initialReferenceElementPosition.top - 24}px`, left: `${this.initialReferenceElementPosition.left - 478}px` },
-    });
-    this.dialogRefs.push(dialogRef);
-    dialogRef.afterClosed().subscribe(() => {
-      this.dialogRefs = [];
-    });
-  }
-
-  ngOnDestroy(): void {
+    this.stateService.triggerAddUser();
   }
 }
 

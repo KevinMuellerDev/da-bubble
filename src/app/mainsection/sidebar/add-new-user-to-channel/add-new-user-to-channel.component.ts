@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { firebaseAppFactory } from '@angular/fire/app/app.module';
 import { SidebarService } from '../../../shared/services/sidebar.service';
 
-
 @Component({
   selector: 'app-add-new-user-to-channel',
   standalone: true,
@@ -80,7 +79,7 @@ export class AddNewUserToChannelComponent {
    */
   pushToSelection(user: any) {
     const checkUid = (obj: { uid: any; }) => obj.uid === user.uid;
-    if (!this.selectedUser.some(checkUid)) 
+    if (!this.selectedUser.some(checkUid))
       this.selectedUser.push(user);
     this.userList = [];
     this.inputs.specificUser = ''

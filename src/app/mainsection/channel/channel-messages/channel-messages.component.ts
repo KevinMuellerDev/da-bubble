@@ -7,6 +7,7 @@ import { EditChannelDialogComponent } from '../edit-channel-dialog/edit-channel-
 import { AddUserToChannelDialogComponent } from '../add-user-to-channel-dialog/add-user-to-channel-dialog.component';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { MessageComponent } from './message/message.component';
+import { Subscription } from 'rxjs';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { SidebarService } from '../../../shared/services/sidebar.service';
 import { UserService } from '../../../shared/services/user.service';
@@ -44,6 +45,7 @@ export class ChannelMessagesComponent implements OnInit {
   threadService: ThreadService = inject(ThreadService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   stateService: StateService = inject(StateService);
+  private showAddUserSubscription: Subscription = new Subscription();
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
   @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
@@ -61,8 +63,16 @@ export class ChannelMessagesComponent implements OnInit {
     this.dialogRefs = [];
   }
 
+  /**
+   * Initializes the component and sets the edit channel dialog to be open on mobile devices.
+   * Subscribes to the openDialogAddUser$ subject from the state service and calls the
+   * openDialogAddUser() method when the subject emits a value.
+   */
   ngOnInit(): void {
     this.stateService.setEditChannelDialogOpenMobile(true);
+    this.showAddUserSubscription = this.stateService.openDialogAddUser$.subscribe(() => {
+      this.openDialogAddUser();
+    })
   }
 
   /**
@@ -109,7 +119,6 @@ export class ChannelMessagesComponent implements OnInit {
     this.dialogRefs.push(dialogRef);
     dialogRef.afterClosed().subscribe(() => {
       this.stateService.setEditChannelDialogOpenMobile(true);
-      this.dialogRefs = [];
     });
   }
 

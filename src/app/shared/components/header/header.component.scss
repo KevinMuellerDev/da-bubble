@@ -79,6 +79,9 @@ header {
 
         .menu-btn {
             background-image: url("/assets/img/header/menu-arrow.svg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             height: 30px;
             width: 30px;
             margin-left: 8px;
