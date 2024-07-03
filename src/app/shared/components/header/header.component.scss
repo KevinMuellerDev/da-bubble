@@ -143,12 +143,16 @@ header {
 }
 
 .user-wrapper {
-    @include dFlex($ai:flex-start);
-    flex-direction: column;
+    @include dFlex();
     gap: 8px;
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 5px 10px;
     cursor: pointer;
+
+    div{
+        @include dFlex($ai:flex-start);
+        flex-direction: column;
+    }
 
     &:hover{
         background-color: $bg-color;
@@ -163,6 +167,10 @@ header {
     span {
         text-wrap: nowrap;
     }
+}
+
+.bold-span {
+    font-weight: 700;
 }
 
 @media screen and (max-width: 1260px) {

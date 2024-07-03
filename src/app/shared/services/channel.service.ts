@@ -10,7 +10,6 @@ import { EmojiService } from './emoji.service';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
-
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
   isSubscribed: boolean = false;

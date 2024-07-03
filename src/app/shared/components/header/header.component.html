@@ -23,8 +23,11 @@
                     <span class="span-head">Nachrichten:</span>
                     @for (message of messageList; track message.name; let i = $index) {
                     <div class="user-wrapper" (click)="scrollToMessage(message.index)">
-                        <span>{{message.name}}:</span>
-                        <span>Nachricht: {{(message.message).substring(0,30)}}...</span>
+                        <img [src]="message.profilePicture" alt="">
+                        <div>
+                            <span class="bold-span">{{message.name}}</span>
+                            <span><span class="bold-span">Nachricht: </span>{{(message.message).substring(0,15)}}...</span>    
+                        </div>
                     </div>
                     }
                 </div>
