@@ -92,7 +92,7 @@ export class HeaderComponent implements AfterViewInit, OnInit {
     this.trigger.openMenu();
   }
 
-  searchUser() {
+  searchMessage() {
     this.messageList = [];
     this.channelService.messages.forEach((element, i) => {
       const message: string = element['message'];

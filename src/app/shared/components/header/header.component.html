@@ -14,7 +14,7 @@
     <div class="search-wrapper">
         <div class="header-search">
             <input [matMenuTriggerFor]="menu" #trigger autocomplete="off" type="text" name="searchMsg"
-                   [(ngModel)]="searchMsg.msg" (click)="$event.stopPropagation()" (input)="searchUser()" (input)="getMenu()" placeholder="Channel durchsuchen">
+                   [(ngModel)]="searchMsg.msg" (click)="$event.stopPropagation()" (input)="searchMessage()" (input)="getMenu()" placeholder="Channel durchsuchen">
             <img src="/assets/img/header/search-btn.svg">
         </div>
         <mat-menu #menu="matMenu" hasBackdrop="true">
