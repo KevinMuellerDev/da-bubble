@@ -245,8 +245,11 @@ export class ChannelService {
    * contain information such as the message content, sender details, timestamp, etc.
    */
   async createDirectMessage(obj: any) {
+    // EINGELOGGTER USER DATEN SCHREIBEN
     await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
     await this.getOppositeDmId();
+
+    // WENN AN ANDREN USER HIER AUCH MACHEN MIT DEN UNTEN ANGEGEBENEN PFAD
     if (this.currentMessagesId != this.oppositeMessagesId) {
       await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
     }
