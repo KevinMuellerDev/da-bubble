@@ -12,8 +12,9 @@
     </div>
     <div class="channel-message-wrapper form-group">
         <form #form="ngForm" name="form" (ngSubmit)="onSubmit(form)">
-            <textarea class="channel-message-input form-control" name="message" #messageContent id="messageContent"
-                [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam" minlength="2" required
+            <textarea class="channel-message-input form-control" autofocus name="message" #messageContent
+                id="messageContent" [(ngModel)]="message.content" placeholder="Nachricht an #Entwicklerteam"
+                minlength="2" required
                 [ngClass]="{ 'focus-visible-invalid': !form.valid  && (form.touched || submitClick) && textareaBlur }"
                 (keyup.enter)="onSubmit(form)" (blur)=" textareaBlur=false">
                 </textarea>

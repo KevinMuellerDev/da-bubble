@@ -120,8 +120,8 @@
   </div>
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
-      <textarea class="thread-message-input form-control" name="message" #threadMessageContent id="threadMessageContent"
-        [(ngModel)]="messageThread.content" placeholder="Antworten..."
+      <textarea autofocus class="thread-message-input form-control" name="message" #threadMessageContent
+        id="threadMessageContent" [(ngModel)]="messageThread.content" placeholder="Antworten..."
         [ngClass]="{ 'focus-visible-thread-invalid': !formThread.valid  && (formThread.touched || submitClick) && textareaBlur }"
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
                           </textarea>

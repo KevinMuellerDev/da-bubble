@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 import { ChannelInfo } from '../interfaces/channelinfo';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Subject  } from 'rxjs';
 import { UserService } from './user.service';
 import { EmojiService } from './emoji.service';
 @Injectable({
@@ -43,8 +43,11 @@ export class ChannelService {
   changeData(data: string) {
     this.dataSubject.next(data);
     this.restartListener(data);
+    this.channelChangedSource.next();
   }
 
+   private channelChangedSource = new Subject<void>();
+  channelChanged$ = this.channelChangedSource.asObservable();
 
   /**
    * The `startListener` function subscribes to real-time updates and sorts the
