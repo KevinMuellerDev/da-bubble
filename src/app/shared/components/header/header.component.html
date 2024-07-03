@@ -13,34 +13,22 @@
     </div>
     <div class="search-wrapper">
         <div class="header-search">
-            <input [matMenuTriggerFor]="menu" autocomplete="off" type="text" placeholder="Channel durchsuchen">
+            <input [matMenuTriggerFor]="menu" #trigger autocomplete="off" type="text" name="searchMsg"
+                   [(ngModel)]="searchMsg.msg" (click)="$event.stopPropagation()" (input)="searchUser()" (input)="getMenu()" placeholder="Channel durchsuchen">
             <img src="/assets/img/header/search-btn.svg">
         </div>
         <mat-menu #menu="matMenu" hasBackdrop="true">
-
-            <div class="button-wrapper">
-                <span class="span-head">Nachrichten:</span>
-<!--                 @for (user of userService.allUsers; track $index) {
-                <div class="user-wrapper">
-                    <img [src]="user['profilePicture']" referrerpolicy="no-referrer" alt="">
-                    <span>{{user['name']}}</span>
-                </div>
-                }
-                <span class="span-head">Channels:</span>
-                @for (channel of sidebarService.channels; track $index) {
-                <div class="user-wrapper">
-                    <span># {{channel['title']}}</span>
-                </div>
-                } -->
-                @for (message of channelService.messages; track message.name; let i = $index) {
-                    <div class="user-wrapper" (click)="scrollToMessage(i)">
+            @if (messageList.length!= 0) {
+                <div class="button-wrapper">
+                    <span class="span-head">Nachrichten:</span>
+                    @for (message of messageList; track message.name; let i = $index) {
+                    <div class="user-wrapper" (click)="scrollToMessage(message.index)">
                         <span>{{message.name}}:</span>
                         <span>Nachricht: {{(message.message).substring(0,30)}}...</span>
                     </div>
-                }
-
-            </div>
-
+                    }
+                </div>
+            }
         </mat-menu>
     </div>
     <div class="user-menu" (click)="openDialog()">
