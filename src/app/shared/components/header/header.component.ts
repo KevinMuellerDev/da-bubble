@@ -71,13 +71,15 @@ export class HeaderComponent implements AfterViewInit, OnInit {
    */
   goBack() {
     this.mainsectionComponent.showSidenav();
+    this.mainsectionComponent.toggleElement.nativeElement.classList.remove('rotate-toggle');
+    this.mainsectionComponent.rotateToggle = false;
     this.headlineDesktop.nativeElement.style.display = 'block';
     this.headlineMobile.nativeElement.style.display = 'none';
   }
 
   /**
    * The scrollToMessage function scrolls the message container to a specific message based on its index.
-   * @param {number} index - The `index` parameter represents the index of the message you 
+   * @param {number} index - The `index` parameter represents the index of the message you
    * want to scroll to in the message container.
    */
   scrollToMessage(index: number) {
