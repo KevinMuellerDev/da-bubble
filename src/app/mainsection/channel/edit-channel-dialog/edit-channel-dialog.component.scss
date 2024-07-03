@@ -186,6 +186,14 @@
     border-radius: 20px;
 }
 
+.head-editable{
+    width: 100%;
+}
+
+.invalid-input{
+    color: red;
+}
+
 @media screen and (max-width: 600px) {
     .main-container {
         padding: 40px 24px;

@@ -6,6 +6,7 @@ import { AddUserToChannelDialogComponent } from '../add-user-to-channel-dialog/a
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
 import { Firestore, arrayRemove, deleteDoc, doc, getDocs, query, updateDoc } from '@angular/fire/firestore';
+import { SidebarService } from '../../../shared/services/sidebar.service';
 
 @Component({
   selector: 'app-edit-channel-dialog',
@@ -17,9 +18,11 @@ import { Firestore, arrayRemove, deleteDoc, doc, getDocs, query, updateDoc } fro
 export class EditChannelDialogComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
+  sidebarService:SidebarService = inject(SidebarService);
   firestore: Firestore = inject(Firestore);
   editChannelName: boolean = false;
   editDescription: boolean = false;
+  channelNameExists:boolean = false;
 
   newChannelValues = {
     'name': '',
@@ -41,9 +44,23 @@ export class EditChannelDialogComponent {
    * @param {NgForm} channelName - This parameter is used to access and manipulate the form data within the function.
    */
   async saveEditChannelStatus(channelName: NgForm) {
+    try {
+      this.sidebarService.channels.forEach(() => {
+        const checkTitle = (obj: { title: any; }) => obj.title === this.newChannelValues.name;
+        if (this.sidebarService.channels.some(checkTitle) || this.newChannelValues.name.length == 0) {
+          throw new Error('Titel schon vorhanden !')
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      channelName.reset();
+      this.channelNameExists = true;
+      return
+    }
     this.editChannelName = false;
     await this.channelService.updateChannelTitle(this.newChannelValues.name);
     console.log(this.newChannelValues.name);
+    this.channelNameExists = false;
     channelName.reset();
   }
 
