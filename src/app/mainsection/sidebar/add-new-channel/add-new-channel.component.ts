@@ -27,8 +27,7 @@ export class AddNewChannelComponent {
   }
   channelNameExists: boolean = false;
 
-
-  constructor(public dialog: MatDialog, private dialogRef:DialogRef<AddNewChannelComponent>) { }
+  constructor(public dialog: MatDialog, private dialogRef: DialogRef<AddNewChannelComponent>) { }
 
   /**
    * The `openDialog` function opens a dialog window to add new user to a channel using the

@@ -59,24 +59,39 @@ export class SidebarComponent implements OnInit {
     this.dialog.open(AddNewChannelComponent, { panelClass: ['add-new-channel', 'box-radius', 'box-shadow'] });
   }
 
+  /**
+   * Navigates to the specified channel and updates the active channel title.
+   */
   goToChannel() {
     this.clearactiveStyle();
     this.checkMobileSmallScreen();
     this.activeChannelTitle = this.channelService.channelMsgData.title;
   }
 
+  /**
+   * Navigates to the private message and updates the active channel title.
+   * This function clears the active style, checks if the mobile screen is small,
+   * and sets the active private channel to the user's name.
+   */
   goToPrivateMessage() {
     this.clearactiveStyle();
     this.checkMobileSmallScreen();
     this.activePrivateChannel = this.userService.userInfo.name;
   }
 
+  /**
+   * Navigates to the direct message and updates the active channel title.
+   * @param {string} dm - The direct message to navigate to.
+   */
   goToDirektMessage(dm: string) {
     this.clearactiveStyle();
     this.checkMobileSmallScreen();
     this.activeDirectChannel = dm;
   }
 
+  /**
+   * Checks if the screen size is small or extra small and calls the handleCloseMobile method of the mainsectionComponent if true.
+   */
   checkMobileSmallScreen() {
     if (this.resizeListenerService.smScreen || this.resizeListenerService.xsmScreen) {
       this.mainsectionComponent.hanldeCloseMobile();
@@ -96,7 +111,6 @@ export class SidebarComponent implements OnInit {
 
   /**
    * Toggles the state of the specified menu between 'open' and 'closed'.
-   *
    * @param {'channel' | 'message'} menu - The menu to be toggled. It can either be 'channel' or 'message'.
    */
   toggleMenu(menu: 'channel' | 'message') {
@@ -105,7 +119,6 @@ export class SidebarComponent implements OnInit {
 
   /**
    * Function returns the class of user status for online indicator div
-   *
    * @param type string - to determine which value should be returned
    * @returns class as a string
    */

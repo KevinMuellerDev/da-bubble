@@ -10,16 +10,16 @@ import { ChannelService } from '../../../shared/services/channel.service';
 @Component({
   selector: 'app-add-user-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatMenuModule,CommonModule, FormsModule],
+  imports: [MatDialogModule, MatMenuModule, CommonModule, FormsModule],
   templateUrl: './add-user-dialog.component.html',
   styleUrl: './add-user-dialog.component.scss',
 })
 
 export class AddUserDialogComponent {
-  @ViewChild(MatMenuTrigger) trigger!:MatMenuTrigger;
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   userService: UserService = inject(UserService);
-  channelService:ChannelService = inject(ChannelService);
-  firestore:Firestore = inject(Firestore);
+  channelService: ChannelService = inject(ChannelService);
+  firestore: Firestore = inject(Firestore);
   addUser = {
     name: ''
   }
@@ -58,7 +58,7 @@ export class AddUserDialogComponent {
     this.selectedUser.splice(contains, 1);
   }
 
-  getMenu(){
+  getMenu() {
     this.trigger.openMenu();
   }
 
@@ -67,22 +67,22 @@ export class AddUserDialogComponent {
   * array, and resets the specificUser input field.
   * @param {object} user - takes an `object` as a parameter named `user` and pushes it into `selectedUser`.
   */
-  pushToSelection(user:any){
+  pushToSelection(user: any) {
     const checkUid = (obj: { uid: any; }) => obj.uid === user.uid;
-    if (!this.selectedUser.some(checkUid)) 
+    if (!this.selectedUser.some(checkUid))
       this.selectedUser.push(user);
-    this.userList=[];
-    this.addUser.name =''
+    this.userList = [];
+    this.addUser.name = ''
   }
 
-  async updateChannelUsers(){
+  async updateChannelUsers() {
     console.log(this.selectedUser);
     this.selectedUser.forEach(async user => {
       console.log(user);
       await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection), {
         users: arrayUnion(user.uid)
       });
-      await addDoc(collection(this.firestore, 'user', user.uid, 'userchannels'), {channelid: this.channelService.channelMsgData.collection});
+      await addDoc(collection(this.firestore, 'user', user.uid, 'userchannels'), { channelid: this.channelService.channelMsgData.collection });
     });
   }
 }
