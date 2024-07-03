@@ -28,11 +28,6 @@ header {
             border-radius: 50% 50%;
             object-fit: cover;
             padding: 4px;
-            cursor: pointer;
-
-            &:hover {
-                background: rgba(0.1, 0.1, 0.1, 0.05);
-            }
         }
     }
 
