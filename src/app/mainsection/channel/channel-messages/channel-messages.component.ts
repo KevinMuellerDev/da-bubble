@@ -15,6 +15,7 @@ import { ResizeListenerService } from '../../../shared/services/resize-listener.
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { User } from '@angular/fire/auth';
+import { ThreadService } from '../../../shared/services/thread.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class ChannelMessagesComponent implements OnInit {
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
   userService: UserService = inject(UserService);
+  threadService:ThreadService = inject(ThreadService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   stateService: StateService = inject(StateService);
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
@@ -193,6 +195,21 @@ export class ChannelMessagesComponent implements OnInit {
         this.channelList.push({ title: title, collection: element['collection'] });
       }
     });
+  }
+
+  async sendMessage(user:any) {
+    let alreadyPushed = false;
+    await this.channelService.updateUserDm(user);
+    this.sidebarService.userDmData.forEach(element => {
+      if (element.id == user.id)
+        alreadyPushed = true;
+    });
+    if (!alreadyPushed)
+      this.sidebarService.userDmData.push(user);
+    this.channelService.chooseChannelType(true, user);
+    this.threadService.stopListener();
+    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.isActive = false;
   }
 
   resetInput() {

@@ -38,7 +38,7 @@
                 <div class="button-wrapper">
                     <span class="span-head">User:</span>
                     @for (user of userList; track user['name']; let i = $index) {
-                    <div class="user-wrapper" (click)="resetInput();channelService.chooseChannelType(true, user)">
+                    <div class="user-wrapper" (click)="resetInput();sendMessage(user)">
                         <img [src]="user.profilePicture" alt="">
                         <span>{{user.name}}</span>
                     </div>
