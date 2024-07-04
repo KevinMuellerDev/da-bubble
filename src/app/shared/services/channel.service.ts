@@ -279,26 +279,21 @@ async createChannelMessage(obj: any) {
   await addDoc(this.refCreateChannelMsg(), obj)
   .then(async (docRef) => {
     console.log(docRef.id);
-    
-    const NewMessage: any = { msgId: docRef.id };
 
-    // Überprüfen, ob filesTextarea definiert ist und eine Länge größer als 0 hat
+    const NewMessage: any = { msgId: docRef.id };
     if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
       const downloadURL = this.storageService.downloadUrl;
       const fileType = this.storageService.uploadedFileType;
-
       NewMessage.uploadedFile = {
         src: downloadURL,
         type: fileType
       };
     } else {
-      // Falls filesTextarea nicht definiert oder leer ist, NewMessage.uploadedFile vorab initialisieren
       NewMessage.uploadedFile = {
         src: '',
         type: ''
       };
     }
-
     await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id), NewMessage);
   });
   this.storageService.downloadUrl = '';
