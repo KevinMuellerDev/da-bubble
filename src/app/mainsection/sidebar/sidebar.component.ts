@@ -101,7 +101,6 @@ export class SidebarComponent implements OnInit {
   /**
    * An object representing the states of different menus.
    * Each menu state can either be 'open' or 'closed'.
-   *
    * @type {{ [state: string]: 'open' | 'closed' }}
    */
   menuStates: { [state: string]: 'open' | 'closed' } = {

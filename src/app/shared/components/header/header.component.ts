@@ -24,6 +24,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
+
 export class HeaderComponent implements AfterViewInit, OnInit {
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   userService: UserService = inject(UserService);

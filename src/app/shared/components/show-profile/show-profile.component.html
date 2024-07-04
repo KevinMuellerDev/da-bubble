@@ -5,9 +5,12 @@
             <img src="/assets/img/header/close.svg" alt="">
         </div>
     </div>
-    <div class="profile-picture">
-        <img *ngIf="otherUser==true" referrerpolicy="no-referrer" [src]="userService.otherUserInfo.profilePicture" alt="">
-        <img *ngIf="otherUser==false" referrerpolicy="no-referrer" [src]="userService.userInfo.profilePicture" alt="">
+    <div class="profile-picture-container">
+        <div class="profile-picture">
+            <img *ngIf="otherUser==true" referrerpolicy="no-referrer" [src]="userService.otherUserInfo.profilePicture" alt="">
+            <img *ngIf="otherUser==false" referrerpolicy="no-referrer" [src]="userService.userInfo.profilePicture" alt="">
+            <div class="edit-pencil-icon" *ngIf="editMode"></div>
+        </div>
     </div>
     @if (editMode == false) {
     <div class="profile-edit-container">
