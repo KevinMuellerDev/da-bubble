@@ -24,14 +24,39 @@
         }
     }
 
-    .profile-picture {
+    .profile-picture-container {
         @include dFlex($jc: center);
         width: 100%;
+        height: 200px;
+        .profile-picture {
+            position: relative;
+            img {
+                width: 200px;
+                height: 200px;
+                border-radius: 50% 50%;
+            }
+        }
 
-        img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50% 50%;
+        .edit-pencil-icon {
+            position: absolute;
+            bottom: 7px;
+            right: -16px;
+            cursor: pointer;
+            height: 32px;
+            width: 32px;
+            border: 1px solid $light-purple;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 24px 24px;
+            background-image: url("/assets/img/profile/edit.png");
+            background-color: $bg-color;
+
+            &:hover {
+                background-image: url("/assets/img/profile/edit_blue.png");
+                border: 1px solid $purple3;
+                background-color: $white;
+            }
         }
     }
 
