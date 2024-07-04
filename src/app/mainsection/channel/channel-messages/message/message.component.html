@@ -67,10 +67,22 @@
                             *ngIf="emojiService.showEmojiPickerArray[i]" set="google"></emoji-mart>
                     </div>
                 </div>
+                <span *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type"
+                    class="uploaded-file">
+                    <img *ngIf="message.uploadedFile.type==='image/jpeg'" [src]="message.uploadedFile.src"
+                        alt="uploaded file" />
+                    <img *ngIf="message.uploadedFile.type==='application/pdf'" [src]="'assets/img/pdfDefault.jpg'"
+                        alt="PDF Preview" style="cursor: pointer;" (click)="openPdf(message.uploadedFile.src)" />
+                    <p *ngIf="message.uploadedFile.type==='application/pdf'">
+                        {{ message.uploadedFile.src ? getFileName(message.uploadedFile.src) : '' }}</p>
+                </span>
+
+
+
                 <div class="selected-emoji">
                     <span (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
-                        *ngFor="let emojiCount let e = index of message.emoji">
-                        {{ emojiCount.emoji }}
+                        *ngFor="let emojiData let e = index of message.emoji">
+                        {{ emojiData.emoji }}
                         <ng-container *ngIf="message.emoji[e].count >1">
                             {{ message.emoji[e].count }}
                         </ng-container>

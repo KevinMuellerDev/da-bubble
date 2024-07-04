@@ -130,10 +130,10 @@ export class ChannelComponent {
     this.fileInput.nativeElement.click();
   }
 
-  onFileSelected(event: Event) {
+ async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.storageService.onFileSelectedTextarea(input);
-    // this.storageService.uploadFile(sessionStorage.getItem("uid"));
+   this.storageService.onFileSelectedTextarea(input);
+   this.storageService.uploadFileAndGetUrl(this.channelService.currentChannel);
   }
 
   // pdf muss als sicher eingestuft werden und anschlißened in eiegnem HTML / mit neuem 

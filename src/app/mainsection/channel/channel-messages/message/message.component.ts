@@ -19,6 +19,8 @@ import { EmojiService } from '../../../../shared/services/emoji.service';
 import { OutsideclickDirective } from '../../../../outsideclick.directive';
 import { ThreadService } from '../../../../shared/services/thread.service';
 import { MutationObserverService } from '../../../../shared/services/mutation.observer.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { StorageService } from '../../../../shared/services/storage.service';
 
 
 registerLocaleData(localeDe);
@@ -35,7 +37,8 @@ registerLocaleData(localeDe);
 export class MessageComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
-  threadService:ThreadService = inject(ThreadService);
+  threadService: ThreadService = inject(ThreadService);
+  storageService: StorageService = inject(StorageService);
   private dataSubscription!: Subscription;
   unsubMessageData!: Unsubscribe;
   dateToday!: number;
@@ -51,7 +54,7 @@ export class MessageComponent {
   originalMessage!: string;
   emojiAdded: boolean = false;
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {
     this.userId = sessionStorage.getItem('uid')!;
     this.channelService.messagesLoaded = false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
@@ -264,5 +267,32 @@ export class MessageComponent {
     }
     this.MutationObserverService.disconnect();
   }
+
+ getFileName(url: string): string {
+    if (!url) return ''; 
+    const fileName = url.split('/').pop()?.split('?')[0] || '';
+    return decodeURIComponent(fileName);
+  }
+ openPdf(pdfUrl: SafeResourceUrl | null) {
+    if (pdfUrl) {
+      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 
+      if (pdfBlobUrl) {
+        const newWindow = window.open("", "_blank");
+        if (newWindow) {
+          newWindow.document.write(`
+            <html>
+              <head>
+                <title>PDF Preview</title>
+              </head>
+              <body style="margin: 0;">
+                <embed src="${pdfBlobUrl}" type="application/pdf" width="100%" height="100%" />
+              </body>
+            </html>
+          `);
+        }
+      }
+    }
+  }
+
   }
 

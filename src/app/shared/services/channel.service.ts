@@ -4,12 +4,14 @@ import { ChannelInfo } from '../interfaces/channelinfo';
 import { BehaviorSubject,Subject  } from 'rxjs';
 import { UserService } from './user.service';
 import { EmojiService } from './emoji.service';
+import { StorageService } from '../../shared/services/storage.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
+  storageService: StorageService = inject(StorageService);
   private dataSubject = new BehaviorSubject<string>('');
   data$ = this.dataSubject.asObservable();
   isSubscribed: boolean = false;
@@ -27,6 +29,7 @@ export class ChannelService {
   messagesLoaded: boolean = false;
   privateMsgIds: string[] = [];
   currentChannelUsers: any[] = [];
+  currentChannel!: string;
 
   constructor() {
     //turn on for test in messages:
@@ -158,8 +161,10 @@ export class ChannelService {
     dm ? this.privateMsg = true : this.channelMsg = true;
     console.log(this.channelMsg);
     
-    console.log(data);
-
+   console.log(data);
+  
+   this.currentChannel = data.collection
+   
     if (this.privateMsg) {
       console.log('im here');
 
@@ -245,14 +250,22 @@ export class ChannelService {
    * contain information such as the message content, sender details, timestamp, etc.
    */
   async createDirectMessage(obj: any) {
-    // EINGELOGGTER USER DATEN SCHREIBEN
-    await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
-    await this.getOppositeDmId();
-
-    // WENN AN ANDREN USER HIER AUCH MACHEN MIT DEN UNTEN ANGEGEBENEN PFAD
-    if (this.currentMessagesId != this.oppositeMessagesId) {
-      await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
-    }
+  let uploadedFile = {
+    src: '',
+    type: ''
+  };
+  if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
+    uploadedFile.src = this.storageService.downloadUrl;
+    uploadedFile.type = this.storageService.uploadedFileType;
+  }
+  obj.uploadedFile = uploadedFile;
+  await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
+  await this.getOppositeDmId();
+  if (this.currentMessagesId != this.oppositeMessagesId) {
+  await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
+  }
+  this.storageService.downloadUrl = '';
+  this.storageService.uploadedFileType = '';
   }
 
 /**
@@ -262,16 +275,29 @@ export class ChannelService {
  * contains the data to be added to a Firestore document. This object will be passed to the `addDoc`
  * function to create a new document in the Firestore database.
  */
-  async createChannelMessage(obj: any) {
-    await addDoc(this.refCreateChannelMsg(), obj)
-    .then(async (docRef)=>{
-      console.log(docRef.id);
+async createChannelMessage(obj: any) {
+  await addDoc(this.refCreateChannelMsg(), obj)
+  .then(async (docRef) => {
+    console.log(docRef.id);
+
+    const NewMessage: any = { msgId: docRef.id };
+
+    if (this.storageService.filesTextarea.length > 0) {
+      const downloadURL = this.storageService.downloadUrl
+      const fileType = this.storageService.uploadedFileType
+
+      NewMessage.uploadedFile = {
+        src: downloadURL,
+        type: fileType
+      };
       
-      await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection,"messages",docRef.id), {
-        msgId: docRef.id
-      });
-    });
-  }
+    }
+
+    await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id), NewMessage);
+  });
+  this.storageService.downloadUrl = '';
+  this.storageService.uploadedFileType = '';
+}
 
 
   async updateDirectMessage(data: any) {

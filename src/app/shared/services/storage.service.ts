@@ -18,6 +18,8 @@ export class StorageService {
   fileUrl!: any;
   fileUrlTextarea!: SafeResourceUrl | string | ArrayBuffer | null;
   pdfUrl!: SafeResourceUrl | null;
+  downloadUrl!: string;
+  uploadedFileType!: string;
 
   constructor() { }
 
@@ -99,6 +101,18 @@ private handleImageFile(file: File) {
   this.fileNameTextarea = undefined;
   this.fileUrlTextarea = null;
   }
+
+    async uploadFileAndGetUrl(channelId: string) {
+      const file = this.filesTextarea.item(0) as File;
+     this.uploadedFileType = file.type;
+    const storageRef = ref(this.storage, `${channelId}/${file.name}`);
+    await uploadBytesResumable(storageRef, file);
+    await getDownloadURL(storageRef).then((url) => {
+         this.downloadUrl = url
+      }); 
+  }
+
+
 // textarea upload function end
 
 /**
