@@ -13,6 +13,7 @@ import { VerifyComponent } from '../verify/verify.component';
 import { ChannelService } from '../../services/channel.service';
 import { SidebarService } from '../../services/sidebar.service';
 import { ThreadService } from '../../services/thread.service';
+import { ChooseavatarComponent } from '../../../login/chooseavatar/chooseavatar.component';
 
 @Component({
   selector: 'app-show-profile',
@@ -31,6 +32,7 @@ export class ShowProfileComponent {
   otherUser: boolean = false;
   profileEditable: boolean = false;
   editMode: boolean = false;
+  editProfilePic: boolean = false;
   otherUserInfo!: any;
   otherUserId!: string;
 
@@ -119,6 +121,12 @@ export class ShowProfileComponent {
       })
   }
 
+  /**
+   * Toggles the value of `editProfilePic`, which controls whether the profile picture can be changed.
+   */
+  toggleChangeProfilePic() {
+    this.editProfilePic = !this.editProfilePic;
+  }
 
   /**
    * The closeDialog function closes all open dialog windows.

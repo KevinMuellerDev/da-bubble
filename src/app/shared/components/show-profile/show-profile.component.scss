@@ -36,28 +36,6 @@
                 border-radius: 50% 50%;
             }
         }
-
-        .edit-pencil-icon {
-            position: absolute;
-            bottom: 7px;
-            right: -16px;
-            cursor: pointer;
-            height: 32px;
-            width: 32px;
-            border: 1px solid $light-purple;
-            border-radius: 50%;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 24px 24px;
-            background-image: url("/assets/img/profile/edit.png");
-            background-color: $bg-color;
-
-            &:hover {
-                background-image: url("/assets/img/profile/edit_blue.png");
-                border: 1px solid $purple3;
-                background-color: $white;
-            }
-        }
     }
 
     .profile-edit-container {
@@ -117,6 +95,67 @@
                 outline: none;
             }
         }
+    }
+}
+
+.edit-pencil-icon {
+    position: absolute;
+    bottom: 7px;
+    right: -16px;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    border: 1px solid $light-purple;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+    background-image: url("/assets/img/profile/edit.png");
+    background-color: $bg-color;
+    transition:
+        background-image 0.3s ease,
+        border 0.3s ease;
+
+    &:hover {
+        background-image: url("/assets/img/profile/edit_blue.png");
+        border: 1px solid $purple3;
+        background-color: $white;
+    }
+}
+
+.active-edit-profile-pic {
+    background-image: url("/assets/img/profile/edit_blue.png");
+    border: 1px solid $purple3;
+    background-color: $white;
+    animation: pulsate 1.5s infinite;
+}
+
+.selectable-profile-pic {
+    @include dFlex($jc: center, $ai: center);
+    width: 100%;
+    height: 100px;
+    gap: 10px;
+    border: 1px solid $purple1;
+}
+
+@keyframes pulsate {
+    0% {
+        box-shadow: 0 0 0 0 $bg-color;
+        background-color: $white;
+        border: 1px solid $purple1;
+        background-image: url("/assets/img/profile/edit_blue.png");
+    }
+    50% {
+        box-shadow: 0 0 6px 6px $bg-color;
+        background-color: $bg-color;
+        border: 1px solid $bg-color;
+        background-image: url("/assets/img/profile/edit.png");
+    }
+    100% {
+        box-shadow: 0 0 0 0 $bg-color;
+        background-color: $bg-color;
+        border: 1px solid $purple1;
+        background-image: url("/assets/img/profile/edit_blue.png");
     }
 }
 
