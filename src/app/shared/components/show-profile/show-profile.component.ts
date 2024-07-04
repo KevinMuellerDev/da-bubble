@@ -13,7 +13,7 @@ import { VerifyComponent } from '../verify/verify.component';
 import { ChannelService } from '../../services/channel.service';
 import { SidebarService } from '../../services/sidebar.service';
 import { ThreadService } from '../../services/thread.service';
-import { ChooseavatarComponent } from '../../../login/chooseavatar/chooseavatar.component';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-show-profile',
@@ -28,6 +28,8 @@ export class ShowProfileComponent {
   userService: UserService = inject(UserService);
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
+  selectedAvatar: string | null = null;
+  avatars: any = this.storageService.avatars;
   updateUserForm: FormGroup;
   otherUser: boolean = false;
   profileEditable: boolean = false;
@@ -36,11 +38,20 @@ export class ShowProfileComponent {
   otherUserInfo!: any;
   otherUserId!: string;
 
-  constructor(public dialog: MatDialog, public authService: AuthService, private dialogRef: MatDialogRef<ShowProfileComponent>) {
+  constructor(
+    private storageService: StorageService,
+    public dialog: MatDialog,
+    public authService: AuthService,
+    private dialogRef: MatDialogRef<ShowProfileComponent>) {
     this.updateUserForm = new FormGroup({
       name: new FormControl(this.userService.userInfo.name),
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
     });
+    this.avatars = this.storageService.avatars;
+  }
+
+  selectAvatar(avatar: string) {
+    this.selectedAvatar = avatar;
   }
 
   /**

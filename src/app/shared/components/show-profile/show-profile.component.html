@@ -7,9 +7,12 @@
     </div>
     <div class="profile-picture-container">
         <div class="profile-picture">
-            <img *ngIf="otherUser==true" referrerpolicy="no-referrer" [src]="userService.otherUserInfo.profilePicture" alt="">
-            <img *ngIf="otherUser==false" referrerpolicy="no-referrer" [src]="userService.userInfo.profilePicture" alt="">
-            <div class="edit-pencil-icon" *ngIf="editMode" [ngClass]="{ 'active-edit-profile-pic': editProfilePic }" (click)="toggleChangeProfilePic()"></div>
+            <img *ngIf="otherUser==true" referrerpolicy="no-referrer" [src]="userService.otherUserInfo.profilePicture"
+                alt="">
+            <img *ngIf="otherUser==false" referrerpolicy="no-referrer"
+                [src]="selectedAvatar || userService.userInfo.profilePicture" alt="">
+            <div class="edit-pencil-icon" *ngIf="editMode" [ngClass]="{ 'active-edit-profile-pic': editProfilePic }"
+                (click)="toggleChangeProfilePic()"></div>
         </div>
     </div>
     @if (editMode == false) {
@@ -30,9 +33,10 @@
         </div>
         <div class="email-content">
             <span>E-mail Adresse</span>
-            <a *ngIf="otherUser==true" [href]="'mailto:' + userService.otherUserInfo.email">{{userService.otherUserInfo.email}}</a>
+            <a *ngIf="otherUser==true"
+                [href]="'mailto:' + userService.otherUserInfo.email">{{userService.otherUserInfo.email}}</a>
             <a *ngIf="otherUser==false"
-               [href]="'mailto:'+ userService.userInfo.email">{{userService.userInfo.email}}</a>
+                [href]="'mailto:'+ userService.userInfo.email">{{userService.userInfo.email}}</a>
         </div>
     </div>
     @if (otherUser=== true) {
@@ -46,9 +50,10 @@
     @if (editMode == true) {
     <div class="edit-user-form-container">
         <form (ngSubmit)="userService.updateUserProfile(updateUserForm)" [formGroup]="updateUserForm"
-              autocomplete="off">
+            autocomplete="off">
             <div class="selectable-profile-pic" *ngIf="editProfilePic">
-                
+                <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)"
+                    [ngClass]="{'selected': avatar === selectedAvatar}">
             </div>
             <div class="input-container" *ngIf="!editProfilePic">
                 <div>
@@ -63,12 +68,11 @@
                     <span>E-mail Adresse</span>
                 </div>
                 <input [placeholder]="userService.userInfo.email" type="email" formControlName="email"
-                       pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
+                    pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
             </div>
-
         </form>
         <div class="edit-user-btns">
-            <div class="cancel-btn" (click)="editMode=false">
+            <div class="cancel-btn" (click)="editMode=false; selectedAvatar=''">
                 Abbrechen
             </div>
             <div class="save-btn" (click)="checkUpdateInput()">

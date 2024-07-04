@@ -38,34 +38,17 @@ export class ChooseavatarComponent implements OnInit {
   popupState = 'out';
   showLoading = false;
   userName: string = '';
-  avatars: string[] = [
-    'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
-    'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
-    'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile6.svg?alt=media&token=f7827bc5-1cd3-499d-be4e-2e748a170699',
-    'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile4.svg?alt=media&token=104a104e-712c-4d89-99c8-5c6d6eeb381b',
-    'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile5.svg?alt=media&token=25935b79-8ce7-4f23-9d2e-a82b95adfbc3',
-    'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile3.svg?alt=media&token=7bd92926-13d9-476b-8c39-fde34aa7044e'
-  ];
-
+  avatars: any = this.storageService.avatars;
   userService: UserService = inject(UserService);
 
   constructor(private storageService: StorageService, private router: Router) { }
 
-/**
- * Initializes the component, setting the list of avatars and the user's name.
- * Called automatically by Angular on component initialization.
- */
-  ngOnInit() {
-    this.avatars = this.getAvatars();
-    this.userName = this.userService.createUserInfo.name;
-  }
-
   /**
-   * Retrieves the list of avatars.
-   * @return {string[]} The array of avatar paths.
+   * Initializes the component, setting the list of avatars and the user's name.
+   * Called automatically by Angular on component initialization.
    */
-  getAvatars(): string[] {
-    return this.avatars;
+  ngOnInit() {
+    this.userName = this.userService.createUserInfo.name;
   }
 
   /**
@@ -96,7 +79,6 @@ export class ChooseavatarComponent implements OnInit {
     const file = this.storageService.files?.item(0);
     if (file) {
       this.selectedAvatar = URL.createObjectURL(this.storageService.fileUrl);
-      console.log(this.selectedAvatar);
     }
   }
 
