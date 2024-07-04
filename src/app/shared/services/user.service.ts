@@ -193,4 +193,15 @@ export class UserService {
     this.createUserInfo.profilePicture = url;
   }
 
+/**
+ * The function `getOnlineStatusProfile` retrieves the online status profile of a user with the
+ * specified ID.
+ * @param {string} id - The `id` parameter in the `getOnlineStatusProfile` function is a string that
+ * represents the unique identifier of a user profile.
+ */
+  async getOnlineStatusProfile(id:string){
+    const docSnap = await getDoc(doc(this.firestore, "user", id));
+    this.otherUserInfo.isLoggedIn = docSnap.data()!['isLoggedIn'];  
+  }
+
 }

@@ -237,6 +237,9 @@ export class ThreadComponent {
   */
   async openDialogUserInfo(user: any) {
     this.userService.otherUserInfo = user;
+    console.log(this.userService.otherUserInfo);
+    
+    await this.userService.getOnlineStatusProfile(user.id);
     console.log(user);
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
     dialogRef.componentInstance.otherUser = true;
