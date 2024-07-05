@@ -56,10 +56,10 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
       transition('initial=>final', [
         animate('2.5s ease-in-out', keyframes([
           style({ fontSize: '0.75rem', offset: 0 }),
-          style({ fontSize: '2rem', transform: 'rotate(360deg)', offset: 0.01 }),
+          style({ fontSize: '1.8rem', transform: 'rotate(360deg)', offset: 0.01 }),
           style({ fontSize: '{{fontSize}}', offset: 0.5 }),
-          style({ fontSize: '2rem', offset: 0.9 }),
-          style({ fontSize: '1rem', offset: 1 }),
+          style({ fontSize: '1.8rem', offset: 0.9 }),
+          style({ fontSize: '1rem', offset: 1 })
         ]))
       ], { params: { fontSize: '5.5rem' } })
     ]),
@@ -111,31 +111,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * @constructor
    */
   constructor(private router: Router) {
+    this.checkScreenWidth();
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
-  }
-
-  ngOnInit() {
-    const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
-    this.checkScreenWidth();
-    if (!hasSeenAnimation) {
-      this.showIntroAnimation = true;
-      sessionStorage.setItem('hasSeenAnimation', 'true');
-      this.delayIntroAnimation();
-    }
-  }
-
-  ngAfterViewInit(): void {
-    this.emailInput.nativeElement.focus();
-  }
-
-/**
- * The `onInput` function sets the `firstFocus` property to false.
- */
-  onInput() {
-    this.firstFocus = false;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -143,21 +123,63 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.checkScreenWidth();
   }
 
+  /**
+   * Initializes the component when it is created.
+   * Checks if the animation has been seen before, sets animation flag, and delays animation.
+   * Also, checks the screen width for responsive design.
+   */
+  ngOnInit() {
+    this.checkScreenWidth();
+    const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
+    if (!hasSeenAnimation) {
+      this.showIntroAnimation = true;
+      sessionStorage.setItem('hasSeenAnimation', 'true');
+      this.delayIntroAnimation();
+    }
+  }
+
+  /**
+   * Initializes the component after the view has been initialized.
+   * Sets the focus on the email input element and checks the screen width for responsive design.
+   */
+  ngAfterViewInit(): void {
+    this.emailInput.nativeElement.focus();
+    this.checkScreenWidth();
+  }
+
+  /**
+   * The `onInput` function sets the `firstFocus` property to false.
+   */
+  onInput() {
+    this.firstFocus = false;
+  }
+
+  /**
+   * Sets the CSS properties based on the current window width for responsive design.
+   */
   checkScreenWidth() {
     this.leftPosition = window.innerWidth <= 768 ? '50%' : '70px';
     this.transform = window.innerWidth <= 768 ? 'translate(-50%, -50%)' : 'translate(0%, 0%)';
-    this.logoWidth = window.innerWidth <= 624 ? '100px' : '187px';
-    this.logoHeight = window.innerWidth <= 624 ? '100px' : '187px';
-    this.logoTextSize = window.innerWidth <= 624 ? '3.5rem' : '5.5rem';
-    this.logoWidth = window.innerWidth <= 375 ? '80px' : '187px';
-    this.logoHeight = window.innerWidth <= 375 ? '80px' : '187px';
-    this.logoTextSize = window.innerWidth <= 375 ? '3rem' : '5.5rem';
+    this.logoWidth = window.innerWidth <= 624 ? '100px' : '147px';
+    this.logoHeight = window.innerWidth <= 624 ? '100px' : '147px';
+    this.logoTextSize = window.innerWidth <= 624 ? '3rem' : '5rem';
+    this.logoWidth = window.innerWidth <= 375 ? '80px' : '127px';
+    this.logoHeight = window.innerWidth <= 375 ? '80px' : '127px';
+    this.logoTextSize = window.innerWidth <= 375 ? '3rem' : '5rem';
   }
 
+  /**
+   * A function that introduces a delay before resolving a Promise.
+   * @param {number} ms - The delay time in milliseconds.
+   * @return {Promise} A Promise that resolves after the specified delay.
+   */
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  /**
+   * A function that delays the intro animation by setting different states at different time intervals.
+   */
   delayIntroAnimation() {
     this.delay(500).then(() => {
       this.logoTextState = 'final';
@@ -213,7 +235,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * - Authenticates with Firebase using Google provider.
    * - Stores UID, creates user profile, navigates on success.
    */
-
   async loginWithGoogle() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');
