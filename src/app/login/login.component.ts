@@ -298,12 +298,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         return "Diese Anmeldemethode ist nicht erlaubt.";
       case 'auth/user-disabled':
         return "Ihr Konto wurde deaktiviert. Bitte kontaktieren Sie den Support.";
-      case 'auth/user-not-found':
-        return "Benutzer nicht gefunden.";
-      case 'auth/wrong-password':
-        return "Falsches Passwort.";
-      case 'auth/invalid-email':
-        return "Ungültige E-Mail-Adresse.";
       default:
         return "Bei der Anmeldung mit Google ist ein Fehler aufgetreten.";
     }
