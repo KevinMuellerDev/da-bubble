@@ -47,6 +47,8 @@ export class ChannelService {
     this.dataSubject.next(data);
     this.restartListener(data);
     this.channelChangedSource.next();
+    console.log(this.currentChannelUsers );
+    
   }
 
    private channelChangedSource = new Subject<void>();
