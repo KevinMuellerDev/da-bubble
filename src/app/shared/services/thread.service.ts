@@ -57,31 +57,12 @@ export class ThreadService {
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
       .then(async (docRef) => {
-
-      const NewMessage: any = { repliesCount: this.messages.length, lastReply: obj.timestamp };
-      if (this.storageService.filesTextareaThread && this.storageService.filesTextareaThread.length > 0) {
-      const downloadURL = this.storageService.downloadUrlThread;
-      const fileName = this.storageService.fileNameTextareaThread;
-      const fileType = this.storageService.uploadedFileTypeThread;
-
-      NewMessage.uploadedFile = {
-        src: downloadURL,
-        name: fileName,
-        type: fileType
-      };
-    } else {
-      NewMessage.uploadedFile = {
-        src: '',
-        name: '',
-        type: ''
-      };
-    }
-      await updateDoc(this.refUpdateThread(), NewMessage);
+        await updateDoc(this.refUpdateThread(), {
+          repliesCount: this.messages.length,
+          lastReply: obj.timestamp
+        });
 
       });
-  this.storageService.downloadUrlThread = '';
-  this.storageService.uploadedFileTypeThread = '';
-  this.storageService.fileNameTextareaThread = '';
   }
 
   /**
