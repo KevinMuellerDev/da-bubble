@@ -30,7 +30,7 @@
                            [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
-                    <p *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">Bitte eine gültige E-Mail-Adresse
+                    <p *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].dirty">Bitte eine gültige E-Mail-Adresse
                         eingeben</p>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
-                    <p *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">mindestens 8 Zeichen</p>
+                    <p *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].dirty">mindestens 8 Zeichen</p>
                     <p *ngIf="errorMessage">{{ errorMessage }}</p>
                 </div>
             </div>
