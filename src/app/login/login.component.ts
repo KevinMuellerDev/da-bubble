@@ -99,6 +99,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   logoState: string = 'initial';
   logoTextContainerState: string = 'initial';
   logoTextState: string = 'initial';
+  errorMessage: string = '';
   leftPosition: string = '';
   transform: string = '';
   logoWidth: string = '';
@@ -152,6 +153,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
    */
   onInput() {
     this.firstFocus = false;
+    this.errorMessage = '';
   }
 
   /**
@@ -224,7 +226,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
-        console.error(error);
+        if (error instanceof FirebaseError) {
+          this.errorMessage = this.getFirebaseErrorMessage(error.code);
+        } else {
+          this.errorMessage = "An unexpected error occurred.";
+        }
       }
     }
   }
@@ -242,16 +248,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
       const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
       const user = result.user;
       const userExists = await this.userService.checkIfUserExists(user.uid);
-      console.log("Called checkIfUserExists, userExists:", userExists);
       if (!userExists) {
-        console.log("User does not exist, preparing data");
         this.userService.prepareDataNewUserGoogle(user);
         await this.userService.createUserProfile();
       }
       sessionStorage.setItem("uid", user.uid);
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
-      console.error("Error during loginWithGoogle:", error);
+      if (error instanceof FirebaseError) {
+        this.errorMessage = this.getFirebaseErrorMessage(error.code);
+      } else {
+        this.errorMessage = "An unexpected error occurred.";
+      }
     }
   }
 
@@ -263,5 +271,41 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.loginForm.value.password = "guest123";
     this.guest = true
     this.login();
+  }
+
+  /**
+  * Returns an error message based on the provided Firebase error code.
+  * @param {string} errorCode - The Firebase error code.
+  * @return {string} The corresponding error message.
+  */
+  getFirebaseErrorMessage(errorCode: string): string {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return "Benutzer nicht gefunden.";
+      case 'auth/wrong-password':
+        return "falsches Passwort.";
+      case 'auth/invalid-email':
+        return "falsche Email.";
+      case 'auth/popup-closed-by-user':
+        return "Das Popup wurde geschlossen, bevor die Anmeldung abgeschlossen war.";
+      case 'auth/cancelled-popup-request':
+        return "Die Popup-Anfrage wurde abgebrochen.";
+      case 'auth/account-exists-with-different-credential':
+        return "Es existiert bereits ein Konto mit einer anderen Anmeldemethode für diese E-Mail-Adresse.";
+      case 'auth/invalid-credential':
+        return "Ungültige Anmeldedaten. Bitte überprüfen Sie Ihre Eingaben.";
+      case 'auth/operation-not-allowed':
+        return "Diese Anmeldemethode ist nicht erlaubt.";
+      case 'auth/user-disabled':
+        return "Ihr Konto wurde deaktiviert. Bitte kontaktieren Sie den Support.";
+      case 'auth/user-not-found':
+        return "Benutzer nicht gefunden.";
+      case 'auth/wrong-password':
+        return "Falsches Passwort.";
+      case 'auth/invalid-email':
+        return "Ungültige E-Mail-Adresse.";
+      default:
+        return "Bei der Anmeldung mit Google ist ein Fehler aufgetreten.";
+    }
   }
 }

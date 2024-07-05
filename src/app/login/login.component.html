@@ -42,9 +42,8 @@
                         autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
-                    <p
-                        *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-                        mindestens 8 Zeichen</p>
+                    <p *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">mindestens 8 Zeichen</p>
+                    <p *ngIf="errorMessage">{{ errorMessage }}</p>
                 </div>
             </div>
             <div>

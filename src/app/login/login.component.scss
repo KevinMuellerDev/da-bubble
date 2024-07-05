@@ -147,6 +147,7 @@ form {
 }
 
 .error {
+    @include dFlex($ai: center);
     width: 100%;
     color: $error;
     p {

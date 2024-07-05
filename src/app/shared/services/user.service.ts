@@ -42,6 +42,22 @@ export class UserService {
   }
 
   /**
+   * Check if a user with the given email and name already exists in the Firestore "user" collection.
+   * @param {string} email - The email of the user to check.
+   * @param {string} name - The name of the user to check.
+   * @return {Promise<{ emailExists: boolean, nameExists: boolean }>} A promise that resolves to an object with two boolean properties.
+   */
+  async checkRegisteredUser(email: string, name: string): Promise<{ emailExists: boolean, nameExists: boolean }> {
+    const emailQuery = query(collection(this.firestore, "user"), where("email", "==", email));
+    const nameQuery = query(collection(this.firestore, "user"), where("name", "==", name));
+    const [emailSnapshot, nameSnapshot] = await Promise.all([getDocs(emailQuery), getDocs(nameQuery)]);
+    return {
+      emailExists: !emailSnapshot.empty,
+      nameExists: !nameSnapshot.empty
+    };
+  }
+
+  /**
    * listens to changes to referenced collection and stores the data
    * in userInfo
    * @returns Unsubscribe from snapshot

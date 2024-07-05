@@ -2,6 +2,8 @@ import { Component, inject, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FirebaseError } from '@angular/fire/app';
+import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../../shared/services/user.service';
 
 
@@ -13,7 +15,9 @@ import { UserService } from '../../shared/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements AfterViewInit {
+  firestore: Firestore = inject(Firestore);
   @ViewChild('nameInput') nameInput!: ElementRef;
+  errorMessage: string = '';
   firstFocus: boolean = true;
   showPassword: boolean = false;
   isFormSubmitted: boolean = false;
@@ -37,11 +41,12 @@ export class RegisterComponent implements AfterViewInit {
     this.nameInput.nativeElement.focus();
   }
 
-/**
- * The `onInput` function sets the `firstFocus` property to false.
- */
+  /**
+   * The `onInput` function sets the `firstFocus` property to false.
+   */
   onInput() {
     this.firstFocus = false;
+    this.errorMessage = '';
   }
 
   /**
@@ -52,16 +57,69 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   /**
-   * Continues the registration if the form is valid.
-   * Sets `isFormSubmitted` to `true`. If the form is valid, prepares user data,
-   * sets the `userService.key`, and navigates to `/register/chooseavatar`.
+   * Asynchronously continues the registration process.
+   * @return {Promise<void>} Resolves after the registration process is completed.
    */
   async continue() {
     this.isFormSubmitted = true;
     if (this.registerForm.valid) {
-      this.userService.prepareDataNewUser(this.registerForm.value);
-      this.userService.key = this.registerForm.controls['password'].value
+      const email = this.registerForm.controls['email'].value;
+      const name = this.registerForm.controls['name'].value;
+      try {
+        await this.handleUserRegistration(email, name);
+      } catch (error) {
+        this.handleRegistrationError(error);
+      }
+    }
+  }
+
+  /**
+   * Asynchronously handles the registration process for a new user.
+   * @param {string} email - The email address of the user.
+   * @param {string} name - The name of the user.
+   * @return {Promise<void>} - A promise that resolves when the registration process is complete.
+   * @throws {Error} - Throws an error if a user with the same email or name already exists.
+   */
+  async handleUserRegistration(email: string, name: string) {
+    const { emailExists, nameExists } = await this.userService.checkRegisteredUser(email, name);
+    if (emailExists) {
+      throw new Error("Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.");
+    } else if (nameExists) {
+      throw new Error("Ein Benutzer mit diesem Namen existiert bereits.");
+    } else {
+      await this.userService.prepareDataNewUser(this.registerForm.value);
+      this.userService.key = this.registerForm.controls['password'].value;
       this.router.navigate(['/register/chooseavatar']);
+    }
+  }
+
+  /**
+   * Handles the registration error based on the type of error received.
+   * @param {any} error - The error object to be handled.
+   */
+  handleRegistrationError(error: any) {
+    if (error instanceof FirebaseError) {
+      this.errorMessage = this.getFirebaseErrorMessage(error.code);
+    } else if (error instanceof Error) {
+      this.errorMessage = error.message;
+    } else {
+      this.errorMessage = "Ein unerwarteter Fehler ist aufgetreten.";
+    }
+  }
+
+  /**
+   * Returns an error message based on the provided Firebase error code.
+   * @param {string} errorCode - The Firebase error code.
+   * @return {string} The corresponding error message.
+   */
+  getFirebaseErrorMessage(errorCode: string): string {
+    switch (errorCode) {
+      case 'auth/email-already-in-use':
+        return "Die E-Mail-Adresse wird bereits verwendet.";
+      case 'auth/invalid-email':
+        return "Ungültige E-Mail-Adresse.";
+      default:
+        return "Ein Fehler ist bei der Registrierung aufgetreten.";
     }
   }
 }
