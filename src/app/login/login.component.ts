@@ -204,6 +204,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.showPassword = !this.showPassword;
   }
 
+  removeShowIntroAnimationFlag() {
+    this.showIntroAnimation = false;
+    sessionStorage.removeItem('hasSeenAnimation');
+  }
+
   /**
    * Logs in a user asynchronously.
    * - Hides intro animation, removes 'hasSeenAnimation' flag.
@@ -211,8 +216,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * - Authenticates with Firebase, stores UID, navigates on success.
    */
   async login() {
-    this.showIntroAnimation = false;
-    sessionStorage.removeItem('hasSeenAnimation');
+    this.removeShowIntroAnimationFlag();
     this.isFormSubmitted = true;
     if (this.loginForm.valid || this.guest) {
       const auth = getAuth();
@@ -226,11 +230,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
-        if (error instanceof FirebaseError) {
-          this.errorMessage = this.getFirebaseErrorMessage(error.code);
-        } else {
-          this.errorMessage = "An unexpected error occurred.";
-        }
+        this.handleLoginError(error);
       }
     }
   }
@@ -242,8 +242,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * - Stores UID, creates user profile, navigates on success.
    */
   async loginWithGoogle() {
-    this.showIntroAnimation = false;
-    sessionStorage.removeItem('hasSeenAnimation');
+    this.removeShowIntroAnimationFlag();
     try {
       const result = await signInWithPopup(getAuth(), new GoogleAuthProvider());
       const user = result.user;
@@ -255,11 +254,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       sessionStorage.setItem("uid", user.uid);
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
-      if (error instanceof FirebaseError) {
-        this.errorMessage = this.getFirebaseErrorMessage(error.code);
-      } else {
-        this.errorMessage = "An unexpected error occurred.";
-      }
+      this.handleLoginError(error);
     }
   }
 
@@ -271,6 +266,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.loginForm.value.password = "guest123";
     this.guest = true
     this.login();
+  }
+
+  /**
+   * Handles errors during the login process.
+   * @param error - The error object.
+   */
+  private handleLoginError(error: any) {
+    if (error instanceof FirebaseError) {
+      this.errorMessage = this.getFirebaseErrorMessage(error.code);
+    } else {
+      this.errorMessage = "An unexpected error occurred.";
+    }
   }
 
   /**
