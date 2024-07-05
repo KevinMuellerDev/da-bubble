@@ -94,53 +94,53 @@ export class StorageService implements OnInit {
   }
 
   onFileSelectedTextareaForThread(input: HTMLInputElement) {
-  const file = input.files?.item(0);
-  if (!file || !this.isValid(input)) {
-    return;
-  }
-  if (file.size > 1048576) {
-    this.fileNameTextareaThread = "This file exceeds the size of 1024kb!";
-    return;
-  }
-  if (input.files) {
-    this.filesTextareaThread = input.files;
-  }
-  this.fileNameTextareaThread = file.name;
-  if (this.isPdf(file)) {
-    this.handlePdfFileForThread(file);
-  } else {
-    this.handleImageFileForThread(file);
-  }
-  }
-  
-  private handlePdfFileForThread(file: File) {
-  this.pdfUrlThread = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
-  this.fileUrlTextareaThread = 'assets/img/pdfDefault.jpg';
-}
-
-private handleImageFileForThread(file: File) {
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const result = e.target?.result;
-    if (result !== undefined) {
-      this.fileUrlTextareaThread = result;
+    const file = input.files?.item(0);
+    if (!file || !this.isValid(input)) {
+      return;
     }
-  };
-  reader.readAsDataURL(file);
+    if (file.size > 1048576) {
+      this.fileNameTextareaThread = "This file exceeds the size of 1024kb!";
+      return;
+    }
+    if (input.files) {
+      this.filesTextareaThread = input.files;
+    }
+    this.fileNameTextareaThread = file.name;
+    if (this.isPdf(file)) {
+      this.handlePdfFileForThread(file);
+    } else {
+      this.handleImageFileForThread(file);
+    }
   }
-  
+
+  private handlePdfFileForThread(file: File) {
+    this.pdfUrlThread = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+    this.fileUrlTextareaThread = 'assets/img/pdfDefault.jpg';
+  }
+
+  private handleImageFileForThread(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result;
+      if (result !== undefined) {
+        this.fileUrlTextareaThread = result;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
   async uploadFileAndGetUrlForThread(threadId: string) {
-  if (this.filesTextareaThread.length < 0) {
-    return;
+    if (this.filesTextareaThread.length < 0) {
+      return;
+    }
+    const file = this.filesTextareaThread.item(0) as File;
+    this.uploadedFileTypeThread = file.type;
+    const storageRef = ref(this.storage, `${threadId}/${file.name}`);
+    await uploadBytesResumable(storageRef, file);
+    await getDownloadURL(storageRef).then((url) => {
+      this.downloadUrlThread = url;
+    });
   }
-  const file = this.filesTextareaThread.item(0) as File;
-  this.uploadedFileTypeThread = file.type;
-  const storageRef = ref(this.storage, `${threadId}/${file.name}`);
-  await uploadBytesResumable(storageRef, file);
-  await getDownloadURL(storageRef).then((url) => {
-    this.downloadUrlThread = url;
-  });
-}
 
   private handlePdfFile(file: File) {
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
@@ -172,10 +172,10 @@ private handleImageFileForThread(file: File) {
   }
 
   abortUploadForThread() {
-  this.filesTextareaThread = null!;
-  this.fileNameTextareaThread = undefined;
-  this.fileUrlTextareaThread = null;
-}
+    this.filesTextareaThread = null!;
+    this.fileNameTextareaThread = undefined;
+    this.fileUrlTextareaThread = null;
+  }
 
   abortUpload() {
     this.filesTextarea = null!;
@@ -196,7 +196,6 @@ private handleImageFileForThread(file: File) {
     });
   }
 
-
   // textarea upload function end
 
   /**
@@ -204,7 +203,7 @@ private handleImageFileForThread(file: File) {
    * file and logs the file size in bytes.
    * @param {HTMLInputElement} input - The `isValid` function takes an `HTMLInputElement` as input. This
    * input is expected to be a file input element where the user can select a file. The function then
-   * checks if the selected file is a valid image file 
+   * checks if the selected file is a valid image file
    * @returns The function `isValid` is returning a boolean value based on whether the file type of the
    * input element is 'jpeg', 'jpg', 'png', or 'gif'.
    */
@@ -215,7 +214,6 @@ private handleImageFileForThread(file: File) {
     console.log(input.files);
     return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif' || dataType === 'pdf')
   }
-
 
   /**
    * The `uploadFile` function asynchronously uploads files to a storage location and updates the user's
@@ -230,7 +228,6 @@ private handleImageFileForThread(file: File) {
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files.item(i);
       if (file) {
-
         const storageRef = ref(this.storage, uid + '/' + 'profile');
         await uploadBytesResumable(storageRef, file);
         await getDownloadURL(storageRef).then((url) => {

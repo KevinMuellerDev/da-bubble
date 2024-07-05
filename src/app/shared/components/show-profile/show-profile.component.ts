@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatDialog,
@@ -28,7 +28,8 @@ export class ShowProfileComponent {
   userService: UserService = inject(UserService);
   channelService: ChannelService = inject(ChannelService);
   sidebarService: SidebarService = inject(SidebarService);
-  selectedAvatar: string | null = null;
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  selectedAvatar: string = '../../assets/img/login/default_profil_img.png';
   avatars: any = this.storageService.avatars;
   updateUserForm: FormGroup;
   otherUser: boolean = false;
@@ -48,10 +49,24 @@ export class ShowProfileComponent {
       email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
     });
     this.avatars = this.storageService.avatars;
+    this.selectedAvatar = this.userService.userInfo.profilePicture;
   }
 
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
+  }
+
+  triggerFileInput() {
+    this.fileInput.nativeElement.click();
+    this.selectedAvatar;
+  }
+
+  onImageSelected(input: HTMLInputElement) {
+    this.storageService.onFileSelected(input);
+    const file = this.storageService.files?.item(0);
+    if (file) {
+      this.selectedAvatar = URL.createObjectURL(this.storageService.fileUrl);
+    }
   }
 
   /**
