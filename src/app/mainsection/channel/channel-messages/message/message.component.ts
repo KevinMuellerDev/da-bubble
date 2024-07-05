@@ -268,11 +268,7 @@ export class MessageComponent {
     this.MutationObserverService.disconnect();
   }
 
- getFileName(url: string): string {
-    if (!url) return ''; 
-    const fileName = url.split('/').pop()?.split('?')[0] || '';
-    return decodeURIComponent(fileName);
-  }
+
  openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
       const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 

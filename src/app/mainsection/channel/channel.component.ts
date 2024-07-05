@@ -64,7 +64,7 @@ export class ChannelComponent {
     } else if (form.valid) {
 
       this.arrangeDirectData();
-
+      
       form.reset();
       this.messageContent.nativeElement.focus()
       this.submitClick = false;

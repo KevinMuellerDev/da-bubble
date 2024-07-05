@@ -252,10 +252,12 @@ export class ChannelService {
   async createDirectMessage(obj: any) {
   let uploadedFile = {
     src: '',
+    name:'',
     type: ''
   };
   if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
     uploadedFile.src = this.storageService.downloadUrl;
+    uploadedFile.name = this.storageService.fileNameTextarea as string;
     uploadedFile.type = this.storageService.uploadedFileType;
   }
   obj.uploadedFile = uploadedFile;
@@ -264,8 +266,9 @@ export class ChannelService {
   if (this.currentMessagesId != this.oppositeMessagesId) {
   await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
   }
-  this.storageService.downloadUrl = '';
-  this.storageService.uploadedFileType = '';
+    this.storageService.downloadUrl = '';
+    this.storageService.fileNameTextarea = '';
+    this.storageService.uploadedFileType = '';
   }
 
 /**
@@ -283,14 +286,18 @@ async createChannelMessage(obj: any) {
     const NewMessage: any = { msgId: docRef.id };
     if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
       const downloadURL = this.storageService.downloadUrl;
+      const fileName = this.storageService.fileNameTextarea;
       const fileType = this.storageService.uploadedFileType;
+
       NewMessage.uploadedFile = {
         src: downloadURL,
+        name: fileName,
         type: fileType
       };
     } else {
       NewMessage.uploadedFile = {
         src: '',
+        name: '',
         type: ''
       };
     }
@@ -298,6 +305,7 @@ async createChannelMessage(obj: any) {
   });
   this.storageService.downloadUrl = '';
   this.storageService.uploadedFileType = '';
+  this.storageService.fileNameTextarea = '';
 }
 
 

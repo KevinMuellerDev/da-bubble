@@ -123,6 +123,9 @@ export class StorageService implements OnInit {
   }
 
   async uploadFileAndGetUrl(channelId: string) {
+    if (this.filesTextarea.length < 0) {
+      return
+    }
     const file = this.filesTextarea.item(0) as File;
     this.uploadedFileType = file.type;
     const storageRef = ref(this.storage, `${channelId}/${file.name}`);
