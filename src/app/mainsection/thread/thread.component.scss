@@ -512,6 +512,64 @@
   left: 67px;
 }
 
+.close-icon-upload {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  @include dFlex($jc: center);
+  height: 40px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/assets/img/icons/close.svg");
+
+  &:hover {
+    background-image: url("/assets/img/icons/close_hover.svg");
+    background-color: $bg-color;
+    border-radius: 50%;
+  }
+}
+
+.file-preview {
+  position: absolute;
+  bottom: 215px;
+  right: 35px;
+
+  >img {
+    border: 3px solid $purple2;
+    border-radius: 30px;
+    max-width: 250px;
+    max-height: 250px;
+    object-fit: contain;
+    box-shadow: -8px 6px 16px 0px #00000054;
+  }
+}
+
+.uploaded-file {
+  >img {
+    max-width: 250px;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 30px;
+    margin-top: 8px;
+    box-shadow: 0px 6px 14px 0px #00000033;
+  }
+
+  >a {
+    >img {
+      max-width: 250px;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 30px;
+      margin-top: 8px;
+      box-shadow: 0px 6px 14px 0px #00000033;
+    }
+  }
+
+
+}
+
 @media screen and (max-width: 1024px) {
   .thread-head-left-side {
     >span {

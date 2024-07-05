@@ -118,6 +118,19 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="storageService.fileUrlTextareaThread" class="file-preview">
+    <img *ngIf="storageService.isImage(storageService.filesTextareaThread?.item(0))"
+      [src]="storageService.fileUrlTextareaThread" alt="File Preview">
+    <img *ngIf="storageService.isPdf(storageService.filesTextareaThread?.item(0))"
+      [src]="storageService.fileUrlTextareaThread" alt="PDF Preview" style="cursor: pointer;"
+      (click)="openPdf(storageService.pdfUrlThread)" />
+
+    <p *ngIf="storageService.isPdf(storageService.filesTextareaThread?.item(0))">
+      {{ storageService.fileNameTextareaThread }}</p>
+    <div class="close-icon-upload" (click)="storageService.abortUploadForThread()"></div>
+  </div>
+
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
       <textarea autofocus class="thread-message-input form-control" name="message" #threadMessageContent
@@ -126,7 +139,8 @@
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
                           </textarea>
       <div class="thread-message-icons">
-        <div class="add-icon"></div>
+        <div class="add-icon" (click)="triggerFileInput()"></div>
+        <input type="file" #fileInputThread (change)="onFileSelected($event)" style="display: none;" />
         <div class="icon-divider"></div>
         <div class="emoji-icon" (click)="toggleEmojiPickerEventTextarea($event)"></div>
         <div class="tag-icon"></div>

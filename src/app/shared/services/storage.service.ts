@@ -13,13 +13,19 @@ export class StorageService implements OnInit {
   selectedAvatar!: string;
   files!: FileList;
   filesTextarea!: FileList;
+  filesTextareaThread!: FileList;
   fileName!: string | undefined;
   fileNameTextarea!: string | undefined;
+  fileNameTextareaThread!: string | undefined;
   fileUrl!: any;
   fileUrlTextarea!: SafeResourceUrl | string | ArrayBuffer | null;
+  fileUrlTextareaThread!: SafeResourceUrl | string | ArrayBuffer | null;
   pdfUrl!: SafeResourceUrl | null;
+  pdfUrlThread!: SafeResourceUrl | null;
   downloadUrl!: string;
+  downloadUrlThread!: string;
   uploadedFileType!: string;
+  uploadedFileTypeThread!: string;
   avatars: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
@@ -87,6 +93,55 @@ export class StorageService implements OnInit {
     }
   }
 
+  onFileSelectedTextareaForThread(input: HTMLInputElement) {
+  const file = input.files?.item(0);
+  if (!file || !this.isValid(input)) {
+    return;
+  }
+  if (file.size > 1048576) {
+    this.fileNameTextareaThread = "This file exceeds the size of 1024kb!";
+    return;
+  }
+  if (input.files) {
+    this.filesTextareaThread = input.files;
+  }
+  this.fileNameTextareaThread = file.name;
+  if (this.isPdf(file)) {
+    this.handlePdfFileForThread(file);
+  } else {
+    this.handleImageFileForThread(file);
+  }
+  }
+  
+  private handlePdfFileForThread(file: File) {
+  this.pdfUrlThread = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+  this.fileUrlTextareaThread = 'assets/img/pdfDefault.jpg';
+}
+
+private handleImageFileForThread(file: File) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const result = e.target?.result;
+    if (result !== undefined) {
+      this.fileUrlTextareaThread = result;
+    }
+  };
+  reader.readAsDataURL(file);
+  }
+  
+  async uploadFileAndGetUrlForThread(threadId: string) {
+  if (this.filesTextareaThread.length < 0) {
+    return;
+  }
+  const file = this.filesTextareaThread.item(0) as File;
+  this.uploadedFileTypeThread = file.type;
+  const storageRef = ref(this.storage, `${threadId}/${file.name}`);
+  await uploadBytesResumable(storageRef, file);
+  await getDownloadURL(storageRef).then((url) => {
+    this.downloadUrlThread = url;
+  });
+}
+
   private handlePdfFile(file: File) {
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
     // Platzhalterbild pdf wird erst nach einem klick auf das Bild geöffnet
@@ -115,6 +170,12 @@ export class StorageService implements OnInit {
     const fileType = file.type;
     return fileType === 'application/pdf';
   }
+
+  abortUploadForThread() {
+  this.filesTextareaThread = null!;
+  this.fileNameTextareaThread = undefined;
+  this.fileUrlTextareaThread = null;
+}
 
   abortUpload() {
     this.filesTextarea = null!;

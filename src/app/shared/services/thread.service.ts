@@ -3,6 +3,7 @@ import { Firestore, Unsubscribe, addDoc, collection, doc, getDocs, onSnapshot, q
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ChannelService } from './channel.service';
 import { UserService } from './user.service';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ThreadService {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
   firestore: Firestore = inject(Firestore);
+  storageService: StorageService = inject(StorageService);
   originMessage!: any;
   isActive: boolean = false;
   private dataSubject = new BehaviorSubject<string>('');
@@ -55,12 +57,31 @@ export class ThreadService {
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
       .then(async (docRef) => {
-        await updateDoc(this.refUpdateThread(), {
-          repliesCount: this.messages.length,
-          lastReply: obj.timestamp
-        });
+
+      const NewMessage: any = { repliesCount: this.messages.length, lastReply: obj.timestamp };
+      if (this.storageService.filesTextareaThread && this.storageService.filesTextareaThread.length > 0) {
+      const downloadURL = this.storageService.downloadUrlThread;
+      const fileName = this.storageService.fileNameTextareaThread;
+      const fileType = this.storageService.uploadedFileTypeThread;
+
+      NewMessage.uploadedFile = {
+        src: downloadURL,
+        name: fileName,
+        type: fileType
+      };
+    } else {
+      NewMessage.uploadedFile = {
+        src: '',
+        name: '',
+        type: ''
+      };
+    }
+      await updateDoc(this.refUpdateThread(), NewMessage);
 
       });
+  this.storageService.downloadUrlThread = '';
+  this.storageService.uploadedFileTypeThread = '';
+  this.storageService.fileNameTextareaThread = '';
   }
 
   /**
@@ -71,7 +92,7 @@ export class ThreadService {
       this.unsub();
       this.isSubscribed = false;
       console.log("Listener Unsubscribed");
-    }
+    } 
   }
 
   /**

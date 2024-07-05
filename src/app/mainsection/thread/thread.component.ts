@@ -14,6 +14,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { OutsideclickDirective } from '../../outsideclick.directive';
 import { UserService } from '../../shared/services/user.service';
 import { MessageData } from '../../shared/models/message.class';
+import { StorageService } from '../../shared/services/storage.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-thread',
@@ -27,6 +29,7 @@ export class ThreadComponent {
   channelService: ChannelService = inject(ChannelService);
   threadService: ThreadService = inject(ThreadService);
   userService: UserService = inject(UserService);
+  storageService: StorageService = inject(StorageService);
   mainsectionComponent: MainsectionComponent = inject(MainsectionComponent);
   private dataSubscription!: Subscription;
   private domChangesSubscription!: Subscription;
@@ -50,7 +53,7 @@ export class ThreadComponent {
     content: ''
   }
 
-  constructor(public dialog: MatDialog, public emojiService: EmojiService, private MutationObserverService: MutationObserverService) {
+  constructor(public dialog: MatDialog, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {
     this.userId = sessionStorage.getItem('uid')!;
     this.dateToday = Date.now() as number;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
@@ -65,6 +68,7 @@ export class ThreadComponent {
 
   @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+  @ViewChild('fileInputThread') fileInputThread!: ElementRef<HTMLInputElement>;
 
   ngAfterViewChecked() {
     if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
@@ -187,6 +191,7 @@ export class ThreadComponent {
     }
     this.emojiService.editMessageThread[index] = false;
     editMessageForm.reset();
+    //this.storageService.abortUploadForThread();
     this.emojiService.threadMessageEdit = false;
     this.isEditMessageTextareaVisible = false;
     this.emojiService.openEditMessageToggleThread[index] = false;
@@ -248,4 +253,37 @@ export class ThreadComponent {
       .afterClosed()
       .subscribe();
   }
+
+    triggerFileInput() {
+    this.fileInputThread.nativeElement.click();
+  }
+
+   async onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+   this.storageService.onFileSelectedTextareaForThread(input);
+   this.storageService.uploadFileAndGetUrlForThread(this.channelService.currentChannel);
+  }
+
+
+ openPdf(pdfUrl: SafeResourceUrl | null) {
+    if (pdfUrl) {
+      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 
+      if (pdfBlobUrl) {
+        const newWindow = window.open("", "_blank");
+        if (newWindow) {
+          newWindow.document.write(`
+            <html>
+              <head>
+                <title>PDF Preview</title>
+              </head>
+              <body style="margin: 0;">
+                <embed src="${pdfBlobUrl}" type="application/pdf" width="100%" height="100%" />
+              </body>
+            </html>
+          `);
+        }
+      }
+    }
+  }
+
 }
