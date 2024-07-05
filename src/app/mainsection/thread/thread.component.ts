@@ -261,7 +261,7 @@ export class ThreadComponent {
    async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
    this.storageService.onFileSelectedTextareaForThread(input);
-   this.storageService.uploadFileAndGetUrlForThread(this.channelService.currentChannel);
+   this.storageService.uploadFileAndGetUrlForThread(this.threadService.originMessage.msgId);
   }
 
 

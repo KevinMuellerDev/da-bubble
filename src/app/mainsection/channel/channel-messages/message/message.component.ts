@@ -112,9 +112,16 @@ export class MessageComponent {
      this.emojiService.showEmojiPickerArray[index] = false;
   }
 
+getUsernameByUserId(userId: string): string | undefined {
+    const currentChannelUsers = this.channelService.currentChannelUsers;
+    const user = currentChannelUsers.find(user => user.id === userId);
+    return user ? user.name : undefined;
+  }
+
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     this.emojiService.addEmoji(event, index, messageId, userId,'channel');
     this.emojiAdded = true;
+
     setTimeout(() => {
       this.emojiAdded = false;
     }, 500);
@@ -135,6 +142,8 @@ export class MessageComponent {
   onAddRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
     this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId,'channel');
   }
+
+
 
   /**
  * Toggles the visibility of the emoji picker for the message at the specified index.

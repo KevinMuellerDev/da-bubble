@@ -129,13 +129,13 @@ private handleImageFileForThread(file: File) {
   reader.readAsDataURL(file);
   }
   
-  async uploadFileAndGetUrlForThread(threadId: string) {
+  async uploadFileAndGetUrlForThread(originalMessageId: string) {
   if (this.filesTextareaThread.length < 0) {
     return;
   }
   const file = this.filesTextareaThread.item(0) as File;
   this.uploadedFileTypeThread = file.type;
-  const storageRef = ref(this.storage, `${threadId}/${file.name}`);
+  const storageRef = ref(this.storage, `${originalMessageId}/${file.name}`);
   await uploadBytesResumable(storageRef, file);
   await getDownloadURL(storageRef).then((url) => {
     this.downloadUrlThread = url;
