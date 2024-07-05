@@ -7,10 +7,10 @@
     </div>
     <div class="profile-picture-container">
         <div class="profile-picture">
-            <img *ngIf="otherUser==true" referrerpolicy="no-referrer" [src]="userService.otherUserInfo.profilePicture"
-                alt="">
+            <img *ngIf="otherUser==true" referrerpolicy="no-referrer"
+                [src]="userService.otherUserInfo.profilePicture">
             <img *ngIf="otherUser==false" referrerpolicy="no-referrer"
-                [src]="selectedAvatar || userService.userInfo.profilePicture" alt="">
+                [src]="selectedAvatar || userService.userInfo.profilePicture">
             <div class="edit-pencil-icon" *ngIf="editMode" [ngClass]="{ 'active-edit-profile-pic': editProfilePic }"
                 (click)="toggleChangeProfilePic()"></div>
         </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="profile-email-container">
         <div class="email-icon">
-            <img src="/assets/img/profile/mail.svg" alt="">
+            <img src="/assets/img/profile/mail.svg" alt="mail-icon">
         </div>
         <div class="email-content">
             <span>E-mail Adresse</span>
@@ -42,7 +42,7 @@
     @if (otherUser=== true) {
     <div class="profile-msg-btn">
         <div class="msg-btn" (click)="sendMessage()">
-            <img src="/assets/img/profile/message.svg" alt="">
+            <img src="/assets/img/profile/message.svg" alt="message-icon">
             <span>Nachricht</span>
         </div>
     </div>}
@@ -55,9 +55,13 @@
                 <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)"
                     [ngClass]="{'selected': avatar === selectedAvatar}">
             </div>
+            <div class="upload" *ngIf="editProfilePic">
+                <button (click)="triggerFileInput()">Datei hochladen</button>
+                <input #fileInput type="file" accept="image/*" (change)="onImageSelected(fileInput)" hidden>
+              </div>
             <div class="input-container" *ngIf="!editProfilePic">
                 <div>
-                    <img src="/assets/img/profile/account-circle.svg" alt="">
+                    <img src="/assets/img/profile/account-circle.svg" alt="profil-icon">
                     <span>Vollständiger Name</span>
                 </div>
                 <input [placeholder]="userService.userInfo.name" type="text" formControlName="name">

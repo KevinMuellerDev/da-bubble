@@ -34,7 +34,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 
 export class ChooseavatarComponent implements OnInit {
-  selectedAvatar: string = '../../assets/img/login/default_profil_img.png'; // default img
+  selectedAvatar: string = '../../assets/img/login/default_profil_img.png';
   popupState = 'out';
   showLoading = false;
   userName: string = '';

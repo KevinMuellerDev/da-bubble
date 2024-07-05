@@ -36,13 +36,10 @@ export class UserService {
    * @returns A boolean indicating whether the user exists
    */
   async checkIfUserExists(userId: string): Promise<boolean> {
-    console.log('Checking if user exists: ' + userId);
     const userDoc = await getDoc(doc(this.firestore, "user", userId));
     const userExists = userDoc.exists();
-    console.log('User exists: ' + userExists);
     return userExists;
   }
-
 
   /**
    * listens to changes to referenced collection and stores the data
@@ -75,7 +72,6 @@ export class UserService {
     });
   }
 
-
   /**
    * listens to changes to referenced collection and stores the data
    * in userChannels
@@ -91,7 +87,6 @@ export class UserService {
     return unsubscribe
   }
 
-
   /**
    * The function `retrieveAllUsers` retrieves all user data from a Firestore collection
    * @returns The `unsubscribe` function is being returned from the `retrieveAllUsers` function.
@@ -106,10 +101,8 @@ export class UserService {
     return unsubscribe
   }
 
-
   /**
    * Gets the Data from input parameter and updates it in the firestore of the current user
-   * 
    * @param ngForm Objectdata provided by the form in show-profile component
    */
   async updateUserProfile(ngForm: any) {
@@ -135,7 +128,6 @@ export class UserService {
       });
   }
 
-
   /**
    * Return the collection to which should be referenced to in a snapshot for example
    * @returns collection reference - firestore
@@ -143,7 +135,6 @@ export class UserService {
   refUserProfile() {
     return collection(this.firestore, "user")
   }
-
 
   /**
    * The `refUserChannels` function returns a reference to the user channels collection in Firestore
@@ -155,11 +146,9 @@ export class UserService {
     return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
   }
 
-
   /**
    * Function to assign incoming data to createUserInfo
-   * 
-   * @param obj - FormGroup which contains data from the register form 
+   * @param obj - FormGroup which contains data from the register form
    * @param uid - user ID from authentification
    */
   prepareDataNewUser(obj: any) {
@@ -170,8 +159,7 @@ export class UserService {
 
   /**
  * Function to assign incoming data to createUserInfo
- * 
- * @param obj - FormGroup which contains data from the register form 
+ * @param obj - FormGroup which contains data from the register form
  * @param uid - user ID from authentification
  */
   prepareDataNewUserGoogle(obj: any) {
@@ -182,10 +170,8 @@ export class UserService {
     this.createUserInfo.profilePicture = obj.photoURL;
   }
 
-
   /**
    * Function to assign Profile picture url to createUserInfo
-   * 
    * @param url - URL of the img uploaded to the firestore
    */
   newUserAvatar(url: any, uid: string) {
@@ -193,15 +179,14 @@ export class UserService {
     this.createUserInfo.profilePicture = url;
   }
 
-/**
- * The function `getOnlineStatusProfile` retrieves the online status profile of a user with the
- * specified ID.
- * @param {string} id - The `id` parameter in the `getOnlineStatusProfile` function is a string that
- * represents the unique identifier of a user profile.
- */
-  async getOnlineStatusProfile(id:string){
+  /**
+   * The function `getOnlineStatusProfile` retrieves the online status profile of a user with the
+   * specified ID.
+   * @param {string} id - The `id` parameter in the `getOnlineStatusProfile` function is a string that
+   * represents the unique identifier of a user profile.
+   */
+  async getOnlineStatusProfile(id: string) {
     const docSnap = await getDoc(doc(this.firestore, "user", id));
-    this.otherUserInfo.isLoggedIn = docSnap.data()!['isLoggedIn'];  
+    this.otherUserInfo.isLoggedIn = docSnap.data()!['isLoggedIn'];
   }
-
 }
