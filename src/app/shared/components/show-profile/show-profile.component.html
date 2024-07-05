@@ -79,7 +79,10 @@
             <div class="cancel-btn" (click)="editMode=false; selectedAvatar=''">
                 Abbrechen
             </div>
-            <div class="save-btn" (click)="checkUpdateInput()">
+            <div *ngIf="!editProfilePic" class="save-btn" (click)="checkUpdateInput()">
+                Speichern
+            </div>
+            <div *ngIf="editProfilePic" class="save-btn" (click)="newProfilePicture(); editProfilePic = false">
                 Speichern
             </div>
         </div>

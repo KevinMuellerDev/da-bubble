@@ -128,8 +128,14 @@ export class UserService {
       name: userProfileData.name,
       email: userProfileData.email
     });
-
   }
+
+  async updateUserProfilePicture(picturePath:string) {
+    await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
+      profilePicture: picturePath
+    });
+  }
+
 
   /**
    * Creates a new user in firestore

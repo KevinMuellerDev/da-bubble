@@ -64,9 +64,15 @@ export class ShowProfileComponent {
   onImageSelected(input: HTMLInputElement) {
     this.storageService.onFileSelected(input);
     const file = this.storageService.files?.item(0);
+    
     if (file) {
-      this.selectedAvatar = URL.createObjectURL(this.storageService.fileUrl);
+      this.selectedAvatar = URL.createObjectURL(this.storageService.fileUrl);   
     }
+  }
+
+  async newProfilePicture(){
+    await this.storageService.uploadFile(this.userService.currentUser!);
+    await this.userService.updateUserProfilePicture(this.userService.createUserInfo.profilePicture)
   }
 
   /**

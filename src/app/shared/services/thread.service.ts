@@ -24,6 +24,7 @@ export class ThreadService {
   messages: any[] = [];
   messagesTimestamp: any[] = [];
   startMutationObserver: boolean = false;
+  fileData: any = { src: '', name: '', type: '' };
 
   constructor() { }
 
@@ -41,7 +42,8 @@ export class ThreadService {
   startListenerChannel() {
     if (this.isSubscribed)
       this.unsub();
-
+    console.log('ich bin der fehler');
+    
     this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
       this.messages = [];
       this.messagesTimestamp = [];
@@ -57,12 +59,37 @@ export class ThreadService {
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
       .then(async (docRef) => {
+        console.log('werde ausgeführt');
+        
         await updateDoc(this.refUpdateThread(), {
           repliesCount: this.messages.length,
           lastReply: obj.timestamp
         });
+        console.log('ich auch');
+        
+        if (this.storageService.filesTextareaThread && this.storageService.filesTextareaThread.length > 0) {
+          this.fileData.src = this.storageService.downloadUrlThread;
+          this.fileData.name = this.storageService.fileNameTextareaThread;
+          this.fileData.type = this.storageService.uploadedFileTypeThread;
 
+          await updateDoc(this.refUpdateFilePath(docRef.id), {
+            uploadedFile: this.fileData
+          });
+          this.clearFileData();
+        }
       });
+  }
+
+  refUpdateFilePath(id: string) {
+    return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread', id)
+  }
+
+
+  clearFileData() {
+    this.fileData = { src: '', name: '', type: '' };
+    this.storageService.downloadUrlThread = '';
+    this.storageService.fileNameTextareaThread = '';
+    this.storageService.uploadedFileTypeThread = '';
   }
 
   /**
@@ -73,7 +100,7 @@ export class ThreadService {
       this.unsub();
       this.isSubscribed = false;
       console.log("Listener Unsubscribed");
-    } 
+    }
   }
 
   /**
@@ -107,6 +134,8 @@ export class ThreadService {
   refUpdateThread() {
     return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, "messages", this.originMessage.msgId)
   }
+
+
 
   /**
    * Triggers the hiding of the thread by emitting a value through the hideThreadSubject.
