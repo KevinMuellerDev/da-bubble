@@ -252,24 +252,20 @@ export class ChannelService {
    * contain information such as the message content, sender details, timestamp, etc.
    */
   async createDirectMessage(obj: any) {
-  const uploadedFile = {
-    src: '',
-    name:'',
-    type: ''
-  };
   if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
-    uploadedFile.src = this.storageService.downloadUrl;
-    uploadedFile.name = this.storageService.fileNameTextarea as string;
-    uploadedFile.type = this.storageService.uploadedFileType;
+       this.fileData.src = this.storageService.downloadUrl;
+       this.fileData.name = this.storageService.fileNameTextarea;
+       this.fileData.type = this.storageService.uploadedFileType;
   }
-  obj.uploadedFile = uploadedFile;
+  obj.uploadedFile = this.fileData;
   await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
   await this.getOppositeDmId();
   if (this.currentMessagesId != this.oppositeMessagesId) {
   await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
   }
- this.storageService.abortUpload();
+   this.clearFileData();
   }
+
 
 /**
  * The `createChannelMessage` function asynchronously adds a document to a Firestore collection and
@@ -291,9 +287,13 @@ async createChannelMessage(obj: any) {
         { uploadedFile: this.fileData });
     }
   });
-  this.storageService.abortUpload();
-
-}
+    this.clearFileData();
+  }
+  
+     clearFileData() {
+      this.fileData = { src: '', name: '', type: '' };
+      this.storageService.abortUpload();
+  }
 
 
   async updateDirectMessage(data: any) {
