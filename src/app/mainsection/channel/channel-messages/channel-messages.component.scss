@@ -91,12 +91,11 @@
 .channel-head-right {
     @include dFlex($jc: flex-end);
     gap: 10px;
-    flex-wrap: wrap;
 }
 
 .channel-user-icons {
-    @include dFlex($jc: center);
-    padding: 3px 10px 3px 20px;
+    @include dFlex($jc: center, $ai: center);
+    padding: 6px 10px 6px 24px;
     cursor: pointer;
 
     &:hover {
@@ -116,9 +115,24 @@
 
     > img {
         width: 40px;
+        height: 40px;
         border-radius: 50%;
         border: 1px solid white;
-        margin-left: -10px;
+        margin-left: -16px;
+
+        &:hover {
+            background-color: $bg-color;
+            scale: 1.5;
+            top: 100px;
+        }
+    }
+}
+
+.overlapping-image {
+    padding: 6px 10px 6px 36px;
+
+    > img {
+        margin-left: -28px;
     }
 }
 
@@ -129,7 +143,6 @@
     background-color: $bg-color;
     border-radius: 50%;
     cursor: pointer;
-    margin-left: 10px;
     background-repeat: no-repeat;
     background-position: center;
     background-image: url("/assets/img/icons/person_add.svg");
@@ -197,13 +210,13 @@
     }
 }
 
-.button-wrapper{
-    @include dFlex($ai:flex-start);
+.button-wrapper {
+    @include dFlex($ai: flex-start);
     flex-direction: column;
     gap: 10px;
 
-    .span-head{
-        font: 500 18px 'Nunito';
+    .span-head {
+        font: 500 18px "Nunito";
     }
 }
 
@@ -214,12 +227,12 @@
     padding: 5px 10px;
     cursor: pointer;
 
-    div{
-        @include dFlex($ai:flex-start);
+    div {
+        @include dFlex($ai: flex-start);
         flex-direction: column;
     }
 
-    &:hover{
+    &:hover {
         background-color: $bg-color;
     }
 
@@ -234,10 +247,14 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1080px) {
     .channel-head-wrapper {
         padding: 20px 24px;
+    }
+}
 
+@media screen and (max-width: 768px) {
+    .channel-head-wrapper {
         .channel-head {
             gap: 0;
             span {

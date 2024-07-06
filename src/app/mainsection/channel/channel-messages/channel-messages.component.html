@@ -8,9 +8,12 @@
             <div class="channel-head-arrow-icon"></div>
         </div>
         <div class="channel-head-right">
-            <div #addUserToChannel (click)="openDialogAddUserToChannel()" class="channel-user-icons">
+            <div #addUserToChannel (click)="openDialogAddUserToChannel()" class="channel-user-icons"
+            [class.overlapping-image]="channelService.currentChannelUsers.length > 3 && !resizeListenerService.lgScreen">
                 @for (user of channelService.currentChannelUsers; track $index) {
-                <img referrerpolicy="no-referrer" [src]="user.profilePicture">
+                <img
+                referrerpolicy="no-referrer"
+                [src]="user.profilePicture">
                 }
                 <span>{{channelService.currentChannelUsers.length}}</span>
             </div>
