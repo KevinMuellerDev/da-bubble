@@ -122,6 +122,7 @@
 
 .message {
     @include dFlex();
+    flex-direction: column;
     background-color: $bg-color;
     border-radius: 0px 20px 20px 20px;
     white-space: pre-line;
@@ -132,9 +133,11 @@
 }
 
 .uploaded-file {
+    padding: 15px;
+
     >img {
-        max-width: 250px;
-        max-height: 250px;
+        max-width: 88px;
+        max-height: 88px;
         object-fit: contain;
         border-radius: 30px;
         margin-top: 8px;
@@ -143,8 +146,8 @@
 
     >a {
         >img {
-            max-width: 250px;
-            max-height: 250px;
+            max-width: 88px;
+            max-height: 88px;
             object-fit: contain;
             border-radius: 30px;
             margin-top: 8px;

@@ -59,6 +59,16 @@
                                 class="edit-message-button">Abbrechen</button>
                         </div>
                     </form>
+                    <span *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type"
+                        class="uploaded-file">
+                        <a *ngIf="message.uploadedFile.type==='image/jpeg'" href="{{message.uploadedFile.src}}"
+                            target="_blank">
+                            <img [src]="message.uploadedFile.src" alt="uploaded file" /></a>
+                        <img *ngIf="message.uploadedFile.type==='application/pdf'" [src]="'assets/img/pdfDefault.jpg'"
+                            alt="PDF Preview" style="cursor: pointer;" (click)="openPdf(message.uploadedFile.src)" />
+                        <p *ngIf="message.uploadedFile.type==='application/pdf'">
+                            {{ message.uploadedFile.name}}</p>
+                    </span>
                     <div id="emojiPickerContainer-{{i}}">
                         <emoji-mart [darkMode]=false #emojiPickerContainer [emojiTooltip]=true [showSingleCategory]=true
                             [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
@@ -67,16 +77,7 @@
                             *ngIf="emojiService.showEmojiPickerArray[i]" set="google"></emoji-mart>
                     </div>
                 </div>
-                <span *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type"
-                    class="uploaded-file">
-                    <a *ngIf="message.uploadedFile.type==='image/jpeg'" href="{{message.uploadedFile.src}}"
-                        target="_blank">
-                        <img [src]="message.uploadedFile.src" alt="uploaded file" /></a>
-                    <img *ngIf="message.uploadedFile.type==='application/pdf'" [src]="'assets/img/pdfDefault.jpg'"
-                        alt="PDF Preview" style="cursor: pointer;" (click)="openPdf(message.uploadedFile.src)" />
-                    <p *ngIf="message.uploadedFile.type==='application/pdf'">
-                        {{ message.uploadedFile.name}}</p>
-                </span>
+
 
                 <div class="show-reactions">
                     <ng-container *ngFor="let emojiData of message.emoji; let e = index">

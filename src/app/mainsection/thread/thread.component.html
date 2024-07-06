@@ -105,6 +105,15 @@
               <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
             </div>
           </form>
+          <div *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type"
+            class="uploaded-file">
+            <a *ngIf="message.uploadedFile.type==='image/jpeg'" href="{{message.uploadedFile.src}}" target="_blank">
+              <img [src]="message.uploadedFile.src" alt="uploaded file" /></a>
+            <img *ngIf="message.uploadedFile.type==='application/pdf'" [src]="'assets/img/pdfDefault.jpg'"
+              alt="PDF Preview" style="cursor: pointer;" (click)="openPdf(message.uploadedFile.src)" />
+            <p *ngIf="message.uploadedFile.type==='application/pdf'">
+              {{ message.uploadedFile.name}}</p>
+          </div>
         </div>
         <div class="selected-emoji">
           <span (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
