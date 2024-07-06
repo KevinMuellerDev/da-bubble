@@ -173,14 +173,14 @@ export class StorageService implements OnInit {
 
   abortUploadForThread() {
     this.filesTextareaThread = null!;
-    this.fileNameTextareaThread = undefined;
-    this.fileUrlTextareaThread = null;
+    this.fileNameTextareaThread = '';
+    this.fileUrlTextareaThread = '';
   }
 
   abortUpload() {
     this.filesTextarea = null!;
-    this.fileNameTextarea = undefined;
-    this.fileUrlTextarea = null;
+    this.fileNameTextarea = '';
+    this.fileUrlTextarea = '';
   }
 
   async uploadFileAndGetUrl(channelId: string) {

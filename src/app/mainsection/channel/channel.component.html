@@ -1,6 +1,6 @@
 <div class="channel-container">
     <app-channel-messages></app-channel-messages>
-    <div *ngIf="storageService.fileUrlTextarea" class="file-preview">
+    <div *ngIf="storageService.fileUrlTextarea " class="file-preview">
         <img *ngIf="storageService.isImage(storageService.filesTextarea?.item(0))"
             [src]="storageService.fileUrlTextarea" alt="File Preview">
         <img *ngIf="storageService.isPdf(storageService.filesTextarea?.item(0))" [src]="storageService.fileUrlTextarea"

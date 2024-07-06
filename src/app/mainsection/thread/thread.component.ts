@@ -76,6 +76,9 @@ export class ThreadComponent {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
+       if (this.threadMessageContent) {
+      this.threadMessageContent.nativeElement.focus();
+    }
   }
 
 
@@ -191,7 +194,6 @@ export class ThreadComponent {
     }
     this.emojiService.editMessageThread[index] = false;
     editMessageForm.reset();
-    //this.storageService.abortUploadForThread();
     this.emojiService.threadMessageEdit = false;
     this.isEditMessageTextareaVisible = false;
     this.emojiService.openEditMessageToggleThread[index] = false;

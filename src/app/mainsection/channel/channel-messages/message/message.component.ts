@@ -53,6 +53,8 @@ export class MessageComponent {
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
   emojiAdded: boolean = false;
+ hoveredMessageIndex: number | null = null;
+  hoveredEmojiIndex: number | null = null;
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {
     this.userId = sessionStorage.getItem('uid')!;
@@ -112,9 +114,9 @@ export class MessageComponent {
      this.emojiService.showEmojiPickerArray[index] = false;
   }
 
-getUsernameByUserId(userId: string): string | undefined {
+getUsernameByUserId(emojiUserId: string): string | undefined {
     const currentChannelUsers = this.channelService.currentChannelUsers;
-    const user = currentChannelUsers.find(user => user.id === userId);
+  const user = currentChannelUsers.find(user => user.id === emojiUserId);
     return user ? user.name : undefined;
   }
 
@@ -143,7 +145,15 @@ getUsernameByUserId(userId: string): string | undefined {
     this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId,'channel');
   }
 
+  onMouseEnter(messageIndex: number, emojiIndex: number): void {
+    this.hoveredMessageIndex = messageIndex;
+    this.hoveredEmojiIndex = emojiIndex;
+  }
 
+  onMouseLeave(): void {
+    this.hoveredMessageIndex = null;
+    this.hoveredEmojiIndex = null;
+  }
 
   /**
  * Toggles the visibility of the emoji picker for the message at the specified index.

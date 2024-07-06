@@ -59,14 +59,10 @@ export class ThreadService {
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
       .then(async (docRef) => {
-        console.log('werde ausgeführt');
-        
         await updateDoc(this.refUpdateThread(), {
           repliesCount: this.messages.length,
           lastReply: obj.timestamp
         });
-        console.log('ich auch');
-        
         if (this.storageService.filesTextareaThread && this.storageService.filesTextareaThread.length > 0) {
           this.fileData.src = this.storageService.downloadUrlThread;
           this.fileData.name = this.storageService.fileNameTextareaThread;
@@ -87,9 +83,7 @@ export class ThreadService {
 
   clearFileData() {
     this.fileData = { src: '', name: '', type: '' };
-    this.storageService.downloadUrlThread = '';
-    this.storageService.fileNameTextareaThread = '';
-    this.storageService.uploadedFileTypeThread = '';
+    this.storageService.abortUploadForThread();
   }
 
   /**

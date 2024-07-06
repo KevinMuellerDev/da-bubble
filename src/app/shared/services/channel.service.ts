@@ -30,7 +30,7 @@ export class ChannelService {
   privateMsgIds: string[] = [];
   currentChannelUsers: any[] = [];
   currentChannel!: string;
-
+  fileData: any = { src: '', name: '', type: '' };
   constructor() {
     //turn on for test in messages:
     this.channelMsg = false;
@@ -252,7 +252,7 @@ export class ChannelService {
    * contain information such as the message content, sender details, timestamp, etc.
    */
   async createDirectMessage(obj: any) {
-  let uploadedFile = {
+  const uploadedFile = {
     src: '',
     name:'',
     type: ''
@@ -268,9 +268,7 @@ export class ChannelService {
   if (this.currentMessagesId != this.oppositeMessagesId) {
   await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
   }
-    this.storageService.downloadUrl = '';
-    this.storageService.fileNameTextarea = '';
-    this.storageService.uploadedFileType = '';
+ this.storageService.abortUpload();
   }
 
 /**
@@ -284,30 +282,17 @@ async createChannelMessage(obj: any) {
   await addDoc(this.refCreateChannelMsg(), obj)
   .then(async (docRef) => {
     console.log(docRef.id);
-
-    const NewMessage: any = { msgId: docRef.id };
+     { msgId: docRef.id }
     if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
-      const downloadURL = this.storageService.downloadUrl;
-      const fileName = this.storageService.fileNameTextarea;
-      const fileType = this.storageService.uploadedFileType;
-
-      NewMessage.uploadedFile = {
-        src: downloadURL,
-        name: fileName,
-        type: fileType
-      };
-    } else {
-      NewMessage.uploadedFile = {
-        src: '',
-        name: '',
-        type: ''
-      };
+      this.fileData.src = this.storageService.downloadUrl;
+       this.fileData.name = this.storageService.fileNameTextarea;
+       this.fileData.type = this.storageService.uploadedFileType;
+      await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id),
+        { uploadedFile: this.fileData });
     }
-    await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id), NewMessage);
   });
-  this.storageService.downloadUrl = '';
-  this.storageService.uploadedFileType = '';
-  this.storageService.fileNameTextarea = '';
+  this.storageService.abortUpload();
+
 }
 
 

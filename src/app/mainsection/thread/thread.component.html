@@ -127,23 +127,24 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="storageService.fileUrlTextareaThread" class="file-preview">
+  <div
+    *ngIf="storageService.fileUrlTextareaThread !== null && storageService.fileUrlTextareaThread !== undefined && storageService.fileUrlTextareaThread !== ''"
+    class="file-preview">
     <img *ngIf="storageService.isImage(storageService.filesTextareaThread?.item(0))"
       [src]="storageService.fileUrlTextareaThread" alt="File Preview">
     <img *ngIf="storageService.isPdf(storageService.filesTextareaThread?.item(0))"
       [src]="storageService.fileUrlTextareaThread" alt="PDF Preview" style="cursor: pointer;"
       (click)="openPdf(storageService.pdfUrlThread)" />
-
     <p *ngIf="storageService.isPdf(storageService.filesTextareaThread?.item(0))">
       {{ storageService.fileNameTextareaThread }}</p>
-    <div class="close-icon-upload" (click)="storageService.abortUploadForThread()"></div>
+    <div class="close-icon-upload"
+      *ngIf="storageService.fileUrlTextareaThread !== '' && storageService.fileUrlTextareaThread !== null && storageService.fileUrlTextareaThread !== undefined"
+      (click)="storageService.abortUploadForThread()"></div>
   </div>
-
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
-      <textarea autofocus class="thread-message-input form-control" name="message" #threadMessageContent
-        id="threadMessageContent" [(ngModel)]="messageThread.content" placeholder="Antworten..."
+      <textarea class="thread-message-input form-control" name="message" #threadMessageContent id="threadMessageContent"
+        [(ngModel)]="messageThread.content" placeholder="Antworten..."
         [ngClass]="{ 'focus-visible-thread-invalid': !formThread.valid  && (formThread.touched || submitClick) && textareaBlur }"
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
                           </textarea>
