@@ -51,6 +51,7 @@
     app-sidebar {
         width: 100%;
         max-width: 366px;
+        overflow-y: auto;
     }
 
     app-channel {

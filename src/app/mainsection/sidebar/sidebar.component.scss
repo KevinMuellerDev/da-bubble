@@ -386,12 +386,11 @@
   }
   .edit-icon {
     position: absolute;
-    right: 16px;
-    bottom: 4%;
+    right: 24px;
+    bottom: 24px;
     border-radius: 50%;
     background-image: url("/assets/img/icons/edit_square_white.svg");
     background-color: $purple1;
     padding: 30px;
-    transform: translate(-50%, -50%);
   }
 }
