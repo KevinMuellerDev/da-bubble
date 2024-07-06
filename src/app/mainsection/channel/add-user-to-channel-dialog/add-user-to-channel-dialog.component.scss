@@ -121,9 +121,13 @@
 
 @media screen and (max-width: 480px) {
     .main-container {
-        padding: 40px 24px;
+        padding: 24px;
         .channel-close-icon {
             right: 24px;
         }
+    }
+
+    .member-list-container {
+        gap: 10px;
     }
 }
