@@ -189,6 +189,7 @@
 }
 
 .tag-user-list {
+    overflow-y: scroll;
     gap: 8px;
     font-size: 18px;
     max-height: 210px;
