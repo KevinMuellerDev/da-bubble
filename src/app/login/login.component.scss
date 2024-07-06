@@ -397,6 +397,7 @@ a {
     }
 }
 
+
 @media screen and (max-height: 767px) {
     footer {
         display: none;
@@ -484,5 +485,47 @@ a {
         img {
             margin-right: 16px;
         }
+    }
+}
+
+@media screen and (orientation: landscape) and (max-width: 1181px) {
+    main {
+        justify-content: normal;
+        height: 72vh;
+        transform: translate(-50%, -45%);
+        padding: 24px 32px !important;
+        overflow-y: auto;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .title {
+        margin-bottom: 18px;
+        font-size: 2rem;
+        h1 {
+            margin-bottom: 0px;
+        }
+        h3 {
+            font-size: 1.125rem;
+        }
+    }
+
+    .back-arrow {
+        top: 40px;
+        left: 32px;
+    }
+
+    span {
+        margin: 18px 0;
+    }
+
+    .login-btns {
+        margin: 18px 0 0;
+    }
+
+    footer {
+        bottom: 16px;
     }
 }
