@@ -83,11 +83,16 @@
 
 @media screen and (orientation: landscape) and (max-width: 1181px) {
     .add-new-channel .mat-mdc-dialog-container .mdc-dialog__surface,
-    .edit-channel .mat-mdc-dialog-container .mdc-dialog__surface {
+    .edit-channel .mat-mdc-dialog-container .mdc-dialog__surface,
+    .show-profile-from-message .mat-mdc-dialog-container .mdc-dialog__surface,
+    .show-profile .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-user-to-channel .mat-mdc-dialog-container .mdc-dialog__surface,
+    .add-user .mat-mdc-dialog-container .mdc-dialog__surface {
         position: absolute;
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
+        border-radius: 30px;
     }
 }
 

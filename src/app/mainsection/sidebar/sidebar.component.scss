@@ -384,13 +384,17 @@
   .headline-left {
     display: none;
   }
-  .edit-icon {
-    position: absolute;
-    right: 24px;
+  .edit-icon-mobile {
+    position: sticky;
+    left: 78%;
     bottom: 24px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     background-image: url("/assets/img/icons/edit_square_white.svg");
     background-color: $purple1;
+    background-repeat: no-repeat;
+    background-position: center;
     padding: 30px;
   }
 }

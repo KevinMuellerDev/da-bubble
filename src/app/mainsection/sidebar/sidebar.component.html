@@ -10,7 +10,7 @@
       </div>
       <span> Devspace </span>
     </div>
-    <div class="edit-icon" (click)="newMessage()"></div>
+    <div class="edit-icon" (click)="newMessage()" *ngIf="!resizeListenerService.smScreen"></div>
   </div>
   <div class="channel-container">
     <div class="channels">
@@ -71,3 +71,4 @@
     }
   </div>
 </div>
+<div class="edit-icon-mobile" (click)="newMessage()" *ngIf="resizeListenerService.smScreen"></div>
