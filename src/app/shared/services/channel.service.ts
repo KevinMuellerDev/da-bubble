@@ -51,8 +51,11 @@ export class ChannelService {
     
   }
 
-   private channelChangedSource = new Subject<void>();
-  channelChanged$ = this.channelChangedSource.asObservable();
+    public closeAndFocusChannelTextarea = new Subject<void>();
+    threadClosed$ = this.closeAndFocusChannelTextarea.asObservable();
+
+    private channelChangedSource = new Subject<void>();
+    channelChanged$ = this.channelChangedSource.asObservable();
 
   /**
    * The `startListener` function subscribes to real-time updates and sorts the

@@ -7,7 +7,7 @@ import { ChannelService } from '../../shared/services/channel.service';
 import { ThreadService } from '../../shared/services/thread.service';
 import { EmojiService } from '../../shared/services/emoji.service';
 import { MutationObserverService } from '../../shared/services/mutation.observer.service';
-import { Subscription } from 'rxjs';
+import { Subscription,Subject } from 'rxjs';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -233,6 +233,7 @@ export class ThreadComponent {
   }
 
   closeThread() {
+    this.channelService.closeAndFocusChannelTextarea.next();
     this.threadService.stopListener();
     this.mainsectionComponent.hideThread();
     this.threadService.isActive = false;
