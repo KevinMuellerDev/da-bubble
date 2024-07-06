@@ -64,11 +64,10 @@ main {
     }
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (orientation: landscape) and (max-width: 1181px) {
     .login-btns {
         margin: 0;
     }
-    
 }
 
 @media screen and (max-width: 400px) {

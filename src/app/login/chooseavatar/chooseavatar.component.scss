@@ -3,6 +3,11 @@
 
 main {
     padding: 40px 67px;
+
+    h3 {
+        font-size: 2rem;
+        font-weight: 700;
+    }
 }
 
 .login-btns {
@@ -12,11 +17,6 @@ main {
 
 .title {
     margin: 0;
-}
-
-h3 {
-    font-size: 2rem;
-    font-weight: 700;
 }
 
 span {
@@ -31,7 +31,6 @@ span {
     border-radius: 50%;
     width: 168px;
     height: 168px;
-    overflow: hidden;
     img {
         width: 100%;
         height: 100%;
@@ -185,6 +184,33 @@ span {
     }
 }
 
+@media screen and (orientation: landscape) and (max-width: 1181px) {
+    main {
+        div {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    }
+
+    h3 {
+        font-size: 1.125rem;
+    }
+
+    span {
+        margin: 0 0 12px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .login-btns {
+        margin: 0 0 8px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .avatar {
         width: 120px;
@@ -195,6 +221,7 @@ span {
         justify-content: space-around;
         img {
             height: 60px;
+            width: 60px;
         }
     }
 
@@ -243,7 +270,7 @@ span {
         margin: 12px 0 0 0;
     }
 
-    span{
+    span {
         font-size: 1rem;
     }
 }
