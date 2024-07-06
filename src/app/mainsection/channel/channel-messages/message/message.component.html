@@ -59,7 +59,8 @@
                                 class="edit-message-button">Abbrechen</button>
                         </div>
                     </form>
-                    <span *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type"
+                    <span
+                        *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type && !emojiService.editMessage[i]"
                         class="uploaded-file">
                         <a *ngIf="message.uploadedFile.type==='image/jpeg'" href="{{message.uploadedFile.src}}"
                             target="_blank">

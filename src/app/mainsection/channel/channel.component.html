@@ -10,6 +10,13 @@
             {{ storageService.fileNameTextarea }}</p>
         <div class="close-icon" (click)="storageService.abortUpload()"></div>
     </div>
+    <div *ngIf="isTagUserOpen" class="tag-user-list" appOutsideclick (outsideClick)="onOutsideClick()">
+        <span *ngFor="let user of tagUserList">
+            <span class="tag-user-selection" (click)="onUserClick(user)">
+                {{ user }}
+            </span>
+        </span>
+    </div>
     <div class="channel-message-wrapper form-group">
         <form #form="ngForm" name="form" (ngSubmit)="onSubmit(form)">
             <textarea class="channel-message-input form-control" autofocus name="message" #messageContent
@@ -24,7 +31,7 @@
 
                 <div class="icon-divider"></div>
                 <div class="emoji-icon" (click)="toggleEmojiPickerEvent($event)"></div>
-                <div class="tag-icon"></div>
+                <div class="tag-icon" (click)="tagUser($event)"></div>
             </div>
             <div class="send-icon" (click)="onSubmit(form)"></div>
         </form>

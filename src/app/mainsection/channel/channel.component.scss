@@ -184,6 +184,34 @@
     }
 }
 
+.highlight-user {
+    color: $purple3;
+}
+
+.tag-user-list {
+    gap: 8px;
+    font-size: 18px;
+    max-height: 210px;
+    background-color: $purple2;
+    color: white;
+    padding: 15px;
+    border-radius: 30px;
+    position: absolute;
+    bottom: 210px;
+    left: 35px;
+    @include dFlex();
+    flex-direction: column;
+    box-shadow: -8px 6px 16px 0px #00000054;
+
+    .tag-user-selection {
+        cursor: pointer;
+
+        &:hover {
+            font-weight: 700;
+        }
+    }
+}
+
 @media screen and (max-width: 600px) {
     .channel-message-input {
         bottom: 20px;

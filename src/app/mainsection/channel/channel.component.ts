@@ -34,6 +34,8 @@ export class ChannelComponent {
   isEmojiPickerVisible: boolean = false;
   showEmojiPicker: boolean = false;
   selectedEmojis: string[] = [];
+  isTagUserOpen: boolean = false;
+  tagUserList: string[] = [];
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
@@ -110,8 +112,8 @@ export class ChannelComponent {
   onOutsideClick(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
     this.isEmojiPickerVisible = false;
+    this.isTagUserOpen = false;
   }
-
   /**
    * Toggles the visibility of the emoji picker.
    * @param event - The event that triggered the emoji picker toggle.
@@ -162,6 +164,18 @@ export class ChannelComponent {
         }
       }
     }
+  }
+
+  tagUser(event: Event) {
+    event.stopPropagation();
+    this.isTagUserOpen = !this.isTagUserOpen;
+    this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
+  }
+
+  onUserClick(user: string) {
+     this.message.content += `@${user} `;
+    this.isTagUserOpen = false;
+    console.log(`Clicked on user: ${user}`);
   }
 
   ngOnDestroy() {
