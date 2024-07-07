@@ -21,7 +21,7 @@
   @include dFlex();
   gap: 5px;
 
-  >span {
+  > span {
     font-size: 24px;
     font-weight: 700;
   }
@@ -48,7 +48,6 @@
     border-radius: 50%;
   }
 }
-
 
 .thread-conversation-container {
   width: 100%;
@@ -163,17 +162,15 @@
   position: absolute;
   left: 77px;
   top: 46px;
-  width: 269px;
   background-color: white;
-  height: 67px;
   border-radius: 0 30px 30px 30px;
-  padding: 10px 20px;
+  padding: 10px 18px;
   box-shadow: 0px 6px 14px 0px #00000033;
   font-size: 20px;
   font-weight: 500;
   text-wrap: nowrap;
 
-  >span {
+  > span {
     cursor: pointer;
 
     &:hover {
@@ -191,17 +188,15 @@
   position: absolute;
   right: 149px;
   top: 46px;
-  width: 269px;
   background-color: white;
-  height: 67px;
   border-radius: 30px 0 30px 30px;
-  padding: 10px 20px;
+  padding: 10px 18px;
   box-shadow: 0px 6px 14px 0px #00000033;
   font-size: 20px;
   font-weight: 500;
   text-wrap: nowrap;
 
-  >span {
+  > span {
     cursor: pointer;
 
     &:hover {
@@ -226,7 +221,7 @@
   margin-top: 10px;
   @include dFlex();
 
-  >img {
+  > img {
     border-radius: 50%;
     max-width: 70px;
   }
@@ -241,7 +236,7 @@
   @include dFlex();
   gap: 20px;
 
-  >span {
+  > span {
     cursor: pointer;
     font-size: 18px;
     font-weight: 700;
@@ -264,13 +259,13 @@
   white-space: pre-line;
   flex-direction: column;
 
-  >span {
+  > span {
     padding: 15px;
   }
 }
 
 .selected-emoji {
-  >span {
+  > span {
     position: relative;
     cursor: pointer;
     background-color: white;
@@ -307,7 +302,7 @@
   @include dFlex($jc: space-between);
   padding: 15px;
 
-  >button {
+  > button {
     font-size: 16px;
     cursor: pointer;
     background-color: $purple1;
@@ -322,11 +317,10 @@
   }
 }
 
-
 .edit-message {
   position: relative;
 
-  >textarea {
+  > textarea {
     min-width: 156px;
     min-height: 88px;
     height: fit-content;
@@ -343,7 +337,7 @@
 .edit-message-inverted {
   position: relative;
 
-  >textarea {
+  > textarea {
     min-width: 156px;
     min-height: 88px;
     height: fit-content;
@@ -366,7 +360,7 @@
   width: 100%;
   text-wrap: nowrap;
 
-  >span {
+  > span {
     color: $light-purple;
     font-size: 18px;
   }
@@ -465,7 +459,6 @@
   &:active {
     background-image: url("/assets/img/icons/add_bold.svg");
   }
-
 }
 
 .tag-icon {
@@ -559,7 +552,7 @@
   bottom: 215px;
   right: 35px;
 
-  >img {
+  > img {
     border: 3px solid $purple2;
     border-radius: 30px;
     max-width: 250px;
@@ -598,7 +591,7 @@
 .uploaded-file {
   padding: 15px;
 
-  >img {
+  > img {
     max-width: 88px;
     max-height: 88px;
     object-fit: contain;
@@ -607,8 +600,8 @@
     box-shadow: 0px 6px 14px 0px #00000033;
   }
 
-  >a {
-    >img {
+  > a {
+    > img {
       max-width: 88px;
       max-height: 88px;
       object-fit: contain;
@@ -617,13 +610,11 @@
       box-shadow: 0px 6px 14px 0px #00000033;
     }
   }
-
-
 }
 
 @media screen and (max-width: 1024px) {
   .thread-head-left-side {
-    >span {
+    > span {
       font-size: 22px;
     }
   }
@@ -642,5 +633,17 @@
 
   .single-message-container {
     padding: 20px 24px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .edit-message-left {
+    top: 48px;
+    left: 0px;
+  }
+
+  .edit-message-right {
+    top: 48px;
+    right: 0px;
   }
 }
