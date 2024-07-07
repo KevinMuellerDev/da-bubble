@@ -1,9 +1,9 @@
 import { Component, OnInit, inject, HostListener, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
-import { EmailValidator, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { FirebaseError, firebaseApp$ } from '@angular/fire/app';
+import { FirebaseError } from '@angular/fire/app';
 import { signOut } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../shared/services/user.service';
@@ -144,7 +144,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * Sets the focus on the email input element and checks the screen width for responsive design.
    */
   ngAfterViewInit(): void {
-    this.emailInput.nativeElement.focus();
     this.checkScreenWidth();
   }
 
@@ -194,6 +193,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
     this.delay(1750).then(() => {
       this.logoContainerState = 'final';
+    });
+    this.delay(3500).then(() => {
+      this.emailInput.nativeElement.focus();
     });
   }
 

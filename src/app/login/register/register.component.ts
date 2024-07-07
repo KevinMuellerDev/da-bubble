@@ -38,7 +38,9 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.nameInput.nativeElement.focus();
+    setTimeout(() => {
+      this.nameInput.nativeElement.focus();
+    },1000);
   }
 
   /**
