@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="message">
-                    <span *ngIf="!emojiService.editMessage[i]">{{ message.message }}</span>
+                    <span *ngIf="!emojiService.editMessage[i]" [innerHTML]="highlightUsernames(message.message)"></span>
                     <form #editMessageForm="ngForm" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
                         [ngClass]="{'edit-message': userId == message.id, 'edit-message-inverted': userId != message.id }"
                         *ngIf="emojiService.editMessage[i] && userId == message.id"
@@ -95,15 +95,13 @@
                             (mouseenter)="onMouseEnter(i, e)" (mouseleave)="onMouseLeave()">
                             <ng-container *ngIf="emojiData.users.length > 0">
                                 <span>{{ emojiData.emoji }}</span>
-                                <span class="reaction-user-names"
-                                    *ngFor="let emojiUserId of emojiData.users; let isLast = last">
+                                <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users">
                                     <span *ngIf="emojiUserId === userService.currentUser">
                                         Du
                                     </span>
                                     <span *ngIf="emojiUserId != userService.currentUser">
                                         {{ getUsernameByUserId(emojiUserId) }}
                                     </span>
-                                    <span *ngIf="!isLast">, </span>
                                 </span>
                                 <span *ngIf="emojiData.users.length === 1">Hat reagiert</span>
                                 <span *ngIf="emojiData.users.length > 1">Haben reagiert</span>

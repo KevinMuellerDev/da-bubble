@@ -271,6 +271,11 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
     
   }
 
+  highlightUsernames(message: string): string {
+    const usernameRegex = /@([^@<>\s]+)/g;
+    return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
+}
+
   ngOnDestroy() {
     /* this.unsubMessageData(); */
     
