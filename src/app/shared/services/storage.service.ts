@@ -172,13 +172,11 @@ export class StorageService implements OnInit {
   }
 
   abortUploadForThread() {
-    this.filesTextareaThread = null!;
     this.fileNameTextareaThread = '';
     this.fileUrlTextareaThread = '';
   }
 
   abortUpload() {
-    this.filesTextarea = null!;
     this.fileNameTextarea = '';
     this.fileUrlTextarea = '';
   }

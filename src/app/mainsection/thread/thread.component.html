@@ -162,7 +162,7 @@
       {{ storageService.fileNameTextareaThread }}</p>
     <div class="close-icon-upload"
       *ngIf="storageService.fileUrlTextareaThread !== '' && storageService.fileUrlTextareaThread !== null && storageService.fileUrlTextareaThread !== undefined"
-      (click)="storageService.abortUploadForThread()"></div>
+      (click)="storageService.abortUploadForThread();clearFileInput() "></div>
   </div>
   <div *ngIf="isTagUserOpen" class="tag-user-list" appOutsideclick (outsideClick)="  onOutsideClickTagArea()">
     <span *ngFor="let user of tagUserList">

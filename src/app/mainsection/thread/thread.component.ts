@@ -303,6 +303,10 @@ export class ThreadComponent {
     console.log(`Clicked on user: ${user}`);
   }
 
+      clearFileInput() {
+       this.fileInputThread.nativeElement.value = '';
+  }
+
     highlightUsernames(message: string): string {
     const usernameRegex = /@([^@<>\s]+)/g;
     return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);

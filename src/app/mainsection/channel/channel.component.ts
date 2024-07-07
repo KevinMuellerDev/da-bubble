@@ -137,6 +137,10 @@ export class ChannelComponent {
     this.fileInput.nativeElement.click();
   }
 
+    clearFileInput() {
+    this.fileInput.nativeElement.value = '';
+  }
+
  async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
    this.storageService.onFileSelectedTextarea(input);
