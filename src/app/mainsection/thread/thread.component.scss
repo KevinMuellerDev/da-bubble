@@ -270,10 +270,8 @@
 }
 
 .selected-emoji {
-
-  position: relative;
-
   >span {
+    position: relative;
     cursor: pointer;
     background-color: white;
     border: 1px solid $light-purple;

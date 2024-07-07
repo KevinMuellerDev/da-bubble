@@ -400,9 +400,8 @@
 }
 
 .selected-emoji {
-    position: relative;
-
     >span {
+        position: relative;
         cursor: pointer;
         background-color: white;
         border: 1px solid $light-purple;
@@ -410,8 +409,14 @@
         min-width: 64px;
         border-radius: 20px;
         padding: 5px 10px;
+
+        &:hover {
+            border: 1px solid $purple2;
+        }
     }
+
 }
+
 
 
 .wrapper-start-msg {

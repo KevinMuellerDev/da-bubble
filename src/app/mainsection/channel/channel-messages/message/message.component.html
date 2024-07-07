@@ -82,24 +82,20 @@
 
 
                 <div class="selected-emoji">
-                    <span (mouseenter)="onMouseEnter(i, e)" (mouseleave)="onMouseLeave()"
-                        (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
-                        *ngFor="let emojiData let e = index of message.emoji">
+                    <span *ngFor="let emojiData of message.emoji; let e = index" (mouseenter)="onMouseEnter(i, e)"
+                        (mouseleave)="onMouseLeave()"
+                        (click)="onUpdateReaction(e, i, message.emoji[e].emoji, message.id, userId)" class="emoji-span">
                         {{ emojiData.emoji }}
-                        <ng-container *ngIf="message.emoji[e].count >1">
+                        <ng-container *ngIf="message.emoji[e].count > 1">
                             {{ message.emoji[e].count }}
                         </ng-container>
-                    </span>
-                    <ng-container *ngFor="let emojiData of message.emoji; let e = index">
                         <div class="show-reactions" *ngIf="hoveredMessageIndex === i && hoveredEmojiIndex === e"
                             (mouseenter)="onMouseEnter(i, e)" (mouseleave)="onMouseLeave()">
                             <ng-container *ngIf="emojiData.users.length > 0">
                                 <span>{{ emojiData.emoji }}</span>
                                 <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users">
-                                    <span *ngIf="emojiUserId === userService.currentUser">
-                                        Du
-                                    </span>
-                                    <span *ngIf="emojiUserId != userService.currentUser">
+                                    <span *ngIf="emojiUserId === userService.currentUser">Du</span>
+                                    <span *ngIf="emojiUserId !== userService.currentUser">
                                         {{ getUsernameByUserId(emojiUserId) }}
                                     </span>
                                 </span>
@@ -108,14 +104,14 @@
                             </ng-container>
                             <ng-container *ngIf="emojiData.users.length === 0">
                                 <span>{{ emojiData.emoji }}</span>
-                                <span class="reaction-user-names">
-                                    Du
-                                </span>
+                                <span class="reaction-user-names">Du</span>
                                 <span>Hast reagiert</span>
                             </ng-container>
                         </div>
-                    </ng-container>
+                    </span>
                 </div>
+
+
                 <div *ngIf="channelService.channelMsg" class="message-reply-wrapper">
                     <div class="message-replies">
                         <span *ngIf="message.repliesCount > 1" (click)="showThreadBar(message)">{{ message.repliesCount
