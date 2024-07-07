@@ -303,6 +303,11 @@ export class ThreadComponent {
     console.log(`Clicked on user: ${user}`);
   }
 
+    highlightUsernames(message: string): string {
+    const usernameRegex = /@([^@<>\s]+)/g;
+    return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
+}
+
 
  openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {

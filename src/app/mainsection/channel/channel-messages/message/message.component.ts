@@ -55,6 +55,7 @@ export class MessageComponent {
   emojiAdded: boolean = false;
   hoveredMessageIndex: number | null = null;
   hoveredEmojiIndex: number | null = null;
+  userList: string[] = [];
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {
     this.userId = sessionStorage.getItem('uid')!;
@@ -78,7 +79,7 @@ export class MessageComponent {
     this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
       console.log('DOM changes detected:', mutations);
     });
-
+     
   }
 
   isNewDate(oldDate: number, newDate: number) {
@@ -90,7 +91,6 @@ export class MessageComponent {
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
     this.MutationObserverService.observe(this.scroll,false);
-
   }
 
   pushTimestamp(timestamp: string | null) {
