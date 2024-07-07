@@ -68,7 +68,7 @@ export class ThreadComponent {
     });
   }
 
-  @ViewChild('threadMessageContent', { static: false }) threadMessageContent!: ElementRef;
+  @ViewChild('threadMessageContent', { read: ElementRef, static: false }) threadMessageContent!: ElementRef;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   @ViewChild('fileInputThread') fileInputThread!: ElementRef<HTMLInputElement>;
 
@@ -78,14 +78,14 @@ export class ThreadComponent {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
-    //Timeout ist nötig damit es beim bearbeiten keine Fehlermeldung gibt
-    if (this.threadMessageContent) {
-      setTimeout(() => {
+     setTimeout(() => {
+      if (this.threadMessageContent && this.threadMessageContent.nativeElement ) {
         this.threadMessageContent.nativeElement.focus();
-      });
-    }
+      }
+    }, 0);
+  
   }
-
+  
   onOutsideClick(index: number, event: Event): void {
     this.emojiService.openEditMessageToggleThread[index] = false;
     const target = event.target as HTMLElement;
