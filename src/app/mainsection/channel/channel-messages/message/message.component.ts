@@ -53,7 +53,7 @@ export class MessageComponent {
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
   emojiAdded: boolean = false;
- hoveredMessageIndex: number | null = null;
+  hoveredMessageIndex: number | null = null;
   hoveredEmojiIndex: number | null = null;
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {

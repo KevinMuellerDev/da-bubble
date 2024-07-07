@@ -105,7 +105,8 @@
               <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
             </div>
           </form>
-          <div *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type"
+          <div
+            *ngIf="message.uploadedFile && message.uploadedFile.src && message.uploadedFile.type && !emojiService.editMessageThread[i]"
             class="uploaded-file">
             <a *ngIf="message.uploadedFile.type==='image/jpeg'" href="{{message.uploadedFile.src}}" target="_blank">
               <img [src]="message.uploadedFile.src" alt="uploaded file" /></a>
@@ -115,15 +116,44 @@
               {{ message.uploadedFile.name}}</p>
           </div>
         </div>
+
         <div class="selected-emoji">
-          <span (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
+          <span (mouseenter)="onMouseEnter(i, e)" (mouseleave)="onMouseLeave()"
+            (click)="onUpdateReaction(e,i,message.emoji[e].emoji,message.id,userId)"
             *ngFor="let emojiCount let e = index of message.emoji">
             {{ emojiCount.emoji }}
             <ng-container *ngIf="message.emoji[e].count >1">
               {{ message.emoji[e].count }}
             </ng-container>
           </span>
+          <ng-container *ngFor="let emojiData of message.emoji; let e = index">
+            <div class="show-reactions" *ngIf="hoveredMessageIndexThread === i && hoveredEmojiIndexThread === e"
+              (mouseenter)="onMouseEnter(i, e)" (mouseleave)="onMouseLeave()">
+              <ng-container *ngIf="emojiData.users.length > 0">
+                <span>{{ emojiData.emoji }}</span>
+                <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users; let isLast = last">
+                  <span *ngIf="emojiUserId === userService.currentUser">
+                    Du
+                  </span>
+                  <span *ngIf="emojiUserId != userService.currentUser">
+                    {{ getUsernameByUserId(emojiUserId) }}
+                  </span>
+                  <span *ngIf="!isLast">, </span>
+                </span>
+                <span *ngIf="emojiData.users.length === 1">Hast reagiert</span>
+                <span *ngIf="emojiData.users.length > 1">Haben reagiert</span>
+              </ng-container>
+              <ng-container *ngIf="emojiData.users.length === 0">
+                <span>{{ emojiData.emoji }}</span>
+                <span class="reaction-user-names">
+                  Du
+                </span>
+                <span>Hast reagiert</span>
+              </ng-container>
+            </div>
+          </ng-container>
         </div>
+
       </div>
     </div>
   </div>
@@ -141,6 +171,13 @@
       *ngIf="storageService.fileUrlTextareaThread !== '' && storageService.fileUrlTextareaThread !== null && storageService.fileUrlTextareaThread !== undefined"
       (click)="storageService.abortUploadForThread()"></div>
   </div>
+  <div *ngIf="isTagUserOpen" class="tag-user-list" appOutsideclick (outsideClick)="  onOutsideClickTagArea()">
+    <span *ngFor="let user of tagUserList">
+      <span class="tag-user-selection" (click)="onUserClick(user)">
+        {{ user }}
+      </span>
+    </span>
+  </div>
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
       <textarea class="thread-message-input form-control" name="message" #threadMessageContent id="threadMessageContent"
@@ -153,7 +190,7 @@
         <input type="file" #fileInputThread (change)="onFileSelected($event)" style="display: none;" />
         <div class="icon-divider"></div>
         <div class="emoji-icon" (click)="toggleEmojiPickerEventTextarea($event)"></div>
-        <div class="tag-icon"></div>
+        <div class="tag-icon" (click)="tagUser($event)"></div>
       </div>
       <div class="send-icon" (click)="onSubmit(formThread)"></div>
     </form>

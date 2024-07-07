@@ -270,6 +270,9 @@
 }
 
 .selected-emoji {
+
+  position: relative;
+
   >span {
     cursor: pointer;
     background-color: white;
@@ -278,6 +281,27 @@
     min-width: 64px;
     border-radius: 20px;
     padding: 5px 10px;
+  }
+}
+
+.show-reactions {
+  position: absolute;
+  z-index: 100;
+  bottom: 27px;
+  left: 10px;
+  width: 169px;
+  height: 112px;
+  @include dFlex();
+  flex-direction: column;
+  background-color: $purple1;
+  color: white;
+  border-radius: 30px 30px 30px 0px;
+  padding: 15px 10px 15px 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+  .reaction-user-names {
+    font-weight: 700;
+    font-size: 16px;
   }
 }
 
@@ -544,6 +568,32 @@
     max-height: 250px;
     object-fit: contain;
     box-shadow: -8px 6px 16px 0px #00000054;
+  }
+}
+
+.tag-user-list {
+  width: 250px;
+  overflow-y: scroll;
+  gap: 8px;
+  font-size: 18px;
+  max-height: 210px;
+  background-color: $purple1;
+  color: white;
+  padding: 15px;
+  border-radius: 30px;
+  position: absolute;
+  bottom: 210px;
+  left: 35px;
+  @include dFlex();
+  flex-direction: column;
+  box-shadow: -8px 6px 16px 0px #00000054;
+
+  .tag-user-selection {
+    cursor: pointer;
+
+    &:hover {
+      font-weight: 700;
+    }
   }
 }
 

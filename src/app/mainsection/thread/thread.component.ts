@@ -41,14 +41,16 @@ export class ThreadComponent {
   emojiAdded: boolean = false;
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
-
   private hasScrolled: boolean = false;
-
+  isTagUserOpen: boolean = false;
+  tagUserList: string[] = [];
   submitClick: boolean = false;
   textareaBlur: boolean = false;
   isEmojiPickerVisibleThreadMessageInput: boolean = false;
   showEmojiPickerTextarea: boolean = false;
   selectedEmojis: string[] = [];
+  hoveredMessageIndexThread: number | null = null;
+  hoveredEmojiIndexThread: number | null = null;
   messageThread = {
     content: ''
   }
@@ -76,11 +78,13 @@ export class ThreadComponent {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
-       if (this.threadMessageContent) {
-      this.threadMessageContent.nativeElement.focus();
+    //Timeout ist nötig damit es beim bearbeiten keine Fehlermeldung gibt
+    if (this.threadMessageContent) {
+      setTimeout(() => {
+        this.threadMessageContent.nativeElement.focus();
+      });
     }
   }
-
 
   onOutsideClick(index: number, event: Event): void {
     this.emojiService.openEditMessageToggleThread[index] = false;
@@ -103,6 +107,16 @@ export class ThreadComponent {
     this.isEmojiPickerVisibleThreadMessageInput = false;
   }
 
+  onOutsideClickTagArea() {
+    this.isTagUserOpen = false;
+   }
+
+    getUsernameByUserId(emojiUserId: string): string | undefined {
+    const currentChannelUsers = this.channelService.currentChannelUsers;
+    const user = currentChannelUsers.find(user => user.id === emojiUserId);
+    return user ? user.name : undefined;
+  }
+
   toggleOpenEditMessage(index: number): void {
     this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index]
   }
@@ -123,6 +137,16 @@ export class ThreadComponent {
 
   onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
     this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'thread');
+  }
+
+  onMouseEnter(messageIndex: number, emojiIndex: number): void {
+    this.hoveredMessageIndexThread = messageIndex;
+    this.hoveredEmojiIndexThread = emojiIndex;
+  }
+
+  onMouseLeave(): void {
+    this.hoveredMessageIndexThread = null;
+    this.hoveredEmojiIndexThread = null;
   }
 
   toggleEvent(event: any): void {
@@ -265,6 +289,18 @@ export class ThreadComponent {
     const input = event.target as HTMLInputElement;
    this.storageService.onFileSelectedTextareaForThread(input);
    this.storageService.uploadFileAndGetUrlForThread(this.threadService.originMessage.msgId);
+  }
+
+    tagUser(event: Event) {
+    event.stopPropagation();
+    this.isTagUserOpen = !this.isTagUserOpen;
+    this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
+  }
+
+  onUserClick(user: string) {
+     this.messageThread.content += `@${user} `;
+    this.isTagUserOpen = false;
+    console.log(`Clicked on user: ${user}`);
   }
 
 

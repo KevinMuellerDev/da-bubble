@@ -189,6 +189,7 @@
 }
 
 .tag-user-list {
+    width: 250px;
     overflow-y: scroll;
     gap: 8px;
     font-size: 18px;
@@ -212,6 +213,7 @@
         }
     }
 }
+
 
 @media screen and (max-width: 600px) {
     .channel-message-input {

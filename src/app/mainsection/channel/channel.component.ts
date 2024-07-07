@@ -10,7 +10,7 @@ import { UserService } from '../../shared/services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { OutsideclickDirective } from '../../outsideclick.directive';
 import { StorageService } from '../../shared/services/storage.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 
@@ -172,10 +172,9 @@ export class ChannelComponent {
     this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
   }
 
-  onUserClick(user: string) {
-     this.message.content += `@${user} `;
+    onUserClick(user: string) {
+    this.message.content += `@${user} `;
     this.isTagUserOpen = false;
-    console.log(`Clicked on user: ${user}`);
   }
 
   ngOnDestroy() {
