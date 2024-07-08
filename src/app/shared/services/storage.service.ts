@@ -27,7 +27,9 @@ export class StorageService implements OnInit {
   uploadedFileType!: string;
   uploadedFileTypeThread!: string;
   fileSizeToBig: boolean = false;
-  wrongFileType:boolean = false;
+  wrongFileType: boolean = false;
+  fileSizeToBigThread: boolean = false;
+  wrongFileTypeThread:boolean = false;
   avatars: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
@@ -103,11 +105,13 @@ export class StorageService implements OnInit {
       return;
     }
     if (file.size > 1048576) {
+       this.fileSizeToBigThread = true;
       this.fileNameTextareaThread = "This file exceeds the size of 1024kb!";
       return;
     }
     if (input.files) {
       this.filesTextareaThread = input.files;
+      this.fileSizeToBigThread = false;
     }
     this.fileNameTextareaThread = file.name;
     if (this.isPdf(file)) {
