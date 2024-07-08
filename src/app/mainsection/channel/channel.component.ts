@@ -114,6 +114,17 @@ export class ChannelComponent {
     this.isEmojiPickerVisible = false;
     this.isTagUserOpen = false;
   }
+
+  onOutsideClickFileUploadPreview(event: Event): void {
+     const target = event.target as HTMLElement;
+    if (target.id === 'messageContent') {
+      return
+    } else {
+      this.clearFileInput();
+      this.storageService.abortUpload();
+    }
+  }
+
   /**
    * Toggles the visibility of the emoji picker.
    * @param event - The event that triggered the emoji picker toggle.
@@ -133,7 +144,8 @@ export class ChannelComponent {
     this.message.content += selectedEmoji;
   }
   
-  triggerFileInput() {
+  triggerFileInput(event: Event) {
+    event.stopPropagation();
     this.fileInput.nativeElement.click();
   }
 
