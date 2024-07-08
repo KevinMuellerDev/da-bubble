@@ -29,7 +29,6 @@ export class StorageService implements OnInit {
   fileSizeToBig: boolean = false;
   wrongFileType: boolean = false;
   fileSizeToBigThread: boolean = false;
-  wrongFileTypeThread: boolean = false;
   avatars: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
@@ -138,7 +137,7 @@ export class StorageService implements OnInit {
   }
 
   async uploadFileAndGetUrlForThread(originalMessageId: string) {
-    if (!this.filesTextareaThread) {
+    if (this.wrongFileType || this.fileSizeToBigThread) {
       return;
     }
     const file = this.filesTextareaThread.item(0) as File;
@@ -190,7 +189,7 @@ export class StorageService implements OnInit {
   }
 
   async uploadFileAndGetUrl(channelId: string) {
-    if (!this.filesTextarea) {
+    if (this.wrongFileType || this.fileSizeToBig) {
       return;
     }
     const file = this.filesTextarea.item(0) as File;

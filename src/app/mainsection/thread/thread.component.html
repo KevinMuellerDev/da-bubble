@@ -185,6 +185,12 @@
   <div class="error-message" *ngIf="!formThread.valid && (formThread.touched || submitClick) && textareaBlur">Inhalt
     mit min. 1 Zeichen erforderlich !
   </div>
+  <div class="error-message" *ngIf="storageService.fileSizeToBigThread && threadService.isActive">
+    Die Datei ist zu groß !
+  </div>
+  <div class="error-message" *ngIf="storageService.wrongFileType && threadService.isActive">
+    falsche Dateitype ! Bitte lade ein jpg oder eine PDF hoch.
+  </div>
   <div id="emojiPickerContainerThreadMessage">
     <emoji-mart [darkMode]=false #emojiPickerContainerThreadMessage [emojiTooltip]=true [showSingleCategory]=true
       [totalFrequentLines]="1" [enableSearch]=false [ngClass]="'emoji-container-default'" appOutsideclick

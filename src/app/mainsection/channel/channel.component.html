@@ -43,7 +43,7 @@
     <div class="error-message" *ngIf="storageService.fileSizeToBig">
         Die Datei ist zu groß !
     </div>
-    <div class="error-message" *ngIf="storageService.wrongFileType">
+    <div class="error-message" *ngIf="storageService.wrongFileType && !threadService.isActive">
         falsche Dateitype ! Bitte lade ein jpg oder eine PDF hoch.
     </div>
     <div id="emojiPickerContainer">

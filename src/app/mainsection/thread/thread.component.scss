@@ -21,7 +21,7 @@
   @include dFlex();
   gap: 5px;
 
-  > span {
+  >span {
     font-size: 24px;
     font-weight: 700;
   }
@@ -170,7 +170,7 @@
   font-weight: 500;
   text-wrap: nowrap;
 
-  > span {
+  >span {
     cursor: pointer;
 
     &:hover {
@@ -196,7 +196,7 @@
   font-weight: 500;
   text-wrap: nowrap;
 
-  > span {
+  >span {
     cursor: pointer;
 
     &:hover {
@@ -221,7 +221,7 @@
   margin-top: 10px;
   @include dFlex();
 
-  > img {
+  >img {
     border-radius: 50%;
     max-width: 70px;
   }
@@ -236,7 +236,7 @@
   @include dFlex();
   gap: 20px;
 
-  > span {
+  >span {
     cursor: pointer;
     font-size: 18px;
     font-weight: 700;
@@ -259,13 +259,13 @@
   white-space: pre-line;
   flex-direction: column;
 
-  > span {
+  >span {
     padding: 15px;
   }
 }
 
 .selected-emoji {
-  > span {
+  >span {
     position: relative;
     cursor: pointer;
     background-color: white;
@@ -303,7 +303,7 @@
   padding: 15px;
   gap: 10px;
 
-  > button {
+  >button {
     font-size: 16px;
     cursor: pointer;
     background-color: $purple1;
@@ -321,7 +321,7 @@
 .edit-message {
   position: relative;
 
-  > textarea {
+  >textarea {
     min-width: 156px;
     min-height: 88px;
     height: fit-content;
@@ -338,7 +338,7 @@
 .edit-message-inverted {
   position: relative;
 
-  > textarea {
+  >textarea {
     min-width: 156px;
     min-height: 88px;
     height: fit-content;
@@ -361,7 +361,7 @@
   width: 100%;
   text-wrap: nowrap;
 
-  > span {
+  >span {
     color: $light-purple;
     font-size: 18px;
   }
@@ -540,6 +540,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("/assets/img/icons/close.svg");
+  background-color: white;
+  border-radius: 30px;
 
   &:hover {
     background-image: url("/assets/img/icons/close_hover.svg");
@@ -553,7 +555,7 @@
   bottom: 215px;
   right: 35px;
 
-  > img {
+  >img {
     border: 3px solid $purple2;
     border-radius: 30px;
     max-width: 250px;
@@ -592,7 +594,7 @@
 .uploaded-file {
   padding: 15px;
 
-  > img {
+  >img {
     max-width: 88px;
     max-height: 88px;
     object-fit: contain;
@@ -601,8 +603,8 @@
     box-shadow: 0px 6px 14px 0px #00000033;
   }
 
-  > a {
-    > img {
+  >a {
+    >img {
       max-width: 88px;
       max-height: 88px;
       object-fit: contain;
@@ -619,7 +621,7 @@
   }
 
   .profile-picture {
-    > img {
+    >img {
       max-width: 50px;
     }
   }
@@ -647,7 +649,8 @@
 
   .edit-Message-control {
     padding: 12px;
-    > button {
+
+    >button {
       font-size: 14px;
     }
   }
@@ -655,7 +658,7 @@
 
 @media screen and (max-width: 1024px) {
   .thread-head-left-side {
-    > span {
+    >span {
       font-size: 22px;
     }
   }
@@ -677,7 +680,8 @@
   .edit-Message-control {
     gap: 8px;
     padding: 10px;
-    > button {
+
+    >button {
       font-size: 12px;
     }
   }

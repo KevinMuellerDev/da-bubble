@@ -12,6 +12,7 @@ import { OutsideclickDirective } from '../../outsideclick.directive';
 import { StorageService } from '../../shared/services/storage.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { ThreadService } from '../../shared/services/thread.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ import { Subscription } from 'rxjs';
 export class ChannelComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
+  threadService: ThreadService = inject(ThreadService);
   dmData!: any;
   message = {
     content: ''
