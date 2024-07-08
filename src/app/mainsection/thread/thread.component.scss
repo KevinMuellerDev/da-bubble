@@ -301,6 +301,7 @@
 .edit-Message-control {
   @include dFlex($jc: space-between);
   padding: 15px;
+  gap: 10px;
 
   > button {
     font-size: 16px;
@@ -612,6 +613,46 @@
   }
 }
 
+@media screen and (max-width: 1600px) {
+  .single-message-container {
+    padding: 20px 24px !important;
+  }
+
+  .profile-picture {
+    > img {
+      max-width: 50px;
+    }
+  }
+
+  .message-wrapper {
+    margin-left: 16px;
+  }
+
+  .inverted-message {
+    .message-wrapper {
+      margin-right: 16px;
+      margin-left: 0;
+    }
+  }
+
+  .edit-message-left {
+    top: 48px;
+    left: 0px;
+  }
+
+  .edit-message-right {
+    top: 48px;
+    right: 0px;
+  }
+
+  .edit-Message-control {
+    padding: 12px;
+    > button {
+      font-size: 14px;
+    }
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .thread-head-left-side {
     > span {
@@ -630,20 +671,14 @@
   .thread-container {
     padding: 16px 24px !important;
   }
-
-  .single-message-container {
-    padding: 20px 24px !important;
-  }
 }
 
-@media screen and (max-width: 600px) {
-  .edit-message-left {
-    top: 48px;
-    left: 0px;
-  }
-
-  .edit-message-right {
-    top: 48px;
-    right: 0px;
+@media screen and (max-width: 340px) {
+  .edit-Message-control {
+    gap: 8px;
+    padding: 10px;
+    > button {
+      font-size: 12px;
+    }
   }
 }

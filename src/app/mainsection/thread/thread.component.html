@@ -42,9 +42,7 @@
   </div>
   <div class="message-complete"
     *ngFor="let message of  threadService.messages ; let i = index; let isEven = even; let isLast = last">
-
     <div class="single-message-container" [ngClass]="{ 'inverted-message': message.id == userId}">
-
       <div [ngClass]="{'interaction-container-inverted' : message.id == userId}" class="interaction-container ">
         <div (click)="toggleEmojiPicker(i);toggleEvent($event)" class="add-reaction-icon"></div>
         <div #editMessageContainer id="editMessageContainer" appOutsideclick (outsideClick)="onOutsideClick(i,$event)"
@@ -63,7 +61,6 @@
             bearbeiten</span>
         </div>
       </div>
-
       <div id="emojiPickerContainer-thread-{{i}}">
         <emoji-mart [darkMode]=false #emojiPickerContainerThread [emojiTooltip]=true [showSingleCategory]=true
           [enableSearch]=false appOutsideclick (outsideClick)="onOutsideClick(i,$event)" [totalFrequentLines]="1"
@@ -71,7 +68,6 @@
           (emojiClick)="onAddEmoji($event,i,message.id,userId);updateMessageAfterEmojiSelection(i)"
           *ngIf="emojiService.showEmojiPickerArrayThread[i]" set="google"></emoji-mart>
       </div>
-
       <div class="profile-picture">
         <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
       </div>
@@ -99,7 +95,7 @@
             <textarea class="text-area-editable" name="editThreadMessageTextarea" [attr.data-index]="i"
               [id]="'editThreadMessageTextarea-' + i" [(ngModel)]="newMessage.message" (focus)="toggleEvent($event)"
               (keyup)="onKeyup($event, editMessageThreadForm, i)">
-                                            </textarea>
+            </textarea>
             <div class="edit-Message-control">
               <button type="submit" class="edit-message-button">Speichern</button>
               <button type="button" (click)="editMessageAbort(i)" class="edit-message-button">Abbrechen</button>
@@ -116,7 +112,6 @@
               {{ message.uploadedFile.name}}</p>
           </div>
         </div>
-
         <div class="selected-emoji">
           <span *ngFor="let emojiData of message.emoji; let e = index" (mouseenter)="onMouseEnter(i, e)"
             (mouseleave)="onMouseLeave()" (click)="onUpdateReaction(e, i, message.emoji[e].emoji, message.id, userId)"
@@ -146,7 +141,6 @@
             </div>
           </span>
         </div>
-
       </div>
     </div>
   </div>
@@ -177,7 +171,7 @@
         [(ngModel)]="messageThread.content" placeholder="Antworten..."
         [ngClass]="{ 'focus-visible-thread-invalid': !formThread.valid  && (formThread.touched || submitClick) && textareaBlur }"
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
-                          </textarea>
+      </textarea>
       <div class="thread-message-icons">
         <div class="add-icon" (click)="triggerFileInput()"></div>
         <input type="file" #fileInputThread (change)="onFileSelected($event)" style="display: none;" />
@@ -198,8 +192,5 @@
       *ngIf="isEmojiPickerVisibleThreadMessageInput" set="google"></emoji-mart>
   </div>
 </div>
-
-
 }
-
 }
