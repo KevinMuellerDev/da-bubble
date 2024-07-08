@@ -159,8 +159,6 @@ export class ChannelComponent {
 
   }
 
-  // pdf muss als sicher eingestuft werden und anschlißened in eiegnem HTML / mit neuem 
-  // Tab geöffnet werden.
   openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
       const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
