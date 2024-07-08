@@ -25,7 +25,6 @@ export class UserService {
   key!: string;
 
   constructor(private router: Router) {
-    console.log('bin da');
     if (sessionStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
       this.router.navigate(['/']);
   }
@@ -130,6 +129,13 @@ export class UserService {
     });
   }
 
+  /**
+   * The `updateUserProfilePicture` function updates the profile picture of the current user in a
+   * Firestore database.
+   * @param {string} picturePath - The `picturePath` parameter in the `updateUserProfilePicture` function
+   * is a string that represents the file path or URL of the new profile picture that will be updated in
+   * the user's profile.
+   */
   async updateUserProfilePicture(picturePath: string) {
     await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
       profilePicture: picturePath
