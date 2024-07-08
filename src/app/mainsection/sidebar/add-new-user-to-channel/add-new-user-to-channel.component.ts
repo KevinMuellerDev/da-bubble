@@ -109,6 +109,4 @@ export class AddNewUserToChannelComponent {
       this.channelService.newChannel?.users.push(user);
     });
   }
-
-
 }

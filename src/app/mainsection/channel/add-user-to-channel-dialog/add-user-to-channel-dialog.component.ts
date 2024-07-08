@@ -7,7 +7,6 @@ import { UserService } from '../../../shared/services/user.service';
 import { StateService } from '../../../shared/services/state-service.service';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
 
-
 @Component({
   selector: 'app-add-user-to-channel-dialog',
   standalone: true,

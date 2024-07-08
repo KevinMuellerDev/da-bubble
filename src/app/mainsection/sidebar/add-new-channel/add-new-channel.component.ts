@@ -58,7 +58,6 @@ export class AddNewChannelComponent {
       this.channelNameExists = true;
       return
     }
-
     this.prepareNewChannelData();
     this.channelService.newChannel = this.newChannel;
     createNewChannel.reset();
