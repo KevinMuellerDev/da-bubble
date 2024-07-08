@@ -5,7 +5,8 @@
         @if (i == 0 || (i != 0 && isNewDate(channelService.messages[i-1].timestamp, message.timestamp))) {
         <div class="divider-container">
             <div class="divider">
-                <span>{{message.timestamp | date: 'longDate':'': 'de'}}</span>
+                <span *ngIf="(message.timestamp | date: 'longDate':'': 'de') !== (dateToday | date: 'longDate':'': 'de')">{{message.timestamp | date: 'longDate':'': 'de'}}</span>
+                <span *ngIf="(message.timestamp | date: 'longDate':'': 'de') == (dateToday | date: 'longDate':'': 'de')">Heute</span>
             </div>
         </div>
         }
