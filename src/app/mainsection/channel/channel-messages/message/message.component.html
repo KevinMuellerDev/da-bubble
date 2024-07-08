@@ -5,8 +5,11 @@
         @if (i == 0 || (i != 0 && isNewDate(channelService.messages[i-1].timestamp, message.timestamp))) {
         <div class="divider-container">
             <div class="divider">
-                <span *ngIf="(message.timestamp | date: 'longDate':'': 'de') !== (dateToday | date: 'longDate':'': 'de')">{{message.timestamp | date: 'longDate':'': 'de'}}</span>
-                <span *ngIf="(message.timestamp | date: 'longDate':'': 'de') == (dateToday | date: 'longDate':'': 'de')">Heute</span>
+                <span
+                    *ngIf="(message.timestamp | date: 'longDate':'': 'de') !== (dateToday | date: 'longDate':'': 'de')">{{message.timestamp
+                    | date: 'longDate':'': 'de'}}</span>
+                <span
+                    *ngIf="(message.timestamp | date: 'longDate':'': 'de') == (dateToday | date: 'longDate':'': 'de')">Heute</span>
             </div>
         </div>
         }
@@ -90,8 +93,7 @@
                         <ng-container *ngIf="message.emoji[e].count > 1">
                             {{ message.emoji[e].count }}
                         </ng-container>
-                        <div class="show-reactions" *ngIf="hoveredMessageIndex === i && hoveredEmojiIndex === e"
-                            (mouseenter)="onMouseEnter(i, e)" (mouseleave)="onMouseLeave()">
+                        <div class="show-reactions" *ngIf="hoveredMessageIndex === i && hoveredEmojiIndex === e">
                             <ng-container *ngIf="emojiData.users.length > 0">
                                 <span>{{ emojiData.emoji }}</span>
                                 <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users">
