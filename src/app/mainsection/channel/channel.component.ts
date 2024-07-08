@@ -157,6 +157,7 @@ export class ChannelComponent {
     const input = event.target as HTMLInputElement;
    this.storageService.onFileSelectedTextarea(input);
    this.storageService.uploadFileAndGetUrl(this.channelService.currentChannel);
+   
   }
 
   // pdf muss als sicher eingestuft werden und anschlißened in eiegnem HTML / mit neuem 

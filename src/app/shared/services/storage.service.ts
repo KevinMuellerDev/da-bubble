@@ -26,6 +26,8 @@ export class StorageService implements OnInit {
   downloadUrlThread!: string;
   uploadedFileType!: string;
   uploadedFileTypeThread!: string;
+  fileSizeToBig: boolean = false;
+  wrongFileType:boolean = false;
   avatars: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
@@ -79,11 +81,13 @@ export class StorageService implements OnInit {
       return;
     }
     if (file.size > 1048576) {
+      this.fileSizeToBig = true;
       this.fileNameTextarea = "This file exceeds the size of 1024kb!";
       return;
     }
     if (input.files) {
       this.filesTextarea = input.files;
+      this.fileSizeToBig = false;
     }
     this.fileNameTextarea = file.name;
     if (this.isPdf(file)) {
@@ -182,8 +186,8 @@ export class StorageService implements OnInit {
   }
 
   async uploadFileAndGetUrl(channelId: string) {
-    if (this.filesTextarea.length < 0) {
-      return
+    if (!this.filesTextarea) {
+      return;
     }
     const file = this.filesTextarea.item(0) as File;
     this.uploadedFileType = file.type;
@@ -207,10 +211,16 @@ export class StorageService implements OnInit {
    */
   isValid(input: HTMLInputElement) {
     let dataType = input.files?.item(0)?.type
-    dataType = dataType?.split('/').pop();
+    dataType = dataType?.split('/').pop();    
     console.log('your file size is', input.files?.item(0)?.size!, 'bytes');
     console.log(input.files);
-    return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'png' || dataType === 'gif' || dataType === 'pdf')
+    if (dataType !== "jpeg" && dataType !== "jpg" && dataType !== "pdf") {
+      this.wrongFileType = true;
+    return 
+  } else {
+    this.wrongFileType = false;
+    return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'pdf')
+  }
   }
 
   /**
