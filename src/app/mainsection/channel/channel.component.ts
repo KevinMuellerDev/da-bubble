@@ -152,6 +152,7 @@ export class ChannelComponent {
 
   clearFileInput() {
     this.fileInput.nativeElement.value = '';
+    this.messageContent.nativeElement.focus();
   }
 
   async onFileSelected(event: Event) {

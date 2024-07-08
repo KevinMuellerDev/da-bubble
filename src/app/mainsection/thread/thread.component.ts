@@ -317,6 +317,7 @@ export class ThreadComponent {
 
   clearFileInput() {
     this.fileInputThread.nativeElement.value = '';
+    this.threadMessageContent.nativeElement.focus();
   }
 
   highlightUsernames(message: string): string {
