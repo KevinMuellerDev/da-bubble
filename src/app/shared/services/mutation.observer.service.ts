@@ -18,7 +18,6 @@ export class MutationObserverService {
     }
     if (isThread) {
       element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
-      console.log("ich scrolle einmal weil ich ein thread bin");
     }
     this.initialChildCount = element.nativeElement.children.length;
     this.mutationObserver = new MutationObserver((mutations) => {
@@ -28,11 +27,9 @@ export class MutationObserverService {
           this.initialChildCount = currentChildCount;
           element.nativeElement.scrollTop = element.nativeElement.scrollHeight;
           this.domChanges.next([mutation]);
-          console.log('ich scrolle korrekt weil ich cool bin');
         }
         else if (currentChildCount != this.initialChildCount) {
           this.initialChildCount = element.nativeElement.children.length;
-          console.log('Child count changed but not increased, updated initial count');
         }
       });
     });
@@ -42,13 +39,11 @@ export class MutationObserverService {
       subtree: false,
       characterData: false
     });
-    console.log('MutationObserver started observing');
   }
 
   public disconnect(): void {
     if (this.mutationObserver) {
       this.mutationObserver.disconnect();
-      console.log('MutationObserver disconnected');
     }
   }
 }
