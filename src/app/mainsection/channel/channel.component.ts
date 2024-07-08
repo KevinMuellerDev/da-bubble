@@ -185,8 +185,13 @@ export class ChannelComponent {
 
   tagUser(event: Event) {
     event.stopPropagation();
+    this.tagUserList = [];
     this.isTagUserOpen = !this.isTagUserOpen;
-    this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
+    if (this.channelService.privateMsg) {
+      this.tagUserList.push(this.channelService.privateMsgData.name) ;
+    } else if (this.channelService.channelMsg) {
+     this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
+    }
   }
 
   onUserClick(user: string) {

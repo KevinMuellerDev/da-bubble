@@ -99,8 +99,12 @@ body {
 }
 
 .highlighted {
-    color: #ffe000;
-    font-weight: 700;
+    color: #746600d8;
+    font-weight: 600;
+    text-shadow: #ffffff 1px 1px 2px;
+    background-color: $bg-color;
+    border-radius: 30px;
+    padding: 4px 6px;
 }
 
 .emoji-mart-right {
