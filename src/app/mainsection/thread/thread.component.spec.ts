@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ThreadComponent } from './thread.component';
 
 describe('ThreadComponent', () => {
@@ -10,8 +9,8 @@ describe('ThreadComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ThreadComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ThreadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

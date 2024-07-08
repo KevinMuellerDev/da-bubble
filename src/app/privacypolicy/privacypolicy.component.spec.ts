@@ -12,7 +12,7 @@ describe('PrivacypolicyComponent', () => {
       providers: [{ provide: ActivatedRoute, useValue: {} }]
     })
 
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PrivacypolicyComponent);
     component = fixture.componentInstance;

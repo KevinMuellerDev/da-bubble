@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChannelMessagesComponent } from './channel-messages.component';
 
 describe('ChannelMessagesComponent', () => {
@@ -10,8 +9,8 @@ describe('ChannelMessagesComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ChannelMessagesComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ChannelMessagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
