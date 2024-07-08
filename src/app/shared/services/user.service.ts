@@ -130,12 +130,11 @@ export class UserService {
     });
   }
 
-  async updateUserProfilePicture(picturePath:string) {
+  async updateUserProfilePicture(picturePath: string) {
     await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
       profilePicture: picturePath
     });
   }
-
 
   /**
    * Creates a new user in firestore
@@ -180,10 +179,10 @@ export class UserService {
   }
 
   /**
- * Function to assign incoming data to createUserInfo
- * @param obj - FormGroup which contains data from the register form
- * @param uid - user ID from authentification
- */
+   * Function to assign incoming data to createUserInfo
+   * @param obj - FormGroup which contains data from the register form
+   * @param uid - user ID from authentification
+   */
   prepareDataNewUserGoogle(obj: any) {
     this.createUserInfo.name = obj.displayName;
     this.createUserInfo.email = obj.email;

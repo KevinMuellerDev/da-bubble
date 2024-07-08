@@ -4,7 +4,6 @@ import { MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-verify',
   standalone: true,

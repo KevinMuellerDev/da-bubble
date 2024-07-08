@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ChannelService } from '../../shared/services/channel.service';
-import { ThreadService } from '../../shared/services/thread.service';  
+import { ThreadService } from '../../shared/services/thread.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,14 +37,11 @@ export class EmojiService {
     const emoji = event['emoji']['native'];
     const userMatched = messageId === userId;
     const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
-
     const foundEmoji = this.checkAndAddEmoji(index, emoji, userId, userMatched, source);
-
     if (this.messageEdit || this.threadMessageEdit) {
       this.addEmojiToEditedMessage(index, emoji, source);
       return;
     }
-
     if (!foundEmoji) {
       this.addNewEmoji(index, emoji, userMatched, userId, source);
       this.updateMessage(index, source);
@@ -117,7 +114,6 @@ export class EmojiService {
         emojiUserIds.push(userId);
       }
     }
-
     this.updateMessage(currentMessageIndex, source);
   }
 
