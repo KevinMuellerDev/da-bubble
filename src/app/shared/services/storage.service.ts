@@ -74,7 +74,6 @@ export class StorageService implements OnInit {
     this.fileUrl = this.files.item(0);
   }
 
-  // only for elements from Textarea upload size not changed yet
   onFileSelectedTextarea(input: HTMLInputElement) {
     const file = input.files?.item(0);
     if (!file || !this.isValid(input)) {
@@ -148,7 +147,6 @@ export class StorageService implements OnInit {
 
   private handlePdfFile(file: File) {
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
-    // Platzhalterbild pdf wird erst nach einem klick auf das Bild geöffnet
     this.fileUrlTextarea = 'assets/img/pdfDefault.jpg';
   }
 
