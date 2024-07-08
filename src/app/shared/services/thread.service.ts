@@ -39,10 +39,13 @@ export class ThreadService {
     this.restartListener(data);
   }
 
+/**
+ * The `startListenerChannel` function sets up a listener for changes in a Firestore query and updates
+ * the messages array accordingly.
+ */
   startListenerChannel() {
     if (this.isSubscribed)
       this.unsub();
-    console.log('ich bin der fehler');
 
     this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
       this.messages = [];
@@ -56,6 +59,14 @@ export class ThreadService {
     });
   }
 
+/**
+ * The `createThreadMessage` function asynchronously creates a new message in a thread, updates the
+ * thread information, and handles file uploads if present.
+ * @param {any} obj - The `createThreadMessage` function is an asynchronous function that creates a new
+ * message thread. It takes an `obj` parameter which contains the data for the new message being
+ * created. The function first adds the new message document to a collection using `addDoc`, then
+ * updates the thread with the new message
+ */
   async createThreadMessage(obj: any) {
     await addDoc(this.refThreadMessages(), obj)
       .then(async (docRef) => {
@@ -67,7 +78,6 @@ export class ThreadService {
           this.fileData.src = this.storageService.downloadUrlThread;
           this.fileData.name = this.storageService.fileNameTextareaThread;
           this.fileData.type = this.storageService.uploadedFileTypeThread;
-
           await updateDoc(this.refUpdateFilePath(docRef.id), {
             uploadedFile: this.fileData
           });
@@ -76,11 +86,15 @@ export class ThreadService {
       });
   }
 
+
   refUpdateFilePath(id: string) {
     return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread', id)
   }
 
 
+/**
+ * The clearFileData function resets file data and aborts any ongoing file upload for a thread.
+ */
   clearFileData() {
     this.fileData = { src: '', name: '', type: '' };
     this.storageService.abortUploadForThread();
@@ -109,6 +123,14 @@ export class ThreadService {
     this.startListenerChannel();
   }
 
+/**
+ * The `updateChannelMessage` function asynchronously updates a specific message in a channel based on
+ * a matching timestamp.
+ * @param {any} data - The `data` parameter in the `updateChannelMessage` contains
+ * information related to updating a channel message. It likely includes properties such as
+ * `timestamp`, `emoji`, and `message` that are used to identify and update a specific message in a
+ * channel.
+ */
   async updateChannelMessage(data: any) {
     const querySnapshot = await getDocs(query(this.refThreadMessages()));
     querySnapshot.forEach(async (dataset) => {
