@@ -15,7 +15,6 @@
         }
         <div [id]="'singleMessage-'+i" #singleMessage [ngClass]="{ 'inverted-message': userId == message.id}"
             class="single-message-container">
-
             <div [ngClass]="{ 'interaction-container-inverted': userId == message.id }" class="interaction-container">
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddCheckEmoji($event,i,message.id,userId)"
                     [size]="27" emoji="white_check_mark" set="google"></ngx-emoji>
@@ -33,8 +32,6 @@
                 </div>
 
             </div>
-
-
             <div class="profile-picture">
                 <img referrerpolicy="no-referrer" [src]="message.profilePicture" />
             </div>
@@ -82,9 +79,6 @@
                             *ngIf="emojiService.showEmojiPickerArray[i]" set="google"></emoji-mart>
                     </div>
                 </div>
-
-
-
                 <div class="selected-emoji">
                     <span *ngFor="let emojiData of message.emoji; let e = index" (mouseenter)="onMouseEnter(i, e)"
                         (mouseleave)="onMouseLeave()"
@@ -113,8 +107,6 @@
                         </div>
                     </span>
                 </div>
-
-
                 <div *ngIf="channelService.channelMsg" class="message-reply-wrapper">
                     <div class="message-replies">
                         <span *ngIf="message.repliesCount > 1" (click)="showThreadBar(message)">{{ message.repliesCount
@@ -166,6 +158,4 @@
         </div>
     </div>
     }
-
-
 </div>
