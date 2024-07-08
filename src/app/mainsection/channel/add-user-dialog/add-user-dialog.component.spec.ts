@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddUserDialogComponent } from './add-user-dialog.component';
 
 describe('AddUserDialogComponent', () => {
@@ -10,8 +9,8 @@ describe('AddUserDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AddUserDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(AddUserDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

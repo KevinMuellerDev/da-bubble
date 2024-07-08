@@ -15,7 +15,6 @@ export class AuthService {
 
   /**
    * Function to login into firebase auth
-   * 
    * @param key string - key to login to firebase auth
    */
   async verifyChange(key: string) {
@@ -24,18 +23,13 @@ export class AuthService {
     await signInWithEmailAndPassword(auth, this.userService.userInfo.email, key)
       .then(() => {
         console.log('succesfull');
-        
       }).catch((error) => {
         console.error(error.code, error.message);
       });
-
-
   }
-
 
   /**
    * Update email of the user in firebase auth
-   * 
    * @param mail string - prvoided email
    */
   async updateUserMail(mail: string) {
@@ -47,23 +41,20 @@ export class AuthService {
     });
   }
 
-
   /**
    * Update Password of the user who forogt his password
-   * 
    * @param code string - oobCode of the url
    * @param key string - changed password as a string
    */
-  async confirmNewPassword(code:string ,key:string){
+  async confirmNewPassword(code: string, key: string) {
     const auth = getAuth();
-;
+    ;
     await confirmPasswordReset(auth, code, key)
-    .then(() => {
-      console.log(key);
-    })
-    .catch((error) => {
-      console.error(error.code, '', error.message);
-    })
+      .then(() => {
+        console.log(key);
+      })
+      .catch((error) => {
+        console.error(error.code, '', error.message);
+      })
   }
-
 }

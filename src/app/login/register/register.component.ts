@@ -6,7 +6,6 @@ import { FirebaseError } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../../shared/services/user.service';
 
-
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -37,10 +36,14 @@ export class RegisterComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Executes after the view has been initialized.
+   * Sets a timeout to focus on the 'nameInput' element after 1 second.
+   */
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.nameInput.nativeElement.focus();
-    },1000);
+    }, 1000);
   }
 
   /**

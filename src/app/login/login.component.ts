@@ -206,6 +206,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.showPassword = !this.showPassword;
   }
 
+  /**
+   * A function that removes the intro animation flag and corresponding session storage item.
+   */
   removeShowIntroAnimationFlag() {
     this.showIntroAnimation = false;
     sessionStorage.removeItem('hasSeenAnimation');

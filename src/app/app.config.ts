@@ -8,8 +8,6 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Environment } from '../../environments/environment';
 
-
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions()),

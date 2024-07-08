@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChooseavatarComponent } from './chooseavatar.component';
 
 describe('ChooseavatarComponent', () => {
@@ -10,8 +9,8 @@ describe('ChooseavatarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ChooseavatarComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ChooseavatarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

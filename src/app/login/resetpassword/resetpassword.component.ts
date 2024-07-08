@@ -36,21 +36,18 @@ export class ResetpasswordComponent {
   isDisabled = true;
   constructor(private router: Router) { }
 
-
-/**
- * The `sendEmail` function asynchronously sends a password reset email to a specified email address
- * and then navigates to the home page after a delay.
- */
+  /**
+   * The `sendEmail` function asynchronously sends a password reset email to a specified email address
+   * and then navigates to the home page after a delay.
+   */
   async sendEmail() {
     this.popupState = 'in';
-
     const auth = getAuth();
     await sendPasswordResetEmail(auth, 'kevin.mueller@fenrirdev.de')
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-
     setTimeout(() => {
       this.popupState = 'out';
       this.router.navigate(['/']);

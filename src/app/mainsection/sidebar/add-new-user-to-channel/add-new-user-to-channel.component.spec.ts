@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddNewUserToChannelComponent } from './add-new-user-to-channel.component';
 
 describe('AddNewUserToChannelComponent', () => {
@@ -10,8 +9,8 @@ describe('AddNewUserToChannelComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AddNewUserToChannelComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(AddNewUserToChannelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

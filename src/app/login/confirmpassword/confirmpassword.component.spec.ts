@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ConfirmpasswordComponent } from './confirmpassword.component';
 
 describe('ConfirmpasswordComponent', () => {
@@ -10,8 +9,8 @@ describe('ConfirmpasswordComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ConfirmpasswordComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ConfirmpasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -12,7 +12,7 @@ describe('ImprintComponent', () => {
       providers: [{ provide: ActivatedRoute, useValue: {} }]
     })
 
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ImprintComponent);
     component = fixture.componentInstance;

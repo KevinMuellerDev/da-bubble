@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MainsectionComponent } from './mainsection.component';
 
 describe('MainsectionComponent', () => {
@@ -10,8 +9,8 @@ describe('MainsectionComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MainsectionComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(MainsectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
