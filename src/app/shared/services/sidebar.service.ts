@@ -9,7 +9,7 @@ import { ChannelService } from './channel.service';
 export class SidebarService {
   firestore: Firestore = inject(Firestore);
   userService: UserService = inject(UserService);
-  channelService:ChannelService = inject(ChannelService);
+  channelService: ChannelService = inject(ChannelService);
   channels: any[] = [];
   channelUsers: any[] = [];
   userDmIds: string[] = [];
@@ -17,10 +17,8 @@ export class SidebarService {
 
   constructor() { }
 
-
   /**
    * Starts snapshot on Channels Collection
-   * 
    * @returns Unsubscribe
    */
   retrieveChannels() {
@@ -30,7 +28,6 @@ export class SidebarService {
         if (this.userService.userChannels.includes(channel.id))
           this.channels.push(channel.data())
         console.log(this.channels);
-        
       });
       if (this.channelService.channelMsg) {
         this.channelService.refreshChannelData();
@@ -39,11 +36,9 @@ export class SidebarService {
     return unsubscribe
   }
 
-
   /**
    * Starts snapshot on userchannels and rearranges the channels in the sidebar when a user left or has been
    * added to a channel.
-   * 
    * @returns Unsubscribe
    */
   retrieveCurrentChannels() {
@@ -66,14 +61,13 @@ export class SidebarService {
         this.userDmIds.push(userDm.data()['dmUserId'])
       });
     });
-
     return unsubscribe
   }
 
   retrieveDmUserData() {
     const unsubscribe = onSnapshot(query(this.userService.refUserProfile()), (querySnapshot) => {
       setTimeout(() => {
-        this.userDmData=[];
+        this.userDmData = [];
         querySnapshot.forEach((userDm) => {
           if (this.userDmIds.includes(userDm.id)) {
             const data: any = userDm.data();
@@ -83,16 +77,13 @@ export class SidebarService {
         });
       }, 25);
     });
-
     return unsubscribe
   }
 
-
-  getDmStatus(isLoggedIn:boolean){
+  getDmStatus(isLoggedIn: boolean) {
     const loggedIn = isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
-
 
   /**
    * Pushes the actual channels of the user into the channel array
@@ -100,14 +91,13 @@ export class SidebarService {
   async removeChannelUser() {
     const querySnapshot = await getDocs(query(this.refChannels()));
     this.channels = [],
-    this.channelService.currentChannelUsers = [];
-      querySnapshot.forEach(channel => {
-        if (this.userService.userChannels.includes(channel.id)) {
-          this.channels.push(channel.data())
-        }
-      });
+      this.channelService.currentChannelUsers = [];
+    querySnapshot.forEach(channel => {
+      if (this.userService.userChannels.includes(channel.id)) {
+        this.channels.push(channel.data())
+      }
+    });
   }
-
 
   /**
    * Firestore collection reference for Channels
@@ -127,9 +117,7 @@ export class SidebarService {
     });
   }
 
-
   refUserDirectMsgs() {
     return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'directmessages')
   }
-
 }
