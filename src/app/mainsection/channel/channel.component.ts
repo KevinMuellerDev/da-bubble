@@ -67,12 +67,9 @@ export class ChannelComponent {
     this.submitClick = true;
     this.textareaBlur = true;
     if (!form.valid) {
-      console.log(form)
       form.reset();
     } else if (form.valid) {
-
       this.arrangeDirectData();
-
       form.reset();
       this.messageContent.nativeElement.focus()
       this.submitClick = false;
