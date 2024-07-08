@@ -190,6 +190,10 @@ export class ThreadComponent {
       this.selectedEmojis = [];
       formThread.reset();
       this.emojiService.initMaps('thread')
+      setTimeout(() => {
+        this.clearFileInput();
+      }, 500);
+      
     }
   }
 

@@ -189,6 +189,7 @@ export class StorageService implements OnInit {
   }
 
   async uploadFileAndGetUrl(channelId: string) {
+    
     if (this.wrongFileType || this.fileSizeToBig) {
       return;
     }

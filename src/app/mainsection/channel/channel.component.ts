@@ -77,7 +77,7 @@ export class ChannelComponent {
       this.messageContent.nativeElement.focus()
       this.submitClick = false;
       this.selectedEmojis = [];
-      //this.storageService.abortUpload();
+      this.clearFileInput();
     }
   }
 
