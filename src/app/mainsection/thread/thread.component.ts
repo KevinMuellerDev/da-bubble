@@ -74,7 +74,6 @@ export class ThreadComponent {
 
   ngAfterViewChecked() {
     if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
-      console.log(this.scrollContainer);
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
