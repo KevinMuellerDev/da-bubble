@@ -145,8 +145,8 @@
     </div>
   </div>
   <div
-    *ngIf="storageService.fileUrlTextareaThread !== null && storageService.fileUrlTextareaThread !== undefined && storageService.fileUrlTextareaThread !== ''"
-    class="file-preview">
+    *ngIf="storageService.fileUrlTextareaThread !== '' && storageService.fileNameTextareaThread !== '' && !storageService.wrongFileType && !storageService.fileSizeToBigThread"
+    class="file-preview" appOutsideclick (outsideClick)="  onOutsideClickFileUploadPreview($event)">
     <img *ngIf="storageService.isImage(storageService.filesTextareaThread?.item(0))"
       [src]="storageService.fileUrlTextareaThread" alt="File Preview">
     <img *ngIf="storageService.isPdf(storageService.filesTextareaThread?.item(0))"

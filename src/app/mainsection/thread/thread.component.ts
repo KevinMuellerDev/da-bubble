@@ -110,6 +110,16 @@ export class ThreadComponent {
     this.isTagUserOpen = false;
   }
 
+  onOutsideClickFileUploadPreview(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (target.id === 'threadMessageContent') {
+      return
+    } else {
+      this.clearFileInput();
+      this.storageService.abortUploadForThread();
+    }
+  }
+
   getUsernameByUserId(emojiUserId: string): string | undefined {
     const currentChannelUsers = this.channelService.currentChannelUsers;
     const user = currentChannelUsers.find(user => user.id === emojiUserId);
