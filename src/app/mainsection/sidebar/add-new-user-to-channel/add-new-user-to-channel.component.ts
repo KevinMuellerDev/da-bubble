@@ -68,6 +68,9 @@ export class AddNewUserToChannelComponent {
     });
   }
 
+  /**
+   * The `getMenu` function opens the menu by calling the `openMenu` method on the `trigger` object.
+   */
   getMenu() {
     this.trigger.openMenu();
   }
@@ -102,6 +105,10 @@ export class AddNewUserToChannelComponent {
     this.specificUserInput?.nativeElement.focus();
   }
 
+  /**
+   * The function `getUsersFromChannel` asynchronously retrieves users from a channel and adds them to a
+   * user list.
+   */
   async getUsersFromChannel() {
     this.userList = [];
     await this.sidebarService.getUsersFromChannel();

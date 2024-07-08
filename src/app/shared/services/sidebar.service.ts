@@ -27,7 +27,6 @@ export class SidebarService {
       querySnapshot.forEach(channel => {
         if (this.userService.userChannels.includes(channel.id))
           this.channels.push(channel.data())
-        console.log(this.channels);
       });
       if (this.channelService.channelMsg) {
         this.channelService.refreshChannelData();
@@ -54,6 +53,12 @@ export class SidebarService {
     return unsubscribe
   }
 
+/**
+ * The function `retrieveCurrentDirectMsgs` retrieves the current direct messages for a user and
+ * returns an unsubscribe function.
+ * @returns The `unsubscribe` function is being returned from the `retrieveCurrentDirectMsgs()`
+ * function.
+ */
   retrieveCurrentDirectMsgs() {
     const unsubscribe = onSnapshot(query(this.refUserDirectMsgs()), (querySnapshot) => {
       this.userDmIds = [];
@@ -64,6 +69,11 @@ export class SidebarService {
     return unsubscribe
   }
 
+/**
+ * The function `retrieveDmUserData` retrieves user data from Firestore based on specific user IDs and
+ * updates the `userDmData` array asynchronously.
+ * @returns The `unsubscribe` function is being returned from the `retrieveDmUserData()` function.
+ */
   retrieveDmUserData() {
     const unsubscribe = onSnapshot(query(this.userService.refUserProfile()), (querySnapshot) => {
       setTimeout(() => {
@@ -71,8 +81,7 @@ export class SidebarService {
         querySnapshot.forEach((userDm) => {
           if (this.userDmIds.includes(userDm.id)) {
             const data: any = userDm.data();
-            this.userDmData.push(data)
-            console.table(this.userDmData);
+            this.userDmData.push(data);
           }
         });
       }, 25);
@@ -80,6 +89,13 @@ export class SidebarService {
     return unsubscribe
   }
 
+/**
+ * The function `getDmStatus` returns a CSS class name based on the user's login status.
+ * @param {boolean} isLoggedIn - The `isLoggedIn` parameter is a boolean value that indicates whether a
+ * user is currently logged in or not.
+ * @returns The function `getDmStatus` returns either 'online-div' or 'offline-div' based on the value
+ * of the `isLoggedIn` parameter.
+ */
   getDmStatus(isLoggedIn: boolean) {
     const loggedIn = isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
@@ -107,13 +123,16 @@ export class SidebarService {
     return collection(this.firestore, "Channels")
   }
 
+/**
+ * The function `getUsersFromChannel` retrieves users from a specific channel document in Firestore and
+ * adds them to an array.
+ */
   async getUsersFromChannel() {
     const docRef = doc(this.firestore, "Channels", "eGATth4XDS0ztUbhnYsR");
     const docSnap = await getDoc(docRef);
     const channel: any = docSnap.data();
     channel.users.forEach((element: any) => {
       this.channelUsers.push(element);
-      console.log(this.channelUsers);
     });
   }
 

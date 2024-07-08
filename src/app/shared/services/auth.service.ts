@@ -21,9 +21,8 @@ export class AuthService {
     const auth = getAuth();
     console.log(this.userService.userInfo.email);
     await signInWithEmailAndPassword(auth, this.userService.userInfo.email, key)
-      .then(() => {
-        console.log('succesfull');
-      }).catch((error) => {
+      .then(() => {})
+      .catch((error) => {
         console.error(error.code, error.message);
       });
   }
@@ -34,9 +33,8 @@ export class AuthService {
    */
   async updateUserMail(mail: string) {
     const auth = getAuth();
-    updateEmail(auth.currentUser as User, mail).then(() => {
-      console.log(auth.currentUser);
-    }).catch((error) => {
+    updateEmail(auth.currentUser as User, mail).then(() => {})
+    .catch((error) => {
       console.error(error);
     });
   }
@@ -50,9 +48,7 @@ export class AuthService {
     const auth = getAuth();
     ;
     await confirmPasswordReset(auth, code, key)
-      .then(() => {
-        console.log(key);
-      })
+      .then(() => {})
       .catch((error) => {
         console.error(error.code, '', error.message);
       })

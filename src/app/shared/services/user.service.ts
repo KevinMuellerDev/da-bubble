@@ -25,7 +25,6 @@ export class UserService {
   key!: string;
 
   constructor(private router: Router) {
-    console.log('bin da');
     if (sessionStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
       this.router.navigate(['/']);
   }
@@ -70,18 +69,32 @@ export class UserService {
     return unsubscribe
   }
 
+/**
+ * This TypeScript function retrieves the profile information of another user using their ID from a
+ * Firestore database.
+ * @param {string} id - The `id` parameter in the `retrieveOtherUserProfile` function is a string that
+ * represents the unique identifier of the user whose profile you want to retrieve.
+ */
   async retrieveOtherUserProfile(id: string) {
     const docRef = doc(this.firestore, "user", id);
     const docSnap = await getDoc(docRef);
     this.otherUserInfo = docSnap.data();
   }
 
+/**
+ * The `userLoggedIn` function updates the `isLoggedIn` field in the user profile document to true for
+ * the currently logged-in user.
+ */
   async userLoggedIn() {
     await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
       isLoggedIn: true
     });
   }
 
+/**
+ * The function `userLoggedOut` updates the `isLoggedIn` field to `false` in the user profile document
+ * when the user logs out.
+ */
   async userLoggedOut() {
     await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
       isLoggedIn: false
@@ -130,6 +143,13 @@ export class UserService {
     });
   }
 
+  /**
+   * The `updateUserProfilePicture` function updates the profile picture of the current user in a
+   * Firestore database.
+   * @param {string} picturePath - The `picturePath` parameter in the `updateUserProfilePicture` function
+   * is a string that represents the file path or URL of the new profile picture that will be updated in
+   * the user's profile.
+   */
   async updateUserProfilePicture(picturePath: string) {
     await updateDoc(doc(this.refUserProfile(), this.currentUser as string), {
       profilePicture: picturePath

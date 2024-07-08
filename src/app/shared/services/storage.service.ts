@@ -74,6 +74,14 @@ export class StorageService implements OnInit {
     this.fileUrl = this.files.item(0);
   }
 
+  /**
+   * The function `onFileSelectedTextarea` handles file selection in a textarea input, checks file size
+   * and type, and calls appropriate handling functions based on the file type.
+   * @param {HTMLInputElement} input - The `onFileSelectedTextarea` function takes an HTMLInputElement as
+   * input. This function is responsible for handling file selection in a textarea element. 
+   * @returns The function `onFileSelectedTextarea` returns either nothing (undefined) or early exits
+   * with a `return` statement if certain conditions are met. 
+   */
   onFileSelectedTextarea(input: HTMLInputElement) {
     const file = input.files?.item(0);
     if (!file || !this.isValid(input)) {
@@ -95,6 +103,17 @@ export class StorageService implements OnInit {
     }
   }
 
+
+  /**
+   * The function `onFileSelectedTextareaForThread` handles file selection for a textarea input, checking
+   * file size and type before processing the file accordingly.
+   * @param {HTMLInputElement} input -  This function is responsible for handling file selection in a
+   * textarea for a thread. 
+   * @returns If the file is not valid or if the file size is too big (greater than 1MB), the function
+   * will return early without setting any properties or handling the file further. If the file is valid
+   * and within size limits, it will set the `filesTextareaThread` property to the selected file, reset
+   * the `fileSizeToBigThread` flag, set the `fileNameTextareaThread` property
+   */
   onFileSelectedTextareaForThread(input: HTMLInputElement) {
     const file = input.files?.item(0);
     if (!file || !this.isValid(input)) {
@@ -116,11 +135,27 @@ export class StorageService implements OnInit {
     }
   }
 
+
+  /**
+   * The function `handlePdfFileForThread` sets the PDF URL for a given file and updates the file URL for
+   * a textarea.
+   * @param {File} file - The `file` parameter in the `handlePdfFileForThread` function is of type
+   * `File`, which represents a file from the user's system. In this context, it is likely a PDF file
+   * that is being processed within the function.
+   */
   private handlePdfFileForThread(file: File) {
     this.pdfUrlThread = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
     this.fileUrlTextareaThread = 'assets/img/pdfDefault.jpg';
   }
 
+
+  /**
+   * The function `handleImageFileForThread` reads an image file and sets the result as a data URL in a
+   * textarea.
+   * @param {File} file - The `file` parameter in the `handleImageFileForThread` function is of type
+   * `File`, which represents a file from the user's system. In this case, it is being used to read the
+   * contents of an image file and convert it to a data URL using a `FileReader`.
+   */
   private handleImageFileForThread(file: File) {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -132,6 +167,15 @@ export class StorageService implements OnInit {
     reader.readAsDataURL(file);
   }
 
+/**
+ * This function uploads a file to storage and retrieves the download URL for a specific thread based
+ * on the original message ID.
+ * @param {string} originalMessageId - The `originalMessageId` parameter is a string that represents
+ * the unique identifier of the message thread to which the file will be uploaded.
+ * @returns If `this.wrongFileType` or `this.fileSizeToBigThread` is true, nothing will be returned.
+ * Otherwise, the function will upload a file to a storage location and retrieve the download URL for
+ * that file.
+ */
   async uploadFileAndGetUrlForThread(originalMessageId: string) {
     if (this.wrongFileType || this.fileSizeToBigThread) {
       return;
@@ -145,11 +189,23 @@ export class StorageService implements OnInit {
     });
   }
 
+/**
+ * The function `handlePdfFile` sets the PDF URL and a default image URL for a given file.
+ * @param {File} file - The `file` parameter in the `handlePdfFile` function is of type `File`, which
+ * represents a file from the user's system. In this context, it is used to handle a PDF file that is
+ * passed to the function for processing.
+ */
   private handlePdfFile(file: File) {
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
     this.fileUrlTextarea = 'assets/img/pdfDefault.jpg';
   }
 
+/**
+ * The function `handleImageFile` reads an image file using FileReader and sets the result as the value
+ * of `fileUrlTextarea`.
+ * @param {File} file - The `file` parameter in the `handleImageFile` function is of type `File`, which
+ * represents a file from the user's system that is being processed.
+ */
   private handleImageFile(file: File) {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -161,28 +217,57 @@ export class StorageService implements OnInit {
     reader.readAsDataURL(file);
   }
 
+/**
+ * The function `isImage` checks if a given file is an image based on its type.
+ * @param {File | null | undefined} file - The `file` parameter in the `isImage` function is of type
+ * `File` or `null` or `undefined`.
+ * @returns A boolean value is being returned, indicating whether the file is an image or not.
+ */
   isImage(file: File | null | undefined): boolean {
     if (!file) return false;
     const fileType = file.type.split('/')[0];
     return fileType === 'image';
   }
 
+/**
+ * The function `isPdf` checks if a given file is a PDF file based on its type.
+ * @param {File | null | undefined} file - The `file` parameter in the `isPdf` function is of type
+ * `File` or may be `null` or `undefined`.
+ * @returns The function `isPdf` returns a boolean value indicating whether the file is a PDF file or
+ * not.
+ */
   isPdf(file: File | null | undefined): boolean {
     if (!file) return false;
     const fileType = file.type;
     return fileType === 'application/pdf';
   }
 
+/**
+ * The function `abortUploadForThread` clears the `fileNameTextareaThread` and `fileUrlTextareaThread`
+ * variables.
+ */
   abortUploadForThread() {
     this.fileNameTextareaThread = '';
     this.fileUrlTextareaThread = '';
   }
 
+/**
+ * The `abortUpload` function clears the `fileNameTextarea` and `fileUrlTextarea` values.
+ */
   abortUpload() {
     this.fileNameTextarea = '';
     this.fileUrlTextarea = '';
   }
 
+/**
+ * The function `uploadFileAndGetUrl` uploads a file to a specified storage location and retrieves the
+ * download URL.
+ * @param {string} channelId - The `channelId` parameter in the `uploadFileAndGetUrl` function is a
+ * string that represents the unique identifier of the channel where the file will be uploaded.
+ * @returns If `this.wrongFileType` or `this.fileSizeToBig` is true, nothing will be returned as the
+ * function will exit early. If neither of those conditions are met, the function will upload a file to
+ * a storage location and retrieve the download URL for that file.
+ */
   async uploadFileAndGetUrl(channelId: string) {
     if (this.wrongFileType || this.fileSizeToBig) {
       return;
@@ -196,7 +281,6 @@ export class StorageService implements OnInit {
     });
   }
 
-  // textarea upload function end
 
   /**
    * The function `isValid` checks if the file uploaded through an HTML input element is a valid image
@@ -210,8 +294,6 @@ export class StorageService implements OnInit {
   isValid(input: HTMLInputElement) {
     let dataType = input.files?.item(0)?.type
     dataType = dataType?.split('/').pop();
-    console.log('your file size is', input.files?.item(0)?.size!, 'bytes');
-    console.log(input.files);
     if (dataType !== "jpeg" && dataType !== "jpg" && dataType !== "pdf") {
       this.wrongFileType = true;
       return
