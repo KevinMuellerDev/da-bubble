@@ -189,7 +189,6 @@ export class MessageComponent {
     this.emojiService.editMessage[index] = !this.emojiService.editMessage[index];
     const textareaId = 'editMessageTextarea-' + index;
     this.newMessage = { message: this.channelService.messages[index].message };
-    // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
     setTimeout(() => {
       const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
       if (textareaElement) {
