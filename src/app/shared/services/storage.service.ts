@@ -64,7 +64,6 @@ export class StorageService implements OnInit {
    */
   onFileSelected(input: HTMLInputElement) {
     if (input.files?.item(0)?.size! > 1048576) {
-      this.fileName = "This file exceeds the size of 1024kb !";
       return;
     }
     if (!input.files || (input.files && !this.isValid(input))) {
@@ -83,7 +82,6 @@ export class StorageService implements OnInit {
     }
     if (file.size > 1048576) {
       this.fileSizeToBig = true;
-      this.fileNameTextarea = "This file exceeds the size of 1024kb!";
       return;
     }
     if (input.files) {
@@ -105,7 +103,6 @@ export class StorageService implements OnInit {
     }
     if (file.size > 1048576) {
       this.fileSizeToBigThread = true;
-      this.fileNameTextareaThread = "This file exceeds the size of 1024kb!";
       return;
     }
     if (input.files) {
@@ -189,7 +186,6 @@ export class StorageService implements OnInit {
   }
 
   async uploadFileAndGetUrl(channelId: string) {
-    
     if (this.wrongFileType || this.fileSizeToBig) {
       return;
     }
