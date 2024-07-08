@@ -194,17 +194,19 @@ export class ThreadComponent {
       formThread.reset();
     } else if (formThread.valid) {
       this.arrangeThreadData();
-      console.log(this.messageThread.content)
       this.threadMessageContent.nativeElement.focus()
-      this.submitClick = false;
-      this.selectedEmojis = [];
       formThread.reset();
-      this.emojiService.initMaps('thread')
+      this.clearDataAfterSubmit();
+    }
+  }
+
+  clearDataAfterSubmit(): void {
+    this.submitClick = false;
+    this.selectedEmojis = [];
+    this.emojiService.initMaps('thread')
       setTimeout(() => {
         this.clearFileInput();
       }, 500);
-      
-    }
   }
 
   /**
