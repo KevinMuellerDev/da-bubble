@@ -138,7 +138,7 @@ export class StorageService implements OnInit {
   }
   
   async uploadFileAndGetUrlForThread(originalMessageId: string) {
-  if (this.filesTextareaThread.length < 0) {
+  if (!this.filesTextareaThread) {
     return;
   }
   const file = this.filesTextareaThread.item(0) as File;
