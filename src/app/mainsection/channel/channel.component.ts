@@ -10,7 +10,7 @@ import { UserService } from '../../shared/services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { OutsideclickDirective } from '../../outsideclick.directive';
 import { StorageService } from '../../shared/services/storage.service';
-import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 
@@ -39,7 +39,7 @@ export class ChannelComponent {
 
   @ViewChild('messageContent', { read: ElementRef }) public messageContent!: ElementRef<any>;
 
-  constructor(public dialog: MatDialog, public storageService: StorageService,private sanitizer: DomSanitizer) {
+  constructor(public dialog: MatDialog, public storageService: StorageService, private sanitizer: DomSanitizer) {
     this.channelService.messagesLoaded = false;
   }
 
@@ -51,12 +51,12 @@ export class ChannelComponent {
     this.changeChannelSubscription = this.channelService.channelChanged$.subscribe(() => {
       this.setFocusOnTextarea();
     });
-       this.closeAndFocusChannelTextarea = this.channelService.threadClosed$.subscribe(() => {
+    this.closeAndFocusChannelTextarea = this.channelService.threadClosed$.subscribe(() => {
       this.setFocusOnTextarea();
     });
   }
 
-    setFocusOnTextarea() {
+  setFocusOnTextarea() {
     setTimeout(() => {
       this.messageContent.nativeElement.focus();
     }, 0);
@@ -70,7 +70,7 @@ export class ChannelComponent {
     } else if (form.valid) {
 
       this.arrangeDirectData();
-      
+
       form.reset();
       this.messageContent.nativeElement.focus()
       this.submitClick = false;
@@ -116,7 +116,7 @@ export class ChannelComponent {
   }
 
   onOutsideClickFileUploadPreview(event: Event): void {
-     const target = event.target as HTMLElement;
+    const target = event.target as HTMLElement;
     if (target.id === 'messageContent') {
       return
     } else {
@@ -143,28 +143,28 @@ export class ChannelComponent {
     this.selectedEmojis.push(selectedEmoji);
     this.message.content += selectedEmoji;
   }
-  
+
   triggerFileInput(event: Event) {
     event.stopPropagation();
     this.fileInput.nativeElement.click();
   }
 
-    clearFileInput() {
+  clearFileInput() {
     this.fileInput.nativeElement.value = '';
   }
 
- async onFileSelected(event: Event) {
+  async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-   this.storageService.onFileSelectedTextarea(input);
-   this.storageService.uploadFileAndGetUrl(this.channelService.currentChannel);
-   
+    this.storageService.onFileSelectedTextarea(input);
+    this.storageService.uploadFileAndGetUrl(this.channelService.currentChannel);
+
   }
 
   // pdf muss als sicher eingestuft werden und anschlißened in eiegnem HTML / mit neuem 
   // Tab geöffnet werden.
- openPdf(pdfUrl: SafeResourceUrl | null) {
+  openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
-      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 
+      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
       if (pdfBlobUrl) {
         const newWindow = window.open("", "_blank");
         if (newWindow) {
@@ -189,7 +189,7 @@ export class ChannelComponent {
     this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
   }
 
-    onUserClick(user: string) {
+  onUserClick(user: string) {
     this.message.content += `@${user} `;
     this.isTagUserOpen = false;
   }
@@ -201,6 +201,6 @@ export class ChannelComponent {
   }
 
 }
- 
+
 
 

@@ -29,7 +29,7 @@ export class StorageService implements OnInit {
   fileSizeToBig: boolean = false;
   wrongFileType: boolean = false;
   fileSizeToBigThread: boolean = false;
-  wrongFileTypeThread:boolean = false;
+  wrongFileTypeThread: boolean = false;
   avatars: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile2.svg?alt=media&token=fdc78ec8-f201-4138-8447-d49c957ba67a',
     'https://firebasestorage.googleapis.com/v0/b/da-bubble-e6d79.appspot.com/o/template%2Fprofile1.svg?alt=media&token=e8652777-3f75-4517-9789-e3b24ef87820',
@@ -105,7 +105,7 @@ export class StorageService implements OnInit {
       return;
     }
     if (file.size > 1048576) {
-       this.fileSizeToBigThread = true;
+      this.fileSizeToBigThread = true;
       this.fileNameTextareaThread = "This file exceeds the size of 1024kb!";
       return;
     }
@@ -136,19 +136,19 @@ export class StorageService implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-  
+
   async uploadFileAndGetUrlForThread(originalMessageId: string) {
-  if (!this.filesTextareaThread) {
-    return;
+    if (!this.filesTextareaThread) {
+      return;
+    }
+    const file = this.filesTextareaThread.item(0) as File;
+    this.uploadedFileTypeThread = file.type;
+    const storageRef = ref(this.storage, `${originalMessageId}/${file.name}`);
+    await uploadBytesResumable(storageRef, file);
+    await getDownloadURL(storageRef).then((url) => {
+      this.downloadUrlThread = url;
+    });
   }
-  const file = this.filesTextareaThread.item(0) as File;
-  this.uploadedFileTypeThread = file.type;
-  const storageRef = ref(this.storage, `${originalMessageId}/${file.name}`);
-  await uploadBytesResumable(storageRef, file);
-  await getDownloadURL(storageRef).then((url) => {
-    this.downloadUrlThread = url;
-  });
-}
 
   private handlePdfFile(file: File) {
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
@@ -215,16 +215,16 @@ export class StorageService implements OnInit {
    */
   isValid(input: HTMLInputElement) {
     let dataType = input.files?.item(0)?.type
-    dataType = dataType?.split('/').pop();    
+    dataType = dataType?.split('/').pop();
     console.log('your file size is', input.files?.item(0)?.size!, 'bytes');
     console.log(input.files);
     if (dataType !== "jpeg" && dataType !== "jpg" && dataType !== "pdf") {
       this.wrongFileType = true;
-    return 
-  } else {
-    this.wrongFileType = false;
-    return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'pdf')
-  }
+      return
+    } else {
+      this.wrongFileType = false;
+      return (dataType === 'jpeg' || dataType === 'jpg' || dataType === 'pdf')
+    }
   }
 
   /**
