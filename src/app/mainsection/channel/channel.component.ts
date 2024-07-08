@@ -74,7 +74,9 @@ export class ChannelComponent {
       this.messageContent.nativeElement.focus()
       this.submitClick = false;
       this.selectedEmojis = [];
-      this.clearFileInput();
+      setTimeout(() => {
+         this.clearFileInput();
+      }, 500);
     }
   }
 
