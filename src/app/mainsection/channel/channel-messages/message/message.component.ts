@@ -197,6 +197,7 @@ export class MessageComponent {
     }, 0);
     this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
+  
   editMessageAbort(index: number) {
     this.emojiService.editMessage[index] = false;
     this.emojiService.messageEdit = false;
