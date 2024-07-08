@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ResizelistenerService } from './resize-listener.service';
+import { ResizeListenerService } from './resize-listener.service';
 
 describe('ResizelistenerService', () => {
-  let service: ResizelistenerService;
+  let service: ResizeListenerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ResizelistenerService);
+    service = TestBed.inject(ResizeListenerService);
   });
 
   it('should be created', () => {
