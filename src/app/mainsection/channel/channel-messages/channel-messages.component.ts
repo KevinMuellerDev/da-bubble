@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { User } from '@angular/fire/auth';
 import { ThreadService } from '../../../shared/services/thread.service';
 
-
 @Component({
   selector: 'app-channel-messages',
   standalone: true,

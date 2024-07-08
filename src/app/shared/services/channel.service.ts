@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, Unsubscribe, addDoc, collection, doc, docData, getDoc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 import { ChannelInfo } from '../interfaces/channelinfo';
-import { BehaviorSubject,Subject  } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { UserService } from './user.service';
 import { EmojiService } from './emoji.service';
 import { StorageService } from '../../shared/services/storage.service';
@@ -36,7 +36,6 @@ export class ChannelService {
     this.channelMsg = false;
   }
 
-
   /**
    * The `changeData` function in TypeScript updates the data and restarts the listener.
    * @param {string} data - The `data` parameter is a string that is passed to the `changeData` method.
@@ -47,26 +46,24 @@ export class ChannelService {
     this.dataSubject.next(data);
     this.restartListener(data);
     this.channelChangedSource.next();
-    console.log(this.currentChannelUsers );
-    
+    console.log(this.currentChannelUsers);
   }
 
-    public closeAndFocusChannelTextarea = new Subject<void>();
-    threadClosed$ = this.closeAndFocusChannelTextarea.asObservable();
+  public closeAndFocusChannelTextarea = new Subject<void>();
+  threadClosed$ = this.closeAndFocusChannelTextarea.asObservable();
 
-    private channelChangedSource = new Subject<void>();
-    channelChanged$ = this.channelChangedSource.asObservable();
+  private channelChangedSource = new Subject<void>();
+  channelChanged$ = this.channelChangedSource.asObservable();
 
   /**
    * The `startListener` function subscribes to real-time updates and sorts the
    * received messages by timestamp.
    * @param {string} data -  the `startListener` function is used to subscribe to real-time
-   * updates for direct messages based on the provided `data`. 
+   * updates for direct messages based on the provided `data`.
    */
   startListenerDm(data: string) {
     if (this.isSubscribed)
       this.unsub();
-
     this.unsub = onSnapshot(query(this.refDirectMessageData(data)), (querySnapshot) => {
       this.messages = [];
       this.messagesTimestamp = [];
@@ -77,13 +74,12 @@ export class ChannelService {
       console.log(this.messages);
       this.messages.sort((a, b) => a.timestamp - b.timestamp);
     });
-    setTimeout(() => {this.messagesLoaded = true;}, 200);
+    setTimeout(() => { this.messagesLoaded = true; }, 200);
   }
 
   startListenerChannel(data: string) {
     if (this.isSubscribed)
       this.unsub();
-
     this.unsub = onSnapshot(query(this.refChannelMessage()), (querySnapshot) => {
       this.messages = [];
       this.messagesTimestamp = [];
@@ -97,7 +93,6 @@ export class ChannelService {
     });
   }
 
-
   /**
    * The `stopListener` function checks if a subscription is active and unsubscribes if it is.
    */
@@ -107,7 +102,6 @@ export class ChannelService {
       this.isSubscribed = false;
     }
   }
-
 
   /**
    * The `restartListener` function stops the current listener and then starts a new listener with the
@@ -125,7 +119,6 @@ export class ChannelService {
     }
   }
 
-
   /**
    * The function creates a new channel in Firestore and adds the channel ID to the user's list of
    * channels.
@@ -136,8 +129,8 @@ export class ChannelService {
   async createNewChannel(channelData: ChannelInfo) {
     await addDoc(collection(this.firestore, "Channels"), channelData)
       .then(async (docRef) => {
-        console.log("DIES SIND DIE UEBERGEBENEN DATEN",channelData);
-        
+        console.log("DIES SIND DIE UEBERGEBENEN DATEN", channelData);
+
         channelData.users.forEach(async user => {
           const channelId = { channelid: docRef.id }
           await addDoc(collection(this.firestore, 'user', user, 'userchannels'), channelId)
@@ -159,20 +152,15 @@ export class ChannelService {
    * `chooseChannelType` function. It is used to pass user data when the `dm` parameter is set to true,
    * indicating that a private message channel should be used.
    */
- async chooseChannelType(dm: boolean, data?: any) {
+  async chooseChannelType(dm: boolean, data?: any) {
     console.log(this.messagesLoaded);
-    
     this.resetMessageType();
     dm ? this.privateMsg = true : this.channelMsg = true;
     console.log(this.channelMsg);
-    
-   console.log(data);
-  
-   this.currentChannel = data.collection
-   
+    console.log(data);
+    this.currentChannel = data.collection
     if (this.privateMsg) {
       console.log('im here');
-
       this.privateMsgData = data;
       this.messagesLoaded = false;
       await this.getDmId();
@@ -185,10 +173,9 @@ export class ChannelService {
     }
   }
 
-
-/**
- * The function `resetMessageType` resets various message-related properties to their default values.
- */
+  /**
+   * The function `resetMessageType` resets various message-related properties to their default values.
+   */
   resetMessageType() {
     this.messagesLoaded = false;
     this.privateMsg = false;
@@ -199,7 +186,6 @@ export class ChannelService {
     this.messages = [];
   }
 
-
   /**
    * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
    * Firestore collection.
@@ -209,7 +195,6 @@ export class ChannelService {
     querySnapshot.forEach(element => {
       console.log(element.data());
       console.log(this.privateMsgData);
-      
       console.log(element.data()['dmUserID']);
       if (element.data()['dmUserId'] == this.privateMsgData.id) {
         this.currentMessagesId = element.id
@@ -218,11 +203,10 @@ export class ChannelService {
     });
   }
 
-
-/**
- * The `getChannelId` function asynchronously retrieves the ID of a channel message and then calls
- * another function to update the data based on that ID.
- */
+  /**
+   * The `getChannelId` function asynchronously retrieves the ID of a channel message and then calls
+   * another function to update the data based on that ID.
+   */
   async getChannelId() {
     const querySnapshot = await getDocs(query(this.refChannelMessage()));
     querySnapshot.forEach(element => {
@@ -232,11 +216,10 @@ export class ChannelService {
     this.changeData(this.currentMessagesId)
   }
 
-
   /**
- * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
- * Firestore collection.
- */
+   * The function `getDmId` asynchronously retrieves a document ID based on a specific condition from a
+   * Firestore collection.
+   */
   async getOppositeDmId() {
     const querySnapshot = await getDocs(query(this.refOppositeDirectMessage(this.privateMsgData.id)));
     querySnapshot.forEach(element => {
@@ -247,7 +230,6 @@ export class ChannelService {
     });
   }
 
-
   /**
    * The `createDirectMessage` function asynchronously creates a direct message between two users.
    * @param {any} obj - The `obj` parameter in the `createDirectMessage` function likely represents the
@@ -255,49 +237,47 @@ export class ChannelService {
    * contain information such as the message content, sender details, timestamp, etc.
    */
   async createDirectMessage(obj: any) {
-  if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
-       this.fileData.src = this.storageService.downloadUrl;
-       this.fileData.name = this.storageService.fileNameTextarea;
-       this.fileData.type = this.storageService.uploadedFileType;
-  }
-  obj.uploadedFile = this.fileData;
-  await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
-  await this.getOppositeDmId();
-  if (this.currentMessagesId != this.oppositeMessagesId) {
-  await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
-  }
-   this.clearFileData();
-  }
-
-
-/**
- * The `createChannelMessage` function asynchronously adds a document to a Firestore collection and
- * updates another document with the generated ID.
- * @param {any} obj - The `obj` parameter in the `createChannelMessage` function is an object that
- * contains the data to be added to a Firestore document. This object will be passed to the `addDoc`
- * function to create a new document in the Firestore database.
- */
-async createChannelMessage(obj: any) {
-  await addDoc(this.refCreateChannelMsg(), obj)
-  .then(async (docRef) => {
-    console.log(docRef.id);
-     { msgId: docRef.id }
     if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
       this.fileData.src = this.storageService.downloadUrl;
-       this.fileData.name = this.storageService.fileNameTextarea;
-       this.fileData.type = this.storageService.uploadedFileType;
-      await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id),
-        { uploadedFile: this.fileData });
+      this.fileData.name = this.storageService.fileNameTextarea;
+      this.fileData.type = this.storageService.uploadedFileType;
     }
-  });
+    obj.uploadedFile = this.fileData;
+    await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
+    await this.getOppositeDmId();
+    if (this.currentMessagesId != this.oppositeMessagesId) {
+      await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
+    }
     this.clearFileData();
   }
-  
-     clearFileData() {
-      this.fileData = { src: '', name: '', type: '' };
-      this.storageService.abortUpload();
+
+  /**
+   * The `createChannelMessage` function asynchronously adds a document to a Firestore collection and
+   * updates another document with the generated ID.
+   * @param {any} obj - The `obj` parameter in the `createChannelMessage` function is an object that
+   * contains the data to be added to a Firestore document. This object will be passed to the `addDoc`
+   * function to create a new document in the Firestore database.
+   */
+  async createChannelMessage(obj: any) {
+    await addDoc(this.refCreateChannelMsg(), obj)
+      .then(async (docRef) => {
+        console.log(docRef.id);
+        { msgId: docRef.id }
+        if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
+          this.fileData.src = this.storageService.downloadUrl;
+          this.fileData.name = this.storageService.fileNameTextarea;
+          this.fileData.type = this.storageService.uploadedFileType;
+          await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id),
+            { uploadedFile: this.fileData });
+        }
+      });
+    this.clearFileData();
   }
 
+  clearFileData() {
+    this.fileData = { src: '', name: '', type: '' };
+    this.storageService.abortUpload();
+  }
 
   async updateDirectMessage(data: any) {
     console.log('ERROR HIER SOLL ICH NICHT REIN');
@@ -306,25 +286,21 @@ async createChannelMessage(obj: any) {
     const querySnapshotSelf = await getDocs(this.refQuerySelf());
     const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
     console.log('ERROR HIER SOLL ICH NICHT REIN');
-    
-    
     querySnapshotSelf.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
-
         await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
-          message:data.message
+          message: data.message
         });
       }
     });
-    
+
     querySnapshotOpposite.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
         console.log('gefunden => ', dataset.data());
         console.log('gefunden => ', data);
-
         await updateDoc(doc(this.firestore, "user", this.privateMsgData.id, 'directmessages', this.oppositeMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
           message: data.message,
@@ -332,10 +308,7 @@ async createChannelMessage(obj: any) {
       }
     });
     this.stopListener();
-
   }
-
-
 
   async updateChannelMessage(data: any) {
     const querySnapshot = await getDocs(this.refQueryChannelMsg());
@@ -349,43 +322,43 @@ async createChannelMessage(obj: any) {
     });
   }
 
-  async updateChannelTitle(title:string){
+  async updateChannelTitle(title: string) {
     await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection), {
       title: title
     });
     this.refreshChannelData();
   }
 
-/**
- * The function `updateChannelDescription` updates the description of a channel in a Firestore database
- * and then refreshes the channel data.
- * @param {string} description - a string that represents the new description that will be set for a channel 
- * in the Firestore database.
- */
-  async updateChannelDescription(description:string){
+  /**
+   * The function `updateChannelDescription` updates the description of a channel in a Firestore database
+   * and then refreshes the channel data.
+   * @param {string} description - a string that represents the new description that will be set for a channel
+   * in the Firestore database.
+   */
+  async updateChannelDescription(description: string) {
     await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection), {
       description: description
     });
     this.refreshChannelData();
   }
 
-/**
- * This function updates direct messages between users if they do not already exist.
- * @param {any} userInfo - The `updateUserDm` function you provided is an asynchronous function that
- * updates direct messages between users in a Firestore database. It checks if a direct message entry
- * already exists between the current user and the target user. If it doesn't exist, it adds entries
- * for both users to establish a direct message
- */
-  async updateUserDm(userInfo: any){
+  /**
+   * This function updates direct messages between users if they do not already exist.
+   * @param {any} userInfo - The `updateUserDm` function you provided is an asynchronous function that
+   * updates direct messages between users in a Firestore database. It checks if a direct message entry
+   * already exists between the current user and the target user. If it doesn't exist, it adds entries
+   * for both users to establish a direct message
+   */
+  async updateUserDm(userInfo: any) {
     let alreadyExists = false;
-    const docSnap = await getDocs(collection(this.firestore, "user", this.userService.userInfo.id,"directmessages"));
+    const docSnap = await getDocs(collection(this.firestore, "user", this.userService.userInfo.id, "directmessages"));
     docSnap.forEach(element => {
-      if (element.data()['dmUserId'] == userInfo.id) 
+      if (element.data()['dmUserId'] == userInfo.id)
         alreadyExists = true
     });
     if (!alreadyExists) {
-      await addDoc(collection(this.firestore,"user",userInfo.id,"directmessages"), {dmUserId: this.userService.currentUser});
-      await addDoc(collection(this.firestore,"user",this.userService.userInfo.id,"directmessages"), {dmUserId: userInfo.id});
+      await addDoc(collection(this.firestore, "user", userInfo.id, "directmessages"), { dmUserId: this.userService.currentUser });
+      await addDoc(collection(this.firestore, "user", this.userService.userInfo.id, "directmessages"), { dmUserId: userInfo.id });
     }
   }
 
@@ -396,12 +369,12 @@ async createChannelMessage(obj: any) {
       if (this.channelMsgData.users.includes(element.id))
         this.currentChannelUsers.push(element.data())
       console.log(this.currentChannelUsers);
-      
+
     });
   }
 
-  async refreshChannelData(){
-    const docSnap = await getDoc(doc(this.firestore,"Channels",this.channelMsgData.collection));
+  async refreshChannelData() {
+    const docSnap = await getDoc(doc(this.firestore, "Channels", this.channelMsgData.collection));
     this.channelMsgData = docSnap.data();
     this.retrieveCurrentChannelUsers();
   }

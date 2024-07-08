@@ -7,7 +7,7 @@ import { ChannelService } from '../../shared/services/channel.service';
 import { ThreadService } from '../../shared/services/thread.service';
 import { EmojiService } from '../../shared/services/emoji.service';
 import { MutationObserverService } from '../../shared/services/mutation.observer.service';
-import { Subscription,Subject } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -55,7 +55,7 @@ export class ThreadComponent {
     content: ''
   }
 
-  constructor(public dialog: MatDialog, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {
+  constructor(public dialog: MatDialog, public emojiService: EmojiService, private MutationObserverService: MutationObserverService, private sanitizer: DomSanitizer) {
     this.userId = sessionStorage.getItem('uid')!;
     this.dateToday = Date.now() as number;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
@@ -78,14 +78,13 @@ export class ThreadComponent {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
-     setTimeout(() => {
-      if (this.threadMessageContent && this.threadMessageContent.nativeElement ) {
+    setTimeout(() => {
+      if (this.threadMessageContent && this.threadMessageContent.nativeElement) {
         this.threadMessageContent.nativeElement.focus();
       }
     }, 0);
-  
   }
-  
+
   onOutsideClick(index: number, event: Event): void {
     this.emojiService.openEditMessageToggleThread[index] = false;
     const target = event.target as HTMLElement;
@@ -109,9 +108,9 @@ export class ThreadComponent {
 
   onOutsideClickTagArea() {
     this.isTagUserOpen = false;
-   }
+  }
 
-    getUsernameByUserId(emojiUserId: string): string | undefined {
+  getUsernameByUserId(emojiUserId: string): string | undefined {
     const currentChannelUsers = this.channelService.currentChannelUsers;
     const user = currentChannelUsers.find(user => user.id === emojiUserId);
     return user ? user.name : undefined;
@@ -180,7 +179,6 @@ export class ThreadComponent {
   onSubmit(formThread: NgForm): void {
     this.submitClick = true;
     this.textareaBlur = true;
-
     if (!formThread.valid) {
       console.log(formThread)
       formThread.reset();
@@ -270,7 +268,6 @@ export class ThreadComponent {
   async openDialogUserInfo(user: any) {
     this.userService.otherUserInfo = user;
     console.log(this.userService.otherUserInfo);
-    
     await this.userService.getOnlineStatusProfile(user.id);
     console.log(user);
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
@@ -281,41 +278,40 @@ export class ThreadComponent {
       .subscribe();
   }
 
-    triggerFileInput() {
+  triggerFileInput() {
     this.fileInputThread.nativeElement.click();
   }
 
-   async onFileSelected(event: Event) {
+  async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-   this.storageService.onFileSelectedTextareaForThread(input);
-   this.storageService.uploadFileAndGetUrlForThread(this.threadService.originMessage.msgId);
+    this.storageService.onFileSelectedTextareaForThread(input);
+    this.storageService.uploadFileAndGetUrlForThread(this.threadService.originMessage.msgId);
   }
 
-    tagUser(event: Event) {
+  tagUser(event: Event) {
     event.stopPropagation();
     this.isTagUserOpen = !this.isTagUserOpen;
     this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
   }
 
   onUserClick(user: string) {
-     this.messageThread.content += `@${user} `;
+    this.messageThread.content += `@${user} `;
     this.isTagUserOpen = false;
     console.log(`Clicked on user: ${user}`);
   }
 
-      clearFileInput() {
-       this.fileInputThread.nativeElement.value = '';
+  clearFileInput() {
+    this.fileInputThread.nativeElement.value = '';
   }
 
-    highlightUsernames(message: string): string {
+  highlightUsernames(message: string): string {
     const usernameRegex = /@([^@<>\s]+)/g;
     return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
-}
+  }
 
-
- openPdf(pdfUrl: SafeResourceUrl | null) {
+  openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
-      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 
+      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
       if (pdfBlobUrl) {
         const newWindow = window.open("", "_blank");
         if (newWindow) {
@@ -333,5 +329,4 @@ export class ThreadComponent {
       }
     }
   }
-
 }

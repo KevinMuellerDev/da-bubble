@@ -43,7 +43,7 @@ export class ThreadService {
     if (this.isSubscribed)
       this.unsub();
     console.log('ich bin der fehler');
-    
+
     this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
       this.messages = [];
       this.messagesTimestamp = [];

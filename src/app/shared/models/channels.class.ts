@@ -11,20 +11,19 @@ export class ChannelData {
         this.users = obj ? obj.users : [];
     }
 
-    public setData(collection:string, description:string, title:string){
+    public setData(collection: string, description: string, title: string) {
         this.collection = collection;
         this.description = description;
         this.title = title;
         this.users = [];
     }
 
-    public toJson(){
+    public toJson() {
         return {
             collection: this.collection,
             description: this.description,
             title: this.title,
-            users: this.users	
+            users: this.users
         };
     }
-
 }

@@ -22,7 +22,6 @@ import { MutationObserverService } from '../../../../shared/services/mutation.ob
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StorageService } from '../../../../shared/services/storage.service';
 
-
 registerLocaleData(localeDe);
 
 @Component({
@@ -43,12 +42,10 @@ export class MessageComponent {
   unsubMessageData!: Unsubscribe;
   dateToday!: number;
   userId!: string;
-   private domChangesSubscription!: Subscription;
-
+  private domChangesSubscription!: Subscription;
   isEmojiPickerVisible: boolean = false;
   isEditMessageTextareaVisible: boolean = false;
   dateMap: string[] = [];
-
   messages: any[] = [];
   newMessage: { message: string } = { message: '' };
   originalMessage!: string;
@@ -57,7 +54,7 @@ export class MessageComponent {
   hoveredEmojiIndex: number | null = null;
   userList: string[] = [];
 
-  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService,private sanitizer: DomSanitizer) {
+  constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService, private sanitizer: DomSanitizer) {
     this.userId = sessionStorage.getItem('uid')!;
     this.channelService.messagesLoaded = false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
@@ -67,8 +64,8 @@ export class MessageComponent {
         }, 500);
       }
     });
-
   }
+
   @ViewChild('scroll', { static: false }) scroll!: ElementRef;
   @ViewChild('emojiPickerContainer', { static: false }) emojiPickerContainer!: ElementRef;
   @ViewChild('editMessageContainer', { static: false }) editMessageContainer!: ElementRef;
@@ -79,7 +76,6 @@ export class MessageComponent {
     this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {
       console.log('DOM changes detected:', mutations);
     });
-     
   }
 
   isNewDate(oldDate: number, newDate: number) {
@@ -90,7 +86,7 @@ export class MessageComponent {
 
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
-    this.MutationObserverService.observe(this.scroll,false);
+    this.MutationObserverService.observe(this.scroll, false);
   }
 
   pushTimestamp(timestamp: string | null) {
@@ -100,30 +96,29 @@ export class MessageComponent {
 
   onOutsideClick(index: number, event: Event): void {
     this.emojiService.openEditMessageToggle[index] = false;
-       const target = event.target as HTMLElement;
+    const target = event.target as HTMLElement;
     if (target.tagName === 'svg' || 'path' && (this.isEditMessageTextareaVisible && this.emojiAdded)) {
       return
     }
-     if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
+    if (!this.emojiAdded && !this.isEditMessageTextareaVisible) {
       this.emojiService.editMessage[index] = false;
     }
     if (this.isEditMessageTextareaVisible && !this.emojiService.showEmojiPickerArray[index]) {
       this.emojiService.editMessage[index] = false;
-       this.editMessageAbort(index);
+      this.editMessageAbort(index);
     }
-     this.emojiService.showEmojiPickerArray[index] = false;
+    this.emojiService.showEmojiPickerArray[index] = false;
   }
 
-getUsernameByUserId(emojiUserId: string): string | undefined {
+  getUsernameByUserId(emojiUserId: string): string | undefined {
     const currentChannelUsers = this.channelService.currentChannelUsers;
-  const user = currentChannelUsers.find(user => user.id === emojiUserId);
+    const user = currentChannelUsers.find(user => user.id === emojiUserId);
     return user ? user.name : undefined;
   }
 
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
-    this.emojiService.addEmoji(event, index, messageId, userId,'channel');
+    this.emojiService.addEmoji(event, index, messageId, userId, 'channel');
     this.emojiAdded = true;
-
     setTimeout(() => {
       this.emojiAdded = false;
     }, 500);
@@ -134,15 +129,15 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
   }
 
   onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
-    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId,'channel');
+    this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'channel');
   }
 
   onAddCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
-    this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId,'channel');
+    this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId, 'channel');
   }
 
   onAddRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
-    this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId,'channel');
+    this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId, 'channel');
   }
 
   onMouseEnter(messageIndex: number, emojiIndex: number): void {
@@ -156,11 +151,11 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
   }
 
   /**
- * Toggles the visibility of the emoji picker for the message at the specified index.
- * It sets the corresponding value in the `showEmojiPickerArray` to the opposite of its current value.
- * All other values in the array are set to false, ensuring that only one emoji picker is visible at a time.
- * @param index - The index of the message for which the emoji picker should be toggled.
- */
+   * Toggles the visibility of the emoji picker for the message at the specified index.
+   * It sets the corresponding value in the `showEmojiPickerArray` to the opposite of its current value.
+   * All other values in the array are set to false, ensuring that only one emoji picker is visible at a time.
+   * @param index - The index of the message for which the emoji picker should be toggled.
+   */
   toggleEmojiPicker(index: number) {
     this.emojiService.showEmojiPickerArray[index] = !this.emojiService.showEmojiPickerArray[index];
   }
@@ -170,11 +165,11 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
   }
 
   /**
-* Toggles the visibility of the emoji picker.
-* It stops the propagation of the event to prevent it from bubbling up to other event listeners.
-* It then toggles the `isEmojiPickerVisible` property, which determines whether the emoji picker is visible or not.
-* @param event - The click event that triggered this function.
-*/
+  * Toggles the visibility of the emoji picker.
+  * It stops the propagation of the event to prevent it from bubbling up to other event listeners.
+  * It then toggles the `isEmojiPickerVisible` property, which determines whether the emoji picker is visible or not.
+  * @param event - The click event that triggered this function.
+  */
 
   toggleEvent(event: any, index: number): void {
     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
@@ -268,17 +263,17 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
     this.threadService.startMutationObserver = true;
     this.threadService.changeData('');
     console.log(this.threadService.originMessage);
-    
+
   }
 
   highlightUsernames(message: string): string {
     const usernameRegex = /@([^@<>\s]+)/g;
     return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
-}
+  }
 
   ngOnDestroy() {
     /* this.unsubMessageData(); */
-    
+
     this.channelService.messages = [];
     this.channelService.messagesLoaded = false;
     this.channelService.currentMessagesId = '';
@@ -293,9 +288,9 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
   }
 
 
- openPdf(pdfUrl: SafeResourceUrl | null) {
+  openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
-      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl); 
+      const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
       if (pdfBlobUrl) {
         const newWindow = window.open("", "_blank");
         if (newWindow) {
@@ -314,5 +309,5 @@ getUsernameByUserId(emojiUserId: string): string | undefined {
     }
   }
 
-  }
+}
 

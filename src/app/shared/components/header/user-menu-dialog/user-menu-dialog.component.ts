@@ -18,7 +18,7 @@ import { AddUserToChannelDialogComponent } from '../../../../mainsection/channel
   styleUrl: './user-menu-dialog.component.scss'
 })
 export class UserMenuDialogComponent {
-  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private dialogRefAddUser: MatDialogRef<AddUserToChannelDialogComponent>,private userService: UserService) { }
+  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private dialogRefAddUser: MatDialogRef<AddUserToChannelDialogComponent>, private userService: UserService) { }
   channelService: ChannelService = inject(ChannelService);
   hoverProfile: boolean = false;
   hoverLogout: boolean = false;
