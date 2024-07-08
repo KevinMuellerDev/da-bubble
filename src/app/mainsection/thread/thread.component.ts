@@ -311,9 +311,9 @@ export class ThreadComponent {
   }
 
   onUserClick(user: string) {
-    this.messageThread.content += `@${user} `;
-    this.isTagUserOpen = false;
-    console.log(`Clicked on user: ${user}`);
+   const formattedUser = user.replace(/ /g, '_');
+   this.messageThread.content += `@${formattedUser} `;
+   this.isTagUserOpen = false;
   }
 
   clearFileInput() {

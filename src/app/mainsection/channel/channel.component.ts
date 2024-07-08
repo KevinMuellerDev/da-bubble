@@ -189,8 +189,9 @@ export class ChannelComponent {
   }
 
   onUserClick(user: string) {
-    this.message.content += `@${user} `;
-    this.isTagUserOpen = false;
+   const formattedUser = user.replace(/ /g, '_');
+   this.message.content += `@${formattedUser} `;
+   this.isTagUserOpen = false;
   }
 
   ngOnDestroy() {
