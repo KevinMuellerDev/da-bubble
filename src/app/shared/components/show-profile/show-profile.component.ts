@@ -151,7 +151,7 @@ export class ShowProfileComponent {
       this.sidebarService.userDmData.push(this.userService.otherUserInfo);
     this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
     this.threadService.stopListener();
-    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.triggerHideThread();
     this.threadService.isActive = false;
     this.closeDialog();
   }
