@@ -366,8 +366,6 @@ export class MessageComponent {
     this.threadService.originMessage = message;
     this.mainsectionComponent.showThread();
     this.threadService.isActive = true;
-    console.log(this.threadService.isActive);
-    
     this.threadService.startMutationObserver = true;
     this.threadService.changeData('');
   }

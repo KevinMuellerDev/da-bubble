@@ -60,7 +60,6 @@ export class ThreadComponent {
     this.dateToday = Date.now() as number;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
       if (data) {
-        console.log(data);
         setTimeout(() => {
           emojiService.initMaps('thread');
         }, 500);
@@ -402,9 +401,7 @@ export class ThreadComponent {
   */
   async openDialogUserInfo(user: any) {
     this.userService.otherUserInfo = user;
-    console.log(this.userService.otherUserInfo);
     await this.userService.getOnlineStatusProfile(user.id);
-    console.log(user);
     let dialogRef = this.dialog.open(ShowProfileComponent, { panelClass: ['show-profile-from-message', 'box-shadow', 'box-radius'] });
     dialogRef.componentInstance.otherUser = true;
     dialogRef.componentInstance.profileEditable = false;

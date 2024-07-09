@@ -48,7 +48,6 @@ export class ConfirmpasswordComponent {
   constructor(private router: Router) {
     this.params = new URLSearchParams(window.location.search);
     this.code = this.params.get('oobCode');
-    console.log(this.code);
   }
 
   /**

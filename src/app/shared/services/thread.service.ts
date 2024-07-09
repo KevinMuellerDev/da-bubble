@@ -47,8 +47,6 @@ export class ThreadService {
     if (this.isSubscribed)
       this.unsub();
     if (this.channelService.channelMsg) {
-      console.log('ich bin hier');
-      
       this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
         this.messages = [];
         this.messagesTimestamp = [];
@@ -109,9 +107,7 @@ export class ThreadService {
             await updateDoc(this.refUpdateFilePathDm(docRef.id), {
               uploadedFile: this.fileData
             });
-          }
-          console.log(this.fileData);
-          
+          }        
           this.clearFileData();
         }
       });
@@ -142,7 +138,6 @@ export class ThreadService {
     if (this.isSubscribed) {
       this.unsub();
       this.isSubscribed = false;
-      console.log("Listener Unsubscribed");
     }
   }
 
@@ -179,16 +174,11 @@ export class ThreadService {
   }
 
   refThreadMessages() {
-    console.log(this.originMessage.id);
     
     return collection(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread')
   }
 
   refThreadMessagesDm() {
-    console.log(this.channelService.privateMsgData.id);
-    console.log(this.originMessage);
-    console.log(this.channelService.currentMessagesId);
-    
     return collection(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread')
   }
 

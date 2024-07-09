@@ -27,7 +27,6 @@ export class AddUserDialogComponent {
   selectedUser: any[] = [];
 
   async submitUser(addedUser: NgForm) {
-    console.log(addedUser.name);
     await this.updateChannelUsers();
     addedUser.reset();
   }
@@ -76,9 +75,7 @@ export class AddUserDialogComponent {
   }
 
   async updateChannelUsers() {
-    console.log(this.selectedUser);
     this.selectedUser.forEach(async user => {
-      console.log(user);
       await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection), {
         users: arrayUnion(user.uid)
       });

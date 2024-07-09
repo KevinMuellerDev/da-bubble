@@ -19,7 +19,6 @@ export class AuthService {
    */
   async verifyChange(key: string) {
     const auth = getAuth();
-    console.log(this.userService.userInfo.email);
     await signInWithEmailAndPassword(auth, this.userService.userInfo.email, key)
       .then(() => {})
       .catch((error) => {
