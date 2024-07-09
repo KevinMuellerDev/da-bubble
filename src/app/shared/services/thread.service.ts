@@ -81,9 +81,19 @@ export class ThreadService {
  * updates the thread with the new message
  */
   async createThreadMessage(obj: any) {
-    await addDoc(this.refThreadMessages(), obj)
+    let channelRef;
+    let updateChannelRef;
+    if (this.channelService.channelMsg) {
+      channelRef = this.refThreadMessages();
+      updateChannelRef = this.refUpdateThread();
+    }else if(this.channelService.privateMsg){
+      channelRef = this.refThreadMessagesDm();
+      updateChannelRef = this.refUpdateThreadMessagesDm();
+    }
+    
+    await addDoc(channelRef!, obj)
       .then(async (docRef) => {
-        await updateDoc(this.refUpdateThread(), {
+        await updateDoc(updateChannelRef!, {
           repliesCount: this.messages.length,
           lastReply: obj.timestamp
         });
@@ -91,9 +101,17 @@ export class ThreadService {
           this.fileData.src = this.storageService.downloadUrlThread;
           this.fileData.name = this.storageService.fileNameTextareaThread;
           this.fileData.type = this.storageService.uploadedFileTypeThread;
-          await updateDoc(this.refUpdateFilePath(docRef.id), {
-            uploadedFile: this.fileData
-          });
+          if (this.channelService.channelMsg) {
+            await updateDoc(this.refUpdateFilePath(docRef.id), {
+              uploadedFile: this.fileData
+            });
+          } else {
+            await updateDoc(this.refUpdateFilePathDm(docRef.id), {
+              uploadedFile: this.fileData
+            });
+          }
+          console.log(this.fileData);
+          
           this.clearFileData();
         }
       });
@@ -102,6 +120,10 @@ export class ThreadService {
 
   refUpdateFilePath(id: string) {
     return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread', id)
+  }
+
+  refUpdateFilePathDm(id: string) {
+    return doc(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread', id)
   }
 
 
@@ -167,7 +189,11 @@ export class ThreadService {
     console.log(this.originMessage);
     console.log(this.channelService.currentMessagesId);
     
-    return collection(this.firestore, "user", this.channelService.privateMsgData.id, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread')
+    return collection(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread')
+  }
+
+  refUpdateThreadMessagesDm(){
+    return doc(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId)
   }
 
   refUpdateThread() {
