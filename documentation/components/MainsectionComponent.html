@@ -1,0 +1,1870 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>da-bubble documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">da-bubble documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MainsectionComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/mainsection/mainsection.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-mainsection</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+                                <code><a href="../components/SidebarComponent.html" target="_self" >SidebarComponent</a></code>
+                                <code><a href="../components/ChannelComponent.html" target="_self" >ChannelComponent</a></code>
+                                <code><a href="../components/ThreadComponent.html" target="_self" >ThreadComponent</a></code>
+                                <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./mainsection.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./mainsection.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#changeDetector" >changeDetector</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#channelElement" >channelElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#headerComponent" >headerComponent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#hideThreadSubscription" >hideThreadSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#overlayElement" >overlayElement</a>
+                            </li>
+                            <li>
+                                <a href="#resizeListenerService" >resizeListenerService</a>
+                            </li>
+                            <li>
+                                <a href="#rotateToggle" >rotateToggle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#sidebarElement" >sidebarElement</a>
+                            </li>
+                            <li>
+                                <a href="#sidenavOpen" >sidenavOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#threadBarElement" >threadBarElement</a>
+                            </li>
+                            <li>
+                                <a href="#threadOpen" >threadOpen</a>
+                            </li>
+                            <li>
+                                <a href="#threadService" >threadService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#toggleElement" >toggleElement</a>
+                            </li>
+                            <li>
+                                <a href="#unsubProfile" >unsubProfile</a>
+                            </li>
+                            <li>
+                                <a href="#unsubUserChannels" >unsubUserChannels</a>
+                            </li>
+                            <li>
+                                <a href="#unsubUserList" >unsubUserList</a>
+                            </li>
+                            <li>
+                                <a href="#userService" >userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeSides" >closeSides</a>
+                            </li>
+                            <li>
+                                <a href="#displayHeadlineMobile" >displayHeadlineMobile</a>
+                            </li>
+                            <li>
+                                <a href="#getToggleText" >getToggleText</a>
+                            </li>
+                            <li>
+                                <a href="#hanldeCloseMobile" >hanldeCloseMobile</a>
+                            </li>
+                            <li>
+                                <a href="#hideSidenav" >hideSidenav</a>
+                            </li>
+                            <li>
+                                <a href="#hideThread" >hideThread</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onResize" >onResize</a>
+                            </li>
+                            <li>
+                                <a href="#rotateIndicator" >rotateIndicator</a>
+                            </li>
+                            <li>
+                                <a href="#showSidenav" >showSidenav</a>
+                            </li>
+                            <li>
+                                <a href="#showThread" >showThread</a>
+                            </li>
+                            <li>
+                                <a href="#sidesStatus" >sidesStatus</a>
+                            </li>
+                            <li>
+                                <a href="#updateOverlayDisplay" >updateOverlayDisplay</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/mainsection/mainsection.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeSides"></a>
+                    <span class="name">
+                        <span ><b>closeSides</b></span>
+                        <a href="#closeSides"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeSides()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles between hiding the side navigation menu and showing the thread based on the state of &#39;rotateToggle&#39;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayHeadlineMobile"></a>
+                    <span class="name">
+                        <span ><b>displayHeadlineMobile</b></span>
+                        <a href="#displayHeadlineMobile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>displayHeadlineMobile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the display of the mobile headline and desktop headline based on screen size and sidenav state.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getToggleText"></a>
+                    <span class="name">
+                        <span ><b>getToggleText</b></span>
+                        <a href="#getToggleText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getToggleText()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="224"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:224</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>A function that returns the text &#39;schließen&#39; if &#39;sidenavOpen&#39; is true, otherwise returns &#39;öffnen&#39;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The text &#39;schließen&#39; or &#39;öffnen&#39;</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hanldeCloseMobile"></a>
+                    <span class="name">
+                        <span ><b>hanldeCloseMobile</b></span>
+                        <a href="#hanldeCloseMobile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hanldeCloseMobile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>A function that handles the closing of the mobile view by executing various actions.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideSidenav"></a>
+                    <span class="name">
+                        <span ><b>hideSidenav</b></span>
+                        <a href="#hideSidenav"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hideSidenav()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds the &#39;hide-show&#39; class to the thread bar element (app-sidebar) to hide the thread.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideThread"></a>
+                    <span class="name">
+                        <span ><b>hideThread</b></span>
+                        <a href="#hideThread"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hideThread()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds the &#39;hide-show&#39; class to the thread bar element (app-thread) to hide the thread.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the component after the view has been initialized.
+Adds the &#39;margin-right&#39; class to the sidebar element to make it appear on the right side.
+Checks the current screen size and the states of the sidenav and thread, and hides the sidenav and rotates the toggle element if necessary.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:231</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Executes cleanup actions when the component is destroyed.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResize"></a>
+                    <span class="name">
+                        <span ><b>onResize</b></span>
+                        <a href="#onResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onResize()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Executes a resize operation after a delay of 100 milliseconds.
+Calls the <code>updateOverlayDisplay</code>, <code>displayHeadlineMobile</code>, and <code>sidesStatus</code> methods.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rotateIndicator"></a>
+                    <span class="name">
+                        <span ><b>rotateIndicator</b></span>
+                        <a href="#rotateIndicator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>rotateIndicator()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the CSS class &#39;rotate-toggle&#39; on the toggleElement and
+shows/hides the side navigation menu based on the current state of the rotateToggle boolean variable.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showSidenav"></a>
+                    <span class="name">
+                        <span ><b>showSidenav</b></span>
+                        <a href="#showSidenav"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showSidenav()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the visibility of the app-sidebar based on the current screen size.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showThread"></a>
+                    <span class="name">
+                        <span ><b>showThread</b></span>
+                        <a href="#showThread"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showThread()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the visibility of the app-thread based on the current screen size.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sidesStatus"></a>
+                    <span class="name">
+                        <span ><b>sidesStatus</b></span>
+                        <a href="#sidesStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sidesStatus()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks the current screen size and the states of the sidenav and thread, and hides the sidenav and rotates the toggle element if necessary.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateOverlayDisplay"></a>
+                    <span class="name">
+                        <span ><b>updateOverlayDisplay</b></span>
+                        <a href="#updateOverlayDisplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateOverlayDisplay()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/mainsection/mainsection.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates the display of the overlay element based on the current screen size and sidenav/thread states.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeDetector"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>changeDetector</b></span>
+                        <a href="#changeDetector"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ChangeDetectorRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/mainsection/mainsection.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelElement"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>channelElement</b></span>
+                        <a href="#channelElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;channel&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/mainsection/mainsection.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="headerComponent"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>headerComponent</b></span>
+                        <a href="#headerComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(HeaderComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/mainsection/mainsection.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideThreadSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>hideThreadSubscription</b></span>
+                        <a href="#hideThreadSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/mainsection/mainsection.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="overlayElement"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>overlayElement</b></span>
+                        <a href="#overlayElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;overlay&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/mainsection/mainsection.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resizeListenerService"></a>
+                    <span class="name">
+                        <span ><b>resizeListenerService</b></span>
+                        <a href="#resizeListenerService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ResizeListenerService.html" target="_self" >ResizeListenerService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ResizeListenerService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/mainsection/mainsection.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rotateToggle"></a>
+                    <span class="name">
+                        <span ><b>rotateToggle</b></span>
+                        <a href="#rotateToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/mainsection/mainsection.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sidebarElement"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>sidebarElement</b></span>
+                        <a href="#sidebarElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;sidebar&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/mainsection/mainsection.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sidenavOpen"></a>
+                    <span class="name">
+                        <span ><b>sidenavOpen</b></span>
+                        <a href="#sidenavOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/mainsection/mainsection.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="threadBarElement"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>threadBarElement</b></span>
+                        <a href="#threadBarElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;threadBar&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/mainsection/mainsection.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="threadOpen"></a>
+                    <span class="name">
+                        <span ><b>threadOpen</b></span>
+                        <a href="#threadOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/mainsection/mainsection.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="threadService"></a>
+                    <span class="name">
+                        <span ><b>threadService</b></span>
+                        <a href="#threadService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ThreadService.html" target="_self" >ThreadService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ThreadService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/mainsection/mainsection.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleElement"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>toggleElement</b></span>
+                        <a href="#toggleElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;toggle&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/mainsection/mainsection.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubProfile"></a>
+                    <span class="name">
+                        <span ><b>unsubProfile</b></span>
+                        <a href="#unsubProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/mainsection/mainsection.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubUserChannels"></a>
+                    <span class="name">
+                        <span ><b>unsubUserChannels</b></span>
+                        <a href="#unsubUserChannels"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/mainsection/mainsection.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubUserList"></a>
+                    <span class="name">
+                        <span ><b>unsubUserList</b></span>
+                        <a href="#unsubUserList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/mainsection/mainsection.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userService"></a>
+                    <span class="name">
+                        <span ><b>userService</b></span>
+                        <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UserService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/mainsection/mainsection.component.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from &#x27;@angular/core&#x27;;
+import { SidebarComponent } from &#x27;./sidebar/sidebar.component&#x27;;
+import { ChannelComponent } from &#x27;./channel/channel.component&#x27;;
+import { ThreadComponent } from &#x27;./thread/thread.component&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { HeaderComponent } from &#x27;../shared/components/header/header.component&#x27;;
+import { UserService } from &#x27;../shared/services/user.service&#x27;;
+import { ResizeListenerService } from &#x27;../shared/services/resize-listener.service&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { ThreadService } from &#x27;../shared/services/thread.service&#x27;;
+
+@Component({
+  selector: &#x27;app-mainsection&#x27;,
+  standalone: true,
+  imports: [CommonModule, HeaderComponent, SidebarComponent, ChannelComponent, ThreadComponent, HeaderComponent],
+  templateUrl: &#x27;./mainsection.component.html&#x27;,
+  styleUrl: &#x27;./mainsection.component.scss&#x27;
+})
+
+export class MainsectionComponent implements AfterViewInit, OnDestroy {
+  userService: UserService &#x3D; inject(UserService);
+  resizeListenerService: ResizeListenerService &#x3D; inject(ResizeListenerService);
+  threadService: ThreadService &#x3D; inject(ThreadService);
+  private hideThreadSubscription: Subscription &#x3D; new Subscription;
+  private changeDetector: ChangeDetectorRef &#x3D; inject(ChangeDetectorRef);
+  rotateToggle: boolean &#x3D; false;
+  sidenavOpen: boolean &#x3D; true;
+  threadOpen: boolean &#x3D; false;
+  unsubProfile;
+  unsubUserChannels;
+  unsubUserList;
+  @ViewChild(&#x27;toggle&#x27;, { read: ElementRef }) toggleElement!: ElementRef;
+  @ViewChild(&#x27;sidebar&#x27;, { read: ElementRef }) sidebarElement!: ElementRef;
+  @ViewChild(&#x27;threadBar&#x27;, { read: ElementRef }) threadBarElement!: ElementRef;
+  @ViewChild(&#x27;channel&#x27;, { read: ElementRef }) channelElement!: ElementRef;
+  @ViewChild(&#x27;overlay&#x27;, { read: ElementRef }) overlayElement!: ElementRef;
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
+
+  constructor() {
+    this.resizeListenerService.registerResizeCallback(this.onResize.bind(this));
+    this.unsubProfile &#x3D; this.userService.retrieveUserProfile();
+    this.unsubUserChannels &#x3D; this.userService.retrieveUserChannels();
+    this.unsubUserList &#x3D; this.userService.retrieveAllUsers();
+    this.userService.userLoggedIn();
+  }
+
+  ngOnInit(): void {
+    this.hideThreadSubscription &#x3D; this.threadService.hideThread$.subscribe(() &#x3D;&gt; {
+      this.hideThread();
+    })
+    this.onResize();
+  }
+
+  /**
+   * Executes a resize operation after a delay of 100 milliseconds.
+   * Calls the &#x60;updateOverlayDisplay&#x60;, &#x60;displayHeadlineMobile&#x60;, and &#x60;sidesStatus&#x60; methods.
+   */
+  onResize() {
+    setTimeout(() &#x3D;&gt; {
+      this.updateOverlayDisplay();
+      this.displayHeadlineMobile();
+      this.sidesStatus();
+    }, 100);
+  }
+
+  /**
+   * Initializes the component after the view has been initialized.
+   * Adds the &#x27;margin-right&#x27; class to the sidebar element to make it appear on the right side.
+   * Checks the current screen size and the states of the sidenav and thread, and hides the sidenav and rotates the toggle element if necessary.
+   */
+  ngAfterViewInit() {
+    this.hideThread();
+    this.sidebarElement.nativeElement.classList.add(&#x27;margin-right&#x27;);
+    if (this.resizeListenerService.mdScreen) {
+      this.hideSidenav();
+      this.hideThread();
+      this.rotateToggle &#x3D; true;
+      this.toggleElement.nativeElement.classList.add(&#x27;rotate-toggle&#x27;);
+    }
+    this.changeDetector.detectChanges();
+  }
+
+  /**
+   * Checks the current screen size and the states of the sidenav and thread, and hides the sidenav and rotates the toggle element if necessary.
+   */
+  sidesStatus() {
+    if (!this.resizeListenerService.lgScreen &amp;&amp; this.sidenavOpen &#x3D;&#x3D; true &amp;&amp; this.threadOpen &#x3D;&#x3D; true) {
+      this.hideSidenav();
+      this.toggleElement.nativeElement.classList.add(&#x27;rotate-toggle&#x27;);
+      this.rotateToggle &#x3D; true;
+    }
+  }
+
+  /**
+   * Updates the display of the overlay element based on the current screen size and sidenav/thread states.
+   */
+  updateOverlayDisplay() {
+    if (this.overlayElement &amp;&amp; this.overlayElement.nativeElement) {
+      if (this.resizeListenerService.mdScreen &amp;&amp; this.sidenavOpen &#x3D;&#x3D; true || this.resizeListenerService.mdScreen &amp;&amp; this.threadOpen &#x3D;&#x3D; true) {
+        this.overlayElement.nativeElement.style.display &#x3D; &#x27;block&#x27;;
+      } else {
+        this.overlayElement.nativeElement.style.display &#x3D; &#x27;none&#x27;;
+      }
+    }
+  }
+
+  /**
+   * Toggles the CSS class &#x27;rotate-toggle&#x27; on the toggleElement and
+   * shows/hides the side navigation menu based on the current state of the rotateToggle boolean variable.
+   */
+  rotateIndicator() {
+    if (this.rotateToggle &#x3D;&#x3D; false) {
+      this.toggleElement.nativeElement.classList.add(&#x27;rotate-toggle&#x27;);
+      this.hideSidenav();
+      this.rotateToggle &#x3D; true;
+    } else {
+      this.toggleElement.nativeElement.classList.remove(&#x27;rotate-toggle&#x27;);
+      this.showSidenav();
+      this.rotateToggle &#x3D; false;
+    }
+  }
+
+  /**
+   * Toggles the visibility of the app-thread based on the current screen size.
+   */
+  showThread() {
+    this.threadBarElement.nativeElement.classList.add(&#x27;margin-left&#x27;);
+    this.threadOpen &#x3D; true;
+    if (this.resizeListenerService.xmdScreen &#x3D;&#x3D; true) {
+      this.threadBarElement.nativeElement.classList.remove(&#x27;hide-show&#x27;);
+      this.hideSidenav();
+      this.toggleElement.nativeElement.classList.add(&#x27;rotate-toggle&#x27;);
+      this.rotateToggle &#x3D; true;
+    } else {
+      this.threadBarElement.nativeElement.classList.remove(&#x27;hide-show&#x27;);
+    }
+    if (this.resizeListenerService.mdScreen &#x3D;&#x3D; true) {
+      this.overlayElement.nativeElement.style.display &#x3D; &#x27;block&#x27;;
+    }
+    this.displayHeadlineMobile();
+  }
+
+  /**
+   * Toggles the visibility of the app-sidebar based on the current screen size.
+   */
+  showSidenav() {
+    this.sidebarElement.nativeElement.classList.add(&#x27;margin-right&#x27;);
+    this.sidenavOpen &#x3D; true;
+    if (this.resizeListenerService.xmdScreen &#x3D;&#x3D; true) {
+      this.sidebarElement.nativeElement.classList.remove(&#x27;hide-show&#x27;);
+      this.hideThread();
+    } else {
+      this.sidebarElement.nativeElement.classList.remove(&#x27;hide-show&#x27;);
+    }
+    if (this.resizeListenerService.mdScreen &#x3D;&#x3D; true) {
+      this.hideThread();
+      this.overlayElement.nativeElement.style.display &#x3D; &#x27;block&#x27;;
+    }
+    this.displayHeadlineMobile();
+  }
+
+  /**
+   * Adds the &#x27;hide-show&#x27; class to the thread bar element (app-sidebar) to hide the thread.
+   */
+  hideSidenav() {
+    this.sidebarElement.nativeElement.classList.remove(&#x27;margin-right&#x27;);
+    this.sidebarElement.nativeElement.classList.add(&#x27;hide-show&#x27;);
+    this.sidenavOpen &#x3D; false;
+    this.overlayElement.nativeElement.style.display &#x3D; &#x27;none&#x27;;
+  }
+
+  /**
+   * Adds the &#x27;hide-show&#x27; class to the thread bar element (app-thread) to hide the thread.
+   */
+  hideThread() {
+    this.threadBarElement.nativeElement.classList.remove(&#x27;margin-left&#x27;);
+    this.threadBarElement.nativeElement.classList.add(&#x27;hide-show&#x27;);
+    this.threadOpen &#x3D; false;
+    this.overlayElement.nativeElement.style.display &#x3D; &#x27;none&#x27;;
+  }
+
+  /**
+   * Toggles the display of the mobile headline and desktop headline based on screen size and sidenav state.
+   */
+  displayHeadlineMobile() {
+    if (this.resizeListenerService.smScreen &amp;&amp; this.sidenavOpen &#x3D;&#x3D; false) {
+      this.headerComponent.headlineMobile.nativeElement.style.display &#x3D; &#x27;flex&#x27;;
+      this.headerComponent.headlineDesktop.nativeElement.style.display &#x3D; &#x27;none&#x27;;
+      this.toggleElement.nativeElement.classList.add(&#x27;rotate-toggle&#x27;);
+      this.rotateToggle &#x3D; true;
+    } else {
+      this.headerComponent.headlineMobile.nativeElement.style.display &#x3D; &#x27;none&#x27;;
+      this.headerComponent.headlineDesktop.nativeElement.style.display &#x3D; &#x27;flex&#x27;;
+    }
+  }
+
+  /**
+   * Toggles between hiding the side navigation menu and showing the thread based on the state of &#x27;rotateToggle&#x27;.
+   */
+  closeSides() {
+    if (this.rotateToggle &#x3D;&#x3D; false) {
+      this.hideSidenav();
+      this.rotateToggle &#x3D; true;
+      this.toggleElement.nativeElement.classList.add(&#x27;rotate-toggle&#x27;);
+    } else {
+      this.hideThread();
+    }
+  }
+
+  /**
+   * A function that handles the closing of the mobile view by executing various actions.
+   */
+  hanldeCloseMobile() {
+    this.closeSides();
+    this.hideSidenav();
+    this.hideThread();
+    this.displayHeadlineMobile();
+  }
+
+  /**
+   * A function that returns the text &#x27;schließen&#x27; if &#x27;sidenavOpen&#x27; is true, otherwise returns &#x27;öffnen&#x27;.
+   * @return {string} The text &#x27;schließen&#x27; or &#x27;öffnen&#x27;
+   */
+  getToggleText(): string {
+    return this.sidenavOpen ? &#x27;schließen&#x27; : &#x27;öffnen&#x27;;
+  }
+
+  /**
+   * Executes cleanup actions when the component is destroyed.
+   */
+  ngOnDestroy() {
+    console.log(&#x27;hallo&#x27;);
+    this.unsubProfile();
+    this.unsubUserChannels();
+    this.unsubUserList();
+    this.userService.userLoggedOut();
+    this.hideThreadSubscription.unsubscribe();
+    this.resizeListenerService.unregisterResizeCallback(this.onResize.bind(this));
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;main-landing&quot;&gt;
+    &lt;app-header&gt;&lt;/app-header&gt;
+    &lt;div class&#x3D;&quot;content&quot;&gt;
+        &lt;app-sidebar #sidebar&gt;&lt;/app-sidebar&gt;
+        &lt;app-channel #channel&gt;&lt;/app-channel&gt;
+        &lt;app-thread #threadBar&gt;&lt;/app-thread&gt;
+        &lt;div #overlay class&#x3D;&quot;overlay&quot; (click)&#x3D;&quot;closeSides()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;toggle-navbar&quot; (click)&#x3D;&quot;rotateIndicator()&quot;&gt;
+    &lt;span&gt;Workspace-Menü {{getToggleText()}}&lt;/span&gt;
+    &lt;div #toggle class&#x3D;&quot;toggle-img-hide&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="main-landing">    <app-header></app-header>    <div class="content">        <app-sidebar #sidebar></app-sidebar>        <app-channel #channel></app-channel>        <app-thread #threadBar></app-thread>        <div #overlay class="overlay" (click)="closeSides()"></div>    </div></div><div class="toggle-navbar" (click)="rotateIndicator()">    <span>Workspace-Menü {{getToggleText()}}</span>    <div #toggle class="toggle-img-hide"></div></div></div>'
+    var COMPONENTS = [{'name': 'AddNewChannelComponent', 'selector': 'app-add-new-channel'},{'name': 'AddNewUserToChannelComponent', 'selector': 'app-add-new-user-to-channel'},{'name': 'AddUserDialogComponent', 'selector': 'app-add-user-dialog'},{'name': 'AddUserToChannelDialogComponent', 'selector': 'app-add-user-to-channel-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChannelComponent', 'selector': 'app-channel'},{'name': 'ChannelMessagesComponent', 'selector': 'app-channel-messages'},{'name': 'ChooseavatarComponent', 'selector': 'app-chooseavatar'},{'name': 'ConfirmpasswordComponent', 'selector': 'app-confirmpassword'},{'name': 'EditChannelDialogComponent', 'selector': 'app-edit-channel-dialog'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainsectionComponent', 'selector': 'app-mainsection'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'PrivacypolicyComponent', 'selector': 'app-privacypolicy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetpasswordComponent', 'selector': 'app-resetpassword'},{'name': 'ShowProfileComponent', 'selector': 'app-show-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'ThreadComponent', 'selector': 'app-thread'},{'name': 'UserMenuDialogComponent', 'selector': 'app-user-menu-dialog'},{'name': 'VerifyComponent', 'selector': 'app-verify'}];
+    var DIRECTIVES = [{'name': 'OutsideclickDirective', 'selector': '[appOutsideclick]'}];
+    var ACTUAL_COMPONENT = {'name': 'MainsectionComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MainsectionComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

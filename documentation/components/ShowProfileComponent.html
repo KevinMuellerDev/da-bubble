@@ -1,0 +1,1861 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>da-bubble documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">da-bubble documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ShowProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/components/show-profile/show-profile.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-show-profile</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatDialogActions</code>
+                            <code>MatDialogClose</code>
+                            <code>CommonModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./show-profile.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./show-profile.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <a href="#avatars" >avatars</a>
+                            </li>
+                            <li>
+                                <a href="#channelService" >channelService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#editMode" >editMode</a>
+                            </li>
+                            <li>
+                                <a href="#editProfilePic" >editProfilePic</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#fileInput" >fileInput</a>
+                            </li>
+                            <li>
+                                <a href="#otherUser" >otherUser</a>
+                            </li>
+                            <li>
+                                <a href="#otherUserId" >otherUserId</a>
+                            </li>
+                            <li>
+                                <a href="#otherUserInfo" >otherUserInfo</a>
+                            </li>
+                            <li>
+                                <a href="#profileEditable" >profileEditable</a>
+                            </li>
+                            <li>
+                                <a href="#selectedAvatar" >selectedAvatar</a>
+                            </li>
+                            <li>
+                                <a href="#sidebarService" >sidebarService</a>
+                            </li>
+                            <li>
+                                <a href="#threadService" >threadService</a>
+                            </li>
+                            <li>
+                                <a href="#updateUserForm" >updateUserForm</a>
+                            </li>
+                            <li>
+                                <a href="#userService" >userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkUpdateInput" >checkUpdateInput</a>
+                            </li>
+                            <li>
+                                <a href="#closeDialog" >closeDialog</a>
+                            </li>
+                            <li>
+                                <a href="#getStatusText" >getStatusText</a>
+                            </li>
+                            <li>
+                                <a href="#getUserStatus" >getUserStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#newProfilePicture" >newProfilePicture</a>
+                            </li>
+                            <li>
+                                <a href="#onImageSelected" >onImageSelected</a>
+                            </li>
+                            <li>
+                                <a href="#openDialog" >openDialog</a>
+                            </li>
+                            <li>
+                                <a href="#selectAvatar" >selectAvatar</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendMessage" >sendMessage</a>
+                            </li>
+                            <li>
+                                <a href="#toggleChangeProfilePic" >toggleChangeProfilePic</a>
+                            </li>
+                            <li>
+                                <a href="#triggerFileInput" >triggerFileInput</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, dialog: MatDialog, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, dialogRef: <a href="../components/ShowProfileComponent.html" target="_self">MatDialogRef&lt;ShowProfileComponent&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/ShowProfileComponent.html" target="_self" >MatDialogRef&lt;ShowProfileComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkUpdateInput"></a>
+                    <span class="name">
+                        <span ><b>checkUpdateInput</b></span>
+                        <a href="#checkUpdateInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkUpdateInput()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The function <code>checkUpdateInput</code> checks if the <code>updateUserForm</code> is valid and opens a dialog if it is.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDialog"></a>
+                    <span class="name">
+                        <span ><b>closeDialog</b></span>
+                        <a href="#closeDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:187</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The closeDialog function closes all open dialog windows.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStatusText"></a>
+                    <span class="name">
+                        <span ><b>getStatusText</b></span>
+                        <a href="#getStatusText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStatusText()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="124"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>getStatusText</code> function returns &quot;Aktiv&quot; if the user is logged in and &quot;Inaktiv&quot; if the user is
+not logged in.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;Aktiv&quot; | &quot;Inaktiv&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>string</code></p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserStatus"></a>
+                    <span class="name">
+                        <span ><b>getUserStatus</b></span>
+                        <a href="#getUserStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserStatus(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Function returns the class of user status for online indicator div and text
+depending on given type as a string</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>string - to determine which value should be returned</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>class as a string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newProfilePicture"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>newProfilePicture</b></span>
+                        <a href="#newProfilePicture"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>newProfilePicture()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>newProfilePicture</code> function asynchronously uploads a file to storage and updates the user&#39;s
+profile picture.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onImageSelected"></a>
+                    <span class="name">
+                        <span ><b>onImageSelected</b></span>
+                        <a href="#onImageSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onImageSelected(input: HTMLInputElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The function <code>onImageSelected</code> takes an HTML input element, selects a file from storage service, and
+creates a URL for the selected file.
+<code>HTMLInputElement</code>. It is used to represent an input element in an HTML form, such as an input field
+of type &quot;file&quot; that allows users to select files from their device.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>input</td>
+                                            <td>
+                                                        <code>HTMLInputElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The <code>input</code> parameter in the <code>onImageSelected</code> function is of type
+<code>HTMLInputElement</code>. It is used to represent an input element in an HTML form, such as an input field
+of type &quot;file&quot; that allows users to select files from their device.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialog"></a>
+                    <span class="name">
+                        <span ><b>openDialog</b></span>
+                        <a href="#openDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>openDialog</code> function opens a dialog window to verify user information and updates user email
+and profile if verified.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAvatar"></a>
+                    <span class="name">
+                        <span ><b>selectAvatar</b></span>
+                        <a href="#selectAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAvatar(avatar: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>selectAvatar</code> function in TypeScript sets the selectedAvatar property to the provided avatar
+string.
+this function is called, it sets the <code>selectedAvatar</code> property of the object to the value of the
+<code>avatar</code> parameter.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>avatar</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The <code>selectAvatar</code> function takes a parameter <code>avatar</code> of type string. When
+this function is called, it sets the <code>selectedAvatar</code> property of the object to the value of the
+<code>avatar</code> parameter.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendMessage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>sendMessage</b></span>
+                        <a href="#sendMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendMessage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleChangeProfilePic"></a>
+                    <span class="name">
+                        <span ><b>toggleChangeProfilePic</b></span>
+                        <a href="#toggleChangeProfilePic"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleChangeProfilePic()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the value of <code>editProfilePic</code>, which controls whether the profile picture can be changed.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="triggerFileInput"></a>
+                    <span class="name">
+                        <span ><b>triggerFileInput</b></span>
+                        <a href="#triggerFileInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>triggerFileInput()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>triggerFileInput</code> function triggers a click event on a file input element and sets the
+selectedAvatar property to null.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="avatars"></a>
+                    <span class="name">
+                        <span ><b>avatars</b></span>
+                        <a href="#avatars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.storageService.avatars</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelService"></a>
+                    <span class="name">
+                        <span ><b>channelService</b></span>
+                        <a href="#channelService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ChannelService.html" target="_self" >ChannelService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChannelService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editMode"></a>
+                    <span class="name">
+                        <span ><b>editMode</b></span>
+                        <a href="#editMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editProfilePic"></a>
+                    <span class="name">
+                        <span ><b>editProfilePic</b></span>
+                        <a href="#editProfilePic"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileInput"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>fileInput</b></span>
+                        <a href="#fileInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;fileInput&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="otherUser"></a>
+                    <span class="name">
+                        <span ><b>otherUser</b></span>
+                        <a href="#otherUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="otherUserId"></a>
+                    <span class="name">
+                        <span ><b>otherUserId</b></span>
+                        <a href="#otherUserId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="otherUserInfo"></a>
+                    <span class="name">
+                        <span ><b>otherUserInfo</b></span>
+                        <a href="#otherUserInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileEditable"></a>
+                    <span class="name">
+                        <span ><b>profileEditable</b></span>
+                        <a href="#profileEditable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedAvatar"></a>
+                    <span class="name">
+                        <span ><b>selectedAvatar</b></span>
+                        <a href="#selectedAvatar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;../../assets/img/login/default_profil_img.png&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sidebarService"></a>
+                    <span class="name">
+                        <span ><b>sidebarService</b></span>
+                        <a href="#sidebarService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/SidebarService.html" target="_self" >SidebarService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(SidebarService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="threadService"></a>
+                    <span class="name">
+                        <span ><b>threadService</b></span>
+                        <a href="#threadService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ThreadService.html" target="_self" >ThreadService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ThreadService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserForm"></a>
+                    <span class="name">
+                        <span ><b>updateUserForm</b></span>
+                        <a href="#updateUserForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userService"></a>
+                    <span class="name">
+                        <span ><b>userService</b></span>
+                        <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UserService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/shared/components/show-profile/show-profile.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, ViewChild, ElementRef } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogRef,
+} from &#x27;@angular/material/dialog&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from &#x27;@angular/forms&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { VerifyComponent } from &#x27;../verify/verify.component&#x27;;
+import { ChannelService } from &#x27;../../services/channel.service&#x27;;
+import { SidebarService } from &#x27;../../services/sidebar.service&#x27;;
+import { ThreadService } from &#x27;../../services/thread.service&#x27;;
+import { StorageService } from &#x27;../../services/storage.service&#x27;;
+
+@Component({
+  selector: &#x27;app-show-profile&#x27;,
+  standalone: true,
+  imports: [MatDialogActions, MatDialogClose, CommonModule, ReactiveFormsModule],
+  templateUrl: &#x27;./show-profile.component.html&#x27;,
+  styleUrl: &#x27;./show-profile.component.scss&#x27;
+})
+
+export class ShowProfileComponent {
+  threadService: ThreadService &#x3D; inject(ThreadService);
+  userService: UserService &#x3D; inject(UserService);
+  channelService: ChannelService &#x3D; inject(ChannelService);
+  sidebarService: SidebarService &#x3D; inject(SidebarService);
+  @ViewChild(&#x27;fileInput&#x27;) fileInput!: ElementRef;
+  selectedAvatar: string &#x3D; &#x27;../../assets/img/login/default_profil_img.png&#x27;;
+  avatars: any &#x3D; this.storageService.avatars;
+  updateUserForm: FormGroup;
+  otherUser: boolean &#x3D; false;
+  profileEditable: boolean &#x3D; false;
+  editMode: boolean &#x3D; false;
+  editProfilePic: boolean &#x3D; false;
+  otherUserInfo!: any;
+  otherUserId!: string;
+
+  constructor(
+    private storageService: StorageService,
+    public dialog: MatDialog,
+    public authService: AuthService,
+    private dialogRef: MatDialogRef&lt;ShowProfileComponent&gt;) {
+    this.updateUserForm &#x3D; new FormGroup({
+      name: new FormControl(this.userService.userInfo.name),
+      email: new FormControl(this.userService.userInfo.email, [Validators.required, Validators.email]),
+    });
+    this.avatars &#x3D; this.storageService.avatars;
+    this.selectedAvatar &#x3D; this.userService.userInfo.profilePicture;
+  }
+
+  /**
+   * The &#x60;selectAvatar&#x60; function in TypeScript sets the selectedAvatar property to the provided avatar
+   * string.
+   * @param {string} avatar - The &#x60;selectAvatar&#x60; function takes a parameter &#x60;avatar&#x60; of type string. When
+   * this function is called, it sets the &#x60;selectedAvatar&#x60; property of the object to the value of the
+   * &#x60;avatar&#x60; parameter.
+   */
+  selectAvatar(avatar: string) {
+    this.selectedAvatar &#x3D; avatar;
+  }
+
+  /**
+   * The &#x60;triggerFileInput&#x60; function triggers a click event on a file input element and sets the
+   * selectedAvatar property to null.
+   */
+  triggerFileInput() {
+    this.fileInput.nativeElement.click();
+    this.selectedAvatar;
+  }
+
+  /**
+   * The function &#x60;onImageSelected&#x60; takes an HTML input element, selects a file from storage service, and
+   * creates a URL for the selected file.
+   * @param {HTMLInputElement} input - The &#x60;input&#x60; parameter in the &#x60;onImageSelected&#x60; function is of type
+   * &#x60;HTMLInputElement&#x60;. It is used to represent an input element in an HTML form, such as an input field
+   * of type &quot;file&quot; that allows users to select files from their device.
+   */
+  onImageSelected(input: HTMLInputElement) {
+    this.storageService.onFileSelected(input);
+    const file &#x3D; this.storageService.files?.item(0);
+    if (file) {
+      this.selectedAvatar &#x3D; URL.createObjectURL(this.storageService.fileUrl);
+    }
+  }
+
+  /**
+   * The &#x60;newProfilePicture&#x60; function asynchronously uploads a file to storage and updates the user&#x27;s
+   * profile picture.
+   */
+  async newProfilePicture() {
+    await this.storageService.uploadFile(this.userService.currentUser!);
+    await this.userService.updateUserProfilePicture(this.userService.createUserInfo.profilePicture)
+  }
+
+  /**
+   * Function returns the class of user status for online indicator div and text
+   * depending on given type as a string
+   * @param type string - to determine which value should be returned
+   * @returns class as a string
+   */
+  getUserStatus(type: string) {
+    if (!this.otherUser) {
+      const status &#x3D; this.userService.userInfo.isLoggedIn &#x3D;&#x3D; true ? &quot;online&quot; : &quot;offline&quot;;
+      if (type &#x3D;&#x3D; &#x27;text&#x27;)
+        return status
+      return status + &#x27;-div&#x27;
+    } else {
+      const status &#x3D; this.userService.otherUserInfo.isLoggedIn &#x3D;&#x3D; true ? &quot;online&quot; : &quot;offline&quot;;
+      if (type &#x3D;&#x3D; &#x27;text&#x27;)
+        return status
+      return status + &#x27;-div&#x27;
+    }
+  }
+
+  /**
+   * The &#x60;getStatusText&#x60; function returns &quot;Aktiv&quot; if the user is logged in and &quot;Inaktiv&quot; if the user is
+   * not logged in.
+   * @returns &#x60;string&#x60;
+   */
+  getStatusText() {
+    if (!this.otherUser) {
+      const text &#x3D; this.userService.userInfo.isLoggedIn &#x3D;&#x3D; true ? &quot;Aktiv&quot; : &quot;Inaktiv&quot;;
+      return text
+    } else {
+      const text &#x3D; this.userService.otherUserInfo.isLoggedIn &#x3D;&#x3D; true ? &quot;Aktiv&quot; : &quot;Inaktiv&quot;;
+      return text
+    }
+  }
+
+  /**
+   * The function &#x60;checkUpdateInput&#x60; checks if the &#x60;updateUserForm&#x60; is valid and opens a dialog if it is.
+   */
+  checkUpdateInput() {
+    if (this.updateUserForm.valid) {
+      this.openDialog()
+    }
+  }
+
+  async sendMessage() {
+    let alreadyPushed &#x3D; false;
+    await this.channelService.updateUserDm(this.userService.otherUserInfo);
+    this.sidebarService.userDmData.forEach(element &#x3D;&gt; {
+      if (element.id &#x3D;&#x3D; this.userService.otherUserInfo.id)
+        alreadyPushed &#x3D; true;
+    });
+    if (!alreadyPushed)
+      this.sidebarService.userDmData.push(this.userService.otherUserInfo);
+    this.channelService.chooseChannelType(true, this.userService.otherUserInfo);
+    this.threadService.stopListener();
+    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.isActive &#x3D; false;
+    this.closeDialog();
+  }
+
+  /**
+   * The &#x60;openDialog&#x60; function opens a dialog window to verify user information and updates user email
+   * and profile if verified.
+   */
+  openDialog() {
+    this.dialog.open(VerifyComponent, { panelClass: [&#x27;box-shadow&#x27;, &#x27;box-radius&#x27;] })
+      .afterClosed()
+      .subscribe(() &#x3D;&gt; {
+        if (this.authService.verified &#x3D;&#x3D; true) {
+          this.authService.updateUserMail(this.updateUserForm.controls[&#x27;email&#x27;].value)
+          this.userService.updateUserProfile(this.updateUserForm);
+          this.editMode &#x3D; false;
+        } else {
+          return
+        }
+      })
+  }
+
+  /**
+   * Toggles the value of &#x60;editProfilePic&#x60;, which controls whether the profile picture can be changed.
+   */
+  toggleChangeProfilePic() {
+    this.editProfilePic &#x3D; !this.editProfilePic;
+  }
+
+  /**
+   * The closeDialog function closes all open dialog windows.
+   */
+  closeDialog() {
+
+    this.otherUser ? this.dialog.closeAll() : this.dialogRef.close()
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;profile-container&quot;&gt;
+    &lt;div class&#x3D;&quot;profile-head&quot;&gt;
+        &lt;span&gt;Profil&lt;/span&gt;
+        &lt;div (click)&#x3D;&quot;closeDialog()&quot;&gt;
+            &lt;img src&#x3D;&quot;/assets/img/header/close.svg&quot; alt&#x3D;&quot;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;profile-picture-container&quot;&gt;
+        &lt;div class&#x3D;&quot;profile-picture&quot;&gt;
+            &lt;img *ngIf&#x3D;&quot;otherUser&#x3D;&#x3D;true&quot; referrerpolicy&#x3D;&quot;no-referrer&quot;
+                [src]&#x3D;&quot;userService.otherUserInfo.profilePicture&quot;&gt;
+            &lt;img *ngIf&#x3D;&quot;otherUser&#x3D;&#x3D;false&quot; referrerpolicy&#x3D;&quot;no-referrer&quot;
+                [src]&#x3D;&quot;selectedAvatar || userService.userInfo.profilePicture&quot;&gt;
+            &lt;div class&#x3D;&quot;edit-pencil-icon&quot; *ngIf&#x3D;&quot;editMode&quot; [ngClass]&#x3D;&quot;{ &#x27;active-edit-profile-pic&#x27;: editProfilePic }&quot;
+                (click)&#x3D;&quot;toggleChangeProfilePic()&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    @if (editMode &#x3D;&#x3D; false) {
+    &lt;div class&#x3D;&quot;profile-edit-container&quot;&gt;
+        &lt;div class&#x3D;&quot;profile-edit&quot;&gt;
+            &lt;span *ngIf&#x3D;&quot;otherUser&#x3D;&#x3D;true&quot;&gt;{{userService.otherUserInfo.name}}&lt;/span&gt;
+            &lt;span *ngIf&#x3D;&quot;otherUser&#x3D;&#x3D;false&quot;&gt;{{userService.userInfo.name}}&lt;/span&gt;
+            @if (profileEditable) {&lt;a (click)&#x3D;&quot;editMode&#x3D;true&quot;&gt;Bearbeiten&lt;/a&gt;}
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;user-status&quot;&gt;
+            &lt;div [ngClass]&#x3D;&quot;getUserStatus(&#x27;div&#x27;)&quot; class&#x3D;&quot;status&quot;&gt;&lt;/div&gt;
+            &lt;span [ngClass]&#x3D;&quot;getUserStatus(&#x27;text&#x27;)&quot;&gt;{{getStatusText()}}&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;profile-email-container&quot;&gt;
+        &lt;div class&#x3D;&quot;email-icon&quot;&gt;
+            &lt;img src&#x3D;&quot;/assets/img/profile/mail.svg&quot; alt&#x3D;&quot;mail-icon&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;email-content&quot;&gt;
+            &lt;span&gt;E-mail Adresse&lt;/span&gt;
+            &lt;a *ngIf&#x3D;&quot;otherUser&#x3D;&#x3D;true&quot;
+                [href]&#x3D;&quot;&#x27;mailto:&#x27; + userService.otherUserInfo.email&quot;&gt;{{userService.otherUserInfo.email}}&lt;/a&gt;
+            &lt;a *ngIf&#x3D;&quot;otherUser&#x3D;&#x3D;false&quot;
+                [href]&#x3D;&quot;&#x27;mailto:&#x27;+ userService.userInfo.email&quot;&gt;{{userService.userInfo.email}}&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    @if (otherUser&#x3D;&#x3D;&#x3D; true) {
+    &lt;div class&#x3D;&quot;profile-msg-btn&quot;&gt;
+        &lt;div class&#x3D;&quot;msg-btn&quot; (click)&#x3D;&quot;sendMessage()&quot;&gt;
+            &lt;img src&#x3D;&quot;/assets/img/profile/message.svg&quot; alt&#x3D;&quot;message-icon&quot;&gt;
+            &lt;span&gt;Nachricht&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;}
+    }
+    @if (editMode &#x3D;&#x3D; true) {
+    &lt;div class&#x3D;&quot;edit-user-form-container&quot;&gt;
+        &lt;form (ngSubmit)&#x3D;&quot;userService.updateUserProfile(updateUserForm)&quot; [formGroup]&#x3D;&quot;updateUserForm&quot;
+            autocomplete&#x3D;&quot;off&quot;&gt;
+            &lt;div class&#x3D;&quot;selectable-profile-pic&quot; *ngIf&#x3D;&quot;editProfilePic&quot;&gt;
+                &lt;img *ngFor&#x3D;&quot;let avatar of avatars&quot; [src]&#x3D;&quot;avatar&quot; (click)&#x3D;&quot;selectAvatar(avatar)&quot;
+                    [ngClass]&#x3D;&quot;{&#x27;selected&#x27;: avatar &#x3D;&#x3D;&#x3D; selectedAvatar}&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;upload&quot; *ngIf&#x3D;&quot;editProfilePic&quot;&gt;
+                &lt;button (click)&#x3D;&quot;triggerFileInput()&quot;&gt;Datei hochladen&lt;/button&gt;
+                &lt;input #fileInput type&#x3D;&quot;file&quot; accept&#x3D;&quot;image/*&quot; (change)&#x3D;&quot;onImageSelected(fileInput)&quot; hidden&gt;
+              &lt;/div&gt;
+            &lt;div class&#x3D;&quot;input-container&quot; *ngIf&#x3D;&quot;!editProfilePic&quot;&gt;
+                &lt;div&gt;
+                    &lt;img src&#x3D;&quot;/assets/img/profile/account-circle.svg&quot; alt&#x3D;&quot;profil-icon&quot;&gt;
+                    &lt;span&gt;Vollständiger Name&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;input [placeholder]&#x3D;&quot;userService.userInfo.name&quot; type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;name&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;input-container&quot; *ngIf&#x3D;&quot;!editProfilePic&quot;&gt;
+                &lt;div&gt;
+                    &lt;img src&#x3D;&quot;/assets/img/profile/mail.svg&quot; alt&#x3D;&quot;&quot;&gt;
+                    &lt;span&gt;E-mail Adresse&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;input [placeholder]&#x3D;&quot;userService.userInfo.email&quot; type&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot;
+                    pattern&#x3D;&quot;^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#&#x3D;]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&amp;//&#x3D;]*)$&quot;&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+        &lt;div class&#x3D;&quot;edit-user-btns&quot;&gt;
+            &lt;div class&#x3D;&quot;cancel-btn&quot; (click)&#x3D;&quot;editMode&#x3D;false; selectedAvatar&#x3D;&#x27;&#x27;&quot;&gt;
+                Abbrechen
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;!editProfilePic&quot; class&#x3D;&quot;save-btn&quot; (click)&#x3D;&quot;checkUpdateInput()&quot;&gt;
+                Speichern
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;editProfilePic&quot; class&#x3D;&quot;save-btn&quot; (click)&#x3D;&quot;newProfilePicture(); editProfilePic &#x3D; false&quot;&gt;
+                Speichern
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    }
+
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="profile-container">    <div class="profile-head">        <span>Profil</span>        <div (click)="closeDialog()">            <img src="/assets/img/header/close.svg" alt="">        </div>    </div>    <div class="profile-picture-container">        <div class="profile-picture">            <img *ngIf="otherUser==true" referrerpolicy="no-referrer"                [src]="userService.otherUserInfo.profilePicture">            <img *ngIf="otherUser==false" referrerpolicy="no-referrer"                [src]="selectedAvatar || userService.userInfo.profilePicture">            <div class="edit-pencil-icon" *ngIf="editMode" [ngClass]="{ \'active-edit-profile-pic\': editProfilePic }"                (click)="toggleChangeProfilePic()"></div>        </div>    </div>    @if (editMode == false) {    <div class="profile-edit-container">        <div class="profile-edit">            <span *ngIf="otherUser==true">{{userService.otherUserInfo.name}}</span>            <span *ngIf="otherUser==false">{{userService.userInfo.name}}</span>            @if (profileEditable) {<a (click)="editMode=true">Bearbeiten</a>}        </div>        <div class="user-status">            <div [ngClass]="getUserStatus(\'div\')" class="status"></div>            <span [ngClass]="getUserStatus(\'text\')">{{getStatusText()}}</span>        </div>    </div>    <div class="profile-email-container">        <div class="email-icon">            <img src="/assets/img/profile/mail.svg" alt="mail-icon">        </div>        <div class="email-content">            <span>E-mail Adresse</span>            <a *ngIf="otherUser==true"                [href]="\'mailto:\' + userService.otherUserInfo.email">{{userService.otherUserInfo.email}}</a>            <a *ngIf="otherUser==false"                [href]="\'mailto:\'+ userService.userInfo.email">{{userService.userInfo.email}}</a>        </div>    </div>    @if (otherUser=== true) {    <div class="profile-msg-btn">        <div class="msg-btn" (click)="sendMessage()">            <img src="/assets/img/profile/message.svg" alt="message-icon">            <span>Nachricht</span>        </div>    </div>}    }    @if (editMode == true) {    <div class="edit-user-form-container">        <form (ngSubmit)="userService.updateUserProfile(updateUserForm)" [formGroup]="updateUserForm"            autocomplete="off">            <div class="selectable-profile-pic" *ngIf="editProfilePic">                <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)"                    [ngClass]="{\'selected\': avatar === selectedAvatar}">            </div>            <div class="upload" *ngIf="editProfilePic">                <button (click)="triggerFileInput()">Datei hochladen</button>                <input #fileInput type="file" accept="image/*" (change)="onImageSelected(fileInput)" hidden>              </div>            <div class="input-container" *ngIf="!editProfilePic">                <div>                    <img src="/assets/img/profile/account-circle.svg" alt="profil-icon">                    <span>Vollständiger Name</span>                </div>                <input [placeholder]="userService.userInfo.name" type="text" formControlName="name">            </div>            <div class="input-container" *ngIf="!editProfilePic">                <div>                    <img src="/assets/img/profile/mail.svg" alt="">                    <span>E-mail Adresse</span>                </div>                <input [placeholder]="userService.userInfo.email" type="email" formControlName="email"                    pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">            </div>        </form>        <div class="edit-user-btns">            <div class="cancel-btn" (click)="editMode=false; selectedAvatar=\'\'">                Abbrechen            </div>            <div *ngIf="!editProfilePic" class="save-btn" (click)="checkUpdateInput()">                Speichern            </div>            <div *ngIf="editProfilePic" class="save-btn" (click)="newProfilePicture(); editProfilePic = false">                Speichern            </div>        </div>    </div>    }</div></div>'
+    var COMPONENTS = [{'name': 'AddNewChannelComponent', 'selector': 'app-add-new-channel'},{'name': 'AddNewUserToChannelComponent', 'selector': 'app-add-new-user-to-channel'},{'name': 'AddUserDialogComponent', 'selector': 'app-add-user-dialog'},{'name': 'AddUserToChannelDialogComponent', 'selector': 'app-add-user-to-channel-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChannelComponent', 'selector': 'app-channel'},{'name': 'ChannelMessagesComponent', 'selector': 'app-channel-messages'},{'name': 'ChooseavatarComponent', 'selector': 'app-chooseavatar'},{'name': 'ConfirmpasswordComponent', 'selector': 'app-confirmpassword'},{'name': 'EditChannelDialogComponent', 'selector': 'app-edit-channel-dialog'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainsectionComponent', 'selector': 'app-mainsection'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'PrivacypolicyComponent', 'selector': 'app-privacypolicy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetpasswordComponent', 'selector': 'app-resetpassword'},{'name': 'ShowProfileComponent', 'selector': 'app-show-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'ThreadComponent', 'selector': 'app-thread'},{'name': 'UserMenuDialogComponent', 'selector': 'app-user-menu-dialog'},{'name': 'VerifyComponent', 'selector': 'app-verify'}];
+    var DIRECTIVES = [{'name': 'OutsideclickDirective', 'selector': '[appOutsideclick]'}];
+    var ACTUAL_COMPONENT = {'name': 'ShowProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ShowProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,2048 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>da-bubble documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">da-bubble documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ChannelMessagesComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/mainsection/channel/channel-messages/channel-messages.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-channel-messages</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/ShowProfileComponent.html" target="_self" >ShowProfileComponent</a></code>
+                                <code><a href="../components/EditChannelDialogComponent.html" target="_self" >EditChannelDialogComponent</a></code>
+                                <code><a href="../components/AddUserToChannelDialogComponent.html" target="_self" >AddUserToChannelDialogComponent</a></code>
+                                <code><a href="../components/AddUserDialogComponent.html" target="_self" >AddUserDialogComponent</a></code>
+                                <code><a href="../components/MessageComponent.html" target="_self" >MessageComponent</a></code>
+                            <code>NgOptimizedImage</code>
+                                <code><a href="../components/MainsectionComponent.html" target="_self" >MainsectionComponent</a></code>
+                            <code>MatMenuModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./channel-messages.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./channel-messages.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activeChannelHead" >activeChannelHead</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#addUser" >addUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#addUserToChannel" >addUserToChannel</a>
+                            </li>
+                            <li>
+                                <a href="#channelList" >channelList</a>
+                            </li>
+                            <li>
+                                <a href="#channelService" >channelService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRefs" >dialogRefs</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#editChannel" >editChannel</a>
+                            </li>
+                            <li>
+                                <a href="#resizeListenerService" >resizeListenerService</a>
+                            </li>
+                            <li>
+                                <a href="#searchReceiver" >searchReceiver</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#showAddUserSubscription" >showAddUserSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#sidebarService" >sidebarService</a>
+                            </li>
+                            <li>
+                                <a href="#stateService" >stateService</a>
+                            </li>
+                            <li>
+                                <a href="#threadService" >threadService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#trigger" >trigger</a>
+                            </li>
+                            <li>
+                                <a href="#userList" >userList</a>
+                            </li>
+                            <li>
+                                <a href="#userService" >userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getMenu" >getMenu</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getOtherUserData" >getOtherUserData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDialogAddUser" >openDialogAddUser</a>
+                            </li>
+                            <li>
+                                <a href="#openDialogAddUserDependentBrowserSize" >openDialogAddUserDependentBrowserSize</a>
+                            </li>
+                            <li>
+                                <a href="#openDialogAddUserToChannel" >openDialogAddUserToChannel</a>
+                            </li>
+                            <li>
+                                <a href="#openDialogEditChannel" >openDialogEditChannel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openDialogUserInfo" >openDialogUserInfo</a>
+                            </li>
+                            <li>
+                                <a href="#resetInput" >resetInput</a>
+                            </li>
+                            <li>
+                                <a href="#searchChannel" >searchChannel</a>
+                            </li>
+                            <li>
+                                <a href="#searchUser" >searchUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendMessage" >sendMessage</a>
+                            </li>
+                            <li>
+                                <a href="#updateDialogPositions" >updateDialogPositions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialog: MatDialog)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:58</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMenu"></a>
+                    <span class="name">
+                        <span ><b>getMenu</b></span>
+                        <a href="#getMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>getMenu</code> function opens the menu by calling the <code>openMenu</code> method on the <code>trigger</code> object.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOtherUserData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getOtherUserData</b></span>
+                        <a href="#getOtherUserData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOtherUserData(id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The function <code>getOtherUserData</code> asynchronously retrieves other user data and opens a dialog with the
+user information.
+represents the user ID of the other user whose profile you want to retrieve.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The <code>id</code> parameter in the <code>getOtherUserData</code> function is a string that
+represents the user ID of the other user whose profile you want to retrieve.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="254"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:254</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Called once, before the instance is destroyed.
+Add &#39;implements OnDestroy&#39; to the class.
+removes the resize listener</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the component and sets the edit channel dialog to be open on mobile devices.
+Subscribes to the openDialogAddUser$ subject from the state service and calls the
+openDialogAddUser() method when the subject emits a value.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialogAddUser"></a>
+                    <span class="name">
+                        <span ><b>openDialogAddUser</b></span>
+                        <a href="#openDialogAddUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialogAddUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens dialog to add user.
+position is set to the bottom right corner of the addUser element.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialogAddUserDependentBrowserSize"></a>
+                    <span class="name">
+                        <span ><b>openDialogAddUserDependentBrowserSize</b></span>
+                        <a href="#openDialogAddUserDependentBrowserSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialogAddUserDependentBrowserSize()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens dialog to add user.
+position is set to the bottom right corner of the addUser element.
+Depends on screen size for mobile or desktop</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialogAddUserToChannel"></a>
+                    <span class="name">
+                        <span ><b>openDialogAddUserToChannel</b></span>
+                        <a href="#openDialogAddUserToChannel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialogAddUserToChannel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens dialog for adding user to channel.
+position is set to the bottom right corner of the addUserToChannel element.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialogEditChannel"></a>
+                    <span class="name">
+                        <span ><b>openDialogEditChannel</b></span>
+                        <a href="#openDialogEditChannel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialogEditChannel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens a dialog to edit a channel.
+position is set to the bottom left corner of the editChannel element.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialogUserInfo"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openDialogUserInfo</b></span>
+                        <a href="#openDialogUserInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openDialogUserInfo()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:159</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens dialog to display user&#39;s profile info. Opens ShowProfileComponent, sets
+otherUser to true and profileEditable to false. Closes dialog when user clicks
+outside or presses escape key.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetInput"></a>
+                    <span class="name">
+                        <span ><b>resetInput</b></span>
+                        <a href="#resetInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetInput()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="245"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchChannel"></a>
+                    <span class="name">
+                        <span ><b>searchChannel</b></span>
+                        <a href="#searchChannel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchChannel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>searchChannel</code> function filters channels based on a search query and populates the
+<code>channelList</code> array with matching channels.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchUser"></a>
+                    <span class="name">
+                        <span ><b>searchUser</b></span>
+                        <a href="#searchUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="197"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:197</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>searchUser</code> function filters a list of users based on a search query provided by the user.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendMessage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>sendMessage</b></span>
+                        <a href="#sendMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendMessage(user: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="230"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:230</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>sendMessage</code> function asynchronously updates user direct messages, checks if the
+user is already in the sidebar, adds the user if not, chooses the channel type, stops the listener,
+triggers hiding the thread, and sets the thread as inactive.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The <code>user</code> parameter represents an object that contains information about a user.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateDialogPositions"></a>
+                    <span class="name">
+                        <span ><b>updateDialogPositions</b></span>
+                        <a href="#updateDialogPositions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateDialogPositions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates the positions of the dialogs based on the type of dialog component instance.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeChannelHead"></a>
+                    <span class="name">
+                        <span ><b>activeChannelHead</b></span>
+                        <a href="#activeChannelHead"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addUser"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>addUser</b></span>
+                        <a href="#addUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;addUser&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addUserToChannel"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>addUserToChannel</b></span>
+                        <a href="#addUserToChannel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;addUserToChannel&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelList"></a>
+                    <span class="name">
+                        <span ><b>channelList</b></span>
+                        <a href="#channelList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelService"></a>
+                    <span class="name">
+                        <span ><b>channelService</b></span>
+                        <a href="#channelService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ChannelService.html" target="_self" >ChannelService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChannelService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRefs"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialogRefs</b></span>
+                        <a href="#dialogRefs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialogRef&lt;any&gt;[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editChannel"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>editChannel</b></span>
+                        <a href="#editChannel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;editChannel&#x27;, {read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resizeListenerService"></a>
+                    <span class="name">
+                        <span ><b>resizeListenerService</b></span>
+                        <a href="#resizeListenerService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ResizeListenerService.html" target="_self" >ResizeListenerService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ResizeListenerService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchReceiver"></a>
+                    <span class="name">
+                        <span ><b>searchReceiver</b></span>
+                        <a href="#searchReceiver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    receiver: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAddUserSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>showAddUserSubscription</b></span>
+                        <a href="#showAddUserSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sidebarService"></a>
+                    <span class="name">
+                        <span ><b>sidebarService</b></span>
+                        <a href="#sidebarService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/SidebarService.html" target="_self" >SidebarService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(SidebarService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stateService"></a>
+                    <span class="name">
+                        <span ><b>stateService</b></span>
+                        <a href="#stateService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/StateService.html" target="_self" >StateService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(StateService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="threadService"></a>
+                    <span class="name">
+                        <span ><b>threadService</b></span>
+                        <a href="#threadService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ThreadService.html" target="_self" >ThreadService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ThreadService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trigger"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>trigger</b></span>
+                        <a href="#trigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatMenuTrigger</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(MatMenuTrigger)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userList"></a>
+                    <span class="name">
+                        <span ><b>userList</b></span>
+                        <a href="#userList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userService"></a>
+                    <span class="name">
+                        <span ><b>userService</b></span>
+                        <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UserService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/mainsection/channel/channel-messages/channel-messages.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule, NgOptimizedImage } from &#x27;@angular/common&#x27;;
+import { Component, ElementRef, ViewChild, inject, OnInit } from &#x27;@angular/core&#x27;;
+import { MainsectionComponent } from &#x27;../../mainsection.component&#x27;;
+import { MatDialog, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { ShowProfileComponent } from &#x27;../../../shared/components/show-profile/show-profile.component&#x27;;
+import { EditChannelDialogComponent } from &#x27;../edit-channel-dialog/edit-channel-dialog.component&#x27;;
+import { AddUserToChannelDialogComponent } from &#x27;../add-user-to-channel-dialog/add-user-to-channel-dialog.component&#x27;;
+import { AddUserDialogComponent } from &#x27;../add-user-dialog/add-user-dialog.component&#x27;;
+import { MessageComponent } from &#x27;./message/message.component&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { ChannelService } from &#x27;../../../shared/services/channel.service&#x27;;
+import { SidebarService } from &#x27;../../../shared/services/sidebar.service&#x27;;
+import { UserService } from &#x27;../../../shared/services/user.service&#x27;;
+import { StateService } from &#x27;../../../shared/services/state-service.service&#x27;;
+import { ResizeListenerService } from &#x27;../../../shared/services/resize-listener.service&#x27;;
+import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { User } from &#x27;@angular/fire/auth&#x27;;
+import { ThreadService } from &#x27;../../../shared/services/thread.service&#x27;;
+
+@Component({
+  selector: &#x27;app-channel-messages&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ShowProfileComponent,
+    EditChannelDialogComponent,
+    AddUserToChannelDialogComponent,
+    AddUserDialogComponent,
+    MessageComponent,
+    NgOptimizedImage,
+    MainsectionComponent,
+    MatMenuModule,
+    FormsModule
+  ],
+  templateUrl: &#x27;./channel-messages.component.html&#x27;,
+  styleUrl: &#x27;./channel-messages.component.scss&#x27;
+})
+
+export class ChannelMessagesComponent implements OnInit {
+  channelService: ChannelService &#x3D; inject(ChannelService);
+  sidebarService: SidebarService &#x3D; inject(SidebarService);
+  userService: UserService &#x3D; inject(UserService);
+  threadService: ThreadService &#x3D; inject(ThreadService);
+  resizeListenerService: ResizeListenerService &#x3D; inject(ResizeListenerService);
+  stateService: StateService &#x3D; inject(StateService);
+  private showAddUserSubscription: Subscription &#x3D; new Subscription();
+  @ViewChild(&#x27;editChannel&#x27;, { read: ElementRef }) editChannel!: ElementRef;
+  @ViewChild(&#x27;addUserToChannel&#x27;, { read: ElementRef }) addUserToChannel!: ElementRef;
+  @ViewChild(&#x27;addUser&#x27;, { read: ElementRef }) addUser!: ElementRef;
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
+  activeChannelHead &#x3D; &#x27;&#x27;;
+  searchReceiver &#x3D; {
+    receiver: &#x27;&#x27;
+  }
+  public dialogRefs: MatDialogRef&lt;any&gt;[] &#x3D; [];
+  userList: any[] &#x3D; [];
+  channelList: any[] &#x3D; [];
+
+  constructor(public dialog: MatDialog) {
+    this.resizeListenerService.registerResizeCallback(this.updateDialogPositions.bind(this));
+    this.dialogRefs &#x3D; [];
+  }
+
+  /**
+   * Initializes the component and sets the edit channel dialog to be open on mobile devices.
+   * Subscribes to the openDialogAddUser$ subject from the state service and calls the
+   * openDialogAddUser() method when the subject emits a value.
+   */
+  ngOnInit(): void {
+    this.stateService.setEditChannelDialogOpenMobile(true);
+    this.showAddUserSubscription &#x3D; this.stateService.openDialogAddUser$.subscribe(() &#x3D;&gt; {
+      this.openDialogAddUser();
+    })
+  }
+
+  /**
+   * Opens dialog to add user.
+   * position is set to the bottom right corner of the addUser element.
+   * Depends on screen size for mobile or desktop
+   */
+  openDialogAddUserDependentBrowserSize() {
+    if (this.resizeListenerService.xsmScreen || this.resizeListenerService.smScreen) {
+      this.dialogRefs &#x3D; [];
+      this.openDialogAddUserToChannel();
+    } else {
+      this.openDialogAddUser();
+    }
+  }
+
+  /**
+   * Opens dialog to add user.
+   * position is set to the bottom right corner of the addUser element.
+   */
+  openDialogAddUser() {
+    const rect &#x3D; this.addUser.nativeElement.getBoundingClientRect();
+    const dialogRef &#x3D; this.dialog.open(AddUserDialogComponent, {
+      panelClass: [&#x27;add-user&#x27;, &#x27;box-radius-right-corner&#x27;, &#x27;box-shadow&#x27;],
+      position: { top: &#x60;${rect.bottom}px&#x60;, left: &#x60;${rect.right - 538}px&#x60; }
+    });
+    this.dialogRefs.push(dialogRef);
+    dialogRef.afterClosed().subscribe(() &#x3D;&gt; {
+      this.dialogRefs &#x3D; [];
+    });
+  }
+
+  /**
+   * Opens dialog for adding user to channel.
+   * position is set to the bottom right corner of the addUserToChannel element.
+   */
+  openDialogAddUserToChannel() {
+    this.stateService.setEditChannelDialogOpenMobile(false);
+    const rect &#x3D; this.addUserToChannel.nativeElement.getBoundingClientRect();
+    const dialogRef &#x3D; this.dialog.open(AddUserToChannelDialogComponent, {
+      panelClass: [&#x27;add-user-to-channel&#x27;, &#x27;box-radius-right-corner&#x27;, &#x27;box-shadow&#x27;],
+      position: { top: &#x60;${rect.bottom}px&#x60;, left: &#x60;${rect.right - 438}px&#x60; }
+    });
+    this.dialogRefs.push(dialogRef);
+    dialogRef.afterClosed().subscribe(() &#x3D;&gt; {
+      this.stateService.setEditChannelDialogOpenMobile(true);
+    });
+  }
+
+  /**
+   * Opens a dialog to edit a channel.
+   * position is set to the bottom left corner of the editChannel element.
+   */
+  openDialogEditChannel() {
+    this.activeChannelHead &#x3D; &#x27;&#x27;;
+    const rect &#x3D; this.editChannel.nativeElement.getBoundingClientRect();
+    const dialogRef &#x3D; this.dialog.open(EditChannelDialogComponent, {
+      panelClass: [&#x27;edit-channel&#x27;, &#x27;box-radius-left-corner&#x27;, &#x27;box-shadow&#x27;],
+      position: { top: &#x60;${rect.bottom}px&#x60;, left: &#x60;${rect.left - 20}px&#x60; }
+    });
+    this.dialogRefs.push(dialogRef);
+    this.activeChannelHead &#x3D; &#x27;edit-channel&#x27;;
+    dialogRef.afterClosed().subscribe(() &#x3D;&gt; {
+      this.dialogRefs &#x3D; [];
+      this.activeChannelHead &#x3D; &#x27;&#x27;;
+    });
+  }
+
+  /**
+   * The function &#x60;getOtherUserData&#x60; asynchronously retrieves other user data and opens a dialog with the
+   * user information.
+   * @param {string} [id] - The &#x60;id&#x60; parameter in the &#x60;getOtherUserData&#x60; function is a string that
+   * represents the user ID of the other user whose profile you want to retrieve.
+   */
+  async getOtherUserData(id?: string) {
+    await this.userService.retrieveOtherUserProfile(id!);
+    this.openDialogUserInfo();
+  }
+
+  /**
+   * Opens dialog to display user&#x27;s profile info. Opens ShowProfileComponent, sets
+   * otherUser to true and profileEditable to false. Closes dialog when user clicks
+   * outside or presses escape key.
+   */
+  async openDialogUserInfo() {
+    let dialogRef &#x3D; this.dialog.open(ShowProfileComponent, { panelClass: [&#x27;show-profile-from-message&#x27;, &#x27;box-shadow&#x27;, &#x27;box-radius&#x27;] });
+    dialogRef.componentInstance.otherUser &#x3D; true;
+    dialogRef.componentInstance.profileEditable &#x3D; false;
+    dialogRef
+      .afterClosed()
+      .subscribe();
+  }
+
+  /**
+   * Updates the positions of the dialogs based on the type of dialog component instance.
+   */
+  updateDialogPositions() {
+    this.dialogRefs.forEach(dialogRef &#x3D;&gt; {
+      const dialogComponentInstance &#x3D; dialogRef.componentInstance;
+      if (dialogComponentInstance instanceof AddUserDialogComponent) {
+        const rect &#x3D; this.addUser.nativeElement.getBoundingClientRect();
+        dialogRef.updatePosition({ top: &#x60;${rect.bottom}px&#x60;, left: &#x60;${rect.right - 538}px&#x60; });
+      } else if (dialogComponentInstance instanceof AddUserToChannelDialogComponent) {
+        const rect &#x3D; this.addUserToChannel.nativeElement.getBoundingClientRect();
+        dialogRef.updatePosition({ top: &#x60;${rect.bottom}px&#x60;, left: &#x60;${rect.right - 438}px&#x60; });
+      } else if (dialogComponentInstance instanceof EditChannelDialogComponent) {
+        const rect &#x3D; this.editChannel.nativeElement.getBoundingClientRect();
+        dialogRef.updatePosition({ top: &#x60;${rect.bottom}px&#x60;, left: &#x60;${rect.left - 20}px&#x60; });
+      }
+    });
+  }
+
+  /**
+   * The &#x60;getMenu&#x60; function opens the menu by calling the &#x60;openMenu&#x60; method on the &#x60;trigger&#x60; object.
+   */
+  getMenu() {
+    this.trigger.openMenu();
+  }
+
+  /**
+   * The &#x60;searchUser&#x60; function filters a list of users based on a search query provided by the user.
+   */
+  searchUser() {
+    this.userList &#x3D; [];
+    this.userService.allUsers.forEach(element &#x3D;&gt; {
+      const name: string &#x3D; element[&#x27;name&#x27;];
+
+      const contains: boolean &#x3D; name.toLocaleLowerCase().indexOf(this.searchReceiver.receiver.toLocaleLowerCase().substring(1)) !&#x3D; -1;
+      if (contains &amp;&amp; this.searchReceiver.receiver !&#x3D; &#x27;&#x27;) {
+        this.userList.push(element);
+      }
+    });
+  }
+
+  /**
+   * The &#x60;searchChannel&#x60; function filters channels based on a search query and populates the
+   * &#x60;channelList&#x60; array with matching channels.
+   */
+  searchChannel() {
+    this.channelList &#x3D; [];
+    this.sidebarService.channels.forEach(element &#x3D;&gt; {
+      const title: string &#x3D; element[&#x27;title&#x27;];
+      const contains: boolean &#x3D; title.toLocaleLowerCase().indexOf(this.searchReceiver.receiver.toLocaleLowerCase().substring(1)) !&#x3D; -1;
+      if (contains &amp;&amp; this.searchReceiver.receiver !&#x3D; &#x27;&#x27;) {
+        this.channelList.push({ title: title, collection: element[&#x27;collection&#x27;] });
+      }
+    });
+  }
+
+  /**
+   * The &#x60;sendMessage&#x60; function asynchronously updates user direct messages, checks if the
+   * user is already in the sidebar, adds the user if not, chooses the channel type, stops the listener,
+   * triggers hiding the thread, and sets the thread as inactive.
+   * @param {any} user - The &#x60;user&#x60; parameter represents an object that contains information about a user. 
+   */
+  async sendMessage(user: any) {
+    let alreadyPushed &#x3D; false;
+    await this.channelService.updateUserDm(user);
+    this.sidebarService.userDmData.forEach(element &#x3D;&gt; {
+      if (element.id &#x3D;&#x3D; user.id)
+        alreadyPushed &#x3D; true;
+    });
+    if (!alreadyPushed)
+      this.sidebarService.userDmData.push(user);
+    this.channelService.chooseChannelType(true, user);
+    this.threadService.stopListener();
+    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.isActive &#x3D; false;
+  }
+
+  resetInput() {
+    this.searchReceiver.receiver &#x3D; &#x27;&#x27;;
+  }
+
+  /**
+   * Called once, before the instance is destroyed.
+   * Add &#x27;implements OnDestroy&#x27; to the class.
+   * removes the resize listener
+   */
+  ngOnDestroy(): void {
+    this.channelService.privateMsgData &#x3D; undefined;
+    this.channelService.privateMsg &#x3D; false;
+    this.channelService.channelMsg &#x3D; false;
+    this.resizeListenerService.unregisterResizeCallback(this.updateDialogPositions.bind(this));
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;channel-container&quot;&gt;
+    &lt;div class&#x3D;&quot;channel-head-wrapper&quot;&gt;
+        @if (channelService.channelMsg) {
+        &lt;div #editChannel (click)&#x3D;&quot;openDialogEditChannel()&quot; class&#x3D;&quot;channel-head&quot;
+             [ngClass]&#x3D;&quot;{&#x27;active-channel-head&#x27; : activeChannelHead.includes(&#x27;edit-channel&#x27;)}&quot;&gt;
+            &lt;div class&#x3D;&quot;channel-head-tag-icon&quot;&gt;&lt;/div&gt;
+            &lt;span&gt;{{channelService.channelMsgData.title}} &lt;/span&gt;
+            &lt;div class&#x3D;&quot;channel-head-arrow-icon&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;channel-head-right&quot;&gt;
+            &lt;div #addUserToChannel (click)&#x3D;&quot;openDialogAddUserToChannel()&quot; class&#x3D;&quot;channel-user-icons&quot;
+            [class.overlapping-image]&#x3D;&quot;channelService.currentChannelUsers.length &gt; 3 &amp;&amp; !resizeListenerService.lgScreen&quot;&gt;
+                @for (user of channelService.currentChannelUsers; track $index) {
+                &lt;img
+                referrerpolicy&#x3D;&quot;no-referrer&quot;
+                [src]&#x3D;&quot;user.profilePicture&quot;&gt;
+                }
+                &lt;span&gt;{{channelService.currentChannelUsers.length}}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div #addUser (click)&#x3D;&quot;openDialogAddUserDependentBrowserSize()&quot; class&#x3D;&quot;add-user-channel-icon&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        }@else if (channelService.privateMsg &amp;&amp; channelService.messagesLoaded) {
+        &lt;div class&#x3D;&quot;message&quot; (click)&#x3D;&quot;getOtherUserData(channelService.privateMsgData.id)&quot;&gt;
+            &lt;img referrerpolicy&#x3D;&quot;no-referrer&quot; [src]&#x3D;&quot;channelService.privateMsgData[&#x27;profilePicture&#x27;]&quot; alt&#x3D;&quot;&quot; /&gt;
+            &lt;div [ngClass]&#x3D;&quot;sidebarService.getDmStatus(channelService.privateMsgData[&#x27;isLoggedIn&#x27;])&quot;
+                 class&#x3D;&quot;online-indicator&quot;&gt;&lt;/div&gt;
+            &lt;span&gt;{{channelService.privateMsgData[&#x27;name&#x27;]}}&lt;/span&gt;
+        &lt;/div&gt;
+        }@else if(channelService.messages.length &#x3D;&#x3D; 0 &amp;&amp; !channelService.privateMsg &amp;&amp; !channelService.channelMsg) {
+        &lt;div class&#x3D;&quot;head-newmsg&quot;&gt;
+            &lt;span&gt;Neue Nachricht&lt;/span&gt;
+            &lt;div class&#x3D;&quot;input-wrapper&quot;&gt;
+                &lt;input name&#x3D;&quot;searchReceiver&quot; [matMenuTriggerFor]&#x3D;&quot;menu&quot; #trigger type&#x3D;&quot;text&quot;
+                       [(ngModel)]&#x3D;&quot;searchReceiver.receiver&quot;
+                       (click)&#x3D;&quot;$event.stopPropagation()&quot; (input)&#x3D;&quot;searchUser();searchChannel()&quot; (input)&#x3D;&quot;getMenu()&quot;
+                       placeholder&#x3D;&quot;An: #channel, oder @jemand oder E-Mail Adresse&quot;
+                       class&#x3D;&quot;selectReceiver&quot;&gt;
+            &lt;/div&gt;
+            &lt;mat-menu #menu&#x3D;&quot;matMenu&quot; hasBackdrop&#x3D;&quot;true&quot;&gt;
+                @if (searchReceiver.receiver.charAt(0) &#x3D;&#x3D; &#x27;@&#x27;) {
+                &lt;div class&#x3D;&quot;button-wrapper&quot;&gt;
+                    &lt;span class&#x3D;&quot;span-head&quot;&gt;User:&lt;/span&gt;
+                    @for (user of userList; track user[&#x27;name&#x27;]; let i &#x3D; $index) {
+                    &lt;div class&#x3D;&quot;user-wrapper&quot; (click)&#x3D;&quot;resetInput();sendMessage(user)&quot;&gt;
+                        &lt;img [src]&#x3D;&quot;user.profilePicture&quot; alt&#x3D;&quot;&quot;&gt;
+                        &lt;span&gt;{{user.name}}&lt;/span&gt;
+                    &lt;/div&gt;
+                    }
+                &lt;/div&gt;
+                }@else if (searchReceiver.receiver.charAt(0) &#x3D;&#x3D; &#x27;#&#x27;) {
+                &lt;div class&#x3D;&quot;button-wrapper&quot;&gt;
+                    &lt;span class&#x3D;&quot;span-head&quot;&gt;Channels:&lt;/span&gt;
+                    @for (channel of channelList; track channel.title; let i &#x3D; $index) {
+                    &lt;div class&#x3D;&quot;user-wrapper&quot; (click)&#x3D;&quot;resetInput();channelService.chooseChannelType(false, channel)&quot;&gt;
+                        &lt;span class&#x3D;&quot;bold-span&quot;&gt;# {{channel.title}}&lt;/span&gt;
+                    &lt;/div&gt;
+                    }
+                &lt;/div&gt;
+                }
+            &lt;/mat-menu&gt;
+        &lt;/div&gt;
+        }
+    &lt;/div&gt;
+    @if (channelService.privateMsgData!&#x3D;undefined || channelService.channelMsg &#x3D;&#x3D;true) {
+    &lt;app-message&gt;&lt;/app-message&gt;
+    }
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="channel-container">    <div class="channel-head-wrapper">        @if (channelService.channelMsg) {        <div #editChannel (click)="openDialogEditChannel()" class="channel-head"             [ngClass]="{\'active-channel-head\' : activeChannelHead.includes(\'edit-channel\')}">            <div class="channel-head-tag-icon"></div>            <span>{{channelService.channelMsgData.title}} </span>            <div class="channel-head-arrow-icon"></div>        </div>        <div class="channel-head-right">            <div #addUserToChannel (click)="openDialogAddUserToChannel()" class="channel-user-icons"            [class.overlapping-image]="channelService.currentChannelUsers.length > 3 && !resizeListenerService.lgScreen">                @for (user of channelService.currentChannelUsers; track $index) {                <img                referrerpolicy="no-referrer"                [src]="user.profilePicture">                }                <span>{{channelService.currentChannelUsers.length}}</span>            </div>            <div #addUser (click)="openDialogAddUserDependentBrowserSize()" class="add-user-channel-icon"></div>        </div>        }@else if (channelService.privateMsg && channelService.messagesLoaded) {        <div class="message" (click)="getOtherUserData(channelService.privateMsgData.id)">            <img referrerpolicy="no-referrer" [src]="channelService.privateMsgData[\'profilePicture\']" alt="" />            <div [ngClass]="sidebarService.getDmStatus(channelService.privateMsgData[\'isLoggedIn\'])"                 class="online-indicator"></div>            <span>{{channelService.privateMsgData[\'name\']}}</span>        </div>        }@else if(channelService.messages.length == 0 && !channelService.privateMsg && !channelService.channelMsg) {        <div class="head-newmsg">            <span>Neue Nachricht</span>            <div class="input-wrapper">                <input name="searchReceiver" [matMenuTriggerFor]="menu" #trigger type="text"                       [(ngModel)]="searchReceiver.receiver"                       (click)="$event.stopPropagation()" (input)="searchUser();searchChannel()" (input)="getMenu()"                       placeholder="An: #channel, oder @jemand oder E-Mail Adresse"                       class="selectReceiver">            </div>            <mat-menu #menu="matMenu" hasBackdrop="true">                @if (searchReceiver.receiver.charAt(0) == \'@\') {                <div class="button-wrapper">                    <span class="span-head">User:</span>                    @for (user of userList; track user[\'name\']; let i = $index) {                    <div class="user-wrapper" (click)="resetInput();sendMessage(user)">                        <img [src]="user.profilePicture" alt="">                        <span>{{user.name}}</span>                    </div>                    }                </div>                }@else if (searchReceiver.receiver.charAt(0) == \'#\') {                <div class="button-wrapper">                    <span class="span-head">Channels:</span>                    @for (channel of channelList; track channel.title; let i = $index) {                    <div class="user-wrapper" (click)="resetInput();channelService.chooseChannelType(false, channel)">                        <span class="bold-span"># {{channel.title}}</span>                    </div>                    }                </div>                }            </mat-menu>        </div>        }    </div>    @if (channelService.privateMsgData!=undefined || channelService.channelMsg ==true) {    <app-message></app-message>    }</div></div>'
+    var COMPONENTS = [{'name': 'AddNewChannelComponent', 'selector': 'app-add-new-channel'},{'name': 'AddNewUserToChannelComponent', 'selector': 'app-add-new-user-to-channel'},{'name': 'AddUserDialogComponent', 'selector': 'app-add-user-dialog'},{'name': 'AddUserToChannelDialogComponent', 'selector': 'app-add-user-to-channel-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChannelComponent', 'selector': 'app-channel'},{'name': 'ChannelMessagesComponent', 'selector': 'app-channel-messages'},{'name': 'ChooseavatarComponent', 'selector': 'app-chooseavatar'},{'name': 'ConfirmpasswordComponent', 'selector': 'app-confirmpassword'},{'name': 'EditChannelDialogComponent', 'selector': 'app-edit-channel-dialog'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainsectionComponent', 'selector': 'app-mainsection'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'PrivacypolicyComponent', 'selector': 'app-privacypolicy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetpasswordComponent', 'selector': 'app-resetpassword'},{'name': 'ShowProfileComponent', 'selector': 'app-show-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'ThreadComponent', 'selector': 'app-thread'},{'name': 'UserMenuDialogComponent', 'selector': 'app-user-menu-dialog'},{'name': 'VerifyComponent', 'selector': 'app-verify'}];
+    var DIRECTIVES = [{'name': 'OutsideclickDirective', 'selector': '[appOutsideclick]'}];
+    var ACTUAL_COMPONENT = {'name': 'ChannelMessagesComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ChannelMessagesComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

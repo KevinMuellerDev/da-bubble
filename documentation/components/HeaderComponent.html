@@ -1,0 +1,1332 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>da-bubble documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">da-bubble documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HeaderComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/components/header/header.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-header</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>MatMenuModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./header.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./header.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#channelService" >channelService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#headlineDesktop" >headlineDesktop</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#headlineMobile" >headlineMobile</a>
+                            </li>
+                            <li>
+                                <a href="#messageList" >messageList</a>
+                            </li>
+                            <li>
+                                <a href="#searchMsg" >searchMsg</a>
+                            </li>
+                            <li>
+                                <a href="#sidebarService" >sidebarService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#trigger" >trigger</a>
+                            </li>
+                            <li>
+                                <a href="#userList" >userList</a>
+                            </li>
+                            <li>
+                                <a href="#userService" >userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getMenu" >getMenu</a>
+                            </li>
+                            <li>
+                                <a href="#getUserStatus" >getUserStatus</a>
+                            </li>
+                            <li>
+                                <a href="#goBack" >goBack</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDialog" >openDialog</a>
+                            </li>
+                            <li>
+                                <a href="#scrollToMessage" >scrollToMessage</a>
+                            </li>
+                            <li>
+                                <a href="#searchMessage" >searchMessage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialog: MatDialog, mainsectionComponent: <a href="../components/MainsectionComponent.html" target="_self">MainsectionComponent</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/shared/components/header/header.component.ts:39</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>mainsectionComponent</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/MainsectionComponent.html" target="_self" >MainsectionComponent</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMenu"></a>
+                    <span class="name">
+                        <span ><b>getMenu</b></span>
+                        <a href="#getMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>getMenu</code> function opens the menu by triggering the <code>openMenu</code> method.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserStatus"></a>
+                    <span class="name">
+                        <span ><b>getUserStatus</b></span>
+                        <a href="#getUserStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserStatus()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Function returns the class of user status for online indicator div</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;online-div&quot; | &quot;offline-div&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>class as a string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBack"></a>
+                    <span class="name">
+                        <span ><b>goBack</b></span>
+                        <a href="#goBack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBack()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>goBack</code> function shows the side navigation, displays the headline on desktop, and hides the
+headline on mobile.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialog"></a>
+                    <span class="name">
+                        <span ><b>openDialog</b></span>
+                        <a href="#openDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>openDialog</code> function opens a dialog box for the UserMenuDialogComponent at a specific position
+and subscribes to the afterClosed event.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollToMessage"></a>
+                    <span class="name">
+                        <span ><b>scrollToMessage</b></span>
+                        <a href="#scrollToMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>scrollToMessage(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The scrollToMessage function scrolls the message container to a specific message based on its index.
+want to scroll to in the message container.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The <code>index</code> parameter represents the index of the message you
+want to scroll to in the message container.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchMessage"></a>
+                    <span class="name">
+                        <span ><b>searchMessage</b></span>
+                        <a href="#searchMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchMessage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/shared/components/header/header.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The <code>searchMessage</code> function filters messages based on a search term and populates a list with
+matching messages.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelService"></a>
+                    <span class="name">
+                        <span ><b>channelService</b></span>
+                        <a href="#channelService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ChannelService.html" target="_self" >ChannelService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChannelService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/components/header/header.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/shared/components/header/header.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="headlineDesktop"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>headlineDesktop</b></span>
+                        <a href="#headlineDesktop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;headlineDesktop&#x27;, {static: true, read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/shared/components/header/header.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="headlineMobile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>headlineMobile</b></span>
+                        <a href="#headlineMobile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;headlineMobile&#x27;, {static: true, read: ElementRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/shared/components/header/header.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="messageList"></a>
+                    <span class="name">
+                        <span ><b>messageList</b></span>
+                        <a href="#messageList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/components/header/header.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchMsg"></a>
+                    <span class="name">
+                        <span ><b>searchMsg</b></span>
+                        <a href="#searchMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    msg: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/shared/components/header/header.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sidebarService"></a>
+                    <span class="name">
+                        <span ><b>sidebarService</b></span>
+                        <a href="#sidebarService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/SidebarService.html" target="_self" >SidebarService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(SidebarService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/components/header/header.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trigger"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>trigger</b></span>
+                        <a href="#trigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatMenuTrigger</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(MatMenuTrigger)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/components/header/header.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userList"></a>
+                    <span class="name">
+                        <span ><b>userList</b></span>
+                        <a href="#userList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/header/header.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userService"></a>
+                    <span class="name">
+                        <span ><b>userService</b></span>
+                        <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UserService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/components/header/header.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, AfterViewInit, ViewChild, ElementRef, OnInit } from &#x27;@angular/core&#x27;;
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+} from &#x27;@angular/material/dialog&#x27;;
+import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
+import { UserMenuDialogComponent } from &#x27;./user-menu-dialog/user-menu-dialog.component&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { MainsectionComponent } from &#x27;../../../mainsection/mainsection.component&#x27;;
+import { SidebarComponent } from &#x27;../../../mainsection/sidebar/sidebar.component&#x27;;
+import { SidebarService } from &#x27;../../services/sidebar.service&#x27;;
+import { ChannelService } from &#x27;../../services/channel.service&#x27;;
+import { FormsModule, NgForm } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;app-header&#x27;,
+  standalone: true,
+  imports: [CommonModule, MatMenuModule, FormsModule],
+  templateUrl: &#x27;./header.component.html&#x27;,
+  styleUrl: &#x27;./header.component.scss&#x27;
+})
+
+export class HeaderComponent implements AfterViewInit, OnInit {
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
+  userService: UserService &#x3D; inject(UserService);
+  sidebarService: SidebarService &#x3D; inject(SidebarService);
+  channelService: ChannelService &#x3D; inject(ChannelService);
+  userList: any[] &#x3D; [];
+  messageList: any[] &#x3D; [];
+  searchMsg &#x3D; {
+    msg: &#x27;&#x27;
+  };
+  @ViewChild(&#x27;headlineMobile&#x27;, { static: true, read: ElementRef }) headlineMobile!: ElementRef;
+  @ViewChild(&#x27;headlineDesktop&#x27;, { static: true, read: ElementRef }) headlineDesktop!: ElementRef;
+
+  constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent) { }
+
+  ngAfterViewInit(): void {
+  }
+
+  ngOnInit(): void {
+  }
+
+  /**
+   * The &#x60;openDialog&#x60; function opens a dialog box for the UserMenuDialogComponent at a specific position
+   * and subscribes to the afterClosed event.
+   */
+  openDialog() {
+    this.dialog.open(UserMenuDialogComponent, { panelClass: [&#x27;user-menu&#x27;, &#x27;box-shadow&#x27;, &#x27;box-radius-right-corner&#x27;] })
+      .afterClosed()
+      .subscribe();
+  }
+
+  /**
+   * Function returns the class of user status for online indicator div
+   * @param type string - to determine which value should be returned
+   * @returns class as a string
+   */
+  getUserStatus() {
+    const loggedIn &#x3D; this.userService.userInfo.isLoggedIn &#x3D;&#x3D; true ? &quot;online-div&quot; : &quot;offline-div&quot;;
+    return loggedIn
+  }
+
+  /**
+   * The &#x60;goBack&#x60; function shows the side navigation, displays the headline on desktop, and hides the
+   * headline on mobile.
+   */
+  goBack() {
+    this.mainsectionComponent.showSidenav();
+    this.mainsectionComponent.toggleElement.nativeElement.classList.remove(&#x27;rotate-toggle&#x27;);
+    this.mainsectionComponent.rotateToggle &#x3D; false;
+    this.headlineDesktop.nativeElement.style.display &#x3D; &#x27;block&#x27;;
+    this.headlineMobile.nativeElement.style.display &#x3D; &#x27;none&#x27;;
+  }
+
+  /**
+   * The scrollToMessage function scrolls the message container to a specific message based on its index.
+   * @param {number} index - The &#x60;index&#x60; parameter represents the index of the message you
+   * want to scroll to in the message container.
+   */
+  scrollToMessage(index: number) {
+    const msgElement &#x3D; document.getElementById(&#x27;singleMessage-&#x27; + index);
+    const topPos &#x3D; msgElement!.offsetTop;
+    document.getElementById(&#x27;messageContainer&#x27;)!.scrollTo({ top: topPos, behavior: &#x27;smooth&#x27; });
+    this.searchMsg.msg &#x3D; &#x27;&#x27;;
+    this.messageList &#x3D; [];
+  }
+
+  /**
+   * The &#x60;getMenu&#x60; function opens the menu by triggering the &#x60;openMenu&#x60; method.
+   */
+  getMenu() {
+    this.trigger.openMenu();
+  }
+
+  /**
+   * The &#x60;searchMessage&#x60; function filters messages based on a search term and populates a list with
+   * matching messages.
+   */
+  searchMessage() {
+    this.messageList &#x3D; [];
+    this.channelService.messages.forEach((element, i) &#x3D;&gt; {
+      const message: string &#x3D; element[&#x27;message&#x27;];
+      const contains: boolean &#x3D; message.toLocaleLowerCase().indexOf(this.searchMsg.msg.toLocaleLowerCase()) !&#x3D; -1;
+      element.index &#x3D; i;
+      if (contains &amp;&amp; this.searchMsg.msg !&#x3D; &#x27;&#x27;) {
+        this.messageList.push(element);
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;header&gt;
+    &lt;div #headlineMobile class&#x3D;&quot;headline-mobile&quot; (click)&#x3D;&quot;goBack()&quot;&gt;
+        &lt;div class&#x3D;&quot;arrow-back&quot;&gt;
+            &lt;img src&#x3D;&quot;/assets/img/header/arrow_back.png&quot; alt&#x3D;&quot;arrow&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;header-logo-mobile&quot;&gt;
+            &lt;img src&#x3D;&quot;/assets/img/Workspace logo.svg&quot; alt&#x3D;&quot;logo&quot;&gt;
+        &lt;/div&gt;
+        &lt;span&gt; Devspace &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div #headlineDesktop class&#x3D;&quot;header-logo&quot;&gt;
+        &lt;img src&#x3D;&quot;/assets/img/header/Logo.svg&quot; alt&#x3D;&quot;logo&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;search-wrapper&quot;&gt;
+        &lt;div class&#x3D;&quot;header-search&quot;&gt;
+            &lt;input [matMenuTriggerFor]&#x3D;&quot;menu&quot; #trigger autocomplete&#x3D;&quot;off&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;searchMsg&quot;
+                   [(ngModel)]&#x3D;&quot;searchMsg.msg&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot; (input)&#x3D;&quot;searchMessage()&quot; (input)&#x3D;&quot;getMenu()&quot; placeholder&#x3D;&quot;Channel durchsuchen&quot;&gt;
+            &lt;img src&#x3D;&quot;/assets/img/header/search-btn.svg&quot;&gt;
+        &lt;/div&gt;
+        &lt;mat-menu #menu&#x3D;&quot;matMenu&quot; hasBackdrop&#x3D;&quot;true&quot;&gt;
+            @if (messageList.length!&#x3D; 0) {
+                &lt;div class&#x3D;&quot;button-wrapper&quot;&gt;
+                    &lt;span class&#x3D;&quot;span-head&quot;&gt;Nachrichten:&lt;/span&gt;
+                    @for (message of messageList; track message.name; let i &#x3D; $index) {
+                    &lt;div class&#x3D;&quot;user-wrapper&quot; (click)&#x3D;&quot;scrollToMessage(message.index)&quot;&gt;
+                        &lt;img [src]&#x3D;&quot;message.profilePicture&quot; alt&#x3D;&quot;&quot;&gt;
+                        &lt;div&gt;
+                            &lt;span class&#x3D;&quot;bold-span&quot;&gt;{{message.name}}&lt;/span&gt;
+                            &lt;span&gt;&lt;span class&#x3D;&quot;bold-span&quot;&gt;Nachricht: &lt;/span&gt;{{(message.message).substring(0,15)}}...&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    }
+                &lt;/div&gt;
+            }
+        &lt;/mat-menu&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;user-menu&quot; (click)&#x3D;&quot;openDialog()&quot;&gt;
+        &lt;span&gt;{{userService.userInfo.name}}&lt;/span&gt;
+        &lt;div class&#x3D;&quot;profile-picture&quot;&gt;
+            &lt;img [src]&#x3D;&quot;userService.userInfo.profilePicture&quot; referrerpolicy&#x3D;&quot;no-referrer&quot; alt&#x3D;&quot;&quot;&gt;
+            &lt;div [ngClass]&#x3D;&quot;getUserStatus()&quot; class&#x3D;&quot;status&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;menu-btn&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><header>    <div #headlineMobile class="headline-mobile" (click)="goBack()">        <div class="arrow-back">            <img src="/assets/img/header/arrow_back.png" alt="arrow">        </div>        <div class="header-logo-mobile">            <img src="/assets/img/Workspace logo.svg" alt="logo">        </div>        <span> Devspace </span>    </div>    <div #headlineDesktop class="header-logo">        <img src="/assets/img/header/Logo.svg" alt="logo">    </div>    <div class="search-wrapper">        <div class="header-search">            <input [matMenuTriggerFor]="menu" #trigger autocomplete="off" type="text" name="searchMsg"                   [(ngModel)]="searchMsg.msg" (click)="$event.stopPropagation()" (input)="searchMessage()" (input)="getMenu()" placeholder="Channel durchsuchen">            <img src="/assets/img/header/search-btn.svg">        </div>        <mat-menu #menu="matMenu" hasBackdrop="true">            @if (messageList.length!= 0) {                <div class="button-wrapper">                    <span class="span-head">Nachrichten:</span>                    @for (message of messageList; track message.name; let i = $index) {                    <div class="user-wrapper" (click)="scrollToMessage(message.index)">                        <img [src]="message.profilePicture" alt="">                        <div>                            <span class="bold-span">{{message.name}}</span>                            <span><span class="bold-span">Nachricht: </span>{{(message.message).substring(0,15)}}...</span>                        </div>                    </div>                    }                </div>            }        </mat-menu>    </div>    <div class="user-menu" (click)="openDialog()">        <span>{{userService.userInfo.name}}</span>        <div class="profile-picture">            <img [src]="userService.userInfo.profilePicture" referrerpolicy="no-referrer" alt="">            <div [ngClass]="getUserStatus()" class="status"></div>        </div>        <div class="menu-btn"></div>    </div></header></div>'
+    var COMPONENTS = [{'name': 'AddNewChannelComponent', 'selector': 'app-add-new-channel'},{'name': 'AddNewUserToChannelComponent', 'selector': 'app-add-new-user-to-channel'},{'name': 'AddUserDialogComponent', 'selector': 'app-add-user-dialog'},{'name': 'AddUserToChannelDialogComponent', 'selector': 'app-add-user-to-channel-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChannelComponent', 'selector': 'app-channel'},{'name': 'ChannelMessagesComponent', 'selector': 'app-channel-messages'},{'name': 'ChooseavatarComponent', 'selector': 'app-chooseavatar'},{'name': 'ConfirmpasswordComponent', 'selector': 'app-confirmpassword'},{'name': 'EditChannelDialogComponent', 'selector': 'app-edit-channel-dialog'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainsectionComponent', 'selector': 'app-mainsection'},{'name': 'MessageComponent', 'selector': 'app-message'},{'name': 'PrivacypolicyComponent', 'selector': 'app-privacypolicy'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetpasswordComponent', 'selector': 'app-resetpassword'},{'name': 'ShowProfileComponent', 'selector': 'app-show-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'ThreadComponent', 'selector': 'app-thread'},{'name': 'UserMenuDialogComponent', 'selector': 'app-user-menu-dialog'},{'name': 'VerifyComponent', 'selector': 'app-verify'}];
+    var DIRECTIVES = [{'name': 'OutsideclickDirective', 'selector': '[appOutsideclick]'}];
+    var ACTUAL_COMPONENT = {'name': 'HeaderComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HeaderComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
