@@ -46,17 +46,30 @@ export class ThreadService {
   startListenerChannel() {
     if (this.isSubscribed)
       this.unsub();
-
-    this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
-      this.messages = [];
-      this.messagesTimestamp = [];
-      querySnapshot.forEach(async (doc) => {
-        this.messages.unshift(doc.data())
-        this.isSubscribed = true;
+    if (this.channelService.channelMsg) {
+      console.log('ich bin hier');
+      
+      this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
+        this.messages = [];
+        this.messagesTimestamp = [];
+        querySnapshot.forEach(async (doc) => {
+          this.messages.unshift(doc.data())
+          this.isSubscribed = true;
+        });
+        this.messages.sort((a, b) => a.timestamp - b.timestamp);
       });
-      console.log(this.messages);
-      this.messages.sort((a, b) => a.timestamp - b.timestamp);
-    });
+    }else if(this.channelService.privateMsg){
+      this.unsub = onSnapshot(query(this.refThreadMessagesDm()), (querySnapshot) => {
+        this.messages = [];
+        this.messagesTimestamp = [];
+        querySnapshot.forEach(async (doc) => {
+          this.messages.unshift(doc.data())
+          this.isSubscribed = true;
+        });
+        this.messages.sort((a, b) => a.timestamp - b.timestamp);
+      });
+    }
+
   }
 
 /**
@@ -144,7 +157,17 @@ export class ThreadService {
   }
 
   refThreadMessages() {
+    console.log(this.originMessage.id);
+    
     return collection(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread')
+  }
+
+  refThreadMessagesDm() {
+    console.log(this.channelService.privateMsgData.id);
+    console.log(this.originMessage);
+    console.log(this.channelService.currentMessagesId);
+    
+    return collection(this.firestore, "user", this.channelService.privateMsgData.id, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread')
   }
 
   refUpdateThread() {

@@ -72,7 +72,7 @@
                     <span>E-mail Adresse</span>
                 </div>
                 <input [placeholder]="userService.userInfo.email" type="email" formControlName="email"
-                    pattern="^(http(s)?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$">
+                    pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$">
             </div>
         </form>
         <div class="edit-user-btns">

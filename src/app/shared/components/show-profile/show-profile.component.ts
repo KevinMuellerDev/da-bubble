@@ -38,6 +38,7 @@ export class ShowProfileComponent {
   editProfilePic: boolean = false;
   otherUserInfo!: any;
   otherUserId!: string;
+  dummySelected: boolean= false;
 
   constructor(
     private storageService: StorageService,
@@ -61,6 +62,7 @@ export class ShowProfileComponent {
    */
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
+    this.dummySelected = true;
   }
 
   /**
@@ -92,7 +94,12 @@ export class ShowProfileComponent {
    * profile picture.
    */
   async newProfilePicture() {
-    await this.storageService.uploadFile(this.userService.currentUser!);
+    if(!this.dummySelected){
+      await this.storageService.uploadFile(this.userService.currentUser!);
+    } else{
+      this.userService.createUserInfo.profilePicture = this.selectedAvatar;
+      this.dummySelected = false;
+    }
     await this.userService.updateUserProfilePicture(this.userService.createUserInfo.profilePicture)
   }
 

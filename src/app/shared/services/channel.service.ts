@@ -251,6 +251,8 @@ export class ChannelService {
   async createChannelMessage(obj: any) {
     await addDoc(this.refCreateChannelMsg(), obj)
       .then(async (docRef) => {
+        console.log(docRef);
+        
         if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
           this.fileData.src = this.storageService.downloadUrl;
           this.fileData.name = this.storageService.fileNameTextarea;
@@ -258,6 +260,8 @@ export class ChannelService {
           await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id),
             { uploadedFile: this.fileData });
         }
+        await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id),
+        {msgId: docRef.id})
       });
     this.clearFileData();
   }

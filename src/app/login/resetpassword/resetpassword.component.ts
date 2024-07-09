@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-resetpassword',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule],
   templateUrl: './resetpassword.component.html',
   styleUrl: './resetpassword.component.scss',
   animations: [
@@ -32,9 +34,47 @@ import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 })
 
 export class ResetpasswordComponent {
+  resetPassword: FormGroup;
   popupState = 'out';
-  isDisabled = true;
-  constructor(private router: Router) { }
+
+
+  constructor(private router: Router) { 
+    this.resetPassword = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email])
+    })
+  }
+
+
+
+  /**
+  * Returns an error message based on the provided Firebase error code.
+  * @param {string} errorCode - The Firebase error code.
+  * @return {string} The corresponding error message.
+  */
+  getFirebaseErrorMessage(errorCode: string): string {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return "Benutzer nicht gefunden.";
+      case 'auth/wrong-password':
+        return "falsches Passwort.";
+      case 'auth/invalid-email':
+        return "falsche Email.";
+      case 'auth/popup-closed-by-user':
+        return "Das Popup wurde geschlossen, bevor die Anmeldung abgeschlossen war.";
+      case 'auth/cancelled-popup-request':
+        return "Die Popup-Anfrage wurde abgebrochen.";
+      case 'auth/account-exists-with-different-credential':
+        return "Es existiert bereits ein Konto mit einer anderen Anmeldemethode für diese E-Mail-Adresse.";
+      case 'auth/invalid-credential':
+        return "Ungültige Anmeldedaten. Bitte überprüfen Sie Ihre Eingaben.";
+      case 'auth/operation-not-allowed':
+        return "Diese Anmeldemethode ist nicht erlaubt.";
+      case 'auth/user-disabled':
+        return "Ihr Konto wurde deaktiviert. Bitte kontaktieren Sie den Support.";
+      default:
+        return "Bei der Anmeldung mit Google ist ein Fehler aufgetreten.";
+    }
+  }
 
   /**
    * The `sendEmail` function asynchronously sends a password reset email to a specified email address
@@ -43,7 +83,7 @@ export class ResetpasswordComponent {
   async sendEmail() {
     this.popupState = 'in';
     const auth = getAuth();
-    await sendPasswordResetEmail(auth, 'kevin.mueller@fenrirdev.de')
+    await sendPasswordResetEmail(auth, this.resetPassword.value.email)
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
