@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
 import { StateService } from '../../../shared/services/state-service.service';
@@ -22,8 +22,8 @@ export class AddUserToChannelDialogComponent {
   stateService: StateService = inject(StateService);
   initialReferenceElementPosition!: { top: number; left: number };
   stateEditChannelDialogOpenMobile: boolean = this.stateService.getEditChannelDialogOpenMobile();
-  constructor(public dialog: MatDialog) {
-  }
+
+  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<AddUserToChannelDialogComponent>) { }
 
   getDmStatus(userIsLoggedIn: boolean) {
     const loggedIn = userIsLoggedIn == true ? 'online-div' : 'offline-div';
@@ -57,6 +57,7 @@ export class AddUserToChannelDialogComponent {
    */
   openDialogAddUser() {
     this.stateService.triggerAddUser();
+    this.dialogRef.close();
   }
 }
 
