@@ -113,7 +113,6 @@ export class ThreadService {
       });
   }
 
-
   refUpdateFilePath(id: string) {
     return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread', id)
   }
@@ -121,7 +120,6 @@ export class ThreadService {
   refUpdateFilePathDm(id: string) {
     return doc(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread', id)
   }
-
 
 /**
  * The clearFileData function resets file data and aborts any ongoing file upload for a thread.
