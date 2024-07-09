@@ -53,7 +53,7 @@ export class AddNewChannelComponent {
         }
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       createNewChannel.reset();
       this.channelNameExists = true;
       return
