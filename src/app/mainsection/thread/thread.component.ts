@@ -77,11 +77,10 @@ export class ThreadComponent {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
-    setTimeout(() => {
-      if (this.threadMessageContent && this.threadMessageContent.nativeElement) {
+      if (this.threadMessageContent && !this.isEditMessageTextareaVisible) {
         this.threadMessageContent.nativeElement.focus();
       }
-    }, 0);
+   
   }
 
   onOutsideClick(index: number, event: Event): void {

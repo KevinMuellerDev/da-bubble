@@ -182,11 +182,15 @@ export class MessageComponent {
     this.newMessage = { message: this.channelService.messages[index].message };
   }
 
-  editMessageFunction(index: number) {
+  initMessageData(index: number) {
     this.originalMessage = this.channelService.messages[index].message;
     this.emojiService.messageEdit = true;
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessage[index] = !this.emojiService.editMessage[index];
+  }
+
+  editMessageFunction(index: number) {
+    this.initMessageData(index);
     const textareaId = 'editMessageTextarea-' + index;
     this.newMessage = { message: this.channelService.messages[index].message };
     setTimeout(() => {
