@@ -71,7 +71,6 @@ export class MessageComponent {
   @ViewChild('editMessageContainer', { static: false }) editMessageContainer!: ElementRef;
   @ViewChild('editMessageTextarea', { static: false }) editMessageTextarea!: ElementRef;
 
-
   /**
  * Initializes the necessary data for the component.
  * @remarks
@@ -82,7 +81,6 @@ export class MessageComponent {
     this.dateToday = Date.now() as number;
     this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {});
   }
-
 
   /**
  * Checks if two dates represent different days.
@@ -115,7 +113,6 @@ export class MessageComponent {
     this.dateMap.push(timestamp as string);
   }
 
-
   /**
  * Handles the click event outside the specified element.
  * It toggles the visibility of the edit message toggle, emoji picker, and edit message textarea.
@@ -138,7 +135,6 @@ export class MessageComponent {
     this.emojiService.showEmojiPickerArray[index] = false;
   }
 
-
 /**
  * Retrieves the username associated with a given user ID from the current channel's user list.
  * @param emojiUserId - The user ID for which the username needs to be retrieved.
@@ -149,7 +145,6 @@ export class MessageComponent {
     const user = currentChannelUsers.find(user => user.id === emojiUserId);
     return user ? user.name : undefined;
   }
-
 
   /**
  * Handles the addition of an emoji to a message.
@@ -171,7 +166,6 @@ export class MessageComponent {
     }
   }
 
-
   /**
  * Updates the reaction for a specific emoji in a message.
  * @param currentEmojiIndex - The index of the emoji in the message's emoji array.
@@ -184,7 +178,6 @@ export class MessageComponent {
     this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'channel');
   }
 
-
   /**
  * Handles the addition of a check emoji to a message.
  * @param event - The event object that triggered the emoji addition.
@@ -195,7 +188,6 @@ export class MessageComponent {
   onAddCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
     this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId, 'channel');
   }
-
 
   /**
  * Handles the addition of a raised hands emoji to a message.
@@ -208,7 +200,6 @@ export class MessageComponent {
     this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId, 'channel');
   }
 
-
   /**
  * Handles the mouseenter event for a specific emoji in a message.
  * Updates the `hoveredMessageIndex` and `hoveredEmojiIndex` properties to highlight the corresponding emoji.
@@ -220,7 +211,6 @@ export class MessageComponent {
     this.hoveredEmojiIndex = emojiIndex;
   }
 
-
   /**
  * Handles the mouseleave event for a specific emoji in a message.
  * Updates the `hoveredMessageIndex` and `hoveredEmojiIndex` properties to remove the highlight from the corresponding emoji.
@@ -230,7 +220,6 @@ export class MessageComponent {
     this.hoveredEmojiIndex = null;
   }
 
-
   /**
  * Toggles the visibility of the emoji picker for a specific message.
  * @param index - The index of the message for which the emoji picker should be toggled.
@@ -239,7 +228,6 @@ export class MessageComponent {
     this.emojiService.showEmojiPickerArray[index] = !this.emojiService.showEmojiPickerArray[index];
   }
 
-
 /**
  * This function toggles the visibility of the edit message toggle for a specific message.
  * @param index - The index of the message for which the edit message toggle should be toggled.
@@ -247,7 +235,6 @@ export class MessageComponent {
   toggleOpenEditMessage(index: number) {
     this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
-
 
   /**
  * Handles the event triggered by clicking on specific elements within the message component.
@@ -262,7 +249,6 @@ export class MessageComponent {
     }
   }
 
-
 /**
  * Updates the `newMessage` object with the message from the selected index in the `channelService.messages` array.
  * @param index - The index of the message in the `channelService.messages` array.
@@ -270,7 +256,6 @@ export class MessageComponent {
   updateMessageAfterEmojiSelection(index: number) {
     this.newMessage = { message: this.channelService.messages[index].message };
   }
-
 
   /**
  * Initializes the necessary data for editing a message.
@@ -282,7 +267,6 @@ export class MessageComponent {
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessage[index] = !this.emojiService.editMessage[index];
   }
-
 
   /**
  * Initializes the necessary data for editing a message.
@@ -302,7 +286,6 @@ export class MessageComponent {
     this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
   
-
   /**
  * This function aborts the editing of a message.
  * @param index - The index of the message in the `channelService.messages` array.
@@ -315,6 +298,13 @@ export class MessageComponent {
     this.channelService.messages[index].message = this.originalMessage;
   }
 
+  /**
+ * Handles the keyup event for editing a message.
+ * Updates the message in the channel service and submits the form if Enter is pressed without Shift.
+ * @param  event - The keyboard event object.
+ * @param editMessageForm - The form used to edit the message.
+ * @param  index - The index of the message being edited in the channel's message array.
+ */
   onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
     this.channelService.messages[index].message = this.newMessage.message;
     if (event.key === "Enter" && !event.shiftKey) {
@@ -322,7 +312,6 @@ export class MessageComponent {
       this.onSubmit(editMessageForm, index);
     }
   }
-
 
   /**
  * Handles the keyup event for editing a message.
@@ -346,7 +335,6 @@ export class MessageComponent {
 
   }
 
-
   /**
    * The function `getOtherUserData` asynchronously retrieves other user data and opens a dialog with
    * the user information.
@@ -357,7 +345,6 @@ export class MessageComponent {
     await this.userService.retrieveOtherUserProfile(id!);
     this.openDialogUserInfo();
   }
-
 
   /**
   * This function opens the dialog and determines if the ShowProfile component is editable or not
@@ -372,7 +359,6 @@ export class MessageComponent {
       .subscribe();
   }
 
-
   /**
    * The `showThreadBar` function calls the `showThread` method of the `mainsectionComponent`.
    */
@@ -384,7 +370,6 @@ export class MessageComponent {
     this.threadService.changeData('');
   }
 
-
   /**
  * This function highlights usernames in a given message by wrapping them in a span with the class "highlighted".
  * @param {string} message - The message in which to highlight usernames.
@@ -394,7 +379,6 @@ export class MessageComponent {
     const usernameRegex = /@([^@<>\s]+)/g;
     return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
   }
-
 
   /**
  * This function is called when the component is destroyed.
@@ -413,7 +397,6 @@ export class MessageComponent {
     }
     this.MutationObserverService.disconnect();
   }
-
 
   /**
  * Opens a new window to preview a PDF file.
