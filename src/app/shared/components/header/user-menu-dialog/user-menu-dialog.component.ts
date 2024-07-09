@@ -1,4 +1,4 @@
-import { Component, ViewChildren, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
@@ -21,14 +21,14 @@ import { ThreadService } from '../../../services/thread.service';
 export class UserMenuDialogComponent {
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private dialogRefAddUser: MatDialogRef<AddUserToChannelDialogComponent>, private userService: UserService) { }
   channelService: ChannelService = inject(ChannelService);
-  threadService:ThreadService = inject(ThreadService);
+  threadService: ThreadService = inject(ThreadService);
   hoverProfile: boolean = false;
   hoverLogout: boolean = false;
 
-/**
- * The `logout` function logs out the user, clears session storage, signs out of authentication, stops
- * listening to channels and threads, resets user information, and closes a dialog.
- */
+  /**
+   * The `logout` function logs out the user, clears session storage, signs out of authentication, stops
+   * listening to channels and threads, resets user information, and closes a dialog.
+   */
   async logout() {
     await this.userService.userLoggedOut();
     sessionStorage.removeItem('uid');
@@ -53,9 +53,9 @@ export class UserMenuDialogComponent {
       .subscribe();
   }
 
-/**
- * The closeDialog function closes all open dialog windows.
- */
+  /**
+   * The closeDialog function closes all open dialog windows.
+   */
   closeDialog() {
     this.dialog.closeAll();
   }

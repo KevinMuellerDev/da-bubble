@@ -73,11 +73,11 @@ main {
 @media screen and (max-width: 400px) {
     .checkbox {
         align-items: flex-start;
-        span{
+        span {
             margin-top: 2px;
             flex-direction: column;
             align-items: flex-start;
-            a{
+            a {
                 padding: 0 4px 0 0;
             }
         }
