@@ -233,10 +233,18 @@ export class ChannelService {
       this.fileData.type = this.storageService.uploadedFileType;
     }
     obj.uploadedFile = this.fileData;
-    await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj);
+    await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj)
+      .then(async (docRef) => {
+        await updateDoc(this.refUpdateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId, docRef.id),
+          { msgId: docRef.id })
+      });
     await this.getOppositeDmId();
     if (this.currentMessagesId != this.oppositeMessagesId) {
-      await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj);
+      await addDoc(this.refCreateDM(this.privateMsgData.id, this.oppositeMessagesId), obj)
+        .then(async (docRef) => {
+          await updateDoc(this.refUpdateDM(this.privateMsgData.id, this.oppositeMessagesId, docRef.id),
+            { msgId: docRef.id })
+        });
     }
     this.clearFileData();
   }
@@ -252,7 +260,7 @@ export class ChannelService {
     await addDoc(this.refCreateChannelMsg(), obj)
       .then(async (docRef) => {
         console.log(docRef);
-        
+
         if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
           this.fileData.src = this.storageService.downloadUrl;
           this.fileData.name = this.storageService.fileNameTextarea;
@@ -261,7 +269,7 @@ export class ChannelService {
             { uploadedFile: this.fileData });
         }
         await updateDoc(doc(this.firestore, "Channels", this.channelMsgData.collection, "messages", docRef.id),
-        {msgId: docRef.id})
+          { msgId: docRef.id })
       });
     this.clearFileData();
   }
@@ -417,6 +425,11 @@ export class ChannelService {
   refCreateDM(sender: string, receiver: string) {
     return collection(this.firestore, "user", sender, 'directmessages', receiver, 'messages')
   }
+
+  refUpdateDM(sender: string, receiver: string, id: string) {
+    return doc(this.firestore, "user", sender, 'directmessages', receiver, 'messages', id)
+  }
+
   refQuerySelf() {
     return query(this.refCreateDM(sessionStorage.getItem('uid')!, this.currentMessagesId));
   }
