@@ -87,7 +87,8 @@
                         <ng-container *ngIf="message.emoji[e].count > 1">
                             {{ message.emoji[e].count }}
                         </ng-container>
-                        <div class="show-reactions" *ngIf="hoveredMessageIndex === i && hoveredEmojiIndex === e">
+                        <div *ngIf="hoveredMessageIndex === i && hoveredEmojiIndex === e"
+                        [ngClass]="{'show-reactions-inverted' : userId != message.id, 'show-reactions' : userId == message.id}">
                             <ng-container *ngIf="emojiData.users.length > 0">
                                 <span>{{ emojiData.emoji }}</span>
                                 <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users">
