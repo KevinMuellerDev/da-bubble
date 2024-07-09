@@ -5,7 +5,8 @@
       <span>Thread</span>
       <div class="channel-name">
         <span>#</span>
-        <div>{{channelService.channelMsgData.title}}</div>
+        <div *ngIf="channelService.channelMsg">{{channelService.channelMsgData.title}}</div>
+        <!-- <div *ngIf="channelService.privateMsg">{{channelService.privateMsgData.title}}</div> -->
       </div>
     </div>
     <div (click)="closeThread()" class="close-icon "></div>

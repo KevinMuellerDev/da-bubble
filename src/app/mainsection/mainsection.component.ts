@@ -229,7 +229,6 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
    * Executes cleanup actions when the component is destroyed.
    */
   ngOnDestroy() {
-    console.log('hallo');
     this.unsubProfile();
     this.unsubUserChannels();
     this.unsubUserList();

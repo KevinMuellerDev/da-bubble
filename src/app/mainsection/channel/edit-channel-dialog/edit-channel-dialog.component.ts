@@ -52,14 +52,12 @@ export class EditChannelDialogComponent {
         }
       });
     } catch (error) {
-      console.log(error);
       channelName.reset();
       this.channelNameExists = true;
       return
     }
     this.editChannelName = false;
     await this.channelService.updateChannelTitle(this.newChannelValues.name);
-    console.log(this.newChannelValues.name);
     this.channelNameExists = false;
     channelName.reset();
   }
@@ -83,7 +81,6 @@ export class EditChannelDialogComponent {
   async saveEditDescriptionStatus(changedDescription: NgForm) {
     this.editDescription = false;
     await this.channelService.updateChannelDescription(this.newChannelValues.newDescription);
-    console.log(this.newChannelValues.newDescription);
     changedDescription.reset();
   }
 

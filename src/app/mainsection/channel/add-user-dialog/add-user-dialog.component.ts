@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../shared/services/user.service';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { Firestore, addDoc, arrayUnion, collection, doc, updateDoc } from '@angular/fire/firestore';
@@ -26,8 +26,9 @@ export class AddUserDialogComponent {
   userList: any[] = [];
   selectedUser: any[] = [];
 
+  constructor(public dialog: MatDialog) { }
+
   async submitUser(addedUser: NgForm) {
-    console.log(addedUser.name);
     await this.updateChannelUsers();
     addedUser.reset();
   }
@@ -76,13 +77,15 @@ export class AddUserDialogComponent {
   }
 
   async updateChannelUsers() {
-    console.log(this.selectedUser);
     this.selectedUser.forEach(async user => {
-      console.log(user);
       await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection), {
         users: arrayUnion(user.uid)
       });
       await addDoc(collection(this.firestore, 'user', user.uid, 'userchannels'), { channelid: this.channelService.channelMsgData.collection });
     });
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

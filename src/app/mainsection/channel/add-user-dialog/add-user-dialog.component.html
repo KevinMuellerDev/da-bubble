@@ -1,6 +1,6 @@
 <div class="main-container">
-    <div class="channel-close-icon-mobile"><button mat-dialog-close [mat-dialog-close]="true"></button></div>
-    <div class="channel-close-icon" mat-dialog-close [mat-dialog-close]="true"></div>
+    <div class="channel-close-icon-mobile"><button (click)="closeDialog()"></button></div>
+    <div class="channel-close-icon" (click)="closeDialog()"></div>
     <div class="headline">
         <span>Leute hinzufügen</span>
     </div>

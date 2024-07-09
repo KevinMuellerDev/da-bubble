@@ -47,8 +47,6 @@ export class ThreadService {
     if (this.isSubscribed)
       this.unsub();
     if (this.channelService.channelMsg) {
-      console.log('ich bin hier');
-      
       this.unsub = onSnapshot(query(this.refThreadMessages()), (querySnapshot) => {
         this.messages = [];
         this.messagesTimestamp = [];
@@ -81,9 +79,19 @@ export class ThreadService {
  * updates the thread with the new message
  */
   async createThreadMessage(obj: any) {
-    await addDoc(this.refThreadMessages(), obj)
+    let channelRef;
+    let updateChannelRef;
+    if (this.channelService.channelMsg) {
+      channelRef = this.refThreadMessages();
+      updateChannelRef = this.refUpdateThread();
+    }else if(this.channelService.privateMsg){
+      channelRef = this.refThreadMessagesDm();
+      updateChannelRef = this.refUpdateThreadMessagesDm();
+    }
+    
+    await addDoc(channelRef!, obj)
       .then(async (docRef) => {
-        await updateDoc(this.refUpdateThread(), {
+        await updateDoc(updateChannelRef!, {
           repliesCount: this.messages.length,
           lastReply: obj.timestamp
         });
@@ -91,9 +99,15 @@ export class ThreadService {
           this.fileData.src = this.storageService.downloadUrlThread;
           this.fileData.name = this.storageService.fileNameTextareaThread;
           this.fileData.type = this.storageService.uploadedFileTypeThread;
-          await updateDoc(this.refUpdateFilePath(docRef.id), {
-            uploadedFile: this.fileData
-          });
+          if (this.channelService.channelMsg) {
+            await updateDoc(this.refUpdateFilePath(docRef.id), {
+              uploadedFile: this.fileData
+            });
+          } else {
+            await updateDoc(this.refUpdateFilePathDm(docRef.id), {
+              uploadedFile: this.fileData
+            });
+          }        
           this.clearFileData();
         }
       });
@@ -102,6 +116,10 @@ export class ThreadService {
 
   refUpdateFilePath(id: string) {
     return doc(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread', id)
+  }
+
+  refUpdateFilePathDm(id: string) {
+    return doc(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread', id)
   }
 
 
@@ -120,7 +138,6 @@ export class ThreadService {
     if (this.isSubscribed) {
       this.unsub();
       this.isSubscribed = false;
-      console.log("Listener Unsubscribed");
     }
   }
 
@@ -157,17 +174,16 @@ export class ThreadService {
   }
 
   refThreadMessages() {
-    console.log(this.originMessage.id);
     
     return collection(this.firestore, "Channels", this.channelService.channelMsgData.collection, 'messages', this.originMessage.msgId, 'thread')
   }
 
   refThreadMessagesDm() {
-    console.log(this.channelService.privateMsgData.id);
-    console.log(this.originMessage);
-    console.log(this.channelService.currentMessagesId);
-    
-    return collection(this.firestore, "user", this.channelService.privateMsgData.id, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread')
+    return collection(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId, 'thread')
+  }
+
+  refUpdateThreadMessagesDm(){
+    return doc(this.firestore, "user", this.userService.currentUser!, 'directmessages', this.channelService.currentMessagesId,'messages',this.originMessage.msgId)
   }
 
   refUpdateThread() {
