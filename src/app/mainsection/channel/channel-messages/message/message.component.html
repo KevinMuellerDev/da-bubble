@@ -21,7 +21,8 @@
                 <ngx-emoji [ngClass]="'single-emoji'" (emojiClick)="onAddRaisedHandsEmoji($event,i,message.id,userId)"
                     [size]="30" emoji="raised_hands" set="google"></ngx-emoji>
                 <div (click)="toggleEmojiPicker(i);toggleEvent($event,i)" class="add-reaction-icon"></div>
-                <div *ngIf="userId != message.id" (click)="showThreadBar(message)" class="comment-message-icon"></div>
+                <div *ngIf="userId != message.id && !channelService.privateMsg" (click)="showThreadBar(message)"
+                    class="comment-message-icon"></div>
                 <div *ngIf="userId == message.id" (click)="toggleOpenEditMessage(i);toggleEvent($event,i)"
                     class="edit-message-icon"></div>
                 <div #editMessageContainer id="editMessageContainer" appOutsideclick
@@ -88,7 +89,7 @@
                             {{ message.emoji[e].count }}
                         </ng-container>
                         <div *ngIf="hoveredMessageIndex === i && hoveredEmojiIndex === e"
-                        [ngClass]="{'show-reactions-inverted' : userId != message.id, 'show-reactions' : userId == message.id}">
+                            [ngClass]="{'show-reactions-inverted' : userId != message.id, 'show-reactions' : userId == message.id}">
                             <ng-container *ngIf="emojiData.users.length > 0">
                                 <span>{{ emojiData.emoji }}</span>
                                 <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users">
