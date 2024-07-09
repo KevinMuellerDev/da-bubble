@@ -120,7 +120,8 @@
             <ng-container *ngIf="message.emoji[e].count > 1">
               {{ message.emoji[e].count }}
             </ng-container>
-            <div *ngIf="hoveredMessageIndexThread === i && hoveredEmojiIndexThread === e" [ngClass]="{'show-reactions': userId == message.id, 'show-reactions-inverted': userId != message.id }">
+            <div *ngIf="hoveredMessageIndexThread === i && hoveredEmojiIndexThread === e"
+              [ngClass]="{'show-reactions': userId == message.id, 'show-reactions-inverted': userId != message.id }">
               <ng-container *ngIf="emojiData.users.length > 0">
                 <span>{{ emojiData.emoji }}</span>
                 <span class="reaction-user-names" *ngFor="let emojiUserId of emojiData.users">
@@ -167,7 +168,7 @@
   <div class="form-group">
     <form #formThread="ngForm" name="form" (ngSubmit)="onSubmit(formThread)">
       <textarea class="thread-message-input form-control" name="message" #threadMessageContent id="threadMessageContent"
-        [(ngModel)]="messageThread.content" placeholder="Antworten..."
+        [(ngModel)]="messageThread.content" placeholder="Antworten..." minlength="2"
         [ngClass]="{ 'focus-visible-thread-invalid': !formThread.valid  && (formThread.touched || submitClick) && textareaBlur }"
         (keyup.enter)="onSubmit(formThread)" (blur)=" textareaBlur=false">
       </textarea>
@@ -182,7 +183,7 @@
     </form>
   </div>
   <div class="error-message" *ngIf="!formThread.valid && (formThread.touched || submitClick) && textareaBlur">Inhalt
-    mit min. 1 Zeichen erforderlich !
+    mit min. 2 Zeichen erforderlich !
   </div>
   <div class="error-message" *ngIf="storageService.fileSizeToBigThread && threadService.isActive">
     Die Datei ist zu groß !

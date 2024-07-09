@@ -77,7 +77,7 @@ export class ThreadComponent {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
-      if (this.threadMessageContent && !this.isEditMessageTextareaVisible) {
+      if (this.threadMessageContent && !this.isEditMessageTextareaVisible ) {
         this.threadMessageContent.nativeElement.focus();
       }
    
@@ -133,7 +133,6 @@ export class ThreadComponent {
   }
 
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
-    // Es gibt nun einen zusatzparameter / thread oder channel
     this.emojiService.addEmoji(event, index, messageId, userId, 'thread');
     this.emojiAdded = true;
     setTimeout(() => {
@@ -174,7 +173,6 @@ export class ThreadComponent {
     const textareaId = 'editThreadMessageTextarea-' + index;
     this.toggleEvent(event);
     this.newMessage = { message: this.threadService.messages[index].message };
-    // Der timeout gleicht Verzögerung im DOM aus. Sonst gibt es ab und zu Fokusprobleme
     setTimeout(() => {
       const textareaElement = document.getElementById(textareaId) as HTMLTextAreaElement;
       if (textareaElement) {
@@ -188,8 +186,6 @@ export class ThreadComponent {
     this.submitClick = true;
     this.textareaBlur = true;
     if (!formThread.valid) {
-      console.log(formThread)
-      formThread.reset();
     } else if (formThread.valid) {
       this.arrangeThreadData();
       this.threadMessageContent.nativeElement.focus()
