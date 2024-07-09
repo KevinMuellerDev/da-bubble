@@ -195,6 +195,9 @@
                                 <a href="#initMaps" >initMaps</a>
                             </li>
                             <li>
+                                <a href="#modifyEmojiUsers" >modifyEmojiUsers</a>
+                            </li>
+                            <li>
                                 <a href="#toggleEditMode" >toggleEditMode</a>
                             </li>
                             <li>
@@ -202,6 +205,9 @@
                             </li>
                             <li>
                                 <a href="#updateReaction" >updateReaction</a>
+                            </li>
+                            <li>
+                                <a href="#updateUserEmojiReaction" >updateUserEmojiReaction</a>
                             </li>
                         </ul>
                     </td>
@@ -301,14 +307,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="120"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:120</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="221"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:221</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Modifies the emoji users array and count based on the specified action.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -319,6 +327,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -333,6 +342,8 @@
                                             </td>
 
 
+                                            <td>
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>currentMessageIndex</td>
@@ -345,6 +356,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>messageId</td>
@@ -357,6 +374,8 @@
                                             </td>
 
 
+                                            <td>
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userId</td>
@@ -369,6 +388,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the user who reacted.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -381,6 +406,8 @@
                                             </td>
 
 
+                                            <td>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -416,14 +443,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:57</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Adds an emoji to a message at the specified index.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -435,6 +464,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -451,6 +481,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The event object containing the emoji data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>index</td>
@@ -465,6 +501,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message to add the emoji to.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>messageId</td>
@@ -479,6 +521,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userId</td>
@@ -493,6 +541,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the user adding the emoji.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -507,6 +561,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>calledFromFunction</td>
@@ -522,6 +582,12 @@
                                                     <code>false</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>Indicates whether the function is called from another function (default: false).</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -557,14 +623,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="128"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:128</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="247"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:247</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Adds the given emoji to the edited message at the specified index.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -575,6 +643,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -589,6 +658,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>emoji</td>
@@ -601,6 +676,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The emoji to be added to the edited message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -613,6 +694,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -648,14 +735,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="68"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:68</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:113</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Adds a new emoji to the message at the specified index.
+If the user ID matches the message ID, the users array in the emoji object is initialized as an empty array.
+Otherwise, the user ID is added to the users array.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -666,6 +757,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -680,6 +772,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>emoji</td>
@@ -692,6 +790,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The emoji to be added to the message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userMatched</td>
@@ -704,6 +808,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Indicates whether the user ID matches the message ID.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userId</td>
@@ -716,6 +826,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the user adding the emoji.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -728,6 +844,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -763,14 +885,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="124"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:124</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="236"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:236</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Adds a raised hands emoji to the message at the specified index.
+This function is a wrapper for the <code>addEmoji</code> method, specifically designed for adding raised hands emoji.
+It calls the <code>addEmoji</code> method with the provided parameters and sets the <code>calledFromFunction</code> parameter to <code>true</code>.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -781,6 +907,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -795,6 +922,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The event object containing the emoji data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>currentMessageIndex</td>
@@ -807,6 +940,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>messageId</td>
@@ -819,6 +958,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userId</td>
@@ -831,6 +976,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the user adding the emoji.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -843,6 +994,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -878,14 +1035,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:84</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the given emoji already exists for the message at the specified index.
+If the emoji exists, it increments the count and adds the user ID to the users array if the user is not matched.
+If the emoji does not exist, it creates a new emoji object with the given emoji, count of 1, and an array containing the user ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -896,6 +1057,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -910,6 +1072,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>emoji</td>
@@ -922,6 +1090,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The emoji to be checked and added.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userId</td>
@@ -934,6 +1108,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the user adding the emoji.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userMatched</td>
@@ -946,6 +1126,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Indicates whether the user ID matches the message ID.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -958,6 +1144,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -967,7 +1159,10 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <ul>
+<li>Returns true if the emoji was found and updated, otherwise returns false.</li>
+</ul>
+
                             </div>
                 </td>
             </tr>
@@ -993,14 +1188,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:37</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initializes arrays for managing message editing, emoji picker visibility, and edit mode toggles.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1011,6 +1208,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1025,6 +1223,196 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modifyEmojiUsers"></a>
+                    <span class="name">
+                        <span ><b>modifyEmojiUsers</b></span>
+                        <a href="#modifyEmojiUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>modifyEmojiUsers(emojiUserIds: string[], userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, currentMessageIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, currentEmojiIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, emojiCount: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, messages: any[], action: "add" | "remove")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Modifies the emoji users array and count based on the specified action.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>emojiUserIds</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The array of user IDs who have reacted with the emoji.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the user who reacted.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>currentMessageIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>currentEmojiIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The index of the emoji in the message&#39;s emoji array.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>emojiCount</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The current count of reactions for the emoji.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>messages</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The array of messages.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                        <code>&quot;add&quot; | &quot;remove&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The action to be performed on the emoji users array and count. It can be either &#39;add&#39; or &#39;remove&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1060,14 +1448,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:27</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the edit mode for messages in the channel or thread.
+This function sets the <code>messageEdit</code> property to the opposite of its current value.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1097,14 +1488,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:130</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates a message at the specified index in the messages array based on the source.
+If the source is &#39;channel&#39;, it checks if the message is a direct message and updates it accordingly.
+If the source is &#39;thread&#39;, it updates the message in the thread.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1115,6 +1510,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1129,6 +1525,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message to be updated in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -1141,6 +1543,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1176,14 +1584,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="88"
-                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:88</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:152</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates the reaction for a specific emoji in a message.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1194,6 +1604,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1208,6 +1619,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the emoji in the message&#39;s emoji array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>currentMessageIndex</td>
@@ -1220,6 +1637,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>currentEmoji</td>
@@ -1232,6 +1655,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The emoji that the user has reacted with.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>messageId</td>
@@ -1244,6 +1673,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>userId</td>
@@ -1256,6 +1691,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the user who reacted.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>source</td>
@@ -1268,6 +1709,197 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The source of messages, either &#39;channel&#39; or &#39;thread&#39;.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserEmojiReaction"></a>
+                    <span class="name">
+                        <span ><b>updateUserEmojiReaction</b></span>
+                        <a href="#updateUserEmojiReaction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateUserEmojiReaction(messageId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, currentMessageIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, currentEmojiIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, emojiUserIds: string[], emojiCount: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, messages: any[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/shared/services/emoji.service.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates the reaction for a specific emoji in a message.
+This function checks if the user has already reacted with the emoji and calls the appropriate method to modify the emoji users array and count.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>messageId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the message.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the user who reacted.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>currentMessageIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The index of the message in the messages array.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>currentEmojiIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The index of the emoji in the message&#39;s emoji array.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>emojiUserIds</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The array of user IDs who have reacted with the emoji.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>emojiCount</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The current count of reactions for the emoji.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>messages</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The array of messages.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1595,9 +2227,20 @@ export class EmojiService {
   showEmojiPickerArray: boolean[] &#x3D; [];
   showEmojiPickerArrayThread: boolean[] &#x3D; [];
 
+
+  /**
+ * Toggles the edit mode for messages in the channel or thread.
+ * This function sets the &#x60;messageEdit&#x60; property to the opposite of its current value.
+ */
   toggleEditMode() {
     this.messageEdit &#x3D; !this.messageEdit;
   }
+  
+
+  /**
+ * Initializes arrays for managing message editing, emoji picker visibility, and edit mode toggles.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ */
 
   initMaps(source: &#x27;channel&#x27; | &#x27;thread&#x27;) {
     const messages &#x3D; source &#x3D;&#x3D;&#x3D; &#x27;channel&#x27; ? this.channelService.messages : this.threadService.messages;
@@ -1609,6 +2252,16 @@ export class EmojiService {
     this.editMessageThread &#x3D; messages.map(() &#x3D;&gt; false);
   }
 
+
+  /**
+ * Adds an emoji to a message at the specified index.
+ * @param event - The event object containing the emoji data.
+ * @param index - The index of the message to add the emoji to.
+ * @param messageId - The ID of the message.
+ * @param userId - The ID of the user adding the emoji.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ * @param calledFromFunction - Indicates whether the function is called from another function (default: false).
+ */
   addEmoji(event: any, index: number, messageId: string, userId: string, source: &#x27;channel&#x27; | &#x27;thread&#x27;, calledFromFunction: boolean &#x3D; false) {
     const emoji &#x3D; event[&#x27;emoji&#x27;][&#x27;native&#x27;];
     const userMatched &#x3D; messageId &#x3D;&#x3D;&#x3D; userId;
@@ -1624,6 +2277,18 @@ export class EmojiService {
     }
   }
 
+
+  /**
+ * Checks if the given emoji already exists for the message at the specified index.
+ * If the emoji exists, it increments the count and adds the user ID to the users array if the user is not matched.
+ * If the emoji does not exist, it creates a new emoji object with the given emoji, count of 1, and an array containing the user ID.
+ * @param index - The index of the message in the messages array.
+ * @param emoji - The emoji to be checked and added.
+ * @param userId - The ID of the user adding the emoji.
+ * @param userMatched - Indicates whether the user ID matches the message ID.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ * @returns {boolean} - Returns true if the emoji was found and updated, otherwise returns false.
+ */
   checkAndAddEmoji(index: number, emoji: string, userId: string, userMatched: boolean, source: &#x27;channel&#x27; | &#x27;thread&#x27;): boolean {
     const messages &#x3D; source &#x3D;&#x3D;&#x3D; &#x27;channel&#x27; ? this.channelService.messages : this.threadService.messages;
     for (let i &#x3D; 0; i &lt; messages[index].emoji.length; i++) {
@@ -1641,6 +2306,18 @@ export class EmojiService {
     return false;
   }
 
+
+  /**
+ * Adds a new emoji to the message at the specified index.
+ * If the user ID matches the message ID, the users array in the emoji object is initialized as an empty array.
+ * Otherwise, the user ID is added to the users array.
+ * @param index - The index of the message in the messages array.
+ * @param emoji - The emoji to be added to the message.
+ * @param userMatched - Indicates whether the user ID matches the message ID.
+ * @param userId - The ID of the user adding the emoji.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ */
+
   addNewEmoji(index: number, emoji: string, userMatched: boolean, userId: string, source: &#x27;channel&#x27; | &#x27;thread&#x27;) {
     const messages &#x3D; source &#x3D;&#x3D;&#x3D; &#x27;channel&#x27; ? this.channelService.messages : this.threadService.messages;
     //Zählwert auf 1 gesetzt
@@ -1648,6 +2325,15 @@ export class EmojiService {
     const users &#x3D; userMatched ? [] : [userId];
     messages[index].emoji.push({ emoji: emoji, count: count, users: users });
   }
+
+
+  /**
+ * Updates a message at the specified index in the messages array based on the source.
+ * If the source is &#x27;channel&#x27;, it checks if the message is a direct message and updates it accordingly.
+ * If the source is &#x27;thread&#x27;, it updates the message in the thread.
+ * @param index - The index of the message to be updated in the messages array.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ */
 
   updateMessage(index: number, source: &#x27;channel&#x27; | &#x27;thread&#x27;) {
     if (source &#x3D;&#x3D;&#x3D; &#x27;channel&#x27;) {
@@ -1661,46 +2347,111 @@ export class EmojiService {
     }
   }
 
-  updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string, source: &#x27;channel&#x27; | &#x27;thread&#x27;) {
+
+  /**
+ * Updates the reaction for a specific emoji in a message.
+ * @param currentEmojiIndex - The index of the emoji in the message&#x27;s emoji array.
+ * @param currentMessageIndex - The index of the message in the messages array.
+ * @param currentEmoji - The emoji that the user has reacted with.
+ * @param messageId - The ID of the message.
+ * @param userId - The ID of the user who reacted.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ */
+ updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string, source: &#x27;channel&#x27; | &#x27;thread&#x27;) {
     const messages &#x3D; source &#x3D;&#x3D;&#x3D; &#x27;channel&#x27; ? this.channelService.messages : this.threadService.messages;
-    let emojiUserIds &#x3D; messages[currentMessageIndex].emoji[currentEmojiIndex].users;
-    let emojiCount &#x3D; messages[currentMessageIndex].emoji[currentEmojiIndex].count;
-    // Zählwertewerte von 0 auf 1 geändert
-    if (messageId &#x3D;&#x3D;&#x3D; userId || emojiUserIds.includes(userId)) {
-      if (emojiCount &#x3D;&#x3D;&#x3D; 1) {
-        messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
-      } else {
-        messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-        const userIndex &#x3D; emojiUserIds.indexOf(userId);
-        if (userIndex !&#x3D;&#x3D; -1) {
-          emojiUserIds.splice(userIndex, 1);
-        }
-      }
-    } else {
-      if (emojiUserIds.includes(userId)) {
-        if (emojiCount &gt; 1) {
-          messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-          const userIndex &#x3D; emojiUserIds.indexOf(userId);
-          if (userIndex !&#x3D;&#x3D; -1) {
-            emojiUserIds.splice(userIndex, 1);
-          }
-        }
-      } else {
-        messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
-        emojiUserIds.push(userId);
-      }
-    }
+    const emojiUserIds &#x3D; messages[currentMessageIndex].emoji[currentEmojiIndex].users;
+    const emojiCount &#x3D; messages[currentMessageIndex].emoji[currentEmojiIndex].count;
+    this.updateUserEmojiReaction(messageId, userId, currentMessageIndex, currentEmojiIndex, emojiUserIds, emojiCount, messages);
     this.updateMessage(currentMessageIndex, source);
   }
+  
 
+/**
+ * Updates the reaction for a specific emoji in a message.
+ * This function checks if the user has already reacted with the emoji and calls the appropriate method to modify the emoji users array and count.
+ * @param messageId - The ID of the message.
+ * @param userId - The ID of the user who reacted.
+ * @param currentMessageIndex - The index of the message in the messages array.
+ * @param currentEmojiIndex - The index of the emoji in the message&#x27;s emoji array.
+ * @param emojiUserIds - The array of user IDs who have reacted with the emoji.
+ * @param emojiCount - The current count of reactions for the emoji.
+ * @param messages - The array of messages.
+ */
+updateUserEmojiReaction(messageId: string, userId: string, currentMessageIndex: number, currentEmojiIndex: number, emojiUserIds: string[], emojiCount: number, messages: any[]) {
+    if (messageId &#x3D;&#x3D;&#x3D; userId || emojiUserIds.includes(userId)) {
+        this.modifyEmojiUsers(emojiUserIds, userId, currentMessageIndex, currentEmojiIndex, emojiCount, messages, &#x27;remove&#x27;);
+    } else {
+        this.modifyEmojiUsers(emojiUserIds, userId, currentMessageIndex, currentEmojiIndex, emojiCount, messages, &#x27;add&#x27;);
+    }
+  }
+  
+
+/**
+ * Modifies the emoji users array and count based on the specified action.
+ * @param emojiUserIds - The array of user IDs who have reacted with the emoji.
+ * @param userId - The ID of the user who reacted.
+ * @param currentMessageIndex - The index of the message in the messages array.
+ * @param currentEmojiIndex - The index of the emoji in the message&#x27;s emoji array.
+ * @param emojiCount - The current count of reactions for the emoji.
+ * @param messages - The array of messages.
+ * @param action - The action to be performed on the emoji users array and count. It can be either &#x27;add&#x27; or &#x27;remove&#x27;.
+ */
+modifyEmojiUsers(emojiUserIds: string[], userId: string, currentMessageIndex: number, currentEmojiIndex: number, emojiCount: number, messages: any[], action: &#x27;add&#x27; | &#x27;remove&#x27;) {
+    if (action &#x3D;&#x3D;&#x3D; &#x27;remove&#x27;) {
+        if (emojiCount &#x3D;&#x3D;&#x3D; 1) {
+            messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+        } else {
+            messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
+            const userIndex &#x3D; emojiUserIds.indexOf(userId);
+            if (userIndex !&#x3D;&#x3D; -1) {
+                emojiUserIds.splice(userIndex, 1);
+            }
+        }
+    } else {
+        if (!emojiUserIds.includes(userId)) {
+            messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
+            emojiUserIds.push(userId);
+        }
+    }
+  }
+  
+
+/**
+ * Modifies the emoji users array and count based on the specified action.
+ * @param emojiUserIds - The array of user IDs who have reacted with the emoji.
+ * @param userId - The ID of the user who reacted.
+ * @param currentMessageIndex - The index of the message in the messages array.
+ * @param currentEmojiIndex - The index of the emoji in the message&#x27;s emoji array.
+ * @param emojiCount - The current count of reactions for the emoji.
+ * @param messages - The array of messages.
+ * @param action - The action to be performed on the emoji users array and count. It can be either &#x27;add&#x27; or &#x27;remove&#x27;.
+ */
   addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string, source: &#x27;channel&#x27; | &#x27;thread&#x27;): void {
     this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
   }
 
+
+  /**
+ * Adds a raised hands emoji to the message at the specified index.
+ * This function is a wrapper for the &#x60;addEmoji&#x60; method, specifically designed for adding raised hands emoji.
+ * It calls the &#x60;addEmoji&#x60; method with the provided parameters and sets the &#x60;calledFromFunction&#x60; parameter to &#x60;true&#x60;.
+ * @param event - The event object containing the emoji data.
+ * @param currentMessageIndex - The index of the message in the messages array.
+ * @param messageId - The ID of the message.
+ * @param userId - The ID of the user adding the emoji.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ */
   addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string, source: &#x27;channel&#x27; | &#x27;thread&#x27;): void {
     this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
   }
 
+
+  /**
+ * Adds the given emoji to the edited message at the specified index.
+ * @param index - The index of the message in the messages array.
+ * @param emoji - The emoji to be added to the edited message.
+ * @param source - The source of messages, either &#x27;channel&#x27; or &#x27;thread&#x27;.
+ */
   addEmojiToEditedMessage(index: number, emoji: any, source: &#x27;channel&#x27; | &#x27;thread&#x27;) {
     const messages &#x3D; source &#x3D;&#x3D;&#x3D; &#x27;channel&#x27; ? this.channelService.messages : this.threadService.messages;
     messages[index].message +&#x3D; emoji;

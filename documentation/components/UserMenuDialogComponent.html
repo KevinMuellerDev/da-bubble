@@ -624,7 +624,7 @@ listening to channels and threads, resets user information, and closes a dialog.
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ViewChildren, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from &#x27;@angular/material/dialog&#x27;;
 import { RouterLink } from &#x27;@angular/router&#x27;;
@@ -647,14 +647,14 @@ import { ThreadService } from &#x27;../../../services/thread.service&#x27;;
 export class UserMenuDialogComponent {
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef&lt;UserMenuDialogComponent&gt;, private dialogRefAddUser: MatDialogRef&lt;AddUserToChannelDialogComponent&gt;, private userService: UserService) { }
   channelService: ChannelService &#x3D; inject(ChannelService);
-  threadService:ThreadService &#x3D; inject(ThreadService);
+  threadService: ThreadService &#x3D; inject(ThreadService);
   hoverProfile: boolean &#x3D; false;
   hoverLogout: boolean &#x3D; false;
 
-/**
- * The &#x60;logout&#x60; function logs out the user, clears session storage, signs out of authentication, stops
- * listening to channels and threads, resets user information, and closes a dialog.
- */
+  /**
+   * The &#x60;logout&#x60; function logs out the user, clears session storage, signs out of authentication, stops
+   * listening to channels and threads, resets user information, and closes a dialog.
+   */
   async logout() {
     await this.userService.userLoggedOut();
     sessionStorage.removeItem(&#x27;uid&#x27;);
@@ -679,9 +679,9 @@ export class UserMenuDialogComponent {
       .subscribe();
   }
 
-/**
- * The closeDialog function closes all open dialog windows.
- */
+  /**
+   * The closeDialog function closes all open dialog windows.
+   */
   closeDialog() {
     this.dialog.closeAll();
   }
