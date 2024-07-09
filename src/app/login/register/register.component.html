@@ -15,20 +15,24 @@
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/person.png">
-                    <input #nameInput type="text" minlength="5" placeholder="Name und Nachname" formControlName="name" autocomplete="name" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
+                    <input #nameInput type="text" minlength="5" placeholder="Name und Nachname" formControlName="name"
+                        autocomplete="name" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
-                    <p *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].dirty">Bitte Name und Nachname eingeben, mindestens 5 Zeichen</p>
+                    <p *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].dirty">Bitte Name
+                        und Nachname eingeben, mindestens 5 Zeichen</p>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-container">
                     <img src="../../assets/img/login/email.png">
                     <input type="email" placeholder="E-Mail Adresse" formControlName="email" autocomplete="email"
-                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
+                        pattern="^(http(s){0,1}:\/\/.){0,1}[\-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([\-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$"
+                        [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
-                    <p *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].dirty">Bitte eine gültige E-Mail-Adresse eingeben</p>
+                    <p *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].dirty">Bitte eine
+                        gültige E-Mail-Adresse eingeben</p>
                 </div>
             </div>
             <div class="form-group">
@@ -39,7 +43,8 @@
                         autocomplete="current-password" [ngClass]="{'first-focus': firstFocus}" (input)="onInput()">
                 </div>
                 <div class="error">
-                    <p *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].dirty"> mindestens 8 Zeichen</p>
+                    <p *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].dirty">
+                        mindestens 8 Zeichen</p>
                     <p *ngIf="errorMessage">{{ errorMessage }}</p>
                 </div>
             </div>

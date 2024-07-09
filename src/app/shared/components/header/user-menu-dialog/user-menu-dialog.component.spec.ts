@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserMenuDialogComponent } from './user-menu-dialog.component';
 
 describe('UserMenuDialogComponent', () => {
@@ -10,8 +9,8 @@ describe('UserMenuDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [UserMenuDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(UserMenuDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

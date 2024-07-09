@@ -1,4 +1,4 @@
-import { Component, inject, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, inject, ViewChild, ElementRef } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -25,7 +25,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './header.component.scss'
 })
 
-export class HeaderComponent implements AfterViewInit, OnInit {
+export class HeaderComponent {
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   userService: UserService = inject(UserService);
   sidebarService: SidebarService = inject(SidebarService);
@@ -39,12 +39,6 @@ export class HeaderComponent implements AfterViewInit, OnInit {
   @ViewChild('headlineDesktop', { static: true, read: ElementRef }) headlineDesktop!: ElementRef;
 
   constructor(public dialog: MatDialog, private mainsectionComponent: MainsectionComponent) { }
-
-  ngAfterViewInit(): void {
-  }
-
-  ngOnInit(): void {
-  }
 
   /**
    * The `openDialog` function opens a dialog box for the UserMenuDialogComponent at a specific position

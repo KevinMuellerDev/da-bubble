@@ -14,23 +14,24 @@
     <div class="search-wrapper">
         <div class="header-search">
             <input [matMenuTriggerFor]="menu" #trigger autocomplete="off" type="text" name="searchMsg"
-                   [(ngModel)]="searchMsg.msg" (click)="$event.stopPropagation()" (input)="searchMessage()" (input)="getMenu()" placeholder="Channel durchsuchen">
+                [(ngModel)]="searchMsg.msg" (click)="$event.stopPropagation()" (input)="searchMessage()"
+                (input)="getMenu()" placeholder="Channel durchsuchen">
             <img src="/assets/img/header/search-btn.svg">
         </div>
         <mat-menu #menu="matMenu" hasBackdrop="true">
             @if (messageList.length!= 0) {
-                <div class="button-wrapper">
-                    <span class="span-head">Nachrichten:</span>
-                    @for (message of messageList; track message.name; let i = $index) {
-                    <div class="user-wrapper" (click)="scrollToMessage(message.index)">
-                        <img [src]="message.profilePicture" alt="">
-                        <div>
-                            <span class="bold-span">{{message.name}}</span>
-                            <span><span class="bold-span">Nachricht: </span>{{(message.message).substring(0,15)}}...</span>
-                        </div>
+            <div class="button-wrapper">
+                <span class="span-head">Nachrichten:</span>
+                @for (message of messageList; track message.name; let i = $index) {
+                <div class="user-wrapper" (click)="scrollToMessage(message.index)">
+                    <img [src]="message.profilePicture" alt="">
+                    <div>
+                        <span class="bold-span">{{message.name}}</span>
+                        <span><span class="bold-span">Nachricht: </span>{{(message.message).substring(0,15)}}...</span>
                     </div>
-                    }
                 </div>
+                }
+            </div>
             }
         </mat-menu>
     </div>
