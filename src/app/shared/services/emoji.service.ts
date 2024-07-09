@@ -27,6 +27,7 @@ export class EmojiService {
   toggleEditMode() {
     this.messageEdit = !this.messageEdit;
   }
+  
 
   /**
  * Initializes arrays for managing message editing, emoji picker visibility, and edit mode toggles.
@@ -68,6 +69,7 @@ export class EmojiService {
     }
   }
 
+
   /**
  * Checks if the given emoji already exists for the message at the specified index.
  * If the emoji exists, it increments the count and adds the user ID to the users array if the user is not matched.
@@ -96,6 +98,7 @@ export class EmojiService {
     return false;
   }
 
+
   /**
  * Adds a new emoji to the message at the specified index.
  * If the user ID matches the message ID, the users array in the emoji object is initialized as an empty array.
@@ -114,6 +117,7 @@ export class EmojiService {
     const users = userMatched ? [] : [userId];
     messages[index].emoji.push({ emoji: emoji, count: count, users: users });
   }
+
 
   /**
  * Updates a message at the specified index in the messages array based on the source.
@@ -135,6 +139,7 @@ export class EmojiService {
     }
   }
 
+
   /**
  * Updates the reaction for a specific emoji in a message.
  * @param currentEmojiIndex - The index of the emoji in the message's emoji array.
@@ -150,7 +155,8 @@ export class EmojiService {
     const emojiCount = messages[currentMessageIndex].emoji[currentEmojiIndex].count;
     this.updateUserEmojiReaction(messageId, userId, currentMessageIndex, currentEmojiIndex, emojiUserIds, emojiCount, messages);
     this.updateMessage(currentMessageIndex, source);
-}
+  }
+  
 
 /**
  * Updates the reaction for a specific emoji in a message.
@@ -169,7 +175,8 @@ updateUserEmojiReaction(messageId: string, userId: string, currentMessageIndex: 
     } else {
         this.modifyEmojiUsers(emojiUserIds, userId, currentMessageIndex, currentEmojiIndex, emojiCount, messages, 'add');
     }
-}
+  }
+  
 
 /**
  * Modifies the emoji users array and count based on the specified action.
@@ -198,7 +205,8 @@ modifyEmojiUsers(emojiUserIds: string[], userId: string, currentMessageIndex: nu
             emojiUserIds.push(userId);
         }
     }
-}
+  }
+  
 
 /**
  * Modifies the emoji users array and count based on the specified action.
@@ -214,6 +222,7 @@ modifyEmojiUsers(emojiUserIds: string[], userId: string, currentMessageIndex: nu
     this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
   }
 
+
   /**
  * Adds a raised hands emoji to the message at the specified index.
  * This function is a wrapper for the `addEmoji` method, specifically designed for adding raised hands emoji.
@@ -227,6 +236,7 @@ modifyEmojiUsers(emojiUserIds: string[], userId: string, currentMessageIndex: nu
   addRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string, source: 'channel' | 'thread'): void {
     this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
   }
+
 
   /**
  * Adds the given emoji to the edited message at the specified index.
