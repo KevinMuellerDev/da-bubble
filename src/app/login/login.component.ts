@@ -112,6 +112,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
    * @constructor
    */
   constructor(private router: Router) {
+    localStorage.setItem('uid', '')
     this.checkScreenWidth();
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -131,10 +132,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
    */
   ngOnInit() {
     this.checkScreenWidth();
-    const hasSeenAnimation = sessionStorage.getItem('hasSeenAnimation');
+    const hasSeenAnimation = localStorage.getItem('hasSeenAnimation');
     if (!hasSeenAnimation) {
       this.showIntroAnimation = true;
-      sessionStorage.setItem('hasSeenAnimation', 'true');
+      localStorage.setItem('hasSeenAnimation', 'true');
       this.delayIntroAnimation();
     }
   }
@@ -211,7 +212,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
    */
   removeShowIntroAnimationFlag() {
     this.showIntroAnimation = false;
-    sessionStorage.removeItem('hasSeenAnimation');
+    localStorage.removeItem('hasSeenAnimation');
   }
 
   /**
@@ -231,7 +232,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        sessionStorage.setItem("uid", user.uid);
+        localStorage.setItem("uid", user.uid);
         this.router.navigate(['/mainsection/' + user.uid]);
         this.isFormSubmitted = false;
       } catch (error) {
@@ -256,7 +257,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.userService.prepareDataNewUserGoogle(user);
         await this.userService.createUserProfile();
       }
-      sessionStorage.setItem("uid", user.uid);
+      localStorage.setItem("uid", user.uid);
       this.router.navigate(['/mainsection/' + user.uid]);
     } catch (error) {
       this.handleLoginError(error);

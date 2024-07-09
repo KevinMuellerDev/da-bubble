@@ -214,7 +214,7 @@ export class ChannelService {
   async getOppositeDmId() {
     const querySnapshot = await getDocs(query(this.refOppositeDirectMessage(this.privateMsgData.id)));
     querySnapshot.forEach(element => {
-      if (element.data()['dmUserId'] == sessionStorage.getItem('uid')) {
+      if (element.data()['dmUserId'] == localStorage.getItem('uid')) {
         this.oppositeMessagesId = element.id
       }
     });
@@ -233,9 +233,9 @@ export class ChannelService {
       this.fileData.type = this.storageService.uploadedFileType;
     }
     obj.uploadedFile = this.fileData;
-    await addDoc(this.refCreateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId), obj)
+    await addDoc(this.refCreateDM(localStorage.getItem('uid') as string, this.currentMessagesId), obj)
       .then(async (docRef) => {
-        await updateDoc(this.refUpdateDM(sessionStorage.getItem('uid') as string, this.currentMessagesId, docRef.id),
+        await updateDoc(this.refUpdateDM(localStorage.getItem('uid') as string, this.currentMessagesId, docRef.id),
           { msgId: docRef.id })
       });
     await this.getOppositeDmId();
@@ -295,7 +295,7 @@ export class ChannelService {
     const querySnapshotOpposite = await getDocs(this.refQueryOpposite());
     querySnapshotSelf.forEach(async (dataset) => {
       if (data.timestamp == dataset.data()['timestamp']) {
-        await updateDoc(doc(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
+        await updateDoc(doc(this.firestore, "user", localStorage.getItem('uid') as string, 'directmessages', this.currentMessagesId, 'messages', dataset.id), {
           emoji: data.emoji,
           message: data.message
         });
@@ -409,7 +409,7 @@ export class ChannelService {
   }
 
   refDirectMessage() {
-    return collection(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages')
+    return collection(this.firestore, "user", localStorage.getItem('uid') as string, 'directmessages')
   }
 
   refOppositeDirectMessage(id: string) {
@@ -417,7 +417,7 @@ export class ChannelService {
   }
 
   refDirectMessageData(id: string) {
-    return collection(this.firestore, "user", sessionStorage.getItem('uid') as string, 'directmessages', id, 'messages')
+    return collection(this.firestore, "user", localStorage.getItem('uid') as string, 'directmessages', id, 'messages')
   }
 
   refCreateDM(sender: string, receiver: string) {
@@ -429,7 +429,7 @@ export class ChannelService {
   }
 
   refQuerySelf() {
-    return query(this.refCreateDM(sessionStorage.getItem('uid')!, this.currentMessagesId));
+    return query(this.refCreateDM(localStorage.getItem('uid')!, this.currentMessagesId));
   }
 
   refQueryOpposite() {

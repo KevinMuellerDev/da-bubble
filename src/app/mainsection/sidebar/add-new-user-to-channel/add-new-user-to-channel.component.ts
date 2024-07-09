@@ -39,7 +39,7 @@ export class AddNewUserToChannelComponent {
    * otherwise it retrieves users from an existing channel.
    */
   onSubmit() {
-    const creatorId = sessionStorage.getItem('uid')
+    const creatorId = localStorage.getItem('uid')
     this.channelService.newChannel?.users.push(creatorId as string)
     if (this.specificUser == true) {
       this.selectedUser.forEach(user => {

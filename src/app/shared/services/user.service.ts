@@ -25,7 +25,7 @@ export class UserService {
   key!: string;
 
   constructor(private router: Router) {
-    if (sessionStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
+    if (localStorage.getItem("uid") === null && (this.router.url !== '/register' && !this.router.url.includes('confirmpassword')))
       this.router.navigate(['/']);
   }
 
@@ -62,9 +62,9 @@ export class UserService {
    * @returns Unsubscribe from snapshot
    */
   retrieveUserProfile() {
-    const unsubscribe = onSnapshot(doc(this.refUserProfile(), sessionStorage.getItem("uid") as string), async (user) => {
+    const unsubscribe = onSnapshot(doc(this.refUserProfile(), localStorage.getItem("uid") as string), async (user) => {
       this.userInfo = new UserData(user.data())
-      this.currentUser = sessionStorage.getItem("uid");
+      this.currentUser = localStorage.getItem("uid");
     });
     return unsubscribe
   }
@@ -86,7 +86,7 @@ export class UserService {
  * the currently logged-in user.
  */
   async userLoggedIn() {
-    await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
+    await updateDoc(doc(this.refUserProfile(), localStorage.getItem('uid') as string), {
       isLoggedIn: true
     });
   }
@@ -96,7 +96,7 @@ export class UserService {
  * when the user logs out.
  */
   async userLoggedOut() {
-    await updateDoc(doc(this.refUserProfile(), sessionStorage.getItem('uid') as string), {
+    await updateDoc(doc(this.refUserProfile(), localStorage.getItem('uid') as string), {
       isLoggedIn: false
     });
   }
@@ -179,12 +179,12 @@ export class UserService {
 
   /**
    * The `refUserChannels` function returns a reference to the user channels collection in Firestore
-   * based on the current user's ID stored in sessionStorage.
+   * based on the current user's ID stored in localStorage.
    * @returns The `refUserChannels()` function is returning a reference to the 'userchannels' collection
    * within the 'user' document corresponding to the user ID stored in the session storage.
    */
   refUserChannels() {
-    return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'userchannels')
+    return collection(this.firestore, 'user', localStorage.getItem("uid") as string, 'userchannels')
   }
 
   /**

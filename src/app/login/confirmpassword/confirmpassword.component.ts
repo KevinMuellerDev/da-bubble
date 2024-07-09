@@ -46,6 +46,8 @@ export class ConfirmpasswordComponent {
    * @param {Router} router - The Router instance to use for navigation.
    */
   constructor(private router: Router) {
+    localStorage.setItem("hasSeenAnimation", 'true');
+    localStorage.setItem("uid", '');
     this.params = new URLSearchParams(window.location.search);
     this.code = this.params.get('oobCode');
   }

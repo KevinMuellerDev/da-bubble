@@ -31,7 +31,7 @@ export class UserMenuDialogComponent {
    */
   async logout() {
     await this.userService.userLoggedOut();
-    sessionStorage.removeItem('uid');
+    localStorage.removeItem('uid');
     getAuth().signOut();
     this.channelService.stopListener();
     this.threadService.stopListener();

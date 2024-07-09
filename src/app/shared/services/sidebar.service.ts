@@ -137,6 +137,6 @@ export class SidebarService {
   }
 
   refUserDirectMsgs() {
-    return collection(this.firestore, 'user', sessionStorage.getItem("uid") as string, 'directmessages')
+    return collection(this.firestore, 'user', localStorage.getItem("uid") as string, 'directmessages')
   }
 }

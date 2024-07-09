@@ -102,7 +102,7 @@ export class ChannelComponent {
    */
   arrangeDirectData() {
     let dummy = new MessageData();
-    dummy.id = sessionStorage.getItem('uid')!;
+    dummy.id = localStorage.getItem('uid')!;
     dummy.name = this.userService.userInfo.name;
     dummy.profilePicture = this.userService.userInfo.profilePicture;
     dummy.message = this.message.content;

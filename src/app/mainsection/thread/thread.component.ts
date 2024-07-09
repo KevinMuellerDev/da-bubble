@@ -56,7 +56,7 @@ export class ThreadComponent {
   }
 
   constructor(public dialog: MatDialog, public emojiService: EmojiService, private MutationObserverService: MutationObserverService, private sanitizer: DomSanitizer) {
-    this.userId = sessionStorage.getItem('uid')!;
+    this.userId = localStorage.getItem('uid')!;
     this.dateToday = Date.now() as number;
     this.dataSubscription = this.threadService.data$.subscribe(data => {
       if (data) {
@@ -302,7 +302,7 @@ export class ThreadComponent {
   */
   arrangeThreadData() {
     let dummy = new MessageData();
-    dummy.id = sessionStorage.getItem('uid')!;
+    dummy.id = localStorage.getItem('uid')!;
     dummy.name = this.userService.userInfo.name;
     dummy.profilePicture = this.userService.userInfo.profilePicture;
     dummy.message = this.messageThread.content;

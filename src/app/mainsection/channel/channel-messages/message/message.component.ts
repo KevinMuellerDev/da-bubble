@@ -55,7 +55,7 @@ export class MessageComponent {
   userList: string[] = [];
 
   constructor(public dialog: MatDialog, public mainsectionComponent: MainsectionComponent, private changeDetectorRef: ChangeDetectorRef, public emojiService: EmojiService, private MutationObserverService: MutationObserverService, private sanitizer: DomSanitizer) {
-    this.userId = sessionStorage.getItem('uid')!;
+    this.userId = localStorage.getItem('uid')!;
     this.channelService.messagesLoaded = false;
     this.dataSubscription = this.channelService.data$.subscribe(data => {
       if (data) {

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { MainsectionComponent } from './mainsection/mainsection.component';
@@ -10,12 +10,12 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent },
     { path: 'mainsection/:id', component: MainsectionComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'register/chooseavatar', component: ChooseavatarComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
     { path: 'confirmpassword', component: ConfirmpasswordComponent },
     { path: 'imprint', component: ImprintComponent },
-    { path: 'privacypolicy', component: PrivacypolicyComponent }
+    { path: 'privacypolicy', component: PrivacypolicyComponent },
+    { path: '', component: LoginComponent }
 ];
