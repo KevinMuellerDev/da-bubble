@@ -85,37 +85,41 @@ export class EmojiService {
     }
   }
 
-  updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string, source: 'channel' | 'thread') {
+ updateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string, source: 'channel' | 'thread') {
     const messages = source === 'channel' ? this.channelService.messages : this.threadService.messages;
-    let emojiUserIds = messages[currentMessageIndex].emoji[currentEmojiIndex].users;
-    let emojiCount = messages[currentMessageIndex].emoji[currentEmojiIndex].count;
-    // Zählwertewerte von 0 auf 1 geändert
-    if (messageId === userId || emojiUserIds.includes(userId)) {
-      if (emojiCount === 1) {
-        messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
-      } else {
-        messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-        const userIndex = emojiUserIds.indexOf(userId);
-        if (userIndex !== -1) {
-          emojiUserIds.splice(userIndex, 1);
-        }
-      }
-    } else {
-      if (emojiUserIds.includes(userId)) {
-        if (emojiCount > 1) {
-          messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
-          const userIndex = emojiUserIds.indexOf(userId);
-          if (userIndex !== -1) {
-            emojiUserIds.splice(userIndex, 1);
-          }
-        }
-      } else {
-        messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
-        emojiUserIds.push(userId);
-      }
-    }
+    const emojiUserIds = messages[currentMessageIndex].emoji[currentEmojiIndex].users;
+    const emojiCount = messages[currentMessageIndex].emoji[currentEmojiIndex].count;
+    this.updateUserEmojiReaction(messageId, userId, currentMessageIndex, currentEmojiIndex, emojiUserIds, emojiCount, messages);
     this.updateMessage(currentMessageIndex, source);
-  }
+}
+
+updateUserEmojiReaction(messageId: string, userId: string, currentMessageIndex: number, currentEmojiIndex: number, emojiUserIds: string[], emojiCount: number, messages: any[]) {
+    if (messageId === userId || emojiUserIds.includes(userId)) {
+        this.modifyEmojiUsers(emojiUserIds, userId, currentMessageIndex, currentEmojiIndex, emojiCount, messages, 'remove');
+    } else {
+        this.modifyEmojiUsers(emojiUserIds, userId, currentMessageIndex, currentEmojiIndex, emojiCount, messages, 'add');
+    }
+}
+
+modifyEmojiUsers(emojiUserIds: string[], userId: string, currentMessageIndex: number, currentEmojiIndex: number, emojiCount: number, messages: any[], action: 'add' | 'remove') {
+    if (action === 'remove') {
+        if (emojiCount === 1) {
+            messages[currentMessageIndex].emoji.splice(currentEmojiIndex, 1);
+        } else {
+            messages[currentMessageIndex].emoji[currentEmojiIndex].count--;
+            const userIndex = emojiUserIds.indexOf(userId);
+            if (userIndex !== -1) {
+                emojiUserIds.splice(userIndex, 1);
+            }
+        }
+    } else {
+        if (!emojiUserIds.includes(userId)) {
+            messages[currentMessageIndex].emoji[currentEmojiIndex].count++;
+            emojiUserIds.push(userId);
+        }
+    }
+}
+
 
   addCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string, source: 'channel' | 'thread'): void {
     this.addEmoji(event, currentMessageIndex, messageId, userId, source, true);
