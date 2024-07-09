@@ -52,15 +52,33 @@ export class ShowProfileComponent {
     this.selectedAvatar = this.userService.userInfo.profilePicture;
   }
 
+  /**
+   * The `selectAvatar` function in TypeScript sets the selectedAvatar property to the provided avatar
+   * string.
+   * @param {string} avatar - The `selectAvatar` function takes a parameter `avatar` of type string. When
+   * this function is called, it sets the `selectedAvatar` property of the object to the value of the
+   * `avatar` parameter.
+   */
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
 
+  /**
+   * The `triggerFileInput` function triggers a click event on a file input element and sets the
+   * selectedAvatar property to null.
+   */
   triggerFileInput() {
     this.fileInput.nativeElement.click();
     this.selectedAvatar;
   }
 
+  /**
+   * The function `onImageSelected` takes an HTML input element, selects a file from storage service, and
+   * creates a URL for the selected file.
+   * @param {HTMLInputElement} input - The `input` parameter in the `onImageSelected` function is of type
+   * `HTMLInputElement`. It is used to represent an input element in an HTML form, such as an input field
+   * of type "file" that allows users to select files from their device.
+   */
   onImageSelected(input: HTMLInputElement) {
     this.storageService.onFileSelected(input);
     const file = this.storageService.files?.item(0);
@@ -69,6 +87,10 @@ export class ShowProfileComponent {
     }
   }
 
+  /**
+   * The `newProfilePicture` function asynchronously uploads a file to storage and updates the user's
+   * profile picture.
+   */
   async newProfilePicture() {
     await this.storageService.uploadFile(this.userService.currentUser!);
     await this.userService.updateUserProfilePicture(this.userService.createUserInfo.profilePicture)

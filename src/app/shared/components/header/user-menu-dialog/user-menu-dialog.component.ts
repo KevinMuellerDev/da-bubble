@@ -10,6 +10,7 @@ import { ChannelService } from '../../../services/channel.service';
 import { subscribeOn } from 'rxjs';
 import { AddUserDialogComponent } from '../../../../mainsection/channel/add-user-dialog/add-user-dialog.component';
 import { AddUserToChannelDialogComponent } from '../../../../mainsection/channel/add-user-to-channel-dialog/add-user-to-channel-dialog.component';
+import { ThreadService } from '../../../services/thread.service';
 @Component({
   selector: 'app-user-menu-dialog',
   standalone: true,
@@ -20,14 +21,20 @@ import { AddUserToChannelDialogComponent } from '../../../../mainsection/channel
 export class UserMenuDialogComponent {
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<UserMenuDialogComponent>, private dialogRefAddUser: MatDialogRef<AddUserToChannelDialogComponent>, private userService: UserService) { }
   channelService: ChannelService = inject(ChannelService);
+  threadService:ThreadService = inject(ThreadService);
   hoverProfile: boolean = false;
   hoverLogout: boolean = false;
 
+/**
+ * The `logout` function logs out the user, clears session storage, signs out of authentication, stops
+ * listening to channels and threads, resets user information, and closes a dialog.
+ */
   async logout() {
     await this.userService.userLoggedOut();
     sessionStorage.removeItem('uid');
     getAuth().signOut();
     this.channelService.stopListener();
+    this.threadService.stopListener();
     setTimeout(() => {
       this.userService.userInfo = new UserData();
     }, 200);
@@ -46,6 +53,9 @@ export class UserMenuDialogComponent {
       .subscribe();
   }
 
+/**
+ * The closeDialog function closes all open dialog windows.
+ */
   closeDialog() {
     this.dialog.closeAll();
   }
