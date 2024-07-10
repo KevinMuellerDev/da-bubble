@@ -380,6 +380,10 @@ export class ThreadComponent {
   addThreadMessageEmoji(event: any) {
     const selectedEmoji = event['emoji']['native'];
     this.selectedEmojis.push(selectedEmoji);
+    if (this.messageThread.content == null) {
+      this.messageThread.content = '';
+    }
+    
     this.messageThread.content += selectedEmoji;
     this.onOutsideClickTextarea()
   }

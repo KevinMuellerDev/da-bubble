@@ -165,6 +165,9 @@ export class ChannelComponent {
   addChannelMessageEmoji(event: any) {
     const selectedEmoji = event['emoji']['native'];
     this.selectedEmojis.push(selectedEmoji);
+    if (this.message.content == null) {
+      this.message.content = '';
+    }
     this.message.content += selectedEmoji;
   }
 
