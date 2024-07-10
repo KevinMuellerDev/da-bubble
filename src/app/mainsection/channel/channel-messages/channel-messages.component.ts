@@ -238,7 +238,7 @@ export class ChannelMessagesComponent implements OnInit {
       this.sidebarService.userDmData.push(user);
     this.channelService.chooseChannelType(true, user);
     this.threadService.stopListener();
-    this.threadService.triggerHideThread(); // trigger hideThread() in mainsection.component over thread.service
+    this.threadService.triggerHideThread();
     this.threadService.isActive = false;
   }
 
