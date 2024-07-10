@@ -258,6 +258,9 @@ export class ChannelComponent {
    */
   onUserClick(user: string) {
     const formattedUser = user.replace(/ /g, '_');
+    if (this.message.content == null) {
+      this.message.content =''
+    }
     this.message.content += `@${formattedUser} `;
     this.isTagUserOpen = false;
   }
