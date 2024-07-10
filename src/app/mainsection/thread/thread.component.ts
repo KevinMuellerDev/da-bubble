@@ -443,6 +443,9 @@ export class ThreadComponent {
    */
   onUserClick(user: string) {
     const formattedUser = user.replace(/ /g, '_');
+    if (this.messageThread.content == null) {
+      this.messageThread.content =''
+    }
     this.messageThread.content += `@${formattedUser} `;
     this.isTagUserOpen = false;
   }
