@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditChannelDialogComponent } from './edit-channel-dialog.component';
 
 describe('EditChannelDialogComponent', () => {
@@ -10,8 +9,8 @@ describe('EditChannelDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [EditChannelDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(EditChannelDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ShowProfileComponent } from './show-profile.component';
 
 describe('ShowProfileComponent', () => {
@@ -10,8 +9,8 @@ describe('ShowProfileComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ShowProfileComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ShowProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

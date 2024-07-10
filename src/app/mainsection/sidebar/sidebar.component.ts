@@ -48,6 +48,9 @@ export class SidebarComponent implements OnInit {
     this.unsubUserDmData = this.sidebarService.retrieveDmUserData();
   }
 
+  /**
+   * Initializes the component and clears the active style.
+   */
   ngOnInit() {
     this.clearactiveStyle();
   }
@@ -126,23 +129,23 @@ export class SidebarComponent implements OnInit {
     return loggedIn;
   }
 
-/**
- * The function `getDmStatus` returns a CSS class name based on the login status of a user in the
- * sidebar.
- * @param {number} index - The `index` is a number that represents the position or index of the user 
- * in the `userDmData` array within the `sidebarService`.
- * @returns returns either 'online-div' or 'offline-div' based on the value
- * of `isLoggedIn` property in the `userDmData` array at the specified index.
- */
+  /**
+   * The function `getDmStatus` returns a CSS class name based on the login status of a user in the
+   * sidebar.
+   * @param {number} index - The `index` is a number that represents the position or index of the user 
+   * in the `userDmData` array within the `sidebarService`.
+   * @returns returns either 'online-div' or 'offline-div' based on the value
+   * of `isLoggedIn` property in the `userDmData` array at the specified index.
+   */
   getDmStatus(index: number) {
     const loggedIn = this.sidebarService.userDmData[index].isLoggedIn == true ? 'online-div' : 'offline-div';
     return loggedIn;
   }
 
-/**
- * The `newMessage` function resets message-related properties and clears active styles, and closes the
- * mobile section if the screen size is small.
- */
+  /**
+   * The `newMessage` function resets message-related properties and clears active styles, and closes the
+   * mobile section if the screen size is small.
+   */
   newMessage() {
     this.channelService.privateMsg = false;
     this.channelService.channelMsg = false;
@@ -153,15 +156,18 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-/**
- * The clearactiveStyle function resets the active channel titles in a TypeScript class.
- */
+  /**
+   * The clearactiveStyle function resets the active channel titles in a TypeScript class.
+   */
   clearactiveStyle() {
     this.activeChannelTitle = '';
     this.activePrivateChannel = '';
     this.activeDirectChannel = '';
   }
 
+  /**
+   * Performs cleanup operations when the component is destroyed.
+   */
   ngOnDestroy() {
     this.unsubChannels();
     this.unsubCurrentChannels();

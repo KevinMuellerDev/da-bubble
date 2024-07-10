@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { VerifyComponent } from './verify.component';
 
 describe('VerifyComponent', () => {
@@ -10,8 +9,8 @@ describe('VerifyComponent', () => {
     await TestBed.configureTestingModule({
       imports: [VerifyComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(VerifyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

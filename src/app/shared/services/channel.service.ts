@@ -447,5 +447,4 @@ export class ChannelService {
   refQueryChannelMsg() {
     return query(this.refChannelMessage())
   }
-
 }

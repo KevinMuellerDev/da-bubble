@@ -71,35 +71,35 @@ a {
     }
 }
 
-ul{
+ul {
     padding-left: 20px;
-    li{
+    li {
         margin: 8px 0;
     }
 }
 
 @media screen and (max-width: 600px) {
-    header{
+    header {
         @include dFlex($jc: center, $ai: center);
         padding: 40px 0;
     }
 
-    main{
+    main {
         padding: 70px 40px;
     }
-    h1{
+    h1 {
         font-size: 2rem;
     }
-    h2{
+    h2 {
         font-size: 1.5rem;
     }
 }
 
 @media screen and (max-width: 460px) {
-    main{
+    main {
         padding: 70px 20px;
     }
-    h1{
+    h1 {
         font-size: 1.5rem;
     }
 }

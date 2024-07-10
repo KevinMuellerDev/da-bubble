@@ -31,7 +31,6 @@
                     *ngIf="emojiService.openEditMessageToggle[i]  && userId == message.id">
                     <span class="edit-message-span" (click)="editMessageFunction(i)">Nachricht bearbeiten</span>
                 </div>
-
             </div>
             <div class="profile-picture">
                 <img referrerpolicy="no-referrer" [src]="message.profilePicture" />

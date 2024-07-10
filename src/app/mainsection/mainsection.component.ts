@@ -44,6 +44,11 @@ export class MainsectionComponent implements AfterViewInit, OnDestroy {
     this.userService.userLoggedIn();
   }
 
+  /**
+   * Initializes the component and subscribes to the hideThread$ observable of the threadService.
+   * When the observable emits a value, it calls the hideThread() method.
+   * It also calls the onResize() method.
+   */
   ngOnInit(): void {
     this.hideThreadSubscription = this.threadService.hideThread$.subscribe(() => {
       this.hideThread();

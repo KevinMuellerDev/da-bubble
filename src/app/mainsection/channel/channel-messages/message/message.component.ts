@@ -30,7 +30,6 @@ registerLocaleData(localeDe);
   imports: [CommonModule, AddUserToChannelDialogComponent, AddUserDialogComponent, EditChannelDialogComponent, ShowProfileComponent, PickerComponent, EmojiComponent, FormsModule, OutsideclickDirective],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
-
 })
 
 export class MessageComponent {
@@ -72,21 +71,21 @@ export class MessageComponent {
   @ViewChild('editMessageTextarea', { static: false }) editMessageTextarea!: ElementRef;
 
   /**
- * Initializes the necessary data for the component.
- * @remarks
- * This function sets the current date to the `dateToday` property, which is used in the component's template.
- * It also subscribes to the `domChanges$` observable provided by the `MutationObserverService`.
- */
+   * Initializes the necessary data for the component.
+   * @remarks
+   * This function sets the current date to the `dateToday` property, which is used in the component's template.
+   * It also subscribes to the `domChanges$` observable provided by the `MutationObserverService`.
+   */
   ngOnInit() {
     this.dateToday = Date.now() as number;
-    this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => {});
+    this.domChangesSubscription = this.MutationObserverService.domChanges$.subscribe((mutations: MutationRecord[]) => { });
   }
 
   /**
- * Checks if two dates represent different days.
- * @param oldDate - The first date to compare.
- * @param newDate - The second date to compare.
- */
+   * Checks if two dates represent different days.
+   * @param oldDate - The first date to compare.
+   * @param newDate - The second date to compare.
+   */
 
   isNewDate(oldDate: number, newDate: number) {
     let oldDateAsString = new Date(oldDate).toLocaleDateString();
@@ -95,30 +94,30 @@ export class MessageComponent {
   }
 
   /**
- * This function is called after the view has been initialized.
- * 1. Calls `detectChanges` on the `ChangeDetectorRef` to trigger change detection.
- * 2. Observes the `scroll` element using the `MutationObserverService` to detect changes.
- */
+   * This function is called after the view has been initialized.
+   * 1. Calls `detectChanges` on the `ChangeDetectorRef` to trigger change detection.
+   * 2. Observes the `scroll` element using the `MutationObserverService` to detect changes.
+   */
 
   ngAfterViewInit() {
     this.changeDetectorRef.detectChanges();
     this.MutationObserverService.observe(this.scroll, false);
   }
 
-/**
- * This function is called after the view has been initialized.
- * It triggers change detection on the `ChangeDetectorRef` and observes the `scroll` element using the `MutationObserverService`.
- */
+  /**
+   * This function is called after the view has been initialized.
+   * It triggers change detection on the `ChangeDetectorRef` and observes the `scroll` element using the `MutationObserverService`.
+   */
   pushTimestamp(timestamp: string | null) {
     this.dateMap.push(timestamp as string);
   }
 
   /**
- * Handles the click event outside the specified element.
- * It toggles the visibility of the edit message toggle, emoji picker, and edit message textarea.
- * @param index - The index of the message associated with the event.
- * @param event - The click event that triggered this function.
- */
+   * Handles the click event outside the specified element.
+   * It toggles the visibility of the edit message toggle, emoji picker, and edit message textarea.
+   * @param index - The index of the message associated with the event.
+   * @param event - The click event that triggered this function.
+   */
   onOutsideClick(index: number, event: Event): void {
     this.emojiService.openEditMessageToggle[index] = false;
     const target = event.target as HTMLElement;
@@ -135,11 +134,11 @@ export class MessageComponent {
     this.emojiService.showEmojiPickerArray[index] = false;
   }
 
-/**
- * Retrieves the username associated with a given user ID from the current channel's user list.
- * @param emojiUserId - The user ID for which the username needs to be retrieved.
- * @returns The username associated with the given user ID, or `undefined` if no user is found.
- */
+  /**
+   * Retrieves the username associated with a given user ID from the current channel's user list.
+   * @param emojiUserId - The user ID for which the username needs to be retrieved.
+   * @returns The username associated with the given user ID, or `undefined` if no user is found.
+   */
   getUsernameByUserId(emojiUserId: string): string | undefined {
     const currentChannelUsers = this.channelService.currentChannelUsers;
     const user = currentChannelUsers.find(user => user.id === emojiUserId);
@@ -147,13 +146,13 @@ export class MessageComponent {
   }
 
   /**
- * Handles the addition of an emoji to a message.
- * @param event - The event object that triggered the emoji addition.
- * @param index - The index of the message to which the emoji will be added.
- * @param messageId - The unique identifier of the message.
- * @param userId - The unique identifier of the user who added the emoji.
- * @param calledFromFunction - A flag indicating whether the function was called from another function.
- */
+   * Handles the addition of an emoji to a message.
+   * @param event - The event object that triggered the emoji addition.
+   * @param index - The index of the message to which the emoji will be added.
+   * @param messageId - The unique identifier of the message.
+   * @param userId - The unique identifier of the user who added the emoji.
+   * @param calledFromFunction - A flag indicating whether the function was called from another function.
+   */
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     this.emojiService.addEmoji(event, index, messageId, userId, 'channel');
     this.emojiAdded = true;
@@ -167,100 +166,100 @@ export class MessageComponent {
   }
 
   /**
- * Updates the reaction for a specific emoji in a message.
- * @param currentEmojiIndex - The index of the emoji in the message's emoji array.
- * @param currentMessageIndex - The index of the message in the channel's messages array.
- * @param currentEmoji - The emoji for which the reaction is being updated.
- * @param messageId - The unique identifier of the message.
- * @param userId - The unique identifier of the user who added the reaction.
- */
+   * Updates the reaction for a specific emoji in a message.
+   * @param currentEmojiIndex - The index of the emoji in the message's emoji array.
+   * @param currentMessageIndex - The index of the message in the channel's messages array.
+   * @param currentEmoji - The emoji for which the reaction is being updated.
+   * @param messageId - The unique identifier of the message.
+   * @param userId - The unique identifier of the user who added the reaction.
+   */
   onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
     this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'channel');
   }
 
   /**
- * Handles the addition of a check emoji to a message.
- * @param event - The event object that triggered the emoji addition.
- * @param currentMessageIndex - The index of the message in the channel's messages array.
- * @param messageId - The unique identifier of the message.
- * @param userId - The unique identifier of the user who added the emoji.
- */
+   * Handles the addition of a check emoji to a message.
+   * @param event - The event object that triggered the emoji addition.
+   * @param currentMessageIndex - The index of the message in the channel's messages array.
+   * @param messageId - The unique identifier of the message.
+   * @param userId - The unique identifier of the user who added the emoji.
+   */
   onAddCheckEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
     this.emojiService.addCheckEmoji(event, currentMessageIndex, messageId, userId, 'channel');
   }
 
   /**
- * Handles the addition of a raised hands emoji to a message.
- * @param event - The event object that triggered the emoji addition.
- * @param currentMessageIndex - The index of the message in the channel's messages array.
- * @param messageId - The unique identifier of the message.
- * @param userId - The unique identifier of the user who added the emoji.
- */
+   * Handles the addition of a raised hands emoji to a message.
+   * @param event - The event object that triggered the emoji addition.
+   * @param currentMessageIndex - The index of the message in the channel's messages array.
+   * @param messageId - The unique identifier of the message.
+   * @param userId - The unique identifier of the user who added the emoji.
+   */
   onAddRaisedHandsEmoji(event: any, currentMessageIndex: number, messageId: string, userId: string) {
     this.emojiService.addRaisedHandsEmoji(event, currentMessageIndex, messageId, userId, 'channel');
   }
 
   /**
- * Handles the mouseenter event for a specific emoji in a message.
- * Updates the `hoveredMessageIndex` and `hoveredEmojiIndex` properties to highlight the corresponding emoji.
- * @param messageIndex - The index of the message in the channel's messages array.
- * @param emojiIndex - The index of the emoji in the message's emoji array.
- */
+   * Handles the mouseenter event for a specific emoji in a message.
+   * Updates the `hoveredMessageIndex` and `hoveredEmojiIndex` properties to highlight the corresponding emoji.
+   * @param messageIndex - The index of the message in the channel's messages array.
+   * @param emojiIndex - The index of the emoji in the message's emoji array.
+   */
   onMouseEnter(messageIndex: number, emojiIndex: number): void {
     this.hoveredMessageIndex = messageIndex;
     this.hoveredEmojiIndex = emojiIndex;
   }
 
   /**
- * Handles the mouseleave event for a specific emoji in a message.
- * Updates the `hoveredMessageIndex` and `hoveredEmojiIndex` properties to remove the highlight from the corresponding emoji.
- */
+   * Handles the mouseleave event for a specific emoji in a message.
+   * Updates the `hoveredMessageIndex` and `hoveredEmojiIndex` properties to remove the highlight from the corresponding emoji.
+   */
   onMouseLeave(): void {
     this.hoveredMessageIndex = null;
     this.hoveredEmojiIndex = null;
   }
 
   /**
- * Toggles the visibility of the emoji picker for a specific message.
- * @param index - The index of the message for which the emoji picker should be toggled.
- */
+   * Toggles the visibility of the emoji picker for a specific message.
+   * @param index - The index of the message for which the emoji picker should be toggled.
+   */
   toggleEmojiPicker(index: number) {
     this.emojiService.showEmojiPickerArray[index] = !this.emojiService.showEmojiPickerArray[index];
   }
 
-/**
- * This function toggles the visibility of the edit message toggle for a specific message.
- * @param index - The index of the message for which the edit message toggle should be toggled.
- */
+  /**
+   * This function toggles the visibility of the edit message toggle for a specific message.
+   * @param index - The index of the message for which the edit message toggle should be toggled.
+   */
   toggleOpenEditMessage(index: number) {
     this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
 
   /**
- * Handles the event triggered by clicking on specific elements within the message component.
- * If the clicked element has the class 'edit-message-icon', 'add-reaction-icon', or 'text-area-editable',
- * the event propagation is stopped to prevent further event handling.
- * @param event - The event object that triggered this function.
- * @param index - The index of the message associated with the event.
- */
+   * Handles the event triggered by clicking on specific elements within the message component.
+   * If the clicked element has the class 'edit-message-icon', 'add-reaction-icon', or 'text-area-editable',
+   * the event propagation is stopped to prevent further event handling.
+   * @param event - The event object that triggered this function.
+   * @param index - The index of the message associated with the event.
+   */
   toggleEvent(event: any, index: number): void {
     if (event.target.classList.contains('edit-message-icon') || event.target.classList.contains('add-reaction-icon') || event.target.classList.contains('text-area-editable')) {
       event.stopPropagation();
     }
   }
 
-/**
- * Updates the `newMessage` object with the message from the selected index in the `channelService.messages` array.
- * @param index - The index of the message in the `channelService.messages` array.
- */
+  /**
+   * Updates the `newMessage` object with the message from the selected index in the `channelService.messages` array.
+   * @param index - The index of the message in the `channelService.messages` array.
+   */
   updateMessageAfterEmojiSelection(index: number) {
     this.newMessage = { message: this.channelService.messages[index].message };
   }
 
   /**
- * Initializes the necessary data for editing a message.
- * @param index - The index of the message in the `channelService.messages` array.
- */
+   * Initializes the necessary data for editing a message.
+   * @param index - The index of the message in the `channelService.messages` array.
+   */
   initMessageData(index: number) {
     this.originalMessage = this.channelService.messages[index].message;
     this.emojiService.messageEdit = true;
@@ -269,10 +268,9 @@ export class MessageComponent {
   }
 
   /**
- * Initializes the necessary data for editing a message.
- * @param index - The index of the message in the `channelService.messages` array.
- * @returns {void}
- */
+   * Initializes the necessary data for editing a message.
+   * @param index - The index of the message in the `channelService.messages` array.
+   */
   editMessageFunction(index: number) {
     this.initMessageData(index);
     const textareaId = 'editMessageTextarea-' + index;
@@ -285,11 +283,11 @@ export class MessageComponent {
     }, 0);
     this.emojiService.openEditMessageToggle[index] = !this.emojiService.openEditMessageToggle[index];
   }
-  
+
   /**
- * This function aborts the editing of a message.
- * @param index - The index of the message in the `channelService.messages` array.
- */
+   * This function aborts the editing of a message.
+   * @param index - The index of the message in the `channelService.messages` array.
+   */
   editMessageAbort(index: number) {
     this.emojiService.editMessage[index] = false;
     this.emojiService.messageEdit = false;
@@ -299,12 +297,12 @@ export class MessageComponent {
   }
 
   /**
- * Handles the keyup event for editing a message.
- * Updates the message in the channel service and submits the form if Enter is pressed without Shift.
- * @param  event - The keyboard event object.
- * @param editMessageForm - The form used to edit the message.
- * @param  index - The index of the message being edited in the channel's message array.
- */
+   * Handles the keyup event for editing a message.
+   * Updates the message in the channel service and submits the form if Enter is pressed without Shift.
+   * @param  event - The keyboard event object.
+   * @param editMessageForm - The form used to edit the message.
+   * @param  index - The index of the message being edited in the channel's message array.
+   */
   onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
     this.channelService.messages[index].message = this.newMessage.message;
     if (event.key === "Enter" && !event.shiftKey) {
@@ -314,12 +312,12 @@ export class MessageComponent {
   }
 
   /**
- * Handles the keyup event for editing a message.
- * Updates the message in the `channelService.messages` array based on the entered key.
- * @param event - The KeyboardEvent object that triggered this function.
- * @param editMessageForm - The NgForm object representing the edit message form.
- * @param index - The index of the message in the `channelService.messages` array.
- */
+   * Handles the keyup event for editing a message.
+   * Updates the message in the `channelService.messages` array based on the entered key.
+   * @param event - The KeyboardEvent object that triggered this function.
+   * @param editMessageForm - The NgForm object representing the edit message form.
+   * @param index - The index of the message in the `channelService.messages` array.
+   */
   onSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
       this.channelService.messages[index].message = this.newMessage.message;
@@ -371,20 +369,20 @@ export class MessageComponent {
   }
 
   /**
- * This function highlights usernames in a given message by wrapping them in a span with the class "highlighted".
- * @param {string} message - The message in which to highlight usernames.
- * @returns {string} - The modified message with highlighted usernames.
- */
+   * This function highlights usernames in a given message by wrapping them in a span with the class "highlighted".
+   * @param {string} message - The message in which to highlight usernames.
+   * @returns {string} - The modified message with highlighted usernames.
+   */
   highlightUsernames(message: string): string {
     const usernameRegex = /@([^@<>\s]+)/g;
     return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
   }
 
   /**
- * This function is called when the component is destroyed.
- * It performs cleanup tasks such as resetting message data,
- * unsubscribing from data subscriptions, and disconnecting from the MutationObserver.
- */
+   * This function is called when the component is destroyed.
+   * It performs cleanup tasks such as resetting message data,
+   * unsubscribing from data subscriptions, and disconnecting from the MutationObserver.
+   */
   ngOnDestroy() {
     this.channelService.messages = [];
     this.channelService.messagesLoaded = false;
@@ -399,15 +397,15 @@ export class MessageComponent {
   }
 
   /**
- * Opens a new window to preview a PDF file.
- * @param pdfUrl - The URL of the PDF file to be previewed.
- * This parameter should be a SafeResourceUrl or null.
- * @remarks
- * If the provided `pdfUrl` is not null, it is sanitized using the Angular's DomSanitizer.
- * Then, a new window is opened with the sanitized URL.
- * The new window contains an HTML document with an embedded PDF file.
- * The PDF file is displayed in the new window with 100% width and height.
- */
+   * Opens a new window to preview a PDF file.
+   * @param pdfUrl - The URL of the PDF file to be previewed.
+   * This parameter should be a SafeResourceUrl or null.
+   * @remarks
+   * If the provided `pdfUrl` is not null, it is sanitized using the Angular's DomSanitizer.
+   * Then, a new window is opened with the sanitized URL.
+   * The new window contains an HTML document with an embedded PDF file.
+   * The PDF file is displayed in the new window with 100% width and height.
+   */
   openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
       const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
@@ -428,6 +426,5 @@ export class MessageComponent {
       }
     }
   }
-
 }
 

@@ -14,7 +14,6 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { ThreadService } from '../../shared/services/thread.service';
 
-
 @Component({
   selector: 'app-channel',
   standalone: true,
@@ -30,7 +29,6 @@ export class ChannelComponent {
   message = {
     content: ''
   }
-
   submitClick: boolean = false;
   textareaBlur: boolean = false;
   isEmojiPickerVisible: boolean = false;
@@ -51,9 +49,9 @@ export class ChannelComponent {
   private closeAndFocusChannelTextarea!: Subscription;
 
   /**
- * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
- * Subscribes to channel change and thread close events to set focus on the textarea accordingly.
- */
+   * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+   * Subscribes to channel change and thread close events to set focus on the textarea accordingly.
+   */
   ngOnInit() {
     this.changeChannelSubscription = this.channelService.channelChanged$.subscribe(() => {
       this.setFocusOnTextarea();
@@ -64,10 +62,10 @@ export class ChannelComponent {
   }
 
   /**
- * Sets focus on the textarea asynchronously using setTimeout.
- * This is typically used to ensure focus is set after a short delay, allowing Angular
- * to complete its rendering cycle.
- */
+   * Sets focus on the textarea asynchronously using setTimeout.
+   * This is typically used to ensure focus is set after a short delay, allowing Angular
+   * to complete its rendering cycle.
+   */
   setFocusOnTextarea() {
     setTimeout(() => {
       this.messageContent.nativeElement.focus();
@@ -75,9 +73,9 @@ export class ChannelComponent {
   }
 
   /**
- * Handles the submission of a form asynchronously.
- * @param form - The form to submit.
- */
+   * Handles the submission of a form asynchronously.
+   * @param form - The form to submit.
+   */
   async onSubmit(form: NgForm) {
     this.submitClick = true;
     this.textareaBlur = true;
@@ -90,7 +88,7 @@ export class ChannelComponent {
       this.submitClick = false;
       this.selectedEmojis = [];
       setTimeout(() => {
-         this.clearFileInput();
+        this.clearFileInput();
       }, 500);
     }
   }
@@ -126,10 +124,10 @@ export class ChannelComponent {
   }
 
   /**
- * Handles the click event outside of the emoji picker, file upload preview, and user tag dropdown.
- * It closes the emoji picker, file upload preview, and user tag dropdown by toggling their visibility properties.
- * @returns {void}
- */
+   * Handles the click event outside of the emoji picker, file upload preview, and user tag dropdown.
+   * It closes the emoji picker, file upload preview, and user tag dropdown by toggling their visibility properties.
+   * @returns {void}
+   */
   onOutsideClick(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
     this.isEmojiPickerVisible = false;
@@ -137,10 +135,10 @@ export class ChannelComponent {
   }
 
   /**
- * Handles clicks outside the file upload preview area.
- * Clears the file input and aborts the upload process if the click target is outside the message content area.
- * @param {Event} event - The click event outside the file upload preview area.
- */
+   * Handles clicks outside the file upload preview area.
+   * Clears the file input and aborts the upload process if the click target is outside the message content area.
+   * @param {Event} event - The click event outside the file upload preview area.
+   */
   onOutsideClickFileUploadPreview(event: Event): void {
     const target = event.target as HTMLElement;
     if (target.id === 'messageContent') {
@@ -161,9 +159,9 @@ export class ChannelComponent {
   }
 
   /**
- * Adds an emoji to the message content and updates the selected emojis array.
- * @param event - The event object containing the emoji data.
- */
+   * Adds an emoji to the message content and updates the selected emojis array.
+   * @param event - The event object containing the emoji data.
+   */
   addChannelMessageEmoji(event: any) {
     const selectedEmoji = event['emoji']['native'];
     this.selectedEmojis.push(selectedEmoji);
@@ -171,30 +169,30 @@ export class ChannelComponent {
   }
 
   /**
- * Triggers the click event on the file input element to open the file selection dialog.
- * This function is called when the user clicks on the file upload button.
- * @param event - The event object that triggered the function.
- */
+   * Triggers the click event on the file input element to open the file selection dialog.
+   * This function is called when the user clicks on the file upload button.
+   * @param event - The event object that triggered the function.
+   */
   triggerFileInput(event: Event) {
     event.stopPropagation();
     this.fileInput.nativeElement.click();
   }
 
   /**
- * Clears the file input element and sets focus on the message content textarea.
- * This function is called when the user cancels file selection or uploads a new file.
- */
+   * Clears the file input element and sets focus on the message content textarea.
+   * This function is called when the user cancels file selection or uploads a new file.
+   */
   clearFileInput() {
     this.fileInput.nativeElement.value = '';
     this.messageContent.nativeElement.focus();
   }
 
   /**
- * Handles the file selection event triggered by the user.
- * It retrieves the selected file from the event target, updates the text area with the file name,
- * and initiates the file upload process to the server.
- * @param event - The event object that triggered the function.
- */
+   * Handles the file selection event triggered by the user.
+   * It retrieves the selected file from the event target, updates the text area with the file name,
+   * and initiates the file upload process to the server.
+   * @param event - The event object that triggered the function.
+   */
   async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     this.storageService.onFileSelectedTextarea(input);
@@ -202,15 +200,15 @@ export class ChannelComponent {
   }
 
   /**
- * Opens a new window to preview a PDF file.
- * @param pdfUrl - The URL of the PDF file to be previewed.
- * This parameter should be a SafeResourceUrl or null.
- * @remarks
- * If the provided `pdfUrl` is not null, it is sanitized using the Angular's DomSanitizer.
- * Then, a new window is opened with the sanitized URL.
- * The new window contains an HTML document with an embedded PDF file.
- * The PDF file is displayed in the new window with 100% width and height.
- */
+   * Opens a new window to preview a PDF file.
+   * @param pdfUrl - The URL of the PDF file to be previewed.
+   * This parameter should be a SafeResourceUrl or null.
+   * @remarks
+   * If the provided `pdfUrl` is not null, it is sanitized using the Angular's DomSanitizer.
+   * Then, a new window is opened with the sanitized URL.
+   * The new window contains an HTML document with an embedded PDF file.
+   * The PDF file is displayed in the new window with 100% width and height.
+   */
   openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
       const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
@@ -233,47 +231,46 @@ export class ChannelComponent {
   }
 
   /**
- * Handles the user tag functionality in the channel component.
- * When a user clicks on the tag user button, it toggles the visibility of the user tag dropdown.
- * If the current message type is a direct message, it adds the recipient's name to the tag user list.
- * If the current message type is a channel message, it adds all the channel users' names to the tag user list.
- * The event's stopPropagation method is called to prevent event bubbling.
- * @param event - The event that triggered the tag user functionality.
- */
+   * Handles the user tag functionality in the channel component.
+   * When a user clicks on the tag user button, it toggles the visibility of the user tag dropdown.
+   * If the current message type is a direct message, it adds the recipient's name to the tag user list.
+   * If the current message type is a channel message, it adds all the channel users' names to the tag user list.
+   * The event's stopPropagation method is called to prevent event bubbling.
+   * @param event - The event that triggered the tag user functionality.
+   */
   tagUser(event: Event) {
     event.stopPropagation();
     this.tagUserList = [];
     this.isTagUserOpen = !this.isTagUserOpen;
     if (this.channelService.privateMsg) {
-      this.tagUserList.push(this.channelService.privateMsgData.name) ;
+      this.tagUserList.push(this.channelService.privateMsgData.name);
     } else if (this.channelService.channelMsg) {
-     this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
+      this.tagUserList = this.channelService.currentChannelUsers.map(channelUser => channelUser.name);
     }
   }
 
   /**
- * Handles the user selection from the tag user dropdown.
- * It replaces spaces in the selected user's name with underscores,
- * appends the formatted name to the message content with a preceding '@' symbol,
- * and closes the tag user dropdown.
- * @param user - The name of the selected user.
- */
+   * Handles the user selection from the tag user dropdown.
+   * It replaces spaces in the selected user's name with underscores,
+   * appends the formatted name to the message content with a preceding '@' symbol,
+   * and closes the tag user dropdown.
+   * @param user - The name of the selected user.
+   */
   onUserClick(user: string) {
-   const formattedUser = user.replace(/ /g, '_');
-   this.message.content += `@${formattedUser} `;
-   this.isTagUserOpen = false;
+    const formattedUser = user.replace(/ /g, '_');
+    this.message.content += `@${formattedUser} `;
+    this.isTagUserOpen = false;
   }
 
   /**
- * Unsubscribes from all subscriptions when the component is destroyed.
- * This ensures that no memory leaks occur and that resources are properly cleaned up.
- */
+   * Unsubscribes from all subscriptions when the component is destroyed.
+   * This ensures that no memory leaks occur and that resources are properly cleaned up.
+   */
   ngOnDestroy() {
     if (this.changeChannelSubscription) {
       this.changeChannelSubscription.unsubscribe();
     }
   }
-
 }
 
 

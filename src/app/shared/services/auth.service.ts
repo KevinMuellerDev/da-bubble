@@ -20,7 +20,7 @@ export class AuthService {
   async verifyChange(key: string) {
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, this.userService.userInfo.email, key)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         console.error(error.code, error.message);
       });
@@ -32,10 +32,10 @@ export class AuthService {
    */
   async updateUserMail(mail: string) {
     const auth = getAuth();
-    updateEmail(auth.currentUser as User, mail).then(() => {})
-    .catch((error) => {
-      console.error(error);
-    });
+    updateEmail(auth.currentUser as User, mail).then(() => { })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   /**
@@ -47,7 +47,7 @@ export class AuthService {
     const auth = getAuth();
     ;
     await confirmPasswordReset(auth, code, key)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         console.error(error.code, '', error.message);
       })

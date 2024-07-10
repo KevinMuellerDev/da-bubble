@@ -22,10 +22,10 @@ export class VerifyComponent {
     });
   }
 
-/**
- * The `submitKey` function asynchronously verifies a key input, sets a flag to indicate verification,
- * and closes a dialog window.
- */
+  /**
+   * The `submitKey` function asynchronously verifies a key input, sets a flag to indicate verification,
+   * and closes a dialog window.
+   */
   async submitKey() {
     await this.authService.verifyChange(this.keyForm.controls['key'].value);
     this.authService.verified = true;

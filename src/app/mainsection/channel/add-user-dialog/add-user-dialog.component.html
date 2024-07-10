@@ -16,10 +16,8 @@
             <div class="deleteUser" (click)="removeUserFromSelection(user)"></div>
         </div>
         }
-        <input name="addUserInput" type="text" autocomplete="off" #trigger
-               [matMenuTriggerFor]="menu" (input)="searchUser()"
-               (click)="$event.stopPropagation()" (input)="getMenu()" placeholder="Name eingeben"
-               [(ngModel)]="addUser.name">
+        <input name="addUserInput" type="text" autocomplete="off" #trigger [matMenuTriggerFor]="menu"
+            (input)="searchUser()" (click)="$event.stopPropagation()" (input)="getMenu()" placeholder="Name eingeben" [(ngModel)]="addUser.name">
     </form>
     <div class="error-message" *ngIf="selectedUser.length === 0 && addUserInputs.touched ">
         Min. 1 User erforderlich !

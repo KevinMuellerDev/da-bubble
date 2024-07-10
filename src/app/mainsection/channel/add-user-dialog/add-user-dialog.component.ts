@@ -28,6 +28,11 @@ export class AddUserDialogComponent {
 
   constructor(public dialog: MatDialog) { }
 
+  /**
+   * A function that submits the user details to update the channel users.
+   * @param {NgForm} addedUser - The NgForm containing the user details to be submitted.
+   * @return {Promise<void>} - A promise that resolves once the channel users are updated.
+   */
   async submitUser(addedUser: NgForm) {
     await this.updateChannelUsers();
     addedUser.reset();

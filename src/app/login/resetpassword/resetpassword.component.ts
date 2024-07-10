@@ -5,7 +5,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-resetpassword',
   standalone: true,
@@ -37,14 +36,11 @@ export class ResetpasswordComponent {
   resetPassword: FormGroup;
   popupState = 'out';
 
-
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
     this.resetPassword = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email])
     })
   }
-
-
 
   /**
   * Returns an error message based on the provided Firebase error code.

@@ -10,6 +10,11 @@ export class OutsideclickDirective {
   constructor(private _elementRef: ElementRef) { }
 
   @HostListener('document:click', ['$event', '$event.target'])
+  /**
+   * Handles the click event and emits an "outsideClick" event if the click is outside the element and not on an "edit-message-span".
+   * @param {MouseEvent} event - The click event.
+   * @param {HTMLElement} targetElement - The target element of the click event.
+   */
   public onClick(event: MouseEvent, targetElement: HTMLElement): void {
     if (!targetElement) {
       return;

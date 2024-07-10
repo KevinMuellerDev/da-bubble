@@ -13,18 +13,18 @@ export class MutationObserverService {
 
   constructor() { }
 
-/**
- * The function observes changes in a DOM element's children and scrolls to the bottom if new children
- * are added.
- * @param {ElementRef} element - The `element` parameter in the `observe` method is of type
- * `ElementRef`, which is a reference to a DOM element in Angular. It is used to observe changes in the
- * element's children and scroll to the bottom if `isThread` is set to true.
- * @param {boolean} [isThread=false] - The `isThread` parameter in the `observe` method is a boolean
- * flag that indicates whether the element being observed is a thread. If `isThread` is set to `true`,
- * the method will scroll the element to the bottom when new content is added.
- * @returns If the `element` or `element.nativeElement` is falsy, the function will return early and
- * not execute the rest of the code block.
- */
+  /**
+   * The function observes changes in a DOM element's children and scrolls to the bottom if new children
+   * are added.
+   * @param {ElementRef} element - The `element` parameter in the `observe` method is of type
+   * `ElementRef`, which is a reference to a DOM element in Angular. It is used to observe changes in the
+   * element's children and scroll to the bottom if `isThread` is set to true.
+   * @param {boolean} [isThread=false] - The `isThread` parameter in the `observe` method is a boolean
+   * flag that indicates whether the element being observed is a thread. If `isThread` is set to `true`,
+   * the method will scroll the element to the bottom when new content is added.
+   * @returns If the `element` or `element.nativeElement` is falsy, the function will return early and
+   * not execute the rest of the code block.
+   */
   public observe(element: ElementRef, isThread: boolean = false): void {
     if (!element || !element.nativeElement) {
       return;
@@ -54,9 +54,9 @@ export class MutationObserverService {
     });
   }
 
-/**
- * The `disconnect` function in TypeScript disconnects the mutation observer if it is currently active.
- */
+  /**
+   * The `disconnect` function in TypeScript disconnects the mutation observer if it is currently active.
+   */
   public disconnect(): void {
     if (this.mutationObserver) {
       this.mutationObserver.disconnect();

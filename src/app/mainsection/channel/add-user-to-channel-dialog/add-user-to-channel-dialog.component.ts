@@ -6,6 +6,7 @@ import { ChannelService } from '../../../shared/services/channel.service';
 import { UserService } from '../../../shared/services/user.service';
 import { StateService } from '../../../shared/services/state-service.service';
 import { ShowProfileComponent } from '../../../shared/components/show-profile/show-profile.component';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-add-user-to-channel-dialog',
@@ -38,7 +39,7 @@ export class AddUserToChannelDialogComponent {
   /**
    * A description of the entire function.
    * @param {any} user - description of parameter
-   * @return {void} description of return value
+   * @return description of return value
    */
   async getOtherUserData(user: any) {
     this.userService.otherUserInfo = user;

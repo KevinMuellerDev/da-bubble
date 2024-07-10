@@ -80,7 +80,6 @@
     &:active {
         background-image: url("/assets/img/icons/add_bold.svg");
     }
-
 }
 
 .emoji-icon {
@@ -176,7 +175,7 @@
     bottom: 215px;
     right: 35px;
 
-    >img {
+    > img {
         border: 3px solid $purple2;
         border-radius: 30px;
         max-width: 250px;

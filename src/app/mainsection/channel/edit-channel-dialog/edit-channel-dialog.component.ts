@@ -18,12 +18,11 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 export class EditChannelDialogComponent {
   channelService: ChannelService = inject(ChannelService);
   userService: UserService = inject(UserService);
-  sidebarService:SidebarService = inject(SidebarService);
+  sidebarService: SidebarService = inject(SidebarService);
   firestore: Firestore = inject(Firestore);
   editChannelName: boolean = false;
   editDescription: boolean = false;
-  channelNameExists:boolean = false;
-
+  channelNameExists: boolean = false;
   newChannelValues = {
     'name': '',
     'newDescription': ''
@@ -37,7 +36,6 @@ export class EditChannelDialogComponent {
     this.newChannelValues.name = this.channelService.channelMsgData.title;
     this.editChannelName = true;
   }
-
 
   /**
    * The function `saveEditChannelStatus` updates a channel title and resets the form.
@@ -62,7 +60,6 @@ export class EditChannelDialogComponent {
     channelName.reset();
   }
 
-
   /**
    * The function `changeEditDescriptionStatus` sets the `newDescription` property to the current channel
    * description and sets `editDescription` to true.
@@ -71,7 +68,6 @@ export class EditChannelDialogComponent {
     this.newChannelValues.newDescription = this.channelService.channelMsgData.description;
     this.editDescription = true;
   }
-
 
   /**
    * The function `saveEditDescriptionStatus` updates a channel description and resets the form.
@@ -84,18 +80,20 @@ export class EditChannelDialogComponent {
     changedDescription.reset();
   }
 
-
-  async leaveChannel() {
+  /**
+   * A function to handle leaving a channel by removing the current user from the channel users list and updating the user's channels. It also resets the message type of the channel service.
+   * @returns A promise that resolves to void.
+   */
+  async leaveChannel(): Promise<void> {
     await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection), {
       users: arrayRemove(this.userService.currentUser)
     });
     const querySnapshot = await getDocs(query(this.userService.refUserChannels()));
     querySnapshot.forEach(async (dataset) => {
-      if (dataset.data()['channelid'] === this.channelService.channelMsgData.collection ) {
+      if (dataset.data()['channelid'] === this.channelService.channelMsgData.collection) {
         await deleteDoc(doc(this.firestore, "user", this.userService.currentUser!, 'userchannels', dataset.id));
       }
     });
     this.channelService.resetMessageType();
   }
-
 }

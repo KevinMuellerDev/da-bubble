@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ResizeListenerService } from './resize-listener.service';
 
 describe('ResizelistenerService', () => {

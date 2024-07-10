@@ -72,29 +72,28 @@ export class ThreadComponent {
   @ViewChild('fileInputThread') fileInputThread!: ElementRef<HTMLInputElement>;
 
   /**
- * This lifecycle hook is called after Angular has checked the view of the component and its children.
- * It is called after the ngAfterViewInit method and whenever any data-bound property of the directive changes.
- * The function checks if the mutation observer should be started, the scroll container exists, and the component has not been scrolled yet.
- * If all conditions are met, it observes the scroll container and sets the `hasScrolled` flag to true.
- * Additionally, if the thread message content exists and the edit message textarea is not visible, it focuses the thread message content.
- */
-
+   * This lifecycle hook is called after Angular has checked the view of the component and its children.
+   * It is called after the ngAfterViewInit method and whenever any data-bound property of the directive changes.
+   * The function checks if the mutation observer should be started, the scroll container exists, and the component has not been scrolled yet.
+   * If all conditions are met, it observes the scroll container and sets the `hasScrolled` flag to true.
+   * Additionally, if the thread message content exists and the edit message textarea is not visible, it focuses the thread message content.
+   */
   ngAfterViewChecked() {
     if (this.threadService.startMutationObserver && this.scrollContainer && !this.hasScrolled) {
       this.MutationObserverService.observe(this.scrollContainer, true);
       this.hasScrolled = true;
     }
-      if (this.threadMessageContent && !this.isEditMessageTextareaVisible ) {
-        this.threadMessageContent.nativeElement.focus();
-      }
+    if (this.threadMessageContent && !this.isEditMessageTextareaVisible) {
+      this.threadMessageContent.nativeElement.focus();
+    }
   }
 
   /**
- * Handles the click event outside the specified element.
- * It toggles the edit message toggle and emoji picker visibility for a thread message.
- * @param index - The index of the thread message.
- * @param event - The click event.
- */
+   * Handles the click event outside the specified element.
+   * It toggles the edit message toggle and emoji picker visibility for a thread message.
+   * @param index - The index of the thread message.
+   * @param event - The click event.
+   */
   onOutsideClick(index: number, event: Event): void {
     this.emojiService.openEditMessageToggleThread[index] = false;
     const target = event.target as HTMLElement;
@@ -112,28 +111,28 @@ export class ThreadComponent {
   }
 
   /**
- * Handles the click event outside the emoji picker textarea in the thread component.
- * It toggles the visibility of the emoji picker and resets the `isEmojiPickerVisibleThreadMessageInput` flag.
- */
+   * Handles the click event outside the emoji picker textarea in the thread component.
+   * It toggles the visibility of the emoji picker and resets the `isEmojiPickerVisibleThreadMessageInput` flag.
+   */
   onOutsideClickTextarea() {
     this.showEmojiPickerTextarea = !this.showEmojiPickerTextarea;
     this.isEmojiPickerVisibleThreadMessageInput = false;
   }
 
   /**
- * Handles the click event outside the tag user area in the thread component.
- * It closes the tag user dropdown by setting the `isTagUserOpen` flag to false.
- */
+   * Handles the click event outside the tag user area in the thread component.
+   * It closes the tag user dropdown by setting the `isTagUserOpen` flag to false.
+   */
   onOutsideClickTagArea() {
     this.isTagUserOpen = false;
   }
 
   /**
- * Handles the click event outside the file upload preview in the thread component.
- * If the clicked element's id is 'threadMessageContent', the function returns early.
- * Otherwise, it clears the file input, aborts the ongoing file upload for the thread,and resets the thread message content.
- * @param event - The click event.
- */
+   * Handles the click event outside the file upload preview in the thread component.
+   * If the clicked element's id is 'threadMessageContent', the function returns early.
+   * Otherwise, it clears the file input, aborts the ongoing file upload for the thread,and resets the thread message content.
+   * @param event - The click event.
+   */
   onOutsideClickFileUploadPreview(event: Event): void {
     const target = event.target as HTMLElement;
     if (target.id === 'threadMessageContent') {
@@ -145,10 +144,10 @@ export class ThreadComponent {
   }
 
   /**
- * Retrieves the username associated with a given user ID from the current channel's users.
- * @param emojiUserId - The ID of the user whose username needs to be retrieved.
- * @returns The username of the user with the given ID, or `undefined` if no user is found.
- */
+   * Retrieves the username associated with a given user ID from the current channel's users.
+   * @param emojiUserId - The ID of the user whose username needs to be retrieved.
+   * @returns The username of the user with the given ID, or `undefined` if no user is found.
+   */
   getUsernameByUserId(emojiUserId: string): string | undefined {
     const currentChannelUsers = this.channelService.currentChannelUsers;
     const user = currentChannelUsers.find(user => user.id === emojiUserId);
@@ -156,29 +155,29 @@ export class ThreadComponent {
   }
 
   /**
- * Toggles the edit message toggle for a specific thread message.
- * @param index - The index of the thread message for which the edit message toggle needs to be toggled.
- */
+   * Toggles the edit message toggle for a specific thread message.
+   * @param index - The index of the thread message for which the edit message toggle needs to be toggled.
+   */
   toggleOpenEditMessage(index: number): void {
     this.emojiService.openEditMessageToggleThread[index] = !this.emojiService.openEditMessageToggleThread[index]
   }
 
   /**
- * Toggles the emoji picker visibility for a specific thread message.
- * @param index - The index of the thread message for which the emoji picker needs to be toggled.
- */
+   * Toggles the emoji picker visibility for a specific thread message.
+   * @param index - The index of the thread message for which the emoji picker needs to be toggled.
+   */
   toggleEmojiPicker(index: number): void {
     this.emojiService.showEmojiPickerArrayThread[index] = !this.emojiService.showEmojiPickerArrayThread[index]
   }
 
   /**
- * Handles the addition of an emoji to a thread message.
- * @param event - The event object that triggered the emoji addition.
- * @param index - The index of the thread message to which the emoji is being added.
- * @param messageId - The unique identifier of the thread message.
- * @param userId - The unique identifier of the user who added the emoji.
- * @param calledFromFunction - A flag indicating whether the function was called from another function.
- */
+   * Handles the addition of an emoji to a thread message.
+   * @param event - The event object that triggered the emoji addition.
+   * @param index - The index of the thread message to which the emoji is being added.
+   * @param messageId - The unique identifier of the thread message.
+   * @param userId - The unique identifier of the user who added the emoji.
+   * @param calledFromFunction - A flag indicating whether the function was called from another function.
+   */
   onAddEmoji(event: any, index: number, messageId: string, userId: string, calledFromFunction: boolean = false) {
     this.emojiService.addEmoji(event, index, messageId, userId, 'thread');
     this.emojiAdded = true;
@@ -189,43 +188,43 @@ export class ThreadComponent {
   }
 
   /**
- * Updates the reaction for a specific emoji in a thread message.
- * @param currentEmojiIndex - The index of the emoji in the current message.
- * @param currentMessageIndex - The index of the current message in the thread.
- * @param currentEmoji - The emoji for which the reaction needs to be updated.
- * @param messageId - The unique identifier of the thread message.
- * @param userId - The unique identifier of the user who added the reaction.
- */
+   * Updates the reaction for a specific emoji in a thread message.
+   * @param currentEmojiIndex - The index of the emoji in the current message.
+   * @param currentMessageIndex - The index of the current message in the thread.
+   * @param currentEmoji - The emoji for which the reaction needs to be updated.
+   * @param messageId - The unique identifier of the thread message.
+   * @param userId - The unique identifier of the user who added the reaction.
+   */
   onUpdateReaction(currentEmojiIndex: number, currentMessageIndex: number, currentEmoji: string, messageId: string, userId: string) {
     this.emojiService.updateReaction(currentEmojiIndex, currentMessageIndex, currentEmoji, messageId, userId, 'thread');
   }
 
   /**
- * Handles the mouseenter event for a specific emoji in a thread message.
- * Updates the `hoveredMessageIndexThread` and `hoveredEmojiIndexThread` properties
- * @param messageIndex - The index of the thread message.
- * @param emojiIndex - The index of the emoji within the thread message.
- */
+   * Handles the mouseenter event for a specific emoji in a thread message.
+   * Updates the `hoveredMessageIndexThread` and `hoveredEmojiIndexThread` properties
+   * @param messageIndex - The index of the thread message.
+   * @param emojiIndex - The index of the emoji within the thread message.
+   */
   onMouseEnter(messageIndex: number, emojiIndex: number): void {
     this.hoveredMessageIndexThread = messageIndex;
     this.hoveredEmojiIndexThread = emojiIndex;
   }
 
-/**
- * Handles the mouseleave event for a specific emoji in a thread message.
- * Updates the `hoveredMessageIndexThread` and `hoveredEmojiIndexThread` properties to `null`
- * indicating that no emoji is currently being hovered over.
- */
+  /**
+   * Handles the mouseleave event for a specific emoji in a thread message.
+   * Updates the `hoveredMessageIndexThread` and `hoveredEmojiIndexThread` properties to `null`
+   * indicating that no emoji is currently being hovered over.
+   */
   onMouseLeave(): void {
     this.hoveredMessageIndexThread = null;
     this.hoveredEmojiIndexThread = null;
   }
 
   /**
- * Handles the event that toggles the visibility of various elements in the thread component.
- * This function is called when a user interacts with specific elements in the thread message.
- * @param event - The event object that triggered the function.
- */
+   * Handles the event that toggles the visibility of various elements in the thread component.
+   * This function is called when a user interacts with specific elements in the thread message.
+   * @param event - The event object that triggered the function.
+   */
   toggleEvent(event: any): void {
     if (event.target.classList.contains('edit-message-icon') ||
       event.target.classList.contains('add-reaction-icon') ||
@@ -237,21 +236,21 @@ export class ThreadComponent {
   }
 
   /**
- * Initializes the process of editing a message in the thread component.
- * @param index - The index of the message to be edited within the thread messages array.
- */
+   * Initializes the process of editing a message in the thread component.
+   * @param index - The index of the message to be edited within the thread messages array.
+   */
   initEditMessage(index: number) {
     this.originalMessage = this.threadService.messages[index].message;
     this.emojiService.threadMessageEdit = true;
     this.isEditMessageTextareaVisible = true;
     this.emojiService.editMessageThread[index] = !this.emojiService.editMessageThread[index];
-}
+  }
 
   /**
- * Handles the initialization of editing a message in the thread component.
- * @param index - The index of the message to be edited within the thread messages array.
- * @param event - The event object that triggered the function.
- */
+   * Handles the initialization of editing a message in the thread component.
+   * @param index - The index of the message to be edited within the thread messages array.
+   * @param event - The event object that triggered the function.
+   */
   editMessageFunction(index: number, event: any): void {
     this.initEditMessage(index)
     const textareaId = 'editThreadMessageTextarea-' + index;
@@ -267,10 +266,10 @@ export class ThreadComponent {
   }
 
   /**
- * Handles the submission of a new message in the thread component.
- * @param formThread - The form object representing the thread message form.
- * This function is called when the user submits a new message in the thread.
- */
+   * Handles the submission of a new message in the thread component.
+   * @param formThread - The form object representing the thread message form.
+   * This function is called when the user submits a new message in the thread.
+   */
   onSubmit(formThread: NgForm): void {
     this.submitClick = true;
     this.textareaBlur = true;
@@ -284,15 +283,15 @@ export class ThreadComponent {
   }
 
   /**
- * Clears the data and resets the necessary variables after a message is submitted in the thread component.
- */
+   * Clears the data and resets the necessary variables after a message is submitted in the thread component.
+   */
   clearDataAfterSubmit(): void {
     this.submitClick = false;
     this.selectedEmojis = [];
     this.emojiService.initMaps('thread')
-      setTimeout(() => {
-        this.clearFileInput();
-      }, 500);
+    setTimeout(() => {
+      this.clearFileInput();
+    }, 500);
   }
 
   /**
@@ -312,10 +311,10 @@ export class ThreadComponent {
   }
 
   /**
- * Handles the submission of a edited message in the thread component.
- * @param editMessageForm - The form object representing the thread message form.
- * @param index - The index of the message to be edited within the thread messages array.
- */
+   * Handles the submission of a edited message in the thread component.
+   * @param editMessageForm - The form object representing the thread message form.
+   * @param index - The index of the message to be edited within the thread messages array.
+   */
   editMessageSubmit(editMessageForm: NgForm, index: number) {
     if (editMessageForm.valid) {
       this.threadService.messages[index].message = this.newMessage.message;
@@ -329,9 +328,9 @@ export class ThreadComponent {
   }
 
   /**
- * Handles the abortion of editing a message in the thread component.
- * @param index - The index of the message to be edited within the thread messages array.
- */
+   * Handles the abortion of editing a message in the thread component.
+   * @param index - The index of the message to be edited within the thread messages array.
+   */
   editMessageAbort(index: number) {
     this.selectedEmojis = [];
     this.emojiService.editMessageThread[index] = false;
@@ -342,11 +341,11 @@ export class ThreadComponent {
   }
 
   /**
- * Handles the submission of a edited message in the thread component.
- * @param event - The keyboard event that triggered the function.
- * @param editMessageForm - The form object representing the thread message form.
- * @param index - The index of the message to be edited within the thread messages array.
- */
+   * Handles the submission of a edited message in the thread component.
+   * @param event - The keyboard event that triggered the function.
+   * @param editMessageForm - The form object representing the thread message form.
+   * @param index - The index of the message to be edited within the thread messages array.
+   */
   onKeyup(event: KeyboardEvent, editMessageForm: NgForm, index: number) {
     this.threadService.messages[index].message = this.newMessage.message;
     if (event.key === "Enter" && !event.shiftKey) {
@@ -356,28 +355,28 @@ export class ThreadComponent {
   }
 
   /**
- * Updates the message content in the thread component after an emoji has been selected.
- * @param index - The index of the message in the thread messages array.
- */
+   * Updates the message content in the thread component after an emoji has been selected.
+   * @param index - The index of the message in the thread messages array.
+   */
   updateMessageAfterEmojiSelection(index: number) {
     this.newMessage = { message: this.threadService.messages[index].message };
   }
 
   /**
- * Handles the toggle event for the emoji picker in the thread message textarea.
- * This function prevents the event from propagating up the DOM tree and toggles the visibility
- * of the emoji picker for the thread message textarea.
- * @param event - The event object that triggered the function.
- */
+   * Handles the toggle event for the emoji picker in the thread message textarea.
+   * This function prevents the event from propagating up the DOM tree and toggles the visibility
+   * of the emoji picker for the thread message textarea.
+   * @param event - The event object that triggered the function.
+   */
   toggleEmojiPickerEventTextarea(event: Event) {
     event.stopPropagation();
     this.isEmojiPickerVisibleThreadMessageInput = !this.isEmojiPickerVisibleThreadMessageInput;
   }
 
   /**
- * Adds an emoji to the message thread.
- * @param event - The event object containing the emoji data.
- */
+   * Adds an emoji to the message thread.
+   * @param event - The event object containing the emoji data.
+   */
   addThreadMessageEmoji(event: any) {
     const selectedEmoji = event['emoji']['native'];
     this.selectedEmojis.push(selectedEmoji);
@@ -386,8 +385,8 @@ export class ThreadComponent {
   }
 
   /**
- * Closes the current thread and resets relevant services and components.
- */
+   * Closes the current thread and resets relevant services and components.
+   */
   closeThread() {
     this.channelService.closeAndFocusChannelTextarea.next();
     this.threadService.stopListener();
@@ -411,16 +410,16 @@ export class ThreadComponent {
   }
 
   /**
- * Triggers the file input element to open the file picker dialog.
- */
+   * Triggers the file input element to open the file picker dialog.
+   */
   triggerFileInput() {
     this.fileInputThread.nativeElement.click();
   }
 
   /**
- * Handles the file selection event, triggering the file upload process and obtaining the file URL.
- * @param event - The file selection event.
- */
+   * Handles the file selection event, triggering the file upload process and obtaining the file URL.
+   * @param event - The file selection event.
+   */
   async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     this.storageService.onFileSelectedTextareaForThread(input);
@@ -428,9 +427,9 @@ export class ThreadComponent {
   }
 
   /**
- * Toggles the user tagging interface and populates the list of users in the current channel.
- * @param event - The event object.
- */
+   * Toggles the user tagging interface and populates the list of users in the current channel.
+   * @param event - The event object.
+   */
   tagUser(event: Event) {
     event.stopPropagation();
     this.isTagUserOpen = !this.isTagUserOpen;
@@ -438,44 +437,44 @@ export class ThreadComponent {
   }
 
   /**
- * Handles the event when a user is clicked in the tag user list.
- * Formats the username and appends it to the message thread content.
- * @param user - The username of the clicked user.
- */
+   * Handles the event when a user is clicked in the tag user list.
+   * Formats the username and appends it to the message thread content.
+   * @param user - The username of the clicked user.
+   */
   onUserClick(user: string) {
-   const formattedUser = user.replace(/ /g, '_');
-   this.messageThread.content += `@${formattedUser} `;
-   this.isTagUserOpen = false;
+    const formattedUser = user.replace(/ /g, '_');
+    this.messageThread.content += `@${formattedUser} `;
+    this.isTagUserOpen = false;
   }
 
   /**
- * Clears the file input element and sets focus to the thread message content.
- */
+   * Clears the file input element and sets focus to the thread message content.
+   */
   clearFileInput() {
     this.fileInputThread.nativeElement.value = '';
     this.threadMessageContent.nativeElement.focus();
   }
 
   /**
- * Highlights usernames in a message by wrapping them in a span with a specified class.
- * @param message - The message containing usernames to be highlighted.
- * @returns {string} - The message with highlighted usernames.
- */
+   * Highlights usernames in a message by wrapping them in a span with a specified class.
+   * @param message - The message containing usernames to be highlighted.
+   * @returns {string} - The message with highlighted usernames.
+   */
   highlightUsernames(message: string): string {
     const usernameRegex = /@([^@<>\s]+)/g;
     return message.replace(usernameRegex, `<span class="highlighted">$&</span>`);
   }
 
   /**
- * Opens a new window to preview a PDF file.
- * @param pdfUrl - The URL of the PDF file to be previewed.
- * This parameter should be a SafeResourceUrl or null.
- * @remarks
- * If the provided `pdfUrl` is not null, it is sanitized using the Angular's DomSanitizer.
- * Then, a new window is opened with the sanitized URL.
- * The new window contains an HTML document with an embedded PDF file.
- * The PDF file is displayed in the new window with 100% width and height.
- */
+   * Opens a new window to preview a PDF file.
+   * @param pdfUrl - The URL of the PDF file to be previewed.
+   * This parameter should be a SafeResourceUrl or null.
+   * @remarks
+   * If the provided `pdfUrl` is not null, it is sanitized using the Angular's DomSanitizer.
+   * Then, a new window is opened with the sanitized URL.
+   * The new window contains an HTML document with an embedded PDF file.
+   * The PDF file is displayed in the new window with 100% width and height.
+   */
   openPdf(pdfUrl: SafeResourceUrl | null) {
     if (pdfUrl) {
       const pdfBlobUrl = this.sanitizer.sanitize(4, pdfUrl);
