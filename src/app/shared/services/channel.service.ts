@@ -227,7 +227,7 @@ export class ChannelService {
    * contain information such as the message content, sender details, timestamp, etc.
    */
   async createDirectMessage(obj: any) {
-    if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
+    if (this.storageService.filesTextarea) {
       this.fileData.src = this.storageService.downloadUrl;
       this.fileData.name = this.storageService.fileNameTextarea;
       this.fileData.type = this.storageService.uploadedFileType;
@@ -259,7 +259,7 @@ export class ChannelService {
   async createChannelMessage(obj: any) {
     await addDoc(this.refCreateChannelMsg(), obj)
       .then(async (docRef) => {
-        if (this.storageService.filesTextarea && this.storageService.filesTextarea.length > 0) {
+        if (this.storageService.filesTextarea ) {
           this.fileData.src = this.storageService.downloadUrl;
           this.fileData.name = this.storageService.fileNameTextarea;
           this.fileData.type = this.storageService.uploadedFileType;
