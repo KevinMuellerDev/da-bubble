@@ -59,6 +59,9 @@ export class AddUserDialogComponent {
     this.selectedUser.splice(contains, 1);
   }
 
+  /**
+   * The `getMenu` function opens the menu by calling the `openMenu` method on the `trigger` object.
+   */
   getMenu() {
     this.trigger.openMenu();
   }
@@ -76,6 +79,10 @@ export class AddUserDialogComponent {
     this.addUser.name = ''
   }
 
+  /**
+   * Updates the users in the channel.
+   * @return {Promise<void>} A promise that resolves when the channel users are updated.
+   */
   async updateChannelUsers() {
     this.selectedUser.forEach(async user => {
       await updateDoc(doc(this.firestore, "Channels", this.channelService.channelMsgData.collection), {
@@ -85,6 +92,9 @@ export class AddUserDialogComponent {
     });
   }
 
+  /**
+   * Closes all open dialogs.
+   */
   closeDialog() {
     this.dialog.closeAll();
   }

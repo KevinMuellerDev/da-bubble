@@ -225,7 +225,7 @@ export class ChannelMessagesComponent implements OnInit {
    * The `sendMessage` function asynchronously updates user direct messages, checks if the
    * user is already in the sidebar, adds the user if not, chooses the channel type, stops the listener,
    * triggers hiding the thread, and sets the thread as inactive.
-   * @param {any} user - The `user` parameter represents an object that contains information about a user. 
+   * @param {any} user - The `user` parameter represents an object that contains information about a user.
    */
   async sendMessage(user: any) {
     let alreadyPushed = false;
@@ -242,6 +242,9 @@ export class ChannelMessagesComponent implements OnInit {
     this.threadService.isActive = false;
   }
 
+  /**
+   * Resets the search receiver input to an empty string.
+   */
   resetInput() {
     this.searchReceiver.receiver = '';
   }
