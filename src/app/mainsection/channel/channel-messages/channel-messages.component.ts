@@ -44,7 +44,7 @@ export class ChannelMessagesComponent implements OnInit {
   threadService: ThreadService = inject(ThreadService);
   resizeListenerService: ResizeListenerService = inject(ResizeListenerService);
   stateService: StateService = inject(StateService);
-  private showAddUserSubscription: Subscription = new Subscription();
+  showAddUserSubscription: Subscription = new Subscription();
   @ViewChild('editChannel', { read: ElementRef }) editChannel!: ElementRef;
   @ViewChild('addUserToChannel', { read: ElementRef }) addUserToChannel!: ElementRef;
   @ViewChild('addUser', { read: ElementRef }) addUser!: ElementRef;
@@ -256,5 +256,6 @@ export class ChannelMessagesComponent implements OnInit {
     this.channelService.privateMsg = false;
     this.channelService.channelMsg = false;
     this.resizeListenerService.unregisterResizeCallback(this.updateDialogPositions.bind(this));
+    this.showAddUserSubscription.unsubscribe();
   }
 }
