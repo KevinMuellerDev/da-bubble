@@ -252,7 +252,7 @@ a {
     position: relative;
     @include dFlex($jc: center, $ai: center);
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     background-image: linear-gradient($purple2, $purple1);
     animation: fadeOut 2s ease-in-out forwards 2s;
     z-index: 1;
